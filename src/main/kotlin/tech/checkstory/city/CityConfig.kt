@@ -18,6 +18,17 @@ fun Application.configureCityService() {
             val id = cityService.create(city)
             call.respond(HttpStatusCode.Created, id)
         }
+        // Read all cities
+        get("/cities") {
+            val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("Invalid ID")
+            try {
+                val city = cityService.read(id)
+                call.respond(HttpStatusCode.OK, city)
+            } catch (e: Exception) {
+                call.respond(HttpStatusCode.NotFound)
+            }
+        }
+
         // Read city
         get("/cities/{id}") {
             val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("Invalid ID")
