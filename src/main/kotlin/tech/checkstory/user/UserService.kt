@@ -1,14 +1,11 @@
-package tech.checkstory.plugins
+package tech.checkstory.user
 
-import org.jetbrains.exposed.sql.transactions.transaction
-import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import kotlinx.serialization.Serializable
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
+import org.jetbrains.exposed.sql.transactions.transaction
 
-@Serializable
-data class User(val name: String, val age: Int)
 class UserService(private val database: Database) {
     object Users : Table() {
         val id = integer("id").autoIncrement()

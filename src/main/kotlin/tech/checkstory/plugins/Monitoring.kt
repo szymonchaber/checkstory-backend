@@ -1,23 +1,21 @@
 package tech.checkstory.plugins
 
-import io.ktor.server.plugins.callloging.*
-import org.slf4j.event.*
-import io.ktor.server.request.*
-import io.ktor.server.metrics.dropwizard.*
-import com.codahale.metrics.*
 import io.ktor.server.application.*
-import java.util.concurrent.TimeUnit
+import io.ktor.server.plugins.callloging.*
+import io.ktor.server.request.*
+import org.slf4j.event.Level
 
 fun Application.configureMonitoring() {
     install(CallLogging) {
-        level = Level.DEBUG // TODO back to info maybe
+        level = Level.INFO // TODO back to info maybe
         filter { call -> call.request.path().startsWith("/") }
     }
-    install(DropwizardMetrics) {
-        Slf4jReporter.forRegistry(registry)
-            .convertRatesTo(TimeUnit.SECONDS)
-            .convertDurationsTo(TimeUnit.MILLISECONDS)
-            .build()
-            .start(10, TimeUnit.SECONDS)
-    }
+//    install(DropwizardMetrics) {
+//        Slf4jReporter.forRegistry(registry)
+//            .outputTo(Logger.getGlobal())
+//            .convertRatesTo(TimeUnit.SECONDS)
+//            .convertDurationsTo(TimeUnit.MILLISECONDS)
+//            .build()
+//            .start(10, TimeUnit.SECONDS)
+//    }
 }

@@ -6,8 +6,6 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.jetbrains.exposed.sql.Database
-import tech.checkstory.plugins.User
-import tech.checkstory.plugins.UserService
 
 fun Application.configureUserService() {
 

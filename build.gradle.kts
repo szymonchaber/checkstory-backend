@@ -33,6 +33,7 @@ dependencies {
     implementation("io.ktor:ktor-server-status-pages-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-default-headers-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-http-redirect-jvm:$ktor_version")
+    implementation("io.ktor:ktor-server-cors-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-openapi:$ktor_version")
     implementation("io.ktor:ktor-server-swagger:$ktor_version")
     implementation("io.ktor:ktor-server-call-logging-jvm:$ktor_version")
@@ -45,6 +46,8 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposed_version")
     implementation("io.ktor:ktor-server-netty-jvm:$ktor_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
+
+    implementation("com.google.firebase:firebase-admin:9.1.1")
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
     testImplementation("io.ktor:ktor-server-test-host-jvm:2.2.4")
