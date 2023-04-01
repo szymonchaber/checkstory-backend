@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 
 fun Application.configureMonitoring() {
     install(CallLogging) {
-        level = Level.INFO
+        level = Level.DEBUG // TODO back to info maybe
         filter { call -> call.request.path().startsWith("/") }
     }
     install(DropwizardMetrics) {
