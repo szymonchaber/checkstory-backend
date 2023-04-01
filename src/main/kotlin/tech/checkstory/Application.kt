@@ -13,6 +13,7 @@ import tech.checkstory.firebase.FIREBASE_AUTH
 import tech.checkstory.firebase.FirebaseAdmin
 import tech.checkstory.firebase.user.FirebaseUser
 import tech.checkstory.plugins.*
+import tech.checkstory.template.configureTemplateService
 import tech.checkstory.user.configureUserService
 
 fun main() {
@@ -29,6 +30,7 @@ fun Application.module() {
     configureSerialization()
     configureUserService()
     configureCityService()
+    configureTemplateService()
     configureRouting()
     routing {
         authenticate(FIREBASE_AUTH) {
