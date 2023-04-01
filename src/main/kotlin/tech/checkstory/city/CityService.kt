@@ -1,12 +1,10 @@
-package tech.checkstory.plugins
+package tech.checkstory.city
 
-import kotlinx.coroutines.*
-import kotlinx.serialization.Serializable
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.sql.Connection
 import java.sql.Statement
 
-@Serializable
-data class City(val name: String, val population: Int)
 class CityService(private val connection: Connection) {
     companion object {
         private const val CREATE_TABLE_CITIES =
