@@ -97,25 +97,27 @@ suspend fun updateStateBasedOnEvents(
     service: TemplateService,
     events: List<DomainEventDto>
 ) {
-    events.forEach {
-        when (it.eventType) {
-            "createTemplate" -> {
-                val data = Json.decodeFromJsonElement(CreateTemplateEventData.serializer(), it.data)
-                service.create(data.id, Template("", ""), firebaseUser)
-            }
+    events
+        .sortedBy { it.timestamp }
+        .forEach {
+            when (it.eventType) {
+                "createTemplate" -> {
+                    val data = Json.decodeFromJsonElement(CreateTemplateEventData.serializer(), it.data)
+                    service.create(data.id, Template("", ""), firebaseUser)
+                }
 
-            "editTemplateTitle" -> {
-                val data = Json.decodeFromJsonElement(EditTemplateTitleEventData.serializer(), it.data)
-                service.updateTitle(firebaseUser, data.id, data.newTitle)
-            }
+                "editTemplateTitle" -> {
+                    val data = Json.decodeFromJsonElement(EditTemplateTitleEventData.serializer(), it.data)
+                    service.updateTitle(firebaseUser, data.id, data.newTitle)
+                }
 
-            else -> Unit
+                else -> Unit
+            }
         }
-    }
 }
 
 @Serializable
-data class DomainEventDto(val eventType: String, val data: JsonObject)
+data class DomainEventDto(val eventType: String, val timestamp: Long, val data: JsonObject)
 
 @Serializable
 data class CreateTemplateEventData(val id: Int)
