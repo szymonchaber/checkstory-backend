@@ -6,9 +6,11 @@ import io.ktor.server.auth.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Database
 import tech.checkstory.auth.withFirebasePrincipal
 import tech.checkstory.firebase.FIREBASE_AUTH
+import tech.checkstory.firebase.user.FirebaseUser
 
 fun Application.configureTemplateService() {
 
@@ -75,6 +77,34 @@ fun Application.configureTemplateService() {
                     call.respond(HttpStatusCode.OK)
                 }
             }
+
+            post("/events") {
+                withFirebasePrincipal {
+                    val domainEventDto = call.receive<List<DomainEventDto>>()
+                    println("Received: $domainEventDto")
+                    updateStateBasedOnEvents(it, templateService, domainEventDto)
+                    call.respond(HttpStatusCode.Created)
+                }
+            }
         }
     }
 }
+
+suspend fun updateStateBasedOnEvents(
+    firebaseUser: FirebaseUser,
+    service: TemplateService,
+    events: List<DomainEventDto>
+) {
+    events.forEach {
+        when (it.eventType) {
+            "createTemplate" -> {
+                service.create(it.stringData.toInt(), Template("", ""), firebaseUser)
+            }
+
+            else -> Unit
+        }
+    }
+}
+
+@Serializable
+data class DomainEventDto(val eventType: String, val stringData: String)

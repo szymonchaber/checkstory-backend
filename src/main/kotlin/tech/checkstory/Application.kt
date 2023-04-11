@@ -41,7 +41,6 @@ fun Application.module() {
         }
     }
     cors()
-
 }
 
 fun Application.cors() {

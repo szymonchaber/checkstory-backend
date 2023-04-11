@@ -40,6 +40,17 @@ class TemplateService(private val database: Database) {
         }
     }
 
+    suspend fun create(newId: Int, template: Template, firebaseUser: FirebaseUser) {
+        dbQuery {
+            Templates.insert {
+                it[id] = newId
+                it[userId] = firebaseUser.userId
+                it[name] = template.name
+                it[description] = template.description
+            }
+        }
+    }
+
     suspend fun read(firebaseUser: FirebaseUser, id: Int): Template? {
         return dbQuery {
             Templates.select { Templates.id eq id and (Templates.userId eq firebaseUser.userId) }
