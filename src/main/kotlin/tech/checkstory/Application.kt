@@ -8,11 +8,14 @@ import io.ktor.server.netty.*
 import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import org.jetbrains.exposed.sql.Database
 import tech.checkstory.city.configureCityService
 import tech.checkstory.firebase.FIREBASE_AUTH
 import tech.checkstory.firebase.FirebaseAdmin
 import tech.checkstory.firebase.user.FirebaseUser
 import tech.checkstory.plugins.*
+import tech.checkstory.template.TemplateService
+import tech.checkstory.template.configureEventService
 import tech.checkstory.template.configureTemplateService
 import tech.checkstory.user.configureUserService
 
@@ -30,7 +33,17 @@ fun Application.module() {
     configureSerialization()
     configureUserService()
     configureCityService()
-    configureTemplateService()
+    val database = Database.connect(
+        url = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1",
+        user = "root",
+        driver = "org.h2.Driver",
+        password = ""
+    )
+    val templateService = TemplateService(database)
+    configureTemplateService(
+        templateService
+    )
+    configureEventService(templateService)
     configureRouting()
     routing {
         authenticate(FIREBASE_AUTH) {
