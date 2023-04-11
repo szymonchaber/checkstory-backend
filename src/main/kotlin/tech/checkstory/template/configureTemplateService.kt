@@ -7,6 +7,8 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
 import org.jetbrains.exposed.sql.Database
 import tech.checkstory.auth.withFirebasePrincipal
 import tech.checkstory.firebase.FIREBASE_AUTH
@@ -98,7 +100,13 @@ suspend fun updateStateBasedOnEvents(
     events.forEach {
         when (it.eventType) {
             "createTemplate" -> {
-                service.create(it.stringData.toInt(), Template("", ""), firebaseUser)
+                val data = Json.decodeFromJsonElement(CreateTemplateEventData.serializer(), it.data)
+                service.create(data.id, Template("", ""), firebaseUser)
+            }
+
+            "editTemplateTitle" -> {
+                val data = Json.decodeFromJsonElement(EditTemplateTitleEventData.serializer(), it.data)
+                service.updateTitle(firebaseUser, data.id, data.newTitle)
             }
 
             else -> Unit
@@ -107,4 +115,10 @@ suspend fun updateStateBasedOnEvents(
 }
 
 @Serializable
-data class DomainEventDto(val eventType: String, val stringData: String)
+data class DomainEventDto(val eventType: String, val data: JsonObject)
+
+@Serializable
+data class CreateTemplateEventData(val id: Int)
+
+@Serializable
+data class EditTemplateTitleEventData(val id: Int, val newTitle: String)

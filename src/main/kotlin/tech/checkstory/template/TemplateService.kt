@@ -76,14 +76,13 @@ class TemplateService(private val database: Database) {
         }
     }
 
-//    suspend fun update(id: String, user: Template) {
-//        dbQuery {
-//            Templates.update({ firebaseId eq id }) {
-//                it[name] = user.name
-//                it[age] = user.age
-//            }
-//        }
-//    }
+    suspend fun updateTitle(firebaseUser: FirebaseUser, templateId: Int, newTitle: String) {
+        dbQuery {
+            Templates.update({ (id eq templateId) and (Templates.userId eq firebaseUser.userId) }) {
+                it[name] = newTitle
+            }
+        }
+    }
 
     suspend fun delete(firebaseUser: FirebaseUser, id: Int) {
         dbQuery {
