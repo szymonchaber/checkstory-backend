@@ -8,11 +8,12 @@ import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransacti
 import org.jetbrains.exposed.sql.transactions.transaction
 import tech.checkstory.firebase.user.FirebaseUser
 import tech.checkstory.template.TemplateService.Templates.id
+import java.util.*
 
 class TemplateService(private val database: Database) {
 
     object Templates : Table() {
-        val id = integer("id").autoIncrement()
+        val id = uuid("id").autoGenerate()
         val userId = varchar("userId", length = 255)
         val name = varchar("name", length = 255)
         val description = varchar("description", length = 255)
@@ -30,7 +31,7 @@ class TemplateService(private val database: Database) {
         return newSuspendedTransaction(Dispatchers.IO) { block() }
     }
 
-    suspend fun create(template: Template, firebaseUser: FirebaseUser): Int {
+    suspend fun create(template: Template, firebaseUser: FirebaseUser): UUID {
         return dbQuery {
             Templates.insert {
                 it[userId] = firebaseUser.userId
@@ -40,7 +41,7 @@ class TemplateService(private val database: Database) {
         }
     }
 
-    suspend fun create(newId: Int, template: Template, firebaseUser: FirebaseUser) {
+    suspend fun create(newId: UUID, template: Template, firebaseUser: FirebaseUser) {
         dbQuery {
             Templates.insert {
                 it[id] = newId
@@ -51,7 +52,7 @@ class TemplateService(private val database: Database) {
         }
     }
 
-    suspend fun read(firebaseUser: FirebaseUser, id: Int): Template? {
+    suspend fun read(firebaseUser: FirebaseUser, id: UUID): Template? {
         return dbQuery {
             Templates.select { Templates.id eq id and (Templates.userId eq firebaseUser.userId) }
                 .map {
@@ -76,7 +77,7 @@ class TemplateService(private val database: Database) {
         }
     }
 
-    suspend fun updateTitle(firebaseUser: FirebaseUser, templateId: Int, newTitle: String) {
+    suspend fun updateTitle(firebaseUser: FirebaseUser, templateId: UUID, newTitle: String) {
         dbQuery {
             Templates.update({ (id eq templateId) and (Templates.userId eq firebaseUser.userId) }) {
                 it[name] = newTitle
@@ -84,7 +85,7 @@ class TemplateService(private val database: Database) {
         }
     }
 
-    suspend fun delete(firebaseUser: FirebaseUser, id: Int) {
+    suspend fun delete(firebaseUser: FirebaseUser, id: UUID) {
         dbQuery {
             Templates.deleteWhere { Templates.id eq id and (userId eq firebaseUser.userId) }
         }

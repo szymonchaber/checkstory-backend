@@ -13,6 +13,7 @@ import org.jetbrains.exposed.sql.Database
 import tech.checkstory.auth.withFirebasePrincipal
 import tech.checkstory.firebase.FIREBASE_AUTH
 import tech.checkstory.firebase.user.FirebaseUser
+import java.util.*
 
 fun Application.configureTemplateService() {
 
@@ -52,8 +53,8 @@ fun Application.configureTemplateService() {
             // Read user
             get("/templates/{id}") {
                 withFirebasePrincipal {
-                    val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("Invalid ID")
-                    val template = templateService.read(it, id)
+                    val id = call.parameters["id"] ?: throw IllegalArgumentException("Invalid ID")
+                    val template = templateService.read(it, UUID.fromString(id))
                     if (template != null) {
                         call.respond(HttpStatusCode.OK, template)
                     } else {
@@ -74,8 +75,8 @@ fun Application.configureTemplateService() {
             // Delete user
             delete("/templates/{id}") {
                 withFirebasePrincipal {
-                    val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("Invalid ID")
-                    templateService.delete(it, id)
+                    val id = call.parameters["id"] ?: throw IllegalArgumentException("Invalid ID")
+                    templateService.delete(it, UUID.fromString(id))
                     call.respond(HttpStatusCode.OK)
                 }
             }
@@ -103,12 +104,12 @@ suspend fun updateStateBasedOnEvents(
             when (it.eventType) {
                 "createTemplate" -> {
                     val data = Json.decodeFromJsonElement(CreateTemplateEventData.serializer(), it.data)
-                    service.create(data.id, Template("", ""), firebaseUser)
+                    service.create(UUID.fromString(data.id), Template("", ""), firebaseUser)
                 }
 
                 "editTemplateTitle" -> {
                     val data = Json.decodeFromJsonElement(EditTemplateTitleEventData.serializer(), it.data)
-                    service.updateTitle(firebaseUser, data.id, data.newTitle)
+                    service.updateTitle(firebaseUser, UUID.fromString(data.id), data.newTitle)
                 }
 
                 else -> Unit
@@ -120,7 +121,7 @@ suspend fun updateStateBasedOnEvents(
 data class DomainEventDto(val eventType: String, val timestamp: Long, val data: JsonObject)
 
 @Serializable
-data class CreateTemplateEventData(val id: Int)
+data class CreateTemplateEventData(val id: String)
 
 @Serializable
-data class EditTemplateTitleEventData(val id: Int, val newTitle: String)
+data class EditTemplateTitleEventData(val id: String, val newTitle: String)
