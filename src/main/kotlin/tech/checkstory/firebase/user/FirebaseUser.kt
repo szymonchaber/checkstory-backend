@@ -6,7 +6,7 @@ import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.request.*
 
-data class FirebaseUser(val userId: String = "", val displayName: String = "") : Principal
+data class FirebaseUser(val userId: String = "", val displayName: String = "", val email: String = "") : Principal
 
 class FirebaseConfig(name: String?) : AuthenticationProvider.Config(name) {
 

@@ -38,6 +38,12 @@ fun Application.configureTemplateService() {
                     call.respond(HttpStatusCode.OK, templates)
                 }
             }
+            // Read user
+            get("/hello") {
+                withFirebasePrincipal {
+                    call.respond(HttpStatusCode.OK, "Principal has mail: ${it.email} so we allow them to come!")
+                }
+            }
 
             // Read user
             get("/templates/{id}") {

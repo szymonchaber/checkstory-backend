@@ -10,7 +10,7 @@ fun Application.configureSecurity() {
         firebase {
             validate {
                 // TODO look up user profile from DB
-                FirebaseUser(it.uid, it.name.orEmpty())
+                FirebaseUser(it.uid, it.name.orEmpty(), it.email)
             }
         }
     }
