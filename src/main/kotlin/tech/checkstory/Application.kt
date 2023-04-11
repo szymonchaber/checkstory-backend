@@ -17,6 +17,8 @@ import tech.checkstory.plugins.*
 import tech.checkstory.template.TemplateService
 import tech.checkstory.template.configureEventService
 import tech.checkstory.template.configureTemplateService
+import tech.checkstory.template.configureTemplateTaskService
+import tech.checkstory.template.task.TemplateTaskService
 import tech.checkstory.user.configureUserService
 
 fun main() {
@@ -40,10 +42,10 @@ fun Application.module() {
         password = ""
     )
     val templateService = TemplateService(database)
-    configureTemplateService(
-        templateService
-    )
-    configureEventService(templateService)
+    val templateTaskService = TemplateTaskService(database)
+    configureTemplateService(templateService)
+    configureTemplateTaskService(templateService, templateTaskService)
+    configureEventService(templateService, templateTaskService)
     configureRouting()
     routing {
         authenticate(FIREBASE_AUTH) {
