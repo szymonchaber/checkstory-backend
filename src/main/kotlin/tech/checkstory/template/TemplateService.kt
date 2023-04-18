@@ -31,20 +31,10 @@ class TemplateService(private val database: Database) {
         return newSuspendedTransaction(Dispatchers.IO) { block() }
     }
 
-    suspend fun create(template: Template, firebaseUser: FirebaseUser): UUID {
-        return dbQuery {
-            Templates.insert {
-                it[userId] = firebaseUser.userId
-                it[name] = template.name
-                it[description] = template.description
-            }[id]
-        }
-    }
-
-    suspend fun create(newId: UUID, template: Template, firebaseUser: FirebaseUser) {
+    suspend fun create(template: Template, firebaseUser: FirebaseUser) {
         dbQuery {
             Templates.insert {
-                it[id] = newId
+                it[id] = UUID.fromString(template.id)
                 it[userId] = firebaseUser.userId
                 it[name] = template.name
                 it[description] = template.description
@@ -57,6 +47,7 @@ class TemplateService(private val database: Database) {
             Templates.select { Templates.id eq id and (Templates.userId eq firebaseUser.userId) }
                 .map {
                     Template(
+                        id = it[Templates.id].toString(),
                         name = it[Templates.name],
                         description = it[Templates.description]
                     )
@@ -70,6 +61,7 @@ class TemplateService(private val database: Database) {
             Templates.select { Templates.userId eq firebaseUser.userId }
                 .map {
                     Template(
+                        id = it[Templates.id].toString(),
                         name = it[Templates.name],
                         description = it[Templates.description]
                     )
@@ -93,4 +85,4 @@ class TemplateService(private val database: Database) {
 }
 
 @Serializable
-data class Template(val name: String, val description: String)
+data class Template(val id: String, val name: String, val description: String)

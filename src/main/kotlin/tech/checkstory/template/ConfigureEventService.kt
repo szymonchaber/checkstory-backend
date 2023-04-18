@@ -42,7 +42,7 @@ suspend fun updateStateBasedOnEvents(
             when (it.eventType) {
                 "createTemplate" -> {
                     val data = Json.decodeFromJsonElement(CreateTemplateEventData.serializer(), it.data)
-                    service.create(UUID.fromString(data.id), Template("", ""), firebaseUser)
+                    service.create(Template(data.id, "", ""), firebaseUser)
                 }
 
                 "editTemplateTitle" -> {
@@ -57,6 +57,11 @@ suspend fun updateStateBasedOnEvents(
                         TemplateTask(data.templateId, ""),
                         firebaseUser
                     )
+                }
+
+                "deleteTemplateTask" -> {
+                    val data = Json.decodeFromJsonElement(DeleteTemplateTaskData.serializer(), it.data)
+                    templateTaskService.delete(firebaseUser, UUID.fromString(data.taskId))
                 }
 
                 else -> Unit
@@ -75,3 +80,6 @@ data class EditTemplateTitleEventData(val id: String, val newTitle: String)
 
 @Serializable
 data class AddTemplateTaskEventData(val templateId: String, val taskId: String, val parentTaskId: String?)
+
+@Serializable
+data class DeleteTemplateTaskData(val taskId: String)
