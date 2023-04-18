@@ -14,7 +14,6 @@ fun Application.configureTemplateService(templateService: TemplateService) {
     routing {
         authenticate(FIREBASE_AUTH) {
 
-            // Create user
             post("/templates") {
                 withFirebasePrincipal {
                     val user = call.receive<Template>()
@@ -23,21 +22,19 @@ fun Application.configureTemplateService(templateService: TemplateService) {
                 }
             }
 
-            // Read user
             get("/templates") {
                 withFirebasePrincipal {
                     val templates = templateService.read(it)
                     call.respond(HttpStatusCode.OK, templates)
                 }
             }
-            // Read user
+
             get("/hello") {
                 withFirebasePrincipal {
                     call.respond(HttpStatusCode.OK, "Principal has mail: ${it.email} so we allow them to come!")
                 }
             }
 
-            // Read user
             get("/templates/{id}") {
                 withFirebasePrincipal {
                     val id = call.parameters["id"] ?: throw IllegalArgumentException("Invalid ID")
@@ -50,8 +47,8 @@ fun Application.configureTemplateService(templateService: TemplateService) {
                 }
             }
 
-            // Update user
-//            put("/user") {
+
+//            put("/templates/{id}") {
 //                withFirebasePrincipal {
 //                    val user = call.receive<Template>()
 //                    templateService.update(it.userId, user)
@@ -59,7 +56,6 @@ fun Application.configureTemplateService(templateService: TemplateService) {
 //                }
 //            }
 
-            // Delete user
             delete("/templates/{id}") {
                 withFirebasePrincipal {
                     val id = call.parameters["id"] ?: throw IllegalArgumentException("Invalid ID")
