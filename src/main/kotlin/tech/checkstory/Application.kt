@@ -1,5 +1,6 @@
 package tech.checkstory
 
+import com.eventstore.dbclient.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
@@ -20,6 +21,8 @@ import tech.checkstory.template.configureTemplateService
 import tech.checkstory.template.configureTemplateTaskService
 import tech.checkstory.template.task.TemplateTaskService
 import tech.checkstory.user.configureUserService
+import java.util.*
+
 
 fun main() {
     embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module, configure = {
@@ -41,6 +44,10 @@ fun Application.module() {
         driver = "org.h2.Driver",
         password = ""
     )
+    val settings: EventStoreDBClientSettings =
+        EventStoreDBConnectionString.parse("esdb+discover://localhost:2113?tls=false&keepAliveTimeout=10000&keepAliveInterval=10000")
+    val client: EventStoreDBClient = EventStoreDBClient.create(settings)
+    configureEventStore(client)
     val templateService = TemplateService(database)
     val templateTaskService = TemplateTaskService(database)
     configureTemplateService(templateService)
@@ -57,6 +64,32 @@ fun Application.module() {
     }
     cors()
 }
+
+fun configureEventStore(client: EventStoreDBClient) {
+    val event = TestEvent(
+        id = UUID.randomUUID().toString(),
+        importantData = "I wrote my first event!"
+    )
+
+    val eventData = EventData
+        .builderAsJson<Any>("TestEvent", event)
+        .build()
+    client.appendToStream("some-stream", eventData)
+        .get()
+
+    val options: ReadStreamOptions = ReadStreamOptions.get()
+        .forwards()
+        .fromStart()
+        .maxCount(10)
+
+    val result: ReadResult = client.readStream("some-stream", options)
+        .get()
+    println(result.events.joinToString {
+        it.event.eventType + ":" + it.event.eventData
+    })
+}
+
+data class TestEvent(val id: String, val importantData: String)
 
 fun Application.cors() {
     install(CORS) {
