@@ -56,7 +56,7 @@ class RelationalTemplateRepository(private val database: Database) : TemplateRep
         }
     }
 
-    suspend fun read(firebaseUser: FirebaseUser): List<Template> {
+    override suspend fun readAll(firebaseUser: FirebaseUser): List<Template> {
         return dbQuery {
             Templates.select { Templates.userId eq firebaseUser.userId }
                 .map {

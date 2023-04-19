@@ -6,4 +6,6 @@ import java.util.*
 interface TemplateRepository {
 
     suspend fun read(firebaseUser: FirebaseUser, id: UUID): Template?
+
+    suspend fun readAll(firebaseUser: FirebaseUser): List<Template>
 }

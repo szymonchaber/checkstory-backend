@@ -27,7 +27,7 @@ fun Application.configureTemplateService(
 
             get("/templates") {
                 withFirebasePrincipal {
-                    val templates = templateService.read(it)
+                    val templates = eventBasedTemplateRepository.readAll(it)
                     call.respond(HttpStatusCode.OK, templates)
                 }
             }
