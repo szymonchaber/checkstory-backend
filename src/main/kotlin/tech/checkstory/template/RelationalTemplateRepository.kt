@@ -7,10 +7,10 @@ import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 import tech.checkstory.firebase.user.FirebaseUser
-import tech.checkstory.template.TemplateService.Templates.id
+import tech.checkstory.template.RelationalTemplateRepository.Templates.id
 import java.util.*
 
-class TemplateService(private val database: Database) {
+class RelationalTemplateRepository(private val database: Database) : TemplateRepository {
 
     object Templates : Table() {
         val id = uuid("id").autoGenerate()
@@ -42,7 +42,7 @@ class TemplateService(private val database: Database) {
         }
     }
 
-    suspend fun read(firebaseUser: FirebaseUser, id: UUID): Template? {
+    override suspend fun read(firebaseUser: FirebaseUser, id: UUID): Template? {
         return dbQuery {
             Templates.select { Templates.id eq id and (Templates.userId eq firebaseUser.userId) }
                 .map {

@@ -11,7 +11,7 @@ import tech.checkstory.template.task.TemplateTaskService
 import java.util.*
 
 fun Application.configureTemplateTaskService(
-    templateService: TemplateService,
+    templateService: RelationalTemplateRepository,
     templateTaskService: TemplateTaskService
 ) {
     routing {

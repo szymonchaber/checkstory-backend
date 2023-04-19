@@ -10,7 +10,10 @@ import tech.checkstory.auth.withFirebasePrincipal
 import tech.checkstory.firebase.FIREBASE_AUTH
 import java.util.*
 
-fun Application.configureTemplateService(templateService: TemplateService) {
+fun Application.configureTemplateService(
+    templateService: RelationalTemplateRepository,
+    eventBasedTemplateRepository: EventBasedTemplateRepository
+) {
     routing {
         authenticate(FIREBASE_AUTH) {
 
@@ -38,7 +41,9 @@ fun Application.configureTemplateService(templateService: TemplateService) {
             get("/templates/{id}") {
                 withFirebasePrincipal {
                     val id = call.parameters["id"] ?: throw IllegalArgumentException("Invalid ID")
-                    val template = templateService.read(it, UUID.fromString(id))
+                    val template = eventBasedTemplateRepository.read(it, UUID.fromString(id))?.let {
+                        it.copy(name = "Event sourced " + it.name)
+                    }
                     if (template != null) {
                         call.respond(HttpStatusCode.OK, template)
                     } else {
