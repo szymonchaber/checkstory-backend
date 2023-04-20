@@ -46,6 +46,7 @@ class TemplateTaskService(private val database: Database) {
             TemplateTasks.select { TemplateTasks.id eq id and (TemplateTasks.userId eq firebaseUser.userId) }
                 .map {
                     TemplateTask(
+                        id = it[TemplateTasks.id].toString(),
                         templateId = it[TemplateTasks.templateId].toString(),
                         name = it[TemplateTasks.name]
                     )
@@ -59,6 +60,7 @@ class TemplateTaskService(private val database: Database) {
             TemplateTasks.select { TemplateTasks.userId eq firebaseUser.userId }
                 .map {
                     TemplateTask(
+                        id = it[TemplateTasks.id].toString(),
                         templateId = it[TemplateTasks.templateId].toString(),
                         name = it[TemplateTasks.name]
                     )
@@ -71,6 +73,7 @@ class TemplateTaskService(private val database: Database) {
             TemplateTasks.select { (TemplateTasks.templateId eq templateId) and (TemplateTasks.userId eq firebaseUser.userId) }
                 .map {
                     TemplateTask(
+                        id = it[TemplateTasks.id].toString(),
                         templateId = it[TemplateTasks.templateId].toString(),
                         name = it[TemplateTasks.name]
                     )
@@ -94,4 +97,4 @@ class TemplateTaskService(private val database: Database) {
 }
 
 @Serializable
-data class TemplateTask(val templateId: String, val name: String)
+data class TemplateTask(val id: String, val templateId: String, val name: String)

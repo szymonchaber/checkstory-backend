@@ -75,7 +75,7 @@ suspend fun updateStateBasedOnEvents(
                     storeEvent(client, it, data)
                     templateTaskService.create(
                         UUID.fromString(data.taskId),
-                        TemplateTask(data.templateId, ""),
+                        TemplateTask(data.taskId, data.templateId, ""),
                         firebaseUser
                     )
                 }
@@ -134,7 +134,9 @@ sealed interface TemplateEventData {
     ) : TemplateEventData {
 
         override fun applyTo(template: Template): Template {
-            return template
+            return template.copy(
+                tasks = template.tasks.plus(TemplateTask(taskId, templateId, ""))
+            )
         }
     }
 

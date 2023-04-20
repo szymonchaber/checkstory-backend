@@ -8,6 +8,7 @@ import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransacti
 import org.jetbrains.exposed.sql.transactions.transaction
 import tech.checkstory.firebase.user.FirebaseUser
 import tech.checkstory.template.RelationalTemplateRepository.Templates.id
+import tech.checkstory.template.task.TemplateTask
 import java.util.*
 
 class RelationalTemplateRepository(private val database: Database) : TemplateRepository {
@@ -85,4 +86,4 @@ class RelationalTemplateRepository(private val database: Database) : TemplateRep
 }
 
 @Serializable
-data class Template(val id: String, val name: String, val description: String)
+data class Template(val id: String, val name: String, val description: String, val tasks: List<TemplateTask> = listOf())
