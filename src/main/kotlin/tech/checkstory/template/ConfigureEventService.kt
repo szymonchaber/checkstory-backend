@@ -95,7 +95,11 @@ suspend fun updateStateBasedOnEvents(
 
 fun storeEvent(client: EventStoreDBClient, eventDto: DomainEventDto, data: TemplateEventData) {
     val eventData = EventData
-        .builderAsJson<Any>(eventDto.eventType, data) // event type gets stored within dto - maybe not good!
+        .builderAsJson<Any>(
+            UUID.fromString(eventDto.eventId),
+            eventDto.eventType,
+            data
+        ) // event type gets stored within dto - maybe not good!
         .build()
     client.appendToStream("checklist-template-${data.templateId}", eventData)
         .get()
@@ -144,7 +148,7 @@ sealed interface TemplateEventData {
     data class DeleteTemplateTaskData(override val templateId: String, val taskId: String) : TemplateEventData {
 
         override fun applyTo(template: Template): Template {
-            return template
+            return template.copy(tasks = template.tasks.filterNot { it.id == taskId })
         }
     }
 
