@@ -87,6 +87,14 @@ suspend fun updateStateBasedOnEvents(
                     templateTaskService.delete(firebaseUser, UUID.fromString(data.taskId))
                 }
 
+                "renameTemplateTask" -> {
+                    val data =
+                        Json.decodeFromJsonElement(
+                            TemplateEventData.EditTemplateTaskTitleEventData.serializer(),
+                            it.data
+                        )
+                    storeEvent(client, it, data)
+                }
 
                 else -> error("Unknown event type!")
             }
@@ -141,6 +149,21 @@ sealed interface TemplateEventData {
             return template.copy(
                 tasks = template.tasks.plus(TemplateTask(taskId, templateId, ""))
             )
+        }
+    }
+
+    @Serializable
+    data class EditTemplateTaskTitleEventData(
+        override val templateId: String,
+        val taskId: String,
+        val newTitle: String
+    ) : TemplateEventData {
+
+        override fun applyTo(template: Template): Template {
+            val newTasks = template.tasks.map {
+                it.withUpdatedTitleRecursive(taskId, newTitle)
+            }
+            return template.copy(tasks = newTasks)
         }
     }
 

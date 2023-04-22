@@ -36,7 +36,7 @@ class TemplateTaskService(private val database: Database) {
                 it[id] = newId
                 it[userId] = firebaseUser.userId
                 it[templateId] = UUID.fromString(templateTask.templateId)
-                it[name] = templateTask.name
+                it[name] = templateTask.title
             }
         }
     }
@@ -48,7 +48,7 @@ class TemplateTaskService(private val database: Database) {
                     TemplateTask(
                         id = it[TemplateTasks.id].toString(),
                         templateId = it[TemplateTasks.templateId].toString(),
-                        name = it[TemplateTasks.name]
+                        title = it[TemplateTasks.name]
                     )
                 }
                 .singleOrNull()
@@ -62,7 +62,7 @@ class TemplateTaskService(private val database: Database) {
                     TemplateTask(
                         id = it[TemplateTasks.id].toString(),
                         templateId = it[TemplateTasks.templateId].toString(),
-                        name = it[TemplateTasks.name]
+                        title = it[TemplateTasks.name]
                     )
                 }
         }
@@ -75,7 +75,7 @@ class TemplateTaskService(private val database: Database) {
                     TemplateTask(
                         id = it[TemplateTasks.id].toString(),
                         templateId = it[TemplateTasks.templateId].toString(),
-                        name = it[TemplateTasks.name]
+                        title = it[TemplateTasks.name]
                     )
                 }
         }
@@ -97,4 +97,18 @@ class TemplateTaskService(private val database: Database) {
 }
 
 @Serializable
-data class TemplateTask(val id: String, val templateId: String, val name: String)
+data class TemplateTask(
+    val id: String,
+    val templateId: String,
+    val title: String,
+    val children: List<TemplateTask> = listOf()
+) {
+
+    fun withUpdatedTitleRecursive(id: String, newTitle: String): TemplateTask {
+        return if (this.id == id) {
+            copy(title = newTitle)
+        } else {
+            copy(children = children.map { it.withUpdatedTitleRecursive(id, newTitle) })
+        }
+    }
+}

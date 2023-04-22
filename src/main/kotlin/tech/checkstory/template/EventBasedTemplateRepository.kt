@@ -80,6 +80,13 @@ class EventBasedTemplateRepository(private val client: EventStoreDBClient) : Tem
                 Json.decodeFromStream(TemplateEventData.AddTemplateTaskEventData.serializer(), eventData.inputStream())
             }
 
+            "renameTemplateTask" -> {
+                Json.decodeFromStream(
+                    TemplateEventData.EditTemplateTaskTitleEventData.serializer(),
+                    eventData.inputStream()
+                )
+            }
+
             "deleteTemplateTask" -> {
                 Json.decodeFromStream(TemplateEventData.DeleteTemplateTaskData.serializer(), eventData.inputStream())
             }
