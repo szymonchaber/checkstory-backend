@@ -82,7 +82,7 @@ class EventBasedTemplateRepository(private val client: EventStoreDBClient) : Tem
 
             "renameTemplateTask" -> {
                 Json.decodeFromStream(
-                    TemplateEventData.EditTemplateTaskTitleEventData.serializer(),
+                    TemplateEventData.RenameTemplateTaskEventData.serializer(),
                     eventData.inputStream()
                 )
             }
@@ -95,5 +95,12 @@ class EventBasedTemplateRepository(private val client: EventStoreDBClient) : Tem
 //            else -> error("Unknown eventType: $eventType")
             else -> null // TODO how to handle just my own events?
         }
+    }
+}
+
+class TemplateAggregate(private val events: List<TemplateEventData>) {
+
+    init {
+        require(events.isEmpty() || events.first() is TemplateEventData.CreateTemplateEventData)
     }
 }
