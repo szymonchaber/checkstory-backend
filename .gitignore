@@ -36,3 +36,5 @@ out/
 .vscode/
 
 /src/main/resources/firebase-service-credentials.json
+
+/httpClient/http-client.private.env.json

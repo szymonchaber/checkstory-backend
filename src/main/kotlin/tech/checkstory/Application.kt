@@ -5,17 +5,12 @@ import com.eventstore.dbclient.EventStoreDBClientSettings
 import com.eventstore.dbclient.EventStoreDBConnectionString
 import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.auth.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.cors.routing.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
 import org.jetbrains.exposed.sql.Database
 import tech.checkstory.city.configureCityService
-import tech.checkstory.firebase.FIREBASE_AUTH
 import tech.checkstory.firebase.FirebaseAdmin
-import tech.checkstory.firebase.user.FirebaseUser
 import tech.checkstory.plugins.*
 import tech.checkstory.template.*
 import tech.checkstory.template.task.TemplateTaskService
@@ -51,14 +46,6 @@ fun Application.module() {
     configureTemplateTaskService(templateService, templateTaskService)
     configureEventService(templateService, templateTaskService, client)
     configureRouting()
-    routing {
-        authenticate(FIREBASE_AUTH) {
-            get("/authenticated") {
-                val user: FirebaseUser = call.principal() ?: return@get call.respond(HttpStatusCode.Unauthorized)
-                call.respond("User is authenticated, my successful person!: $user")
-            }
-        }
-    }
     cors()
 }
 
