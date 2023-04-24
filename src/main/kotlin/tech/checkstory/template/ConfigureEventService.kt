@@ -10,8 +10,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.Transient
 import tech.checkstory.auth.withFirebasePrincipal
 import tech.checkstory.firebase.FIREBASE_AUTH
 import tech.checkstory.firebase.user.FirebaseUser
@@ -23,7 +22,7 @@ fun Application.configureEventService(client: EventStoreDBClient) {
         authenticate(FIREBASE_AUTH) {
             post("/events") {
                 withFirebasePrincipal {
-                    val domainEventDtos = call.receive<List<DomainEventDto>>()
+                    val domainEventDtos = call.receive<List<DomainEvent>>()
                     updateStateBasedOnEvents(it, client, domainEventDtos)
                     call.respond(HttpStatusCode.NoContent)
                 }
@@ -35,37 +34,40 @@ fun Application.configureEventService(client: EventStoreDBClient) {
 suspend fun updateStateBasedOnEvents(
     firebaseUser: FirebaseUser,
     client: EventStoreDBClient,
-    events: List<DomainEventDto>
+    events: List<DomainEvent>
 ) {
     events
         .sortedBy { it.timestamp }
         .forEach {
-            when (it.eventType) {
-                else -> {
-                    val data = Json.decodeFromJsonElement(TemplateEventData.serializer(), it.data)
-                    storeEvent(client, it, data)
-                }
+            when (it) {
+                is TemplateEvent -> storeTemplateEvent(client, it)
             }
         }
 }
 
-fun storeEvent(client: EventStoreDBClient, eventDto: DomainEventDto, data: TemplateEventData) {
+fun storeTemplateEvent(client: EventStoreDBClient, templateEvent: TemplateEvent) {
     val eventData = EventData
         .builderAsJson<Any>(
-            UUID.fromString(eventDto.eventId),
-            eventDto.eventType,
-            data
+            UUID.fromString(templateEvent.eventId),
+            templateEvent.eventType,
+            templateEvent
         ) // event type gets stored within dto - maybe not good!
         .build()
-    client.appendToStream("checklist-template-${data.templateId}", eventData)
+    client.appendToStream("checklist-template-${templateEvent.templateId}", eventData)
         .get()
 }
 
 @Serializable
-data class DomainEventDto(val eventType: String, val eventId: String, val timestamp: Long, val data: JsonObject)
+sealed interface DomainEvent {
+
+    @Transient
+    val eventType: String
+    val eventId: String
+    val timestamp: Long
+}
 
 @Serializable
-sealed interface TemplateEventData {
+sealed interface TemplateEvent : DomainEvent {
 
     val templateId: String
 
@@ -73,7 +75,13 @@ sealed interface TemplateEventData {
 
     @Serializable
     @SerialName("createTemplate")
-    data class CreateTemplateEventData(override val templateId: String) : TemplateEventData {
+    data class CreateTemplateEvent(
+        override val templateId: String,
+        override val eventId: String,
+        override val timestamp: Long
+    ) : TemplateEvent {
+
+        override val eventType: String = "createTemplate"
 
         override fun applyTo(template: Template): Template {
             return template
@@ -82,7 +90,14 @@ sealed interface TemplateEventData {
 
     @Serializable
     @SerialName("editTemplateTitle")
-    data class EditTemplateTitleEventData(override val templateId: String, val newTitle: String) : TemplateEventData {
+    data class EditTemplateTitleEvent(
+        override val templateId: String,
+        val newTitle: String,
+        override val eventId: String,
+        override val timestamp: Long
+    ) : TemplateEvent {
+
+        override val eventType: String = "editTemplateTitle"
 
         override fun applyTo(template: Template): Template {
             return template.copy(name = newTitle)
@@ -91,8 +106,14 @@ sealed interface TemplateEventData {
 
     @Serializable
     @SerialName("editTemplateDescription")
-    data class EditTemplateDescriptionEventData(override val templateId: String, val newDescription: String) :
-        TemplateEventData {
+    data class EditTemplateDescriptionEvent(
+        override val templateId: String,
+        val newDescription: String,
+        override val eventId: String,
+        override val timestamp: Long
+    ) : TemplateEvent {
+
+        override val eventType: String = "editTemplateDescription"
 
         override fun applyTo(template: Template): Template {
             return template.copy(description = newDescription)
@@ -101,11 +122,15 @@ sealed interface TemplateEventData {
 
     @Serializable
     @SerialName("addTemplateTask")
-    data class AddTemplateTaskEventData(
+    data class AddTemplateTaskEvent(
         override val templateId: String,
         val taskId: String,
-        val parentTaskId: String?
-    ) : TemplateEventData {
+        val parentTaskId: String?,
+        override val eventId: String,
+        override val timestamp: Long
+    ) : TemplateEvent {
+
+        override val eventType: String = "addTemplateTask"
 
         override fun applyTo(template: Template): Template {
             return template.copy(
@@ -116,11 +141,15 @@ sealed interface TemplateEventData {
 
     @Serializable
     @SerialName("renameTemplateTask")
-    data class RenameTemplateTaskEventData(
+    data class RenameTemplateTaskEvent(
         override val templateId: String,
         val taskId: String,
         val newTitle: String,
-    ) : TemplateEventData {
+        override val eventId: String,
+        override val timestamp: Long
+    ) : TemplateEvent {
+
+        override val eventType: String = "renameTemplateTask"
 
         override fun applyTo(template: Template): Template {
             val newTasks = template.tasks.map {
@@ -132,7 +161,14 @@ sealed interface TemplateEventData {
 
     @Serializable
     @SerialName("deleteTemplateTask")
-    data class DeleteTemplateTaskData(override val templateId: String, val taskId: String) : TemplateEventData {
+    data class DeleteTemplateTask(
+        override val templateId: String,
+        val taskId: String,
+        override val eventId: String,
+        override val timestamp: Long
+    ) : TemplateEvent {
+
+        override val eventType: String = "deleteTemplateTask"
 
         override fun applyTo(template: Template): Template {
             return template.copy(tasks = template.tasks.filterNot { it.id == taskId })

@@ -54,41 +54,41 @@ class EventBasedTemplateRepository(private val client: EventStoreDBClient) : Tem
     }
 
     @OptIn(ExperimentalSerializationApi::class)
-    private fun deserializeEvent(event: ResolvedEvent): TemplateEventData? {
+    private fun deserializeEvent(event: ResolvedEvent): TemplateEvent? {
         val eventType = event.event.eventType
         val eventData = event.event.eventData
         return when (eventType) {
             "createTemplate" -> {
-                Json.decodeFromStream(TemplateEventData.CreateTemplateEventData.serializer(), eventData.inputStream())
+                Json.decodeFromStream(TemplateEvent.CreateTemplateEvent.serializer(), eventData.inputStream())
             }
 
             "editTemplateTitle" -> {
                 Json.decodeFromStream(
-                    TemplateEventData.EditTemplateTitleEventData.serializer(),
+                    TemplateEvent.EditTemplateTitleEvent.serializer(),
                     eventData.inputStream()
                 )
             }
 
             "editTemplateDescription" -> {
                 Json.decodeFromStream(
-                    TemplateEventData.EditTemplateDescriptionEventData.serializer(),
+                    TemplateEvent.EditTemplateDescriptionEvent.serializer(),
                     eventData.inputStream()
                 )
             }
 
             "addTemplateTask" -> {
-                Json.decodeFromStream(TemplateEventData.AddTemplateTaskEventData.serializer(), eventData.inputStream())
+                Json.decodeFromStream(TemplateEvent.AddTemplateTaskEvent.serializer(), eventData.inputStream())
             }
 
             "renameTemplateTask" -> {
                 Json.decodeFromStream(
-                    TemplateEventData.RenameTemplateTaskEventData.serializer(),
+                    TemplateEvent.RenameTemplateTaskEvent.serializer(),
                     eventData.inputStream()
                 )
             }
 
             "deleteTemplateTask" -> {
-                Json.decodeFromStream(TemplateEventData.DeleteTemplateTaskData.serializer(), eventData.inputStream())
+                Json.decodeFromStream(TemplateEvent.DeleteTemplateTask.serializer(), eventData.inputStream())
             }
 
 //            "\$metadata", "\$ProjectionsInitialized" -> null
@@ -98,9 +98,9 @@ class EventBasedTemplateRepository(private val client: EventStoreDBClient) : Tem
     }
 }
 
-class TemplateAggregate(private val events: List<TemplateEventData>) {
+class TemplateAggregate(private val events: List<TemplateEvent>) {
 
     init {
-        require(events.isEmpty() || events.first() is TemplateEventData.CreateTemplateEventData)
+        require(events.isEmpty() || events.first() is TemplateEvent.CreateTemplateEvent)
     }
 }
