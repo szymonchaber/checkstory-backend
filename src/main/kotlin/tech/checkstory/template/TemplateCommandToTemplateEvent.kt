@@ -1,0 +1,66 @@
+package tech.checkstory.template
+
+fun TemplateCommand.toTemplateEvent(): TemplateEvent {
+    return when (this) {
+        is TemplateCommand.CreateTemplateCommand -> {
+            TemplateEvent.CreateTemplateEvent(
+                templateId,
+                eventId,
+                timestamp,
+                userId,
+            )
+        }
+
+        is TemplateCommand.EditTemplateTitleCommand -> {
+            TemplateEvent.EditTemplateTitleEvent(
+                templateId,
+                newTitle,
+                eventId,
+                timestamp,
+                userId,
+            )
+        }
+
+        is TemplateCommand.EditTemplateDescriptionCommand -> {
+            TemplateEvent.EditTemplateDescriptionEvent(
+                templateId,
+                newDescription,
+                eventId,
+                timestamp,
+                userId,
+            )
+        }
+
+        is TemplateCommand.AddTemplateTaskCommand -> {
+            TemplateEvent.AddTemplateTaskEvent(
+                templateId,
+                taskId,
+                parentTaskId,
+                eventId,
+                timestamp,
+                userId,
+            )
+        }
+
+        is TemplateCommand.RenameTemplateTaskCommand -> {
+            TemplateEvent.RenameTemplateTaskEvent(
+                templateId,
+                taskId,
+                newTitle,
+                eventId,
+                timestamp,
+                userId,
+            )
+        }
+
+        is TemplateCommand.DeleteTemplateTaskCommand -> {
+            TemplateEvent.DeleteTemplateTaskEvent(
+                templateId,
+                taskId,
+                eventId,
+                timestamp,
+                userId,
+            )
+        }
+    }
+}

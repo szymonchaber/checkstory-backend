@@ -8,22 +8,18 @@ import io.ktor.server.auth.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.Transient
 import tech.checkstory.auth.withFirebasePrincipal
 import tech.checkstory.firebase.FIREBASE_AUTH
 import tech.checkstory.firebase.user.FirebaseUser
-import tech.checkstory.template.task.TemplateTask
 import java.util.*
 
 fun Application.configureEventService(client: EventStoreDBClient) {
     routing {
         authenticate(FIREBASE_AUTH) {
-            post("/events") {
+            post("/commands") {
                 withFirebasePrincipal {
-                    val domainEventDtos = call.receive<List<DomainEvent>>()
-                    updateStateBasedOnEvents(it, client, domainEventDtos)
+                    val commands = call.receive<List<DomainCommand>>()
+                    handleCommands(it, client, commands)
                     call.respond(HttpStatusCode.NoContent)
                 }
             }
@@ -31,16 +27,20 @@ fun Application.configureEventService(client: EventStoreDBClient) {
     }
 }
 
-suspend fun updateStateBasedOnEvents(
+suspend fun handleCommands(
     firebaseUser: FirebaseUser,
     client: EventStoreDBClient,
-    events: List<DomainEvent>
+    commands: List<DomainCommand>
 ) {
-    events
+    commands
         .sortedBy { it.timestamp }
         .forEach {
+            // TODO also check if the userId in the existing stream is the same as requester's
+            require(it.userId == firebaseUser.userId)
             when (it) {
-                is TemplateEvent -> storeTemplateEvent(client, it)
+                is TemplateCommand -> {
+                    storeTemplateEvent(client, it.toTemplateEvent())
+                }
             }
         }
 }
@@ -55,123 +55,4 @@ fun storeTemplateEvent(client: EventStoreDBClient, templateEvent: TemplateEvent)
         .build()
     client.appendToStream("checklist-template-${templateEvent.templateId}", eventData)
         .get()
-}
-
-@Serializable
-sealed interface DomainEvent {
-
-    @Transient
-    val eventType: String
-    val eventId: String
-    val timestamp: Long
-}
-
-@Serializable
-sealed interface TemplateEvent : DomainEvent {
-
-    val templateId: String
-
-    fun applyTo(template: Template): Template
-
-    @Serializable
-    @SerialName("createTemplate")
-    data class CreateTemplateEvent(
-        override val templateId: String,
-        override val eventId: String,
-        override val timestamp: Long
-    ) : TemplateEvent {
-
-        override val eventType: String = "createTemplate"
-
-        override fun applyTo(template: Template): Template {
-            return template
-        }
-    }
-
-    @Serializable
-    @SerialName("editTemplateTitle")
-    data class EditTemplateTitleEvent(
-        override val templateId: String,
-        val newTitle: String,
-        override val eventId: String,
-        override val timestamp: Long
-    ) : TemplateEvent {
-
-        override val eventType: String = "editTemplateTitle"
-
-        override fun applyTo(template: Template): Template {
-            return template.copy(name = newTitle)
-        }
-    }
-
-    @Serializable
-    @SerialName("editTemplateDescription")
-    data class EditTemplateDescriptionEvent(
-        override val templateId: String,
-        val newDescription: String,
-        override val eventId: String,
-        override val timestamp: Long
-    ) : TemplateEvent {
-
-        override val eventType: String = "editTemplateDescription"
-
-        override fun applyTo(template: Template): Template {
-            return template.copy(description = newDescription)
-        }
-    }
-
-    @Serializable
-    @SerialName("addTemplateTask")
-    data class AddTemplateTaskEvent(
-        override val templateId: String,
-        val taskId: String,
-        val parentTaskId: String?,
-        override val eventId: String,
-        override val timestamp: Long
-    ) : TemplateEvent {
-
-        override val eventType: String = "addTemplateTask"
-
-        override fun applyTo(template: Template): Template {
-            return template.copy(
-                tasks = template.tasks.plus(TemplateTask(taskId, templateId, ""))
-            )
-        }
-    }
-
-    @Serializable
-    @SerialName("renameTemplateTask")
-    data class RenameTemplateTaskEvent(
-        override val templateId: String,
-        val taskId: String,
-        val newTitle: String,
-        override val eventId: String,
-        override val timestamp: Long
-    ) : TemplateEvent {
-
-        override val eventType: String = "renameTemplateTask"
-
-        override fun applyTo(template: Template): Template {
-            val newTasks = template.tasks.map {
-                it.withUpdatedTitleRecursive(taskId, newTitle)
-            }
-            return template.copy(tasks = newTasks)
-        }
-    }
-
-    @Serializable
-    @SerialName("deleteTemplateTask")
-    data class DeleteTemplateTask(
-        override val templateId: String,
-        val taskId: String,
-        override val eventId: String,
-        override val timestamp: Long
-    ) : TemplateEvent {
-
-        override val eventType: String = "deleteTemplateTask"
-
-        override fun applyTo(template: Template): Template {
-            return template.copy(tasks = template.tasks.filterNot { it.id == taskId })
-        }
-    }
 }

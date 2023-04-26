@@ -1,50 +1,39 @@
-### Get all templates
+### Register user 1
+POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={{firebase_api_key}}
+Content-Type: application/json
+
+{
+  "email": "{{login_1}}",
+  "password": "{{password_1}}",
+  "returnSecureToken": true
+}
+
+> {%
+    client.global.set("auth_token_1", response.body.idToken);
+    client.global.set("user_id_1", response.body.localId);
+%}
+
+### Register user 2
+POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={{firebase_api_key}}
+Content-Type: application/json
+
+{
+  "email": "{{login_2}}",
+  "password": "{{password_2}}",
+  "returnSecureToken": true
+}
+
+> {%
+    client.global.set("auth_token_2", response.body.idToken);
+    client.global.set("user_id_2", response.body.localId);
+%}
+
+### Get all templates of user 1
 GET http://0.0.0.0:8080/templates
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2ZGE4NmU4MWJkNTllMGE4Y2YzNTgwNTJiYjUzYjUzYjE4MzA3NzMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODIzNTMyMjQsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MjM1MzIyNCwiZXhwIjoxNjgyMzU2ODI0LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.VxSjZX0OdzQuyzqFkW8AmbiWoJcpn3cuYbDMKHWQHlb7ueZxL1TwldHwPPovr6eOruWjS7TxSM01FP8X1YErwapp6dLH5JobfndfWp8JL9UN6hBfO6pH_hS5hXDqsFM9ylfsXe8-ZTv9UgT6TmB57_muXUMqHS-Z8HthdzTg62il2l1kZc2Mloiuw6tznDx_oGrSNWVCyWcBNcmjsFnG1er_iMhDfdbFMkyL6xZ9hcQfnJSIVyP7PioK5dbA4nBWtmNNmD1IEKgmGZj1vuvM8uWuW7p06eKZ8J4L3pzL9ng__FBTSwjgYYLiBg9JEFw6q6_HMjH5sAzVgkigdIldmw
+Authorization: Bearer {{auth_token_1}}
 
-<> 2023-04-20T082003.200.json
-<> 2023-04-20T081708.200.json
-<> 2023-04-20T081627.200.json
-<> 2023-04-20T081533.200.json
-<> 2023-04-20T081405.200.json
-<> 2023-04-20T081244.200.json
-<> 2023-04-20T081014.200.json
-<> 2023-04-20T081004.200.json
-<> 2023-04-20T080825.200.json
-<> 2023-04-20T080818-1.200.json
-<> 2023-04-20T080818.200.json
-<> 2023-04-20T080803.200.json
-<> 2023-04-20T080755.200.json
-<> 2023-04-20T080738.200.json
-<> 2023-04-20T080255.200.json
-<> 2023-04-20T080225.200.json
-<> 2023-04-20T080205.200.json
-<> 2023-04-20T080018.200.json
-<> 2023-04-20T073306.200.json
-<> 2023-04-20T070757.200.json
-<> 2023-04-20T070615.200.json
-<> 2023-04-20T065605.200.json
-<> 2023-04-20T065434.200.json
-<> 2023-04-20T065135.200.json
-<> 2023-04-20T064714.200.json
-<> 2023-04-20T063554.200.json
-<> 2023-04-20T062155.200.json
-<> 2023-04-20T061239.200.json
-<> 2023-04-19T021848.200.json
-<> 2023-04-19T021824.200.json
-<> 2023-04-19T021520.200.json
-<> 2023-04-19T021400.500.txt
-<> 2023-04-19T021303.500.txt
-<> 2023-04-19T021237.500.txt
-<> 2023-04-19T021209.500.txt
-<> 2023-04-19T021051.500.txt
-<> 2023-04-19T015355.200.json
-<> 2023-04-19T015337.200.json
-<> 2023-04-19T015300.200.json
-<> 2023-04-19T015241.200.json
-
-###
+### Get concrete template
 GET http://0.0.0.0:8080/templates/59603b2c-16ca-4d9b-8592-572b5759fe84
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2ZGE4NmU4MWJkNTllMGE4Y2YzNTgwNTJiYjUzYjUzYjE4MzA3NzMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODE4NjExOTUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MTg2MTE5NSwiZXhwIjoxNjgxODY0Nzk1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.S3A5PSmRsHFcE7bzq4i8A3S1n1nZTvaU7aJxs8P_R3k7-9gobRkYRklOAO_cB49kD2nlEcR-52QG0120yQQw_Q7ejTEBoGPL-U2Tpla8ZC6S3BWzYqGMFLb8mTvVGx5Df8_CjY2c8pRGU_EiUjWNnSEiFlGdMlLNzcAb5YaKwkNoZFeofH-GPR-3EkTYmW5wcQTFRrcKELOoQH_-LCnu_Xbj26UWOJ81YgyvwbPEjSOFeKGj4JFVPWIVKpVyIxYA78B6LfSz0hFlT6BUhoR4LvJfEiyFEqAw0vG21XLr0YTdtxuTv55r8rft-aoh-aZVRP8S5rsWsrwakV6x3bNShg
@@ -60,105 +49,101 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2ZGE4NmU4MWJkNTllMGE4Y2YzNTgwNTJiYjUzYjUzYjE4MzA3NzMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODE4NjExOTUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MTg2MTE5NSwiZXhwIjoxNjgxODY0Nzk1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.S3A5PSmRsHFcE7bzq4i8A3S1n1nZTvaU7aJxs8P_R3k7-9gobRkYRklOAO_cB49kD2nlEcR-52QG0120yQQw_Q7ejTEBoGPL-U2Tpla8ZC6S3BWzYqGMFLb8mTvVGx5Df8_CjY2c8pRGU_EiUjWNnSEiFlGdMlLNzcAb5YaKwkNoZFeofH-GPR-3EkTYmW5wcQTFRrcKELOoQH_-LCnu_Xbj26UWOJ81YgyvwbPEjSOFeKGj4JFVPWIVKpVyIxYA78B6LfSz0hFlT6BUhoR4LvJfEiyFEqAw0vG21XLr0YTdtxuTv55r8rft-aoh-aZVRP8S5rsWsrwakV6x3bNShg
 
 
-### Test all events
-POST http://0.0.0.0:8080/events
+### Send all commands as user 1
+< {%
+    function generateUUID() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0,
+                v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+
+    request.variables.set("template_id", generateUUID());
+    request.variables.set("task_1_id", generateUUID());
+    request.variables.set("task_2_id", generateUUID());
+    request.variables.set("task_3_id", generateUUID());
+%}
+POST http://0.0.0.0:8080/commands
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImU3OTMwMjdkYWI0YzcwNmQ2ODg0NGI4MDk2ZTBlYzQzMjYyMjIwMDAiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODIyNDI1MzIsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MjI0MjUzMiwiZXhwIjoxNjgyMjQ2MTMyLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.imelwU8Lu4g6fR2KSYBFwkd0M19qW5Q2-TKSK6RzQpUivGlRrtqdGqeXPnOztJw7yMmiYRYAdC7wYmKcTvuMnJHb5Vx9sRIgF-4gjTIDS8r6SW86CbXtZUYMcbY4OyAbopJs2TjnRO6IdWtELP4KDolZLzbTASJmOhBajeYWPD15Qt7n-6u6fzA02FIPP4umrUKOLDdaR_hP6Fgx6Psm1V1w0PCPXaHC2lhB7S0IzAp9_lFuDo0y98f6zpIdR6swDYhz_y_nWcWn-8rkFVt7XGLFte4Bexz-NYoaMxhM9MtVNZHCq9Aazqws4f6V0x0RcrWKZoIOmME7I3hBu60dFA
+Authorization: Bearer {{auth_token_1}}
 
 [
-  {
-    "eventType": "createTemplate",
-    "eventId": "c88de0a9-6298-42c0-9caf-731c63e636ed",
-    "timestamp": 1682120658993,
-    "data": {
-      "type": "createTemplate",
-      "templateId": "52c3282b-529d-459d-ae4e-2f1d67482d49"
-    }
+{
+    "type": "createTemplate",
+    "templateId": "{{template_id}}",
+    "eventId": "{{$uuid}}",
+    "timestamp": {{$timestamp}},
+    "userId": "{{user_id_1}}"
   },
   {
-    "eventType": "renameTemplateTask",
-    "eventId": "dcf79c18-b636-497f-b197-9f33baab234f",
-    "timestamp": 1682120671619,
-    "data": {
-      "type": "renameTemplateTask",
-      "templateId": "52c3282b-529d-459d-ae4e-2f1d67482d49",
-      "taskId": "a7710f36-7cf9-471b-a264-077b1d537051",
-      "newTitle": "Task 1"
-    }
+    "type": "addTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_3_id}}",
+    "parentTaskId": null,
+    "eventId": "{{$uuid}}",
+    "timestamp": {{$timestamp}},
+    "userId": "{{user_id_1}}"
   },
   {
-    "eventType": "editTemplateDescription",
-    "eventId": "b3cd5498-d624-42d6-b089-0f3876a79e21",
-    "timestamp": 1682120667826,
-    "data": {
-      "type": "editTemplateDescription",
-      "templateId": "52c3282b-529d-459d-ae4e-2f1d67482d49",
-      "newDescription": "New description"
-    }
+    "type": "editTemplateTitle",
+    "templateId": "{{template_id}}",
+    "newTitle": "All the events",
+    "eventId": "{{$uuid}}",
+    "timestamp": {{$timestamp}},
+    "userId": "{{user_id_1}}"
   },
   {
-    "eventType": "addTemplateTask",
-    "eventId": "74f8037b-cc5d-4c22-a33f-16fde62cd281",
-    "timestamp": 1682120668856,
-    "data": {
-      "type": "addTemplateTask",
-      "templateId": "52c3282b-529d-459d-ae4e-2f1d67482d49",
-      "taskId": "a7710f36-7cf9-471b-a264-077b1d537051",
-      "parentTaskId": null
-    }
+    "type": "addTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_1_id}}",
+    "parentTaskId": null,
+    "eventId": "{{$uuid}}",
+    "timestamp": {{$timestamp}},
+    "userId": "{{user_id_1}}"
   },
   {
-    "eventType": "addTemplateTask",
-    "eventId": "7db3ac64-6161-4152-a412-70793a6b48ab",
-    "timestamp": 1682120674658,
-    "data": {
-      "type": "addTemplateTask",
-      "templateId": "52c3282b-529d-459d-ae4e-2f1d67482d49",
-      "taskId": "efe337e6-75de-4459-b67a-1828429671a9",
-      "parentTaskId": null
-    }
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_3_id}}",
+    "newTitle": "Task 3 - deleted later",
+    "eventId": "{{$uuid}}",
+    "timestamp": {{$timestamp}},
+    "userId": "{{user_id_1}}"
   },
   {
-    "eventType": "editTemplateTitle",
-    "eventId": "cc25de84-10e8-4033-bb8c-abc01ca9bf71",
-    "timestamp": 1682120662167,
-    "data": {
-      "type": "editTemplateTitle",
-      "templateId": "52c3282b-529d-459d-ae4e-2f1d67482d49",
-      "newTitle": "New template"
-    }
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_1_id}}",
+    "newTitle": "Task 1",
+    "eventId": "{{$uuid}}",
+    "timestamp": {{$timestamp}},
+    "userId": "{{user_id_1}}"
   },
   {
-    "eventType": "renameTemplateTask",
-    "eventId": "a71aae95-07a5-4a6b-a822-d9cf56171230",
-    "timestamp": 1682120673882,
-    "data": {
-      "type": "renameTemplateTask",
-      "templateId": "52c3282b-529d-459d-ae4e-2f1d67482d49",
-      "taskId": "d338c446-3b1e-43b1-8e45-17c7ae479062",
-      "newTitle": "Task 2"
-    }
+    "type": "editTemplateDescription",
+    "templateId": "{{template_id}}",
+    "newDescription": "Description",
+    "eventId": "{{$uuid}}",
+    "timestamp": {{$timestamp}},
+    "userId": "{{user_id_1}}"
   },
   {
-    "eventType": "renameTemplateTask",
-    "eventId": "b36fe988-3954-44ea-8b35-3681ff537d49",
-    "timestamp": 1682120679282,
-    "data": {
-      "type": "renameTemplateTask",
-      "templateId": "52c3282b-529d-459d-ae4e-2f1d67482d49",
-      "taskId": "efe337e6-75de-4459-b67a-1828429671a9",
-      "newTitle": "Task 3 - later deleted"
-    }
+    "type": "addTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "parentTaskId": null,
+    "eventId": "{{$uuid}}",
+    "timestamp": {{$timestamp}},
+    "userId": "{{user_id_1}}"
   },
   {
-    "eventType": "addTemplateTask",
-    "eventId": "2b2a9da1-0b27-42ed-94c5-e092512e3f8d",
-    "timestamp": 1682120672330,
-    "data": {
-      "type": "addTemplateTask",
-      "templateId": "52c3282b-529d-459d-ae4e-2f1d67482d49",
-      "taskId": "d338c446-3b1e-43b1-8e45-17c7ae479062",
-      "parentTaskId": null
-    }
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "eventId": "{{$uuid}}",
+    "timestamp": {{$timestamp}},
+    "userId": "{{user_id_1}}"
   }
 ]

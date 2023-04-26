@@ -26,9 +26,15 @@ class EventBasedTemplateRepository(private val client: EventStoreDBClient) : Tem
             .groupBy {
                 it.templateId
             }.map { (id, events) ->
-                events.fold(Template(id, "", "")) { acc, event ->
+                require(events.first() is TemplateEvent.CreateTemplateEvent) {
+                    "First event must be a CreateTemplateEvent. Was: ${events.first()}"
+                }
+                events.fold(Template(id, "", "", "")) { acc, event ->
                     event.applyTo(acc)
                 }
+            }
+            .filter {
+                it.userId == firebaseUser.userId
             }
     }
 
@@ -41,7 +47,14 @@ class EventBasedTemplateRepository(private val client: EventStoreDBClient) : Tem
         }
         return result.events
             .mapNotNull(::deserializeEvent)
-            .fold(Template(id.toString(), "", "")) { acc, checklistTemplateEvent ->
+            .fold(
+                Template(
+                    id = id.toString(),
+                    userId = "",
+                    name = "",
+                    description = ""
+                )
+            ) { acc, checklistTemplateEvent ->
                 checklistTemplateEvent.applyTo(acc)
             }
     }
@@ -88,7 +101,7 @@ class EventBasedTemplateRepository(private val client: EventStoreDBClient) : Tem
             }
 
             "deleteTemplateTask" -> {
-                Json.decodeFromStream(TemplateEvent.DeleteTemplateTask.serializer(), eventData.inputStream())
+                Json.decodeFromStream(TemplateEvent.DeleteTemplateTaskEvent.serializer(), eventData.inputStream())
             }
 
 //            "\$metadata", "\$ProjectionsInitialized" -> null

@@ -49,6 +49,7 @@ class RelationalTemplateRepository(private val database: Database) : TemplateRep
                 .map {
                     Template(
                         id = it[Templates.id].toString(),
+                        userId = "",
                         name = it[Templates.name],
                         description = it[Templates.description]
                     )
@@ -63,8 +64,9 @@ class RelationalTemplateRepository(private val database: Database) : TemplateRep
                 .map {
                     Template(
                         id = it[Templates.id].toString(),
+                        userId = "",
                         name = it[Templates.name],
-                        description = it[Templates.description]
+                        description = it[Templates.description],
                     )
                 }
         }
@@ -86,4 +88,10 @@ class RelationalTemplateRepository(private val database: Database) : TemplateRep
 }
 
 @Serializable
-data class Template(val id: String, val name: String, val description: String, val tasks: List<TemplateTask> = listOf())
+data class Template(
+    val id: String,
+    val userId: String,
+    val name: String,
+    val description: String,
+    val tasks: List<TemplateTask> = listOf()
+)
