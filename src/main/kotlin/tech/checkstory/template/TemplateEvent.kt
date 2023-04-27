@@ -78,9 +78,13 @@ sealed interface TemplateEvent : DomainEvent {
 
         override fun applyTo(template: Template): Template {
             require(template.userId == userId)
-            return template.copy(
-                tasks = template.tasks.plus(TemplateTask(taskId, templateId, "", template.tasks.size.toLong()))
-            )
+            val newItem = TemplateTask(taskId, templateId, "", template.tasks.size.toLong())
+            val items = if (parentTaskId == null) {
+                template.tasks.plus(newItem)
+            } else {
+                template.tasks.map { it.withMovedChildRecursive(parentTaskId, newItem) }
+            }
+            return template.copy(tasks = items)
         }
     }
 
@@ -152,4 +156,78 @@ sealed interface TemplateEvent : DomainEvent {
                 )
         }
     }
+
+    @Serializable
+    @SerialName("moveTemplateTask")
+    data class MoveTemplateTaskEvent(
+        override val templateId: String,
+        val taskId: String,
+        val newParentTaskId: String?,
+        override val eventId: String,
+        override val timestamp: Long,
+        override val userId: String
+    ) : TemplateEvent {
+
+        override val eventType: String = "moveTemplateTask"
+
+        override fun applyTo(template: Template): Template {
+            val (filteredTasks, movedItem) = template.tasks.withExtractedTask(taskId)
+            val items = if (newParentTaskId == null) {
+                filteredTasks.plus(movedItem)
+            } else {
+                filteredTasks.map { it.withMovedChildRecursive(newParentTaskId, movedItem) }
+            }
+            return template.copy(tasks = items)
+        }
+
+        private fun List<TemplateTask>.withExtractedTask(id: String): Pair<List<TemplateTask>, TemplateTask> {
+            var movedItem: TemplateTask? = null
+            val onItemFoundAndRemoved: (TemplateTask) -> Unit = {
+                movedItem = it
+            }
+            val withExtractedElement = this
+                .filter {
+                    if (it.id == id) {
+                        movedItem = it
+                        false
+                    } else {
+                        true
+                    }
+                }
+                .map {
+                    it.withoutChild(id, onItemFoundAndRemoved)
+                }
+            return withExtractedElement to movedItem!!
+        }
+
+        private fun TemplateTask.withoutChild(
+            childTaskId: String,
+            onItemFoundAndRemoved: (TemplateTask) -> Unit
+        ): TemplateTask {
+            val updatedChildren = children
+                .firstOrNull {
+                    it.id == childTaskId
+                }
+                ?.let {
+                    onItemFoundAndRemoved(it)
+                    children.minus(it)
+                }
+                ?: children.map {
+                    it.withoutChild(childTaskId, onItemFoundAndRemoved)
+                }
+            return copy(children = updatedChildren)
+        }
+    }
+}
+
+fun TemplateTask.withMovedChildRecursive(
+    parentTask: String,
+    childTask: TemplateTask
+): TemplateTask {
+    val updatedChildren = if (id == parentTask) {
+        children.plus(childTask)
+    } else {
+        children.map { it.withMovedChildRecursive(parentTask, childTask) }
+    }
+    return copy(children = updatedChildren)
 }

@@ -18,7 +18,7 @@ fun Application.configureCommandService(client: EventStoreDBClient) {
         authenticate(FIREBASE_AUTH) {
             post("/commands") {
                 withFirebasePrincipal {
-                    val commands = call.receive<List<DomainCommand>>()
+                    val commands = call.receive<List<TemplateCommand>>()
                     handleCommands(it, client, commands)
                     call.respond(HttpStatusCode.NoContent)
                 }

@@ -72,5 +72,16 @@ fun TemplateCommand.toTemplateEvent(): TemplateEvent {
                 userId,
             )
         }
+
+        is TemplateCommand.MoveTemplateTaskCommandDto -> {
+            TemplateEvent.MoveTemplateTaskEvent(
+                templateId,
+                taskId,
+                newParentTaskId,
+                eventId,
+                timestamp,
+                userId
+            )
+        }
     }
 }
