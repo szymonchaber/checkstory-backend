@@ -48,7 +48,8 @@ class TemplateTaskService(private val database: Database) {
                     TemplateTask(
                         id = it[TemplateTasks.id].toString(),
                         templateId = it[TemplateTasks.templateId].toString(),
-                        title = it[TemplateTasks.name]
+                        title = it[TemplateTasks.name],
+                        sortPosition = 0
                     )
                 }
                 .singleOrNull()
@@ -62,7 +63,8 @@ class TemplateTaskService(private val database: Database) {
                     TemplateTask(
                         id = it[TemplateTasks.id].toString(),
                         templateId = it[TemplateTasks.templateId].toString(),
-                        title = it[TemplateTasks.name]
+                        title = it[TemplateTasks.name],
+                        sortPosition = 0
                     )
                 }
         }
@@ -75,7 +77,8 @@ class TemplateTaskService(private val database: Database) {
                     TemplateTask(
                         id = it[TemplateTasks.id].toString(),
                         templateId = it[TemplateTasks.templateId].toString(),
-                        title = it[TemplateTasks.name]
+                        title = it[TemplateTasks.name],
+                        sortPosition = 0
                     )
                 }
         }
@@ -101,6 +104,7 @@ data class TemplateTask(
     val id: String,
     val templateId: String,
     val title: String,
+    val sortPosition: Long,
     val children: List<TemplateTask> = listOf()
 ) {
 

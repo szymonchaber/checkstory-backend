@@ -79,7 +79,7 @@ sealed interface TemplateEvent : DomainEvent {
         override fun applyTo(template: Template): Template {
             require(template.userId == userId)
             return template.copy(
-                tasks = template.tasks.plus(TemplateTask(taskId, templateId, ""))
+                tasks = template.tasks.plus(TemplateTask(taskId, templateId, "", template.tasks.size.toLong()))
             )
         }
     }
@@ -122,6 +122,34 @@ sealed interface TemplateEvent : DomainEvent {
         override fun applyTo(template: Template): Template {
             require(template.userId == userId)
             return template.copy(tasks = template.tasks.filterNot { it.id == taskId })
+        }
+    }
+
+    @Serializable
+    @SerialName("updateTemplateTasksPositions")
+    data class UpdateTasksPositionsEvent(
+        override val templateId: String,
+        val taskIdToLocalPosition: Map<String, Long>,
+        override val eventId: String,
+        override val timestamp: Long,
+        override val userId: String
+    ) : TemplateEvent {
+
+        override val eventType: String = "updateTemplateTasksPositions"
+
+        override fun applyTo(template: Template): Template {
+            return template.copy(
+                tasks = template.tasks.map(::updatePosition).sortedBy(TemplateTask::sortPosition)
+            )
+        }
+
+        private fun updatePosition(templateCheckbox: TemplateTask): TemplateTask {
+            val newPosition = taskIdToLocalPosition[templateCheckbox.id] ?: templateCheckbox.sortPosition
+            return templateCheckbox
+                .copy(
+                    sortPosition = newPosition,
+                    children = templateCheckbox.children.map(::updatePosition).sortedBy(TemplateTask::sortPosition)
+                )
         }
     }
 }

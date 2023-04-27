@@ -68,4 +68,14 @@ sealed interface TemplateCommand : DomainCommand {
         override val timestamp: Long,
         override val userId: String
     ) : TemplateCommand
+
+    @Serializable
+    @SerialName("updateTemplateTasksPositions")
+    data class UpdateTasksPositionsCommandDto(
+        override val templateId: String,
+        val taskIdToLocalPosition: Map<String, Long>,
+        override val eventId: String,
+        override val timestamp: Long,
+        override val userId: String
+    ) : TemplateCommand
 }

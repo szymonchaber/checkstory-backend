@@ -62,5 +62,15 @@ fun TemplateCommand.toTemplateEvent(): TemplateEvent {
                 userId,
             )
         }
+
+        is TemplateCommand.UpdateTasksPositionsCommandDto -> {
+            TemplateEvent.UpdateTasksPositionsEvent(
+                templateId,
+                taskIdToLocalPosition,
+                eventId,
+                timestamp,
+                userId,
+            )
+        }
     }
 }

@@ -44,7 +44,7 @@ fun Application.module() {
     val templateTaskService = TemplateTaskService(database)
     configureTemplateService(templateService, EventBasedTemplateRepository(client))
     configureTemplateTaskService(templateService, templateTaskService)
-    configureEventService(client)
+    configureCommandService(client)
     configureRouting()
     cors()
 }

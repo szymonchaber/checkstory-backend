@@ -13,7 +13,7 @@ import tech.checkstory.firebase.FIREBASE_AUTH
 import tech.checkstory.firebase.user.FirebaseUser
 import java.util.*
 
-fun Application.configureEventService(client: EventStoreDBClient) {
+fun Application.configureCommandService(client: EventStoreDBClient) {
     routing {
         authenticate(FIREBASE_AUTH) {
             post("/commands") {

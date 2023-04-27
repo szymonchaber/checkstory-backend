@@ -104,6 +104,10 @@ class EventBasedTemplateRepository(private val client: EventStoreDBClient) : Tem
                 Json.decodeFromStream(TemplateEvent.DeleteTemplateTaskEvent.serializer(), eventData.inputStream())
             }
 
+            "updateTemplateTasksPositions" -> {
+                Json.decodeFromStream(TemplateEvent.UpdateTasksPositionsEvent.serializer(), eventData.inputStream())
+            }
+
 //            "\$metadata", "\$ProjectionsInitialized" -> null
 //            else -> error("Unknown eventType: $eventType")
             else -> null // TODO how to handle just my own events?
