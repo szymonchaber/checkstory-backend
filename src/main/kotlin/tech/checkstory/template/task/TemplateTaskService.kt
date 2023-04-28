@@ -1,6 +1,9 @@
 package tech.checkstory.template.task
 
 import kotlinx.coroutines.Dispatchers
+import kotlinx.datetime.DayOfWeek
+import kotlinx.datetime.LocalDateTime
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
@@ -115,4 +118,49 @@ data class TemplateTask(
             copy(children = children.map { it.withUpdatedTitleRecursive(id, newTitle) })
         }
     }
+}
+
+@Serializable
+sealed interface Reminder {
+
+    val id: String
+    val forTemplate: String
+    val startDateTime: LocalDateTime
+
+    @Serializable
+    @SerialName("exact")
+    data class Exact(
+        override val id: String,
+        override val forTemplate: String,
+        override val startDateTime: LocalDateTime
+    ) : Reminder
+
+    @Serializable
+    @SerialName("recurring")
+    data class Recurring(
+        override val id: String,
+        override val forTemplate: String,
+        override val startDateTime: LocalDateTime,
+        val interval: Interval
+    ) : Reminder
+}
+
+@Serializable
+sealed interface Interval {
+
+    @Serializable
+    @SerialName("daily")
+    object Daily : Interval
+
+    @Serializable
+    @SerialName("weekly")
+    data class Weekly(val dayOfWeek: DayOfWeek) : Interval
+
+    @Serializable
+    @SerialName("monthly")
+    data class Monthly(val dayOfMonth: Int) : Interval
+
+    @Serializable
+    @SerialName("yearly")
+    data class Yearly(val dayOfYear: Int) : Interval
 }

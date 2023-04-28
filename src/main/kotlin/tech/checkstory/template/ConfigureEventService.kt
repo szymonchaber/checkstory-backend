@@ -8,9 +8,13 @@ import io.ktor.server.auth.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.encodeToStream
 import tech.checkstory.auth.withFirebasePrincipal
 import tech.checkstory.firebase.FIREBASE_AUTH
 import tech.checkstory.firebase.user.FirebaseUser
+import java.io.ByteArrayOutputStream
 import java.util.*
 
 fun Application.configureCommandService(client: EventStoreDBClient) {
@@ -45,14 +49,19 @@ suspend fun handleCommands(
         }
 }
 
+@OptIn(ExperimentalSerializationApi::class)
 fun storeTemplateEvent(client: EventStoreDBClient, templateEvent: TemplateEvent) {
-    val eventData = EventData
-        .builderAsJson<Any>(
-            UUID.fromString(templateEvent.eventId),
-            templateEvent.eventType,
-            templateEvent
-        ) // event type gets stored within dto - maybe not good!
-        .build()
+    val eventData = ByteArrayOutputStream().use {
+        Json.encodeToStream(templateEvent, it)
+        EventData
+            .builderAsBinary(
+                UUID.fromString(templateEvent.eventId),
+                templateEvent.eventType,
+                it.toByteArray()
+            ) // event type gets stored within dto - maybe not good!
+            .build()
+    }
+
     client.appendToStream("checklist-template-${templateEvent.templateId}", eventData)
         .get()
 }

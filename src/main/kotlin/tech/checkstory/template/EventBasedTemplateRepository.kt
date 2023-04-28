@@ -63,7 +63,6 @@ class EventBasedTemplateRepository(private val client: EventStoreDBClient) : Tem
         return ReadStreamOptions.get()
             .forwards()
             .fromStart()
-//        .maxCount(10)
     }
 
     @OptIn(ExperimentalSerializationApi::class)
@@ -71,50 +70,11 @@ class EventBasedTemplateRepository(private val client: EventStoreDBClient) : Tem
         val eventType = event.event.eventType
         val eventData = event.event.eventData
         return when (eventType) {
-            "createTemplate" -> {
-                Json.decodeFromStream(TemplateEvent.CreateTemplateEvent.serializer(), eventData.inputStream())
+            in knownTemplateEventTypes -> {
+                Json.decodeFromStream(TemplateEvent.serializer(), eventData.inputStream())
             }
 
-            "editTemplateTitle" -> {
-                Json.decodeFromStream(
-                    TemplateEvent.EditTemplateTitleEvent.serializer(),
-                    eventData.inputStream()
-                )
-            }
-
-            "editTemplateDescription" -> {
-                Json.decodeFromStream(
-                    TemplateEvent.EditTemplateDescriptionEvent.serializer(),
-                    eventData.inputStream()
-                )
-            }
-
-            "addTemplateTask" -> {
-                Json.decodeFromStream(TemplateEvent.AddTemplateTaskEvent.serializer(), eventData.inputStream())
-            }
-
-            "renameTemplateTask" -> {
-                Json.decodeFromStream(
-                    TemplateEvent.RenameTemplateTaskEvent.serializer(),
-                    eventData.inputStream()
-                )
-            }
-
-            "deleteTemplateTask" -> {
-                Json.decodeFromStream(TemplateEvent.DeleteTemplateTaskEvent.serializer(), eventData.inputStream())
-            }
-
-            "updateTemplateTasksPositions" -> {
-                Json.decodeFromStream(TemplateEvent.UpdateTasksPositionsEvent.serializer(), eventData.inputStream())
-            }
-
-            "moveTemplateTask" -> {
-                Json.decodeFromStream(TemplateEvent.MoveTemplateTaskEvent.serializer(), eventData.inputStream())
-            }
-
-//            "\$metadata", "\$ProjectionsInitialized" -> null
-//            else -> error("Unknown eventType: $eventType")
-            else -> null // TODO how to handle just my own events?
+            else -> null
         }
     }
 }
@@ -125,3 +85,16 @@ class TemplateAggregate(private val events: List<TemplateEvent>) {
         require(events.isEmpty() || events.first() is TemplateEvent.CreateTemplateEvent)
     }
 }
+
+val knownTemplateEventTypes = setOf(
+    "createTemplate",
+    "editTemplateTitle",
+    "editTemplateDescription",
+    "addTemplateTask",
+    "renameTemplateTask",
+    "deleteTemplateTask",
+    "updateTemplateTasksPositions",
+    "moveTemplateTask",
+    "addOrUpdateTemplateReminder",
+    "deleteTemplateReminder"
+)

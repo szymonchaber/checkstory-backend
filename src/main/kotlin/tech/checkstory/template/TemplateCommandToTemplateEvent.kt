@@ -83,5 +83,25 @@ fun TemplateCommand.toTemplateEvent(): TemplateEvent {
                 userId
             )
         }
+
+        is TemplateCommand.AddOrUpdateTemplateReminderCommandDto -> {
+            TemplateEvent.AddOrUpdateReminderEvent(
+                templateId,
+                reminder,
+                eventId,
+                timestamp,
+                userId,
+            )
+        }
+
+        is TemplateCommand.DeleteTemplateReminderCommandDto -> {
+            TemplateEvent.DeleteReminderEvent(
+                templateId,
+                reminderId,
+                eventId,
+                timestamp,
+                userId,
+            )
+        }
     }
 }

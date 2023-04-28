@@ -179,6 +179,55 @@ sealed interface TemplateEvent : DomainEvent {
             return template.copy(tasks = items)
         }
     }
+
+    @Serializable
+    @SerialName("addOrUpdateTemplateReminder")
+    data class AddOrUpdateReminderEvent(
+        override val templateId: String,
+        val reminder: ReminderDto,
+        override val eventId: String,
+        override val timestamp: Long,
+        override val userId: String
+    ) : TemplateEvent {
+
+        override val eventType: String
+            get() = "addOrUpdateTemplateReminder"
+
+        override fun applyTo(template: Template): Template {
+            val reminder = reminder.toReminder()
+            val newReminders = if (template.reminders.any { it.id == reminder.id }) {
+                template.reminders.map {
+                    if (it.id == reminder.id) {
+                        reminder
+                    } else {
+                        it
+                    }
+                }
+            } else {
+                template.reminders.plus(reminder)
+            }
+            return template.copy(reminders = newReminders)
+        }
+    }
+
+    @Serializable
+    @SerialName("deleteTemplateReminder")
+    data class DeleteReminderEvent(
+        override val templateId: String,
+        val reminderId: String,
+        override val eventId: String,
+        override val timestamp: Long,
+        override val userId: String
+    ) : TemplateEvent {
+
+        override val eventType: String
+            get() = "deleteTemplateReminder"
+
+        override fun applyTo(template: Template): Template {
+            return template.copy(reminders = template.reminders.filterNot { it.id == reminderId })
+        }
+    }
+
 }
 
 

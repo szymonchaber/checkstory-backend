@@ -8,6 +8,7 @@ import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransacti
 import org.jetbrains.exposed.sql.transactions.transaction
 import tech.checkstory.firebase.user.FirebaseUser
 import tech.checkstory.template.RelationalTemplateRepository.Templates.id
+import tech.checkstory.template.task.Reminder
 import tech.checkstory.template.task.TemplateTask
 import java.util.*
 
@@ -93,5 +94,6 @@ data class Template(
     val userId: String,
     val name: String,
     val description: String,
-    val tasks: List<TemplateTask> = listOf()
+    val tasks: List<TemplateTask> = listOf(),
+    val reminders: List<Reminder> = listOf()
 )
