@@ -228,6 +228,22 @@ sealed interface TemplateEvent : DomainEvent {
         }
     }
 
+    @Serializable
+    @SerialName("deleteTemplate")
+    data class DeleteTemplateEvent(
+        override val templateId: String,
+        override val eventId: String,
+        override val timestamp: Long,
+        override val userId: String
+    ) : TemplateEvent {
+
+        override val eventType: String
+            get() = "deleteTemplate"
+
+        override fun applyTo(template: Template): Template {
+            return template.copy(isDeleted = true)
+        }
+    }
 }
 
 

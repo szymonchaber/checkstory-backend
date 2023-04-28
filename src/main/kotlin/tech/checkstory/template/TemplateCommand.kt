@@ -113,6 +113,15 @@ sealed interface TemplateCommand : DomainCommand {
         override val timestamp: Long,
         override val userId: String
     ) : TemplateCommand
+
+    @Serializable
+    @SerialName("deleteTemplate")
+    data class DeleteTemplateCommandDto(
+        override val templateId: String,
+        override val eventId: String,
+        override val timestamp: Long,
+        override val userId: String
+    ) : TemplateCommand
 }
 
 fun Reminder.toReminderDto(): ReminderDto {

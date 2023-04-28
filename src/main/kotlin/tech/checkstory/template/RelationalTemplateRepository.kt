@@ -95,5 +95,6 @@ data class Template(
     val name: String,
     val description: String,
     val tasks: List<TemplateTask> = listOf(),
-    val reminders: List<Reminder> = listOf()
+    val reminders: List<Reminder> = listOf(),
+    val isDeleted: Boolean = false
 )

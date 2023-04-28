@@ -36,6 +36,9 @@ class EventBasedTemplateRepository(private val client: EventStoreDBClient) : Tem
             .filter {
                 it.userId == firebaseUser.userId
             }
+            .filterNot {
+                it.isDeleted
+            }
     }
 
     override suspend fun read(firebaseUser: FirebaseUser, id: UUID): Template? {
@@ -96,5 +99,6 @@ val knownTemplateEventTypes = setOf(
     "updateTemplateTasksPositions",
     "moveTemplateTask",
     "addOrUpdateTemplateReminder",
-    "deleteTemplateReminder"
+    "deleteTemplateReminder",
+    "deleteTemplate"
 )

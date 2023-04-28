@@ -103,5 +103,14 @@ fun TemplateCommand.toTemplateEvent(): TemplateEvent {
                 userId,
             )
         }
+
+        is TemplateCommand.DeleteTemplateCommandDto -> {
+            TemplateEvent.DeleteTemplateEvent(
+                templateId,
+                eventId,
+                timestamp,
+                userId,
+            )
+        }
     }
 }
