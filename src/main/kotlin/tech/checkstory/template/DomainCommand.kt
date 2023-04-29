@@ -1,9 +1,6 @@
 package tech.checkstory.template
 
-import kotlinx.serialization.Serializable
-
-@Serializable
-sealed interface DomainCommand {
+interface DomainCommand {
 
     val eventId: String
     val timestamp: Long

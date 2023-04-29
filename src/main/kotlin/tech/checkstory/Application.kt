@@ -9,6 +9,7 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.cors.routing.*
 import org.jetbrains.exposed.sql.Database
+import tech.checkstory.checklist.EventBasedChecklistRepository
 import tech.checkstory.city.configureCityService
 import tech.checkstory.firebase.FirebaseAdmin
 import tech.checkstory.plugins.*
@@ -43,8 +44,10 @@ fun Application.module() {
     val templateService = RelationalTemplateRepository(database)
     val templateTaskService = TemplateTaskService(database)
     configureTemplateService(templateService, EventBasedTemplateRepository(client))
+    configureChecklistService(EventBasedChecklistRepository(client))
     configureTemplateTaskService(templateService, templateTaskService)
-    configureCommandService(client)
+    configureTemplateCommandService(client)
+    configureChecklistCommandService(client)
     configureRouting()
     cors()
 }

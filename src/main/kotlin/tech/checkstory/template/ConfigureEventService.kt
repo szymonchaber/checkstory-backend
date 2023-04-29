@@ -17,7 +17,7 @@ import tech.checkstory.firebase.user.FirebaseUser
 import java.io.ByteArrayOutputStream
 import java.util.*
 
-fun Application.configureCommandService(client: EventStoreDBClient) {
+fun Application.configureTemplateCommandService(client: EventStoreDBClient) {
     routing {
         authenticate(FIREBASE_AUTH) {
             post("/commands") {

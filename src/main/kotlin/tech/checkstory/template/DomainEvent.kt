@@ -1,10 +1,8 @@
 package tech.checkstory.template
 
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 
-@Serializable
-sealed interface DomainEvent {
+interface DomainEvent {
 
     @Transient
     val eventType: String

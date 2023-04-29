@@ -1,0 +1,127 @@
+### Register user 1
+POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={{firebase_api_key}}
+Content-Type: application/json
+
+{
+  "email": "{{login_1}}",
+  "password": "{{password_1}}",
+  "returnSecureToken": true
+}
+
+> {%
+    client.global.set("auth_token_1", response.body.idToken);
+    client.global.set("user_id_1", response.body.localId);
+%}
+
+### Register user 2
+POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={{firebase_api_key}}
+Content-Type: application/json
+
+{
+  "email": "{{login_2}}",
+  "password": "{{password_2}}",
+  "returnSecureToken": true
+}
+
+> {%
+    client.global.set("auth_token_2", response.body.idToken);
+    client.global.set("user_id_2", response.body.localId);
+%}
+
+### Get all checklists of user 1
+GET http://0.0.0.0:8080/checklists
+Content-Type: application/json
+Authorization: Bearer {{auth_token_1}}
+
+### Get concrete checklist
+GET http://0.0.0.0:8080/checklists/59603b2c-16ca-4d9b-8592-572b5759fe84
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2ZGE4NmU4MWJkNTllMGE4Y2YzNTgwNTJiYjUzYjUzYjE4MzA3NzMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODE4NjExOTUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MTg2MTE5NSwiZXhwIjoxNjgxODY0Nzk1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.S3A5PSmRsHFcE7bzq4i8A3S1n1nZTvaU7aJxs8P_R3k7-9gobRkYRklOAO_cB49kD2nlEcR-52QG0120yQQw_Q7ejTEBoGPL-U2Tpla8ZC6S3BWzYqGMFLb8mTvVGx5Df8_CjY2c8pRGU_EiUjWNnSEiFlGdMlLNzcAb5YaKwkNoZFeofH-GPR-3EkTYmW5wcQTFRrcKELOoQH_-LCnu_Xbj26UWOJ81YgyvwbPEjSOFeKGj4JFVPWIVKpVyIxYA78B6LfSz0hFlT6BUhoR4LvJfEiyFEqAw0vG21XLr0YTdtxuTv55r8rft-aoh-aZVRP8S5rsWsrwakV6x3bNShg
+
+<> 2023-04-19T021349.200.json
+<> 2023-04-19T015343.200.json
+<> 2023-04-19T015331.200.json
+<> 2023-04-19T015306.200.json
+
+###
+GET http://0.0.0.0:8080/template/27a1fbf5-f0c7-4bb3-a1bc-618185754fd9/tasks
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2ZGE4NmU4MWJkNTllMGE4Y2YzNTgwNTJiYjUzYjUzYjE4MzA3NzMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODE4NjExOTUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MTg2MTE5NSwiZXhwIjoxNjgxODY0Nzk1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.S3A5PSmRsHFcE7bzq4i8A3S1n1nZTvaU7aJxs8P_R3k7-9gobRkYRklOAO_cB49kD2nlEcR-52QG0120yQQw_Q7ejTEBoGPL-U2Tpla8ZC6S3BWzYqGMFLb8mTvVGx5Df8_CjY2c8pRGU_EiUjWNnSEiFlGdMlLNzcAb5YaKwkNoZFeofH-GPR-3EkTYmW5wcQTFRrcKELOoQH_-LCnu_Xbj26UWOJ81YgyvwbPEjSOFeKGj4JFVPWIVKpVyIxYA78B6LfSz0hFlT6BUhoR4LvJfEiyFEqAw0vG21XLr0YTdtxuTv55r8rft-aoh-aZVRP8S5rsWsrwakV6x3bNShg
+
+
+### Send all commands as user 1
+< {%
+    function generateUUID() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0,
+                v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+
+    client.global.set("checklist_id", generateUUID());
+    request.variables.set("task_1_id", generateUUID());
+    request.variables.set("task_2_id", generateUUID());
+    request.variables.set("task_3_id", generateUUID());
+%}
+POST http://0.0.0.0:8080/checklist-commands
+Content-Type: application/json
+Authorization: Bearer {{auth_token_1}}
+
+[
+    {
+    "type": "createChecklist",
+    "templateId": "{{template_id}}",
+    "title": "All the events",
+    "description": "Description",
+    "tasks": [
+     {
+        "id": "{{task_1_id}}",
+        "checklistId": {{checklist_id}},
+        "title": "Task 1",
+        "sortPosition": 0,
+        "isChecked": false,
+        "children": [
+          {
+            "id": "{{task_2_id}}",
+            "checklistId": "{{checklist_id}}",
+            "title": "Task 2",
+            "sortPosition": 0,
+            "isChecked":  false,
+            "children": []
+          }
+          ]
+    }
+    ],
+    "checklistId": "{{checklist_id}}",
+    "eventId": "{{$uuid}}",
+    "timestamp": "{{$timestamp}}",
+    "userId": "{{user_id_1}}"
+  },
+  {
+    "type": "editChecklistNotes",
+    "newNotes": "My notes are awesome",
+    "checklistId": "{{checklist_id}}",
+    "eventId": "{{$uuid}}",
+    "timestamp": "{{$timestamp}}",
+    "userId": "{{user_id_1}}"
+  },
+    {
+    "type": "changeTaskChecked",
+    "taskId": "{{task_1_id}}",
+    "isChecked": true,
+    "checklistId": "{{checklist_id}}",
+    "eventId": "{{$uuid}}",
+    "timestamp": "{{$timestamp}}",
+    "userId": "{{user_id_1}}"
+  },
+   {
+    "type": "changeTaskChecked",
+    "taskId": "{{task_2_id}}",
+    "isChecked": true,
+    "checklistId": "{{checklist_id}}",
+    "eventId": "{{$uuid}}",
+    "timestamp": "{{$timestamp}}",
+    "userId": "{{user_id_1}}"
+  }
+]
