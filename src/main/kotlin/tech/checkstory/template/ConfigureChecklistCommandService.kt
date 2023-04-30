@@ -18,7 +18,6 @@ import tech.checkstory.checklist.toChecklistEvent
 import tech.checkstory.firebase.FIREBASE_AUTH
 import tech.checkstory.firebase.user.FirebaseUser
 import java.io.ByteArrayOutputStream
-import java.util.*
 
 fun Application.configureChecklistCommandService(client: EventStoreDBClient) {
     routing {
@@ -56,7 +55,7 @@ fun storeChecklistEvent(client: EventStoreDBClient, checklistEvent: ChecklistEve
         Json.encodeToStream(checklistEvent, it)
         EventData
             .builderAsBinary(
-                UUID.fromString(checklistEvent.eventId),
+                checklistEvent.eventId,
                 checklistEvent.eventType,
                 it.toByteArray()
             ) // event type gets stored within dto - maybe not good!

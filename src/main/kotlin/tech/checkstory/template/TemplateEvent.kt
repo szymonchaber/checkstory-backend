@@ -7,15 +7,15 @@ import tech.checkstory.template.task.TemplateTask
 @Serializable
 sealed interface TemplateEvent : DomainEvent {
 
-    val templateId: String
+    val templateId: DtoUUID
 
     fun applyTo(template: Template): Template
 
     @Serializable
     @SerialName("createTemplate")
     data class CreateTemplateEvent(
-        override val templateId: String,
-        override val eventId: String,
+        override val templateId: DtoUUID,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateEvent {
@@ -23,16 +23,16 @@ sealed interface TemplateEvent : DomainEvent {
         override val eventType: String = "createTemplate"
 
         override fun applyTo(template: Template): Template {
-            return template.copy(userId = userId)
+            return template.copy(userId = userId, id = templateId)
         }
     }
 
     @Serializable
     @SerialName("editTemplateTitle")
     data class EditTemplateTitleEvent(
-        override val templateId: String,
+        override val templateId: DtoUUID,
         val newTitle: String,
-        override val eventId: String,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateEvent {
@@ -48,9 +48,9 @@ sealed interface TemplateEvent : DomainEvent {
     @Serializable
     @SerialName("editTemplateDescription")
     data class EditTemplateDescriptionEvent(
-        override val templateId: String,
+        override val templateId: DtoUUID,
         val newDescription: String,
-        override val eventId: String,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateEvent {
@@ -66,10 +66,10 @@ sealed interface TemplateEvent : DomainEvent {
     @Serializable
     @SerialName("addTemplateTask")
     data class AddTemplateTaskEvent(
-        override val templateId: String,
-        val taskId: String,
-        val parentTaskId: String?,
-        override val eventId: String,
+        override val templateId: DtoUUID,
+        val taskId: DtoUUID,
+        val parentTaskId: DtoUUID?,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateEvent {
@@ -91,10 +91,10 @@ sealed interface TemplateEvent : DomainEvent {
     @Serializable
     @SerialName("renameTemplateTask")
     data class RenameTemplateTaskEvent(
-        override val templateId: String,
-        val taskId: String,
+        override val templateId: DtoUUID,
+        val taskId: DtoUUID,
         val newTitle: String,
-        override val eventId: String,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateEvent {
@@ -113,9 +113,9 @@ sealed interface TemplateEvent : DomainEvent {
     @Serializable
     @SerialName("deleteTemplateTask")
     data class DeleteTemplateTaskEvent(
-        override val templateId: String,
-        val taskId: String,
-        override val eventId: String,
+        override val templateId: DtoUUID,
+        val taskId: DtoUUID,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateEvent {
@@ -132,9 +132,9 @@ sealed interface TemplateEvent : DomainEvent {
     @Serializable
     @SerialName("updateTemplateTasksPositions")
     data class UpdateTasksPositionsEvent(
-        override val templateId: String,
-        val taskIdToLocalPosition: Map<String, Long>,
-        override val eventId: String,
+        override val templateId: DtoUUID,
+        val taskIdToLocalPosition: Map<DtoUUID, Long>,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateEvent {
@@ -160,10 +160,10 @@ sealed interface TemplateEvent : DomainEvent {
     @Serializable
     @SerialName("moveTemplateTask")
     data class MoveTemplateTaskEvent(
-        override val templateId: String,
-        val taskId: String,
-        val newParentTaskId: String?,
-        override val eventId: String,
+        override val templateId: DtoUUID,
+        val taskId: DtoUUID,
+        val newParentTaskId: DtoUUID?,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateEvent {
@@ -183,9 +183,9 @@ sealed interface TemplateEvent : DomainEvent {
     @Serializable
     @SerialName("addOrUpdateTemplateReminder")
     data class AddOrUpdateReminderEvent(
-        override val templateId: String,
+        override val templateId: DtoUUID,
         val reminder: ReminderDto,
-        override val eventId: String,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateEvent {
@@ -213,9 +213,9 @@ sealed interface TemplateEvent : DomainEvent {
     @Serializable
     @SerialName("deleteTemplateReminder")
     data class DeleteReminderEvent(
-        override val templateId: String,
-        val reminderId: String,
-        override val eventId: String,
+        override val templateId: DtoUUID,
+        val reminderId: DtoUUID,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateEvent {
@@ -231,8 +231,8 @@ sealed interface TemplateEvent : DomainEvent {
     @Serializable
     @SerialName("deleteTemplate")
     data class DeleteTemplateEvent(
-        override val templateId: String,
-        override val eventId: String,
+        override val templateId: DtoUUID,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateEvent {
@@ -247,7 +247,7 @@ sealed interface TemplateEvent : DomainEvent {
 }
 
 
-private fun List<TemplateTask>.withExtractedTask(id: String): Pair<List<TemplateTask>, TemplateTask> {
+private fun List<TemplateTask>.withExtractedTask(id: DtoUUID): Pair<List<TemplateTask>, TemplateTask> {
     var movedItem: TemplateTask? = null
     val onItemFoundAndRemoved: (TemplateTask) -> Unit = {
         movedItem = it
@@ -268,7 +268,7 @@ private fun List<TemplateTask>.withExtractedTask(id: String): Pair<List<Template
 }
 
 private fun TemplateTask.withoutChild(
-    childTaskId: String,
+    childTaskId: DtoUUID,
     onItemFoundAndRemoved: (TemplateTask) -> Unit
 ): TemplateTask {
     val updatedChildren = children
@@ -287,7 +287,7 @@ private fun TemplateTask.withoutChild(
 
 
 fun TemplateTask.withMovedChildRecursive(
-    parentTask: String,
+    parentTask: DtoUUID,
     childTask: TemplateTask
 ): TemplateTask {
     val updatedChildren = if (id == parentTask) {

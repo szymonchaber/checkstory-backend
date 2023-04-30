@@ -10,6 +10,7 @@ import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 import tech.checkstory.firebase.user.FirebaseUser
+import tech.checkstory.template.DtoUUID
 import java.util.*
 
 class TemplateTaskService(private val database: Database) {
@@ -38,7 +39,7 @@ class TemplateTaskService(private val database: Database) {
             TemplateTasks.insert {
                 it[id] = newId
                 it[userId] = firebaseUser.userId
-                it[templateId] = UUID.fromString(templateTask.templateId)
+                it[templateId] = templateTask.templateId
                 it[name] = templateTask.title
             }
         }
@@ -49,8 +50,8 @@ class TemplateTaskService(private val database: Database) {
             TemplateTasks.select { TemplateTasks.id eq id and (TemplateTasks.userId eq firebaseUser.userId) }
                 .map {
                     TemplateTask(
-                        id = it[TemplateTasks.id].toString(),
-                        templateId = it[TemplateTasks.templateId].toString(),
+                        id = it[TemplateTasks.id],
+                        templateId = it[TemplateTasks.templateId],
                         title = it[TemplateTasks.name],
                         sortPosition = 0
                     )
@@ -64,8 +65,8 @@ class TemplateTaskService(private val database: Database) {
             TemplateTasks.select { TemplateTasks.userId eq firebaseUser.userId }
                 .map {
                     TemplateTask(
-                        id = it[TemplateTasks.id].toString(),
-                        templateId = it[TemplateTasks.templateId].toString(),
+                        id = it[TemplateTasks.id],
+                        templateId = it[TemplateTasks.templateId],
                         title = it[TemplateTasks.name],
                         sortPosition = 0
                     )
@@ -78,8 +79,8 @@ class TemplateTaskService(private val database: Database) {
             TemplateTasks.select { (TemplateTasks.templateId eq templateId) and (TemplateTasks.userId eq firebaseUser.userId) }
                 .map {
                     TemplateTask(
-                        id = it[TemplateTasks.id].toString(),
-                        templateId = it[TemplateTasks.templateId].toString(),
+                        id = it[TemplateTasks.id],
+                        templateId = it[TemplateTasks.templateId],
                         title = it[TemplateTasks.name],
                         sortPosition = 0
                     )
@@ -104,14 +105,14 @@ class TemplateTaskService(private val database: Database) {
 
 @Serializable
 data class TemplateTask(
-    val id: String,
-    val templateId: String,
+    val id: DtoUUID,
+    val templateId: DtoUUID,
     val title: String,
     val sortPosition: Long,
     val children: List<TemplateTask> = listOf()
 ) {
 
-    fun withUpdatedTitleRecursive(id: String, newTitle: String): TemplateTask {
+    fun withUpdatedTitleRecursive(id: DtoUUID, newTitle: String): TemplateTask {
         return if (this.id == id) {
             copy(title = newTitle)
         } else {
@@ -123,23 +124,23 @@ data class TemplateTask(
 @Serializable
 sealed interface Reminder {
 
-    val id: String
-    val forTemplate: String
+    val id: DtoUUID
+    val forTemplate: DtoUUID
     val startDateTime: LocalDateTime
 
     @Serializable
     @SerialName("exact")
     data class Exact(
-        override val id: String,
-        override val forTemplate: String,
+        override val id: DtoUUID,
+        override val forTemplate: DtoUUID,
         override val startDateTime: LocalDateTime
     ) : Reminder
 
     @Serializable
     @SerialName("recurring")
     data class Recurring(
-        override val id: String,
-        override val forTemplate: String,
+        override val id: DtoUUID,
+        override val forTemplate: DtoUUID,
         override val startDateTime: LocalDateTime,
         val interval: Interval
     ) : Reminder

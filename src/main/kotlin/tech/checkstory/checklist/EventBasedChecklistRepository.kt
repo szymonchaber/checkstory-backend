@@ -13,6 +13,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import tech.checkstory.firebase.user.FirebaseUser
 import tech.checkstory.template.DomainEvent
+import tech.checkstory.template.DtoUUID
 import java.util.*
 
 class EventBasedChecklistRepository(private val client: EventStoreDBClient) : ChecklistRepository {
@@ -32,7 +33,7 @@ class EventBasedChecklistRepository(private val client: EventStoreDBClient) : Ch
                 require(events.first() is ChecklistEvent.CreateChecklistEvent) {
                     "First event must be a CreateChecklistEvent. Was: ${events.first()}"
                 }
-                events.fold(Checklist(id, "", "", "", "", "", listOf())) { acc, event ->
+                events.fold(Checklist(id, "", UUID.randomUUID(), "", "", "", listOf())) { acc, event ->
                     event.applyTo(acc)
                 }
             }
@@ -55,11 +56,11 @@ class EventBasedChecklistRepository(private val client: EventStoreDBClient) : Ch
             .mapNotNull(::deserializeEvent)
             .fold(
                 Checklist(
-                    id = id.toString(),
+                    id = id,
                     userId = "",
                     title = "",
                     notes = "",
-                    templateId = "",
+                    templateId = UUID.randomUUID(),
                     description = "",
                     tasks = listOf()
                 )
@@ -96,9 +97,9 @@ interface ChecklistRepository {
 
 @Serializable
 data class Checklist(
-    val id: String,
+    val id: DtoUUID,
     val userId: String,
-    val templateId: String,
+    val templateId: DtoUUID,
     val title: String,
     val description: String,
     val notes: String,
@@ -108,15 +109,15 @@ data class Checklist(
 
 @Serializable
 data class Task(
-    val id: String,
-    val checklistId: String,
+    val id: DtoUUID,
+    val checklistId: DtoUUID,
     val title: String,
     val sortPosition: Long,
     val isChecked: Boolean,
     val children: List<Task> = listOf()
 ) {
 
-    fun withUpdatedIsCheckedRecursive(id: String, isChecked: Boolean): Task {
+    fun withUpdatedIsCheckedRecursive(id: DtoUUID, isChecked: Boolean): Task {
         return if (this.id == id) {
             copy(isChecked = isChecked)
         } else {
@@ -129,19 +130,19 @@ data class Task(
 @Serializable
 sealed interface ChecklistEvent : DomainEvent {
 
-    val checklistId: String
+    val checklistId: DtoUUID
 
     fun applyTo(checklist: Checklist): Checklist
 
     @Serializable
     @SerialName("createChecklist")
     data class CreateChecklistEvent(
-        override val checklistId: String,
-        val templateId: String,
+        override val checklistId: DtoUUID,
+        val templateId: DtoUUID,
         val title: String,
         val description: String,
         val tasks: List<Task>,
-        override val eventId: String,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : ChecklistEvent {
@@ -163,9 +164,9 @@ sealed interface ChecklistEvent : DomainEvent {
     @Serializable
     @SerialName("editChecklistNotes")
     data class EditChecklistNotesEvent(
-        override val checklistId: String,
+        override val checklistId: DtoUUID,
         val newNotes: String,
-        override val eventId: String,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : ChecklistEvent {
@@ -181,10 +182,10 @@ sealed interface ChecklistEvent : DomainEvent {
     @Serializable
     @SerialName("changeTaskChecked")
     data class ChangeTaskCheckedEvent(
-        override val checklistId: String,
-        val taskId: String,
+        override val checklistId: DtoUUID,
+        val taskId: DtoUUID,
         val isChecked: Boolean,
-        override val eventId: String,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : ChecklistEvent {
@@ -203,8 +204,8 @@ sealed interface ChecklistEvent : DomainEvent {
     @Serializable
     @SerialName("deleteChecklist")
     data class DeleteChecklistEvent(
-        override val checklistId: String,
-        override val eventId: String,
+        override val checklistId: DtoUUID,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : ChecklistEvent {

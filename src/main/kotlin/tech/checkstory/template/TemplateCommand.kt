@@ -10,13 +10,13 @@ import tech.checkstory.template.task.Reminder
 @Serializable
 sealed interface TemplateCommand : DomainCommand {
 
-    val templateId: String
+    val templateId: DtoUUID
 
     @Serializable
     @SerialName("createTemplate")
     data class CreateTemplateCommand(
-        override val templateId: String,
-        override val eventId: String,
+        override val templateId: DtoUUID,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateCommand
@@ -24,9 +24,9 @@ sealed interface TemplateCommand : DomainCommand {
     @Serializable
     @SerialName("editTemplateTitle")
     data class EditTemplateTitleCommand(
-        override val templateId: String,
+        override val templateId: DtoUUID,
         val newTitle: String,
-        override val eventId: String,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateCommand
@@ -34,9 +34,9 @@ sealed interface TemplateCommand : DomainCommand {
     @Serializable
     @SerialName("editTemplateDescription")
     data class EditTemplateDescriptionCommand(
-        override val templateId: String,
+        override val templateId: DtoUUID,
         val newDescription: String,
-        override val eventId: String,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateCommand
@@ -44,10 +44,10 @@ sealed interface TemplateCommand : DomainCommand {
     @Serializable
     @SerialName("addTemplateTask")
     data class AddTemplateTaskCommand(
-        override val templateId: String,
-        val taskId: String,
-        val parentTaskId: String?,
-        override val eventId: String,
+        override val templateId: DtoUUID,
+        val taskId: DtoUUID,
+        val parentTaskId: DtoUUID?,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateCommand
@@ -55,10 +55,10 @@ sealed interface TemplateCommand : DomainCommand {
     @Serializable
     @SerialName("renameTemplateTask")
     data class RenameTemplateTaskCommand(
-        override val templateId: String,
-        val taskId: String,
+        override val templateId: DtoUUID,
+        val taskId: DtoUUID,
         val newTitle: String,
-        override val eventId: String,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateCommand
@@ -66,9 +66,9 @@ sealed interface TemplateCommand : DomainCommand {
     @Serializable
     @SerialName("deleteTemplateTask")
     data class DeleteTemplateTaskCommand(
-        override val templateId: String,
-        val taskId: String,
-        override val eventId: String,
+        override val templateId: DtoUUID,
+        val taskId: DtoUUID,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateCommand
@@ -76,9 +76,9 @@ sealed interface TemplateCommand : DomainCommand {
     @Serializable
     @SerialName("updateTemplateTasksPositions")
     data class UpdateTasksPositionsCommandDto(
-        override val templateId: String,
-        val taskIdToLocalPosition: Map<String, Long>,
-        override val eventId: String,
+        override val templateId: DtoUUID,
+        val taskIdToLocalPosition: Map<DtoUUID, Long>,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateCommand
@@ -86,10 +86,10 @@ sealed interface TemplateCommand : DomainCommand {
     @Serializable
     @SerialName("moveTemplateTask")
     data class MoveTemplateTaskCommandDto(
-        override val templateId: String,
-        val taskId: String,
-        val newParentTaskId: String?,
-        override val eventId: String,
+        override val templateId: DtoUUID,
+        val taskId: DtoUUID,
+        val newParentTaskId: DtoUUID?,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateCommand
@@ -97,9 +97,9 @@ sealed interface TemplateCommand : DomainCommand {
     @Serializable
     @SerialName("addOrUpdateTemplateReminder")
     data class AddOrUpdateTemplateReminderCommandDto(
-        override val templateId: String,
+        override val templateId: DtoUUID,
         val reminder: ReminderDto,
-        override val eventId: String,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateCommand
@@ -107,9 +107,9 @@ sealed interface TemplateCommand : DomainCommand {
     @Serializable
     @SerialName("deleteTemplateReminder")
     data class DeleteTemplateReminderCommandDto(
-        override val templateId: String,
-        val reminderId: String,
-        override val eventId: String,
+        override val templateId: DtoUUID,
+        val reminderId: DtoUUID,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateCommand
@@ -117,8 +117,8 @@ sealed interface TemplateCommand : DomainCommand {
     @Serializable
     @SerialName("deleteTemplate")
     data class DeleteTemplateCommandDto(
-        override val templateId: String,
-        override val eventId: String,
+        override val templateId: DtoUUID,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateCommand
@@ -153,23 +153,23 @@ fun Reminder.toReminderDto(): ReminderDto {
 @Serializable
 sealed interface ReminderDto {
 
-    val id: String
-    val forTemplate: String
+    val id: DtoUUID
+    val forTemplate: DtoUUID
     val startDateTime: LocalDateTime
 
     @Serializable
     @SerialName("exact")
     data class ExactDto(
-        override val id: String,
-        override val forTemplate: String,
+        override val id: DtoUUID,
+        override val forTemplate: DtoUUID,
         override val startDateTime: LocalDateTime
     ) : ReminderDto
 
     @Serializable
     @SerialName("recurring")
     data class RecurringDto(
-        override val id: String,
-        override val forTemplate: String,
+        override val id: DtoUUID,
+        override val forTemplate: DtoUUID,
         override val startDateTime: LocalDateTime,
         val interval: IntervalDto
     ) : ReminderDto

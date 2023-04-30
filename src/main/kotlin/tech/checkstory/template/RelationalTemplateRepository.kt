@@ -36,7 +36,7 @@ class RelationalTemplateRepository(private val database: Database) : TemplateRep
     suspend fun create(template: Template, firebaseUser: FirebaseUser) {
         dbQuery {
             Templates.insert {
-                it[id] = UUID.fromString(template.id)
+                it[id] = template.id
                 it[userId] = firebaseUser.userId
                 it[name] = template.name
                 it[description] = template.description
@@ -49,7 +49,7 @@ class RelationalTemplateRepository(private val database: Database) : TemplateRep
             Templates.select { Templates.id eq id and (Templates.userId eq firebaseUser.userId) }
                 .map {
                     Template(
-                        id = it[Templates.id].toString(),
+                        id = it[Templates.id],
                         userId = "",
                         name = it[Templates.name],
                         description = it[Templates.description]
@@ -64,7 +64,7 @@ class RelationalTemplateRepository(private val database: Database) : TemplateRep
             Templates.select { Templates.userId eq firebaseUser.userId }
                 .map {
                     Template(
-                        id = it[Templates.id].toString(),
+                        id = it[Templates.id],
                         userId = "",
                         name = it[Templates.name],
                         description = it[Templates.description],
@@ -90,7 +90,7 @@ class RelationalTemplateRepository(private val database: Database) : TemplateRep
 
 @Serializable
 data class Template(
-    val id: String,
+    val id: DtoUUID,
     val userId: String,
     val name: String,
     val description: String,

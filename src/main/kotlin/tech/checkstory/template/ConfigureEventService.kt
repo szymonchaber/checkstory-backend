@@ -15,7 +15,6 @@ import tech.checkstory.auth.withFirebasePrincipal
 import tech.checkstory.firebase.FIREBASE_AUTH
 import tech.checkstory.firebase.user.FirebaseUser
 import java.io.ByteArrayOutputStream
-import java.util.*
 
 fun Application.configureTemplateCommandService(client: EventStoreDBClient) {
     routing {
@@ -55,7 +54,7 @@ fun storeTemplateEvent(client: EventStoreDBClient, templateEvent: TemplateEvent)
         Json.encodeToStream(templateEvent, it)
         EventData
             .builderAsBinary(
-                UUID.fromString(templateEvent.eventId),
+                templateEvent.eventId,
                 templateEvent.eventType,
                 it.toByteArray()
             ) // event type gets stored within dto - maybe not good!

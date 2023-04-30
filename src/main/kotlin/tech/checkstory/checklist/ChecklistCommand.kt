@@ -3,21 +3,22 @@ package tech.checkstory.checklist
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import tech.checkstory.template.DomainCommand
+import tech.checkstory.template.DtoUUID
 
 @Serializable
 sealed interface ChecklistCommand : DomainCommand {
 
-    val checklistId: String
+    val checklistId: DtoUUID
 
     @Serializable
     @SerialName("createChecklist")
     data class CreateChecklistCommand(
-        override val checklistId: String,
-        val templateId: String,
+        override val checklistId: DtoUUID,
+        val templateId: DtoUUID,
         val title: String,
         val description: String,
         val tasks: List<Task>,
-        override val eventId: String,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : ChecklistCommand
@@ -25,9 +26,9 @@ sealed interface ChecklistCommand : DomainCommand {
     @Serializable
     @SerialName("editChecklistNotes")
     data class EditChecklistNotesCommand(
-        override val checklistId: String,
+        override val checklistId: DtoUUID,
         val newNotes: String,
-        override val eventId: String,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : ChecklistCommand
@@ -35,10 +36,10 @@ sealed interface ChecklistCommand : DomainCommand {
     @Serializable
     @SerialName("changeTaskChecked")
     data class ChangeTaskCheckedCommand(
-        override val checklistId: String,
-        val taskId: String,
+        override val checklistId: DtoUUID,
+        val taskId: DtoUUID,
         val isChecked: Boolean,
-        override val eventId: String,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : ChecklistCommand
@@ -46,8 +47,8 @@ sealed interface ChecklistCommand : DomainCommand {
     @Serializable
     @SerialName("deleteChecklist")
     data class DeleteChecklistCommand(
-        override val checklistId: String,
-        override val eventId: String,
+        override val checklistId: DtoUUID,
+        override val eventId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : ChecklistCommand

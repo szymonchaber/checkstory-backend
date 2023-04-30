@@ -52,7 +52,7 @@ class EventBasedTemplateRepository(private val client: EventStoreDBClient) : Tem
             .mapNotNull(::deserializeEvent)
             .fold(
                 Template(
-                    id = id.toString(),
+                    id = id,
                     userId = "",
                     name = "",
                     description = ""
