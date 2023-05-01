@@ -9,14 +9,18 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.cors.routing.*
 import org.jetbrains.exposed.sql.Database
+import tech.checkstory.api.configureTemplateCommandService
 import tech.checkstory.checklist.api.configureChecklistCommandService
 import tech.checkstory.checklist.api.configureChecklistService
 import tech.checkstory.checklist.data.EventBasedChecklistRepository
 import tech.checkstory.city.configureCityService
 import tech.checkstory.firebase.FirebaseAdmin
 import tech.checkstory.plugins.*
-import tech.checkstory.template.*
-import tech.checkstory.template.task.TemplateTaskService
+import tech.checkstory.template.api.configureTemplateService
+import tech.checkstory.template.api.configureTemplateTaskService
+import tech.checkstory.template.data.EventBasedTemplateRepository
+import tech.checkstory.template.data.RelationalTemplateRepository
+import tech.checkstory.template.data.TemplateTaskRepository
 import tech.checkstory.user.configureUserService
 
 
@@ -44,10 +48,10 @@ fun Application.module() {
         EventStoreDBConnectionString.parse("esdb+discover://localhost:2113?tls=false&keepAliveTimeout=10000&keepAliveInterval=10000")
     val client: EventStoreDBClient = EventStoreDBClient.create(settings)
     val templateService = RelationalTemplateRepository(database)
-    val templateTaskService = TemplateTaskService(database)
+    val templateTaskRepository = TemplateTaskRepository(database)
     configureTemplateService(templateService, EventBasedTemplateRepository(client))
     configureChecklistService(EventBasedChecklistRepository(client))
-    configureTemplateTaskService(templateService, templateTaskService)
+    configureTemplateTaskService(templateService, templateTaskRepository)
     configureTemplateCommandService(client)
     configureChecklistCommandService(client)
     configureRouting()

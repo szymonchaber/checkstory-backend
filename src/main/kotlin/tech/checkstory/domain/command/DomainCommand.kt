@@ -1,4 +1,4 @@
-package tech.checkstory.template
+package tech.checkstory.domain.command
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable

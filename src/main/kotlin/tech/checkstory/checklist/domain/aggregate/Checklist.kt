@@ -1,7 +1,7 @@
 package tech.checkstory.checklist.domain.aggregate
 
 import kotlinx.serialization.Serializable
-import tech.checkstory.template.DtoUUID
+import tech.checkstory.domain.command.DtoUUID
 
 @Serializable
 data class Checklist(

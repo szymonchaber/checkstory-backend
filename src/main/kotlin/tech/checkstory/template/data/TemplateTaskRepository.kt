@@ -1,19 +1,15 @@
-package tech.checkstory.template.task
+package tech.checkstory.template.data
 
 import kotlinx.coroutines.Dispatchers
-import kotlinx.datetime.DayOfWeek
-import kotlinx.datetime.LocalDateTime
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 import tech.checkstory.firebase.user.FirebaseUser
-import tech.checkstory.template.DtoUUID
+import tech.checkstory.template.domain.aggregate.TemplateTask
 import java.util.*
 
-class TemplateTaskService(private val database: Database) {
+class TemplateTaskRepository(private val database: Database) {
 
     object TemplateTasks : Table() {
         val id = uuid("id").autoGenerate()
@@ -101,67 +97,4 @@ class TemplateTaskService(private val database: Database) {
             TemplateTasks.deleteWhere { TemplateTasks.id eq id and (userId eq firebaseUser.userId) }
         }
     }
-}
-
-@Serializable
-data class TemplateTask(
-    val id: DtoUUID,
-    val templateId: DtoUUID,
-    val title: String,
-    val sortPosition: Long,
-    val children: List<TemplateTask> = listOf()
-) {
-
-    fun withUpdatedTitleRecursive(id: DtoUUID, newTitle: String): TemplateTask {
-        return if (this.id == id) {
-            copy(title = newTitle)
-        } else {
-            copy(children = children.map { it.withUpdatedTitleRecursive(id, newTitle) })
-        }
-    }
-}
-
-@Serializable
-sealed interface Reminder {
-
-    val id: DtoUUID
-    val forTemplate: DtoUUID
-    val startDateTime: LocalDateTime
-
-    @Serializable
-    @SerialName("exact")
-    data class Exact(
-        override val id: DtoUUID,
-        override val forTemplate: DtoUUID,
-        override val startDateTime: LocalDateTime
-    ) : Reminder
-
-    @Serializable
-    @SerialName("recurring")
-    data class Recurring(
-        override val id: DtoUUID,
-        override val forTemplate: DtoUUID,
-        override val startDateTime: LocalDateTime,
-        val interval: Interval
-    ) : Reminder
-}
-
-@Serializable
-sealed interface Interval {
-
-    @Serializable
-    @SerialName("daily")
-    object Daily : Interval
-
-    @Serializable
-    @SerialName("weekly")
-    data class Weekly(val dayOfWeek: DayOfWeek) : Interval
-
-    @Serializable
-    @SerialName("monthly")
-    data class Monthly(val dayOfMonth: Int) : Interval
-
-    @Serializable
-    @SerialName("yearly")
-    data class Yearly(val dayOfYear: Int) : Interval
 }

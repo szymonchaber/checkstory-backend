@@ -1,6 +1,7 @@
-package tech.checkstory.template
+package tech.checkstory.domain.event
 
 import kotlinx.serialization.Transient
+import tech.checkstory.domain.command.DtoUUID
 
 interface DomainEvent {
 

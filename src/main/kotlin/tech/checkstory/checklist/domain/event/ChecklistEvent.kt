@@ -4,8 +4,8 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import tech.checkstory.checklist.domain.aggregate.Checklist
 import tech.checkstory.checklist.domain.aggregate.Task
-import tech.checkstory.template.DomainEvent
-import tech.checkstory.template.DtoUUID
+import tech.checkstory.domain.command.DtoUUID
+import tech.checkstory.domain.event.DomainEvent
 
 @Serializable
 sealed interface ChecklistEvent : DomainEvent {

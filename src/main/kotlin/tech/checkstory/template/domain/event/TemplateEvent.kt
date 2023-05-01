@@ -1,8 +1,12 @@
-package tech.checkstory.template
+package tech.checkstory.template.domain.event
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import tech.checkstory.template.task.TemplateTask
+import tech.checkstory.domain.command.DtoUUID
+import tech.checkstory.domain.event.DomainEvent
+import tech.checkstory.template.domain.aggregate.Template
+import tech.checkstory.template.domain.aggregate.TemplateTask
+import tech.checkstory.template.domain.command.ReminderDto
 
 @Serializable
 sealed interface TemplateEvent : DomainEvent {

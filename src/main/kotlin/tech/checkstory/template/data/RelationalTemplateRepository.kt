@@ -1,15 +1,14 @@
-package tech.checkstory.template
+package tech.checkstory.template.data
 
 import kotlinx.coroutines.Dispatchers
-import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 import tech.checkstory.firebase.user.FirebaseUser
-import tech.checkstory.template.RelationalTemplateRepository.Templates.id
-import tech.checkstory.template.task.Reminder
-import tech.checkstory.template.task.TemplateTask
+import tech.checkstory.template.data.RelationalTemplateRepository.Templates.id
+import tech.checkstory.template.domain.TemplateRepository
+import tech.checkstory.template.domain.aggregate.Template
 import java.util.*
 
 class RelationalTemplateRepository(private val database: Database) : TemplateRepository {
@@ -64,7 +63,7 @@ class RelationalTemplateRepository(private val database: Database) : TemplateRep
             Templates.select { Templates.userId eq firebaseUser.userId }
                 .map {
                     Template(
-                        id = it[Templates.id],
+                        id = it[id],
                         userId = "",
                         name = it[Templates.name],
                         description = it[Templates.description],
@@ -87,14 +86,3 @@ class RelationalTemplateRepository(private val database: Database) : TemplateRep
         }
     }
 }
-
-@Serializable
-data class Template(
-    val id: DtoUUID,
-    val userId: String,
-    val name: String,
-    val description: String,
-    val tasks: List<TemplateTask> = listOf(),
-    val reminders: List<Reminder> = listOf(),
-    val isDeleted: Boolean = false
-)

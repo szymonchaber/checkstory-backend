@@ -1,11 +1,13 @@
-package tech.checkstory.template
+package tech.checkstory.template.domain.command
 
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import tech.checkstory.template.task.Interval
-import tech.checkstory.template.task.Reminder
+import tech.checkstory.domain.command.DomainCommand
+import tech.checkstory.domain.command.DtoUUID
+import tech.checkstory.template.domain.aggregate.Interval
+import tech.checkstory.template.domain.aggregate.Reminder
 
 @Serializable
 sealed interface TemplateCommand : DomainCommand {

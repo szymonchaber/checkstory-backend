@@ -1,6 +1,7 @@
-package tech.checkstory.template
+package tech.checkstory.template.domain
 
 import tech.checkstory.firebase.user.FirebaseUser
+import tech.checkstory.template.domain.aggregate.Template
 import java.util.*
 
 interface TemplateRepository {

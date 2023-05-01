@@ -1,4 +1,6 @@
-package tech.checkstory.template
+package tech.checkstory.template.domain.command
+
+import tech.checkstory.template.domain.event.TemplateEvent
 
 fun TemplateCommand.toTemplateEvent(): TemplateEvent {
     return when (this) {

@@ -1,4 +1,4 @@
-package tech.checkstory.template
+package tech.checkstory.template.data
 
 import com.eventstore.dbclient.EventStoreDBClient
 import com.eventstore.dbclient.ReadAllOptions
@@ -10,7 +10,10 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import tech.checkstory.firebase.user.FirebaseUser
-import tech.checkstory.template.TemplateEvent.CreateTemplateEvent
+import tech.checkstory.template.domain.TemplateRepository
+import tech.checkstory.template.domain.aggregate.Template
+import tech.checkstory.template.domain.event.TemplateEvent
+import tech.checkstory.template.domain.event.TemplateEvent.CreateTemplateEvent
 import tech.checkstory.template.extensions.requireElementOfType
 import java.util.*
 

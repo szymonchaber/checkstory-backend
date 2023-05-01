@@ -1,4 +1,4 @@
-package tech.checkstory.template
+package tech.checkstory.api
 
 import com.eventstore.dbclient.EventData
 import com.eventstore.dbclient.EventStoreDBClient
@@ -12,8 +12,12 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToStream
 import tech.checkstory.auth.withFirebasePrincipal
+import tech.checkstory.domain.command.DomainCommand
 import tech.checkstory.firebase.FIREBASE_AUTH
 import tech.checkstory.firebase.user.FirebaseUser
+import tech.checkstory.template.domain.command.TemplateCommand
+import tech.checkstory.template.domain.command.toTemplateEvent
+import tech.checkstory.template.domain.event.TemplateEvent
 import java.io.ByteArrayOutputStream
 
 fun Application.configureTemplateCommandService(client: EventStoreDBClient) {
