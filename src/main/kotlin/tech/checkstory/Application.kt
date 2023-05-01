@@ -9,7 +9,9 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.cors.routing.*
 import org.jetbrains.exposed.sql.Database
-import tech.checkstory.checklist.EventBasedChecklistRepository
+import tech.checkstory.checklist.api.configureChecklistCommandService
+import tech.checkstory.checklist.api.configureChecklistService
+import tech.checkstory.checklist.data.EventBasedChecklistRepository
 import tech.checkstory.city.configureCityService
 import tech.checkstory.firebase.FirebaseAdmin
 import tech.checkstory.plugins.*

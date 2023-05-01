@@ -1,7 +1,9 @@
-package tech.checkstory.checklist
+package tech.checkstory.checklist.domain.command
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import tech.checkstory.checklist.domain.aggregate.Task
+import tech.checkstory.checklist.domain.event.ChecklistEvent
 import tech.checkstory.template.DomainCommand
 import tech.checkstory.template.DtoUUID
 

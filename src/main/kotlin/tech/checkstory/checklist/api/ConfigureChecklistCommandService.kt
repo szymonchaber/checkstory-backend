@@ -1,4 +1,4 @@
-package tech.checkstory.template
+package tech.checkstory.checklist.api
 
 import com.eventstore.dbclient.EventData
 import com.eventstore.dbclient.EventStoreDBClient
@@ -12,9 +12,9 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToStream
 import tech.checkstory.auth.withFirebasePrincipal
-import tech.checkstory.checklist.ChecklistCommand
-import tech.checkstory.checklist.ChecklistEvent
-import tech.checkstory.checklist.toChecklistEvent
+import tech.checkstory.checklist.domain.command.ChecklistCommand
+import tech.checkstory.checklist.domain.command.toChecklistEvent
+import tech.checkstory.checklist.domain.event.ChecklistEvent
 import tech.checkstory.firebase.FIREBASE_AUTH
 import tech.checkstory.firebase.user.FirebaseUser
 import java.io.ByteArrayOutputStream
