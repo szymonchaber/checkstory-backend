@@ -10,7 +10,7 @@ import java.util.*
 
 interface DomainCommand {
 
-    val eventId: DtoUUID
+    val commandId: DtoUUID
     val timestamp: Long
     val userId: String
 }

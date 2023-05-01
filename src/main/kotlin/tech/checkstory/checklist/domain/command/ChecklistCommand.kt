@@ -19,7 +19,7 @@ sealed interface ChecklistCommand : DomainCommand {
         val title: String,
         val description: String,
         val tasks: List<Task>,
-        override val eventId: DtoUUID,
+        override val commandId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : ChecklistCommand
@@ -29,7 +29,7 @@ sealed interface ChecklistCommand : DomainCommand {
     data class EditChecklistNotesCommand(
         override val checklistId: DtoUUID,
         val newNotes: String,
-        override val eventId: DtoUUID,
+        override val commandId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : ChecklistCommand
@@ -40,7 +40,7 @@ sealed interface ChecklistCommand : DomainCommand {
         override val checklistId: DtoUUID,
         val taskId: DtoUUID,
         val isChecked: Boolean,
-        override val eventId: DtoUUID,
+        override val commandId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : ChecklistCommand
@@ -49,7 +49,7 @@ sealed interface ChecklistCommand : DomainCommand {
     @SerialName("deleteChecklist")
     data class DeleteChecklistCommand(
         override val checklistId: DtoUUID,
-        override val eventId: DtoUUID,
+        override val commandId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : ChecklistCommand

@@ -81,7 +81,7 @@ fun aggregateOrNull(commands: List<ChecklistCommand>): Pair<ChecklistAggregate, 
                 title = createEvent.title,
                 description = createEvent.description,
                 tasks = createEvent.tasks,
-                eventId = createEvent.eventId,
+                eventId = createEvent.commandId,
                 timestamp = createEvent.timestamp,
                 userId = createEvent.userId
             )

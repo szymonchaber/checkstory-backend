@@ -53,7 +53,7 @@ class ChecklistAggregate {
                     title = checklistCommand.title,
                     description = checklistCommand.description,
                     tasks = checklistCommand.tasks,
-                    eventId = checklistCommand.eventId,
+                    eventId = checklistCommand.commandId,
                     timestamp = checklistCommand.timestamp,
                     userId = checklistCommand.userId
                 )
@@ -63,7 +63,7 @@ class ChecklistAggregate {
                 ChecklistEvent.EditChecklistNotesEvent(
                     checklistCommand.checklistId,
                     checklistCommand.newNotes,
-                    checklistCommand.eventId,
+                    checklistCommand.commandId,
                     checklistCommand.timestamp,
                     checklistCommand.userId
                 )
@@ -74,7 +74,7 @@ class ChecklistAggregate {
                     checklistCommand.checklistId,
                     checklistCommand.taskId,
                     checklistCommand.isChecked,
-                    checklistCommand.eventId,
+                    checklistCommand.commandId,
                     checklistCommand.timestamp,
                     checklistCommand.userId
                 )
@@ -83,7 +83,7 @@ class ChecklistAggregate {
             is ChecklistCommand.DeleteChecklistCommand -> {
                 ChecklistEvent.DeleteChecklistEvent(
                     checklistCommand.checklistId,
-                    checklistCommand.eventId,
+                    checklistCommand.commandId,
                     checklistCommand.timestamp,
                     checklistCommand.userId
                 )

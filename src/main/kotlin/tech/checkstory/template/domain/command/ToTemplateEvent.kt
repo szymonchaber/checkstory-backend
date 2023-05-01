@@ -7,7 +7,7 @@ fun TemplateCommand.toTemplateEvent(): TemplateEvent {
         is TemplateCommand.CreateTemplateCommand -> {
             TemplateEvent.CreateTemplateEvent(
                 templateId,
-                eventId,
+                commandId,
                 timestamp,
                 userId,
             )
@@ -17,7 +17,7 @@ fun TemplateCommand.toTemplateEvent(): TemplateEvent {
             TemplateEvent.EditTemplateTitleEvent(
                 templateId,
                 newTitle,
-                eventId,
+                commandId,
                 timestamp,
                 userId,
             )
@@ -27,7 +27,7 @@ fun TemplateCommand.toTemplateEvent(): TemplateEvent {
             TemplateEvent.EditTemplateDescriptionEvent(
                 templateId,
                 newDescription,
-                eventId,
+                commandId,
                 timestamp,
                 userId,
             )
@@ -38,7 +38,7 @@ fun TemplateCommand.toTemplateEvent(): TemplateEvent {
                 templateId,
                 taskId,
                 parentTaskId,
-                eventId,
+                commandId,
                 timestamp,
                 userId,
             )
@@ -49,7 +49,7 @@ fun TemplateCommand.toTemplateEvent(): TemplateEvent {
                 templateId,
                 taskId,
                 newTitle,
-                eventId,
+                commandId,
                 timestamp,
                 userId,
             )
@@ -59,7 +59,7 @@ fun TemplateCommand.toTemplateEvent(): TemplateEvent {
             TemplateEvent.DeleteTemplateTaskEvent(
                 templateId,
                 taskId,
-                eventId,
+                commandId,
                 timestamp,
                 userId,
             )
@@ -69,7 +69,7 @@ fun TemplateCommand.toTemplateEvent(): TemplateEvent {
             TemplateEvent.UpdateTasksPositionsEvent(
                 templateId,
                 taskIdToLocalPosition,
-                eventId,
+                commandId,
                 timestamp,
                 userId,
             )
@@ -80,7 +80,7 @@ fun TemplateCommand.toTemplateEvent(): TemplateEvent {
                 templateId,
                 taskId,
                 newParentTaskId,
-                eventId,
+                commandId,
                 timestamp,
                 userId
             )
@@ -90,7 +90,7 @@ fun TemplateCommand.toTemplateEvent(): TemplateEvent {
             TemplateEvent.AddOrUpdateReminderEvent(
                 templateId,
                 reminder,
-                eventId,
+                commandId,
                 timestamp,
                 userId,
             )
@@ -100,7 +100,7 @@ fun TemplateCommand.toTemplateEvent(): TemplateEvent {
             TemplateEvent.DeleteReminderEvent(
                 templateId,
                 reminderId,
-                eventId,
+                commandId,
                 timestamp,
                 userId,
             )
@@ -109,7 +109,7 @@ fun TemplateCommand.toTemplateEvent(): TemplateEvent {
         is TemplateCommand.DeleteTemplateCommandDto -> {
             TemplateEvent.DeleteTemplateEvent(
                 templateId,
-                eventId,
+                commandId,
                 timestamp,
                 userId,
             )

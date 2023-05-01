@@ -18,7 +18,7 @@ sealed interface TemplateCommand : DomainCommand {
     @SerialName("createTemplate")
     data class CreateTemplateCommand(
         override val templateId: DtoUUID,
-        override val eventId: DtoUUID,
+        override val commandId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateCommand
@@ -28,7 +28,7 @@ sealed interface TemplateCommand : DomainCommand {
     data class EditTemplateTitleCommand(
         override val templateId: DtoUUID,
         val newTitle: String,
-        override val eventId: DtoUUID,
+        override val commandId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateCommand
@@ -38,7 +38,7 @@ sealed interface TemplateCommand : DomainCommand {
     data class EditTemplateDescriptionCommand(
         override val templateId: DtoUUID,
         val newDescription: String,
-        override val eventId: DtoUUID,
+        override val commandId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateCommand
@@ -49,7 +49,7 @@ sealed interface TemplateCommand : DomainCommand {
         override val templateId: DtoUUID,
         val taskId: DtoUUID,
         val parentTaskId: DtoUUID?,
-        override val eventId: DtoUUID,
+        override val commandId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateCommand
@@ -60,7 +60,7 @@ sealed interface TemplateCommand : DomainCommand {
         override val templateId: DtoUUID,
         val taskId: DtoUUID,
         val newTitle: String,
-        override val eventId: DtoUUID,
+        override val commandId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateCommand
@@ -70,7 +70,7 @@ sealed interface TemplateCommand : DomainCommand {
     data class DeleteTemplateTaskCommand(
         override val templateId: DtoUUID,
         val taskId: DtoUUID,
-        override val eventId: DtoUUID,
+        override val commandId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateCommand
@@ -80,7 +80,7 @@ sealed interface TemplateCommand : DomainCommand {
     data class UpdateTasksPositionsCommandDto(
         override val templateId: DtoUUID,
         val taskIdToLocalPosition: Map<DtoUUID, Long>,
-        override val eventId: DtoUUID,
+        override val commandId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateCommand
@@ -91,7 +91,7 @@ sealed interface TemplateCommand : DomainCommand {
         override val templateId: DtoUUID,
         val taskId: DtoUUID,
         val newParentTaskId: DtoUUID?,
-        override val eventId: DtoUUID,
+        override val commandId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateCommand
@@ -101,7 +101,7 @@ sealed interface TemplateCommand : DomainCommand {
     data class AddOrUpdateTemplateReminderCommandDto(
         override val templateId: DtoUUID,
         val reminder: ReminderDto,
-        override val eventId: DtoUUID,
+        override val commandId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateCommand
@@ -111,7 +111,7 @@ sealed interface TemplateCommand : DomainCommand {
     data class DeleteTemplateReminderCommandDto(
         override val templateId: DtoUUID,
         val reminderId: DtoUUID,
-        override val eventId: DtoUUID,
+        override val commandId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateCommand
@@ -120,7 +120,7 @@ sealed interface TemplateCommand : DomainCommand {
     @SerialName("deleteTemplate")
     data class DeleteTemplateCommandDto(
         override val templateId: DtoUUID,
-        override val eventId: DtoUUID,
+        override val commandId: DtoUUID,
         override val timestamp: Long,
         override val userId: String
     ) : TemplateCommand
