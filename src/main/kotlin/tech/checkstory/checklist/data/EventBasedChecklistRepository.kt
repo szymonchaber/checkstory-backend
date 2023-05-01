@@ -11,8 +11,10 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import tech.checkstory.checklist.domain.ChecklistRepository
 import tech.checkstory.checklist.domain.aggregate.Checklist
+import tech.checkstory.checklist.domain.aggregate.ChecklistAggregate
 import tech.checkstory.checklist.domain.event.ChecklistEvent
 import tech.checkstory.firebase.user.FirebaseUser
+import tech.checkstory.template.extensions.requireElementOfType
 import java.util.*
 
 class EventBasedChecklistRepository(private val client: EventStoreDBClient) : ChecklistRepository {
@@ -25,16 +27,13 @@ class EventBasedChecklistRepository(private val client: EventStoreDBClient) : Ch
             return listOf()
         }
         return result.events
+            .asSequence()
             .mapNotNull(::deserializeEvent)
             .groupBy {
                 it.checklistId
-            }.map { (id, events) ->
-                require(events.first() is ChecklistEvent.CreateChecklistEvent) {
-                    "First event must be a CreateChecklistEvent. Was: ${events.first()}"
-                }
-                events.fold(Checklist(id, "", UUID.randomUUID(), "", "", "", listOf())) { acc, event ->
-                    event.applyTo(acc)
-                }
+            }.map { (_, events) ->
+                val (createChecklist, otherEvents) = events.requireElementOfType<ChecklistEvent, ChecklistEvent.CreateChecklistEvent>()
+                ChecklistAggregate(createChecklist, otherEvents).checklist
             }
             .filter {
                 it.userId == firebaseUser.userId
@@ -42,6 +41,7 @@ class EventBasedChecklistRepository(private val client: EventStoreDBClient) : Ch
             .filterNot {
                 it.isDeleted
             }
+            .toList()
     }
 
     override suspend fun read(firebaseUser: FirebaseUser, id: UUID): Checklist? {

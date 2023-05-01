@@ -84,14 +84,19 @@ class EventBasedTemplateRepository(private val client: EventStoreDBClient) : Tem
 
 class TemplateAggregate(
     createTemplateEvent: CreateTemplateEvent,
-    events: List<TemplateEvent>
+    otherEvents: List<TemplateEvent>
 ) {
 
     val template: Template
 
     init {
-        val createdTemplate = createTemplateEvent.applyTo(Template(createTemplateEvent.templateId, "", "", ""))
-        template = events.fold(createdTemplate) { acc, event ->
+        val createdTemplate = Template(
+            id = createTemplateEvent.templateId,
+            userId = createTemplateEvent.userId,
+            "",
+            "",
+        )
+        template = otherEvents.fold(createdTemplate) { acc, event ->
             event.applyTo(acc)
         }
     }
