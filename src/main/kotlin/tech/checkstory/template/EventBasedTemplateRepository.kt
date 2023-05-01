@@ -10,6 +10,8 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import tech.checkstory.firebase.user.FirebaseUser
+import tech.checkstory.template.TemplateEvent.CreateTemplateEvent
+import tech.checkstory.template.extensions.requireElementOfType
 import java.util.*
 
 class EventBasedTemplateRepository(private val client: EventStoreDBClient) : TemplateRepository {
@@ -18,20 +20,14 @@ class EventBasedTemplateRepository(private val client: EventStoreDBClient) : Tem
         val result = withContext(Dispatchers.IO) {
             client.readAll(ReadAllOptions.get().fromStart().forwards()).get()
         }
-        if (result.events.isEmpty()) {
-            return listOf()
-        }
         return result.events
+            .asSequence()
             .mapNotNull(::deserializeEvent)
             .groupBy {
                 it.templateId
-            }.map { (id, events) ->
-                require(events.first() is TemplateEvent.CreateTemplateEvent) {
-                    "First event must be a CreateTemplateEvent. Was: ${events.first()}"
-                }
-                events.fold(Template(id, "", "", "")) { acc, event ->
-                    event.applyTo(acc)
-                }
+            }.map { (_, events) ->
+                val (createTemplate, otherEvents) = events.requireElementOfType<TemplateEvent, CreateTemplateEvent>()
+                TemplateAggregate(createTemplate, otherEvents).template
             }
             .filter {
                 it.userId == firebaseUser.userId
@@ -39,6 +35,7 @@ class EventBasedTemplateRepository(private val client: EventStoreDBClient) : Tem
             .filterNot {
                 it.isDeleted
             }
+            .toList()
     }
 
     override suspend fun read(firebaseUser: FirebaseUser, id: UUID): Template? {
@@ -82,10 +79,18 @@ class EventBasedTemplateRepository(private val client: EventStoreDBClient) : Tem
     }
 }
 
-class TemplateAggregate(private val events: List<TemplateEvent>) {
+class TemplateAggregate(
+    createTemplateEvent: CreateTemplateEvent,
+    events: List<TemplateEvent>
+) {
+
+    val template: Template
 
     init {
-        require(events.isEmpty() || events.first() is TemplateEvent.CreateTemplateEvent)
+        val createdTemplate = createTemplateEvent.applyTo(Template(createTemplateEvent.templateId, "", "", ""))
+        template = events.fold(createdTemplate) { acc, event ->
+            event.applyTo(acc)
+        }
     }
 }
 
