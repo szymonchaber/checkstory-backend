@@ -1,6 +1,14 @@
 package tech.checkstory.template.extensions
 
-public inline fun <Item, reified TypeToFind> Iterable<Item>.requireElementOfType(): Pair<TypeToFind, ArrayList<Item>> {
+inline fun <Item, reified TypeToFind> Iterable<Item>.requireStartsWith(): Pair<TypeToFind, ArrayList<Item>> {
+    val pair = getIfStartsWith<Item, TypeToFind>()
+    check(pair != null) {
+        "The collection does not contain an element of type ${TypeToFind::class}"
+    }
+    return pair
+}
+
+inline fun <Item, reified TypeToFind> Iterable<Item>.getIfStartsWith(): Pair<TypeToFind, ArrayList<Item>>? {
     var first: TypeToFind? = null
     val second = ArrayList<Item>()
     for (element in this) {
@@ -13,8 +21,7 @@ public inline fun <Item, reified TypeToFind> Iterable<Item>.requireElementOfType
             second.add(element)
         }
     }
-    check(first != null) {
-        "The collection does not contain an element of type ${TypeToFind::class}"
+    return first?.let {
+        Pair(it, second)
     }
-    return Pair(first, second)
 }

@@ -5,6 +5,7 @@ import com.eventstore.dbclient.ReadAllOptions
 import com.eventstore.dbclient.ReadStreamOptions
 import com.eventstore.dbclient.ResolvedEvent
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.future.await
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
@@ -14,14 +15,14 @@ import tech.checkstory.template.domain.TemplateRepository
 import tech.checkstory.template.domain.aggregate.Template
 import tech.checkstory.template.domain.event.TemplateEvent
 import tech.checkstory.template.domain.event.TemplateEvent.CreateTemplateEvent
-import tech.checkstory.template.extensions.requireElementOfType
+import tech.checkstory.template.extensions.requireStartsWith
 import java.util.*
 
 class EventBasedTemplateRepository(private val client: EventStoreDBClient) : TemplateRepository {
 
     override suspend fun readAll(firebaseUser: FirebaseUser): List<Template> {
         val result = withContext(Dispatchers.IO) {
-            client.readAll(ReadAllOptions.get().fromStart().forwards()).get()
+            client.readAll(ReadAllOptions.get().fromStart().forwards()).await()
         }
         return result.events
             .asSequence()
@@ -29,7 +30,7 @@ class EventBasedTemplateRepository(private val client: EventStoreDBClient) : Tem
             .groupBy {
                 it.templateId
             }.map { (_, events) ->
-                val (createTemplate, otherEvents) = events.requireElementOfType<TemplateEvent, CreateTemplateEvent>()
+                val (createTemplate, otherEvents) = events.requireStartsWith<TemplateEvent, CreateTemplateEvent>()
                 TemplateAggregate(createTemplate, otherEvents).template
             }
             .filter {
@@ -43,7 +44,7 @@ class EventBasedTemplateRepository(private val client: EventStoreDBClient) : Tem
 
     override suspend fun read(firebaseUser: FirebaseUser, id: UUID): Template? {
         val result = withContext(Dispatchers.IO) {
-            client.readStream("checklist-template-$id", readStreamOptions()).get()
+            client.readStream("checklist-template-$id", readStreamOptions()).await()
         }
         if (result.events.isEmpty()) {
             return null

@@ -12,20 +12,25 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToStream
 import tech.checkstory.auth.withFirebasePrincipal
+import tech.checkstory.checklist.data.EventBasedChecklistRepository
+import tech.checkstory.checklist.domain.aggregate.ChecklistAggregate
 import tech.checkstory.checklist.domain.command.ChecklistCommand
-import tech.checkstory.checklist.domain.command.toChecklistEvent
 import tech.checkstory.checklist.domain.event.ChecklistEvent
+import tech.checkstory.domain.command.DtoUUID
 import tech.checkstory.firebase.FIREBASE_AUTH
 import tech.checkstory.firebase.user.FirebaseUser
 import java.io.ByteArrayOutputStream
 
-fun Application.configureChecklistCommandService(client: EventStoreDBClient) {
+fun Application.configureChecklistCommandService(
+    client: EventStoreDBClient,
+    repository: EventBasedChecklistRepository
+) {
     routing {
         authenticate(FIREBASE_AUTH) {
             post("/checklist-commands") {
                 withFirebasePrincipal {
                     val commands = call.receive<List<ChecklistCommand>>()
-                    handleChecklistCommands(it, client, commands)
+                    handleChecklistCommands(it, client, commands, repository)
                     call.respond(HttpStatusCode.NoContent)
                 }
             }
@@ -36,17 +41,54 @@ fun Application.configureChecklistCommandService(client: EventStoreDBClient) {
 suspend fun handleChecklistCommands(
     firebaseUser: FirebaseUser,
     client: EventStoreDBClient,
-    commands: List<ChecklistCommand>
+    commands: List<ChecklistCommand>,
+    repository: EventBasedChecklistRepository
 ) {
-    commands
-        .sortedBy { it.timestamp }
-        .forEach {
-            // TODO also check if the userId in the existing stream is the same as requester's
+    commands.sortedBy { it.timestamp }
+        .onEach {
             require(it.userId == firebaseUser.userId) {
-                "event user id must equal firebase user id"
+                "command user id must equal firebase user id"
             }
-            storeChecklistEvent(client, it.toChecklistEvent())
         }
+        .groupBy { it.checklistId }
+        .forEach { (checklistId, commands) ->
+            getAggregate(repository, firebaseUser, checklistId, commands)?.let { (aggregate, createEvent) ->
+                createEvent?.let { storeChecklistEvent(client, it) }
+                aggregate
+                    .applyCommands(commands.filterNot { it is ChecklistCommand.CreateChecklistCommand })
+                    .forEach {
+                        storeChecklistEvent(client, it)
+                    }
+            }
+        }
+}
+
+private suspend fun getAggregate(
+    repository: EventBasedChecklistRepository,
+    firebaseUser: FirebaseUser,
+    checklistId: DtoUUID,
+    commands: List<ChecklistCommand>
+): Pair<ChecklistAggregate, ChecklistEvent.CreateChecklistEvent?>? {
+    return repository.getAggregate(firebaseUser, checklistId)?.let { it to null } ?: aggregateOrNull(commands)
+}
+
+fun aggregateOrNull(commands: List<ChecklistCommand>): Pair<ChecklistAggregate, ChecklistEvent.CreateChecklistEvent>? {
+    return when (val createEvent = commands.firstOrNull()) {
+        is ChecklistCommand.CreateChecklistCommand -> {
+            ChecklistAggregate(createEvent) to ChecklistEvent.CreateChecklistEvent(
+                checklistId = createEvent.checklistId,
+                templateId = createEvent.templateId,
+                title = createEvent.title,
+                description = createEvent.description,
+                tasks = createEvent.tasks,
+                eventId = createEvent.eventId,
+                timestamp = createEvent.timestamp,
+                userId = createEvent.userId
+            )
+        }
+
+        else -> null
+    }
 }
 
 @OptIn(ExperimentalSerializationApi::class)

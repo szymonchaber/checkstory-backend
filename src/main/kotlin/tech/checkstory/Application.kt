@@ -50,10 +50,11 @@ fun Application.module() {
     val templateService = RelationalTemplateRepository(database)
     val templateTaskRepository = TemplateTaskRepository(database)
     configureTemplateService(templateService, EventBasedTemplateRepository(client))
-    configureChecklistService(EventBasedChecklistRepository(client))
+    val checklistRepository = EventBasedChecklistRepository(client)
+    configureChecklistService(checklistRepository)
     configureTemplateTaskService(templateService, templateTaskRepository)
     configureTemplateCommandService(client)
-    configureChecklistCommandService(client)
+    configureChecklistCommandService(client, checklistRepository)
     configureRouting()
     cors()
 }
