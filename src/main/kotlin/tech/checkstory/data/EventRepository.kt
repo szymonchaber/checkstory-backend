@@ -4,6 +4,11 @@ import com.eventstore.dbclient.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.future.await
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.encodeToStream
+import tech.checkstory.auth.user.User
 import tech.checkstory.domain.command.DtoUUID
 import tech.checkstory.domain.event.DomainEvent
 import java.io.ByteArrayOutputStream
@@ -15,7 +20,7 @@ abstract class EventRepository<T : DomainEvent>(private val client: EventStoreDB
 
     abstract val knownEventTypes: Set<String>
 
-    abstract suspend fun save(event: T)
+    abstract suspend fun save(event: T, user: User)
 
     suspend fun getAll(): List<T> {
         val result = withContext(Dispatchers.IO) {
@@ -53,22 +58,35 @@ abstract class EventRepository<T : DomainEvent>(private val client: EventStoreDB
         }
     }
 
-    protected suspend fun save(event: T, id: DtoUUID) {
-        val eventData = ByteArrayOutputStream().use { outputArray ->
+    protected suspend fun save(event: T, id: DtoUUID, user: User) {
+        val eventDataBinary = ByteArrayOutputStream().use { outputArray ->
             encode(event, outputArray)
-            EventData
-                .builderAsBinary(
-                    event.eventId,
-                    event.eventType,
-                    outputArray.toByteArray()
-                ) // event type gets stored within dto - maybe not good!
-                .build()
+            outputArray.toByteArray()
         }
-
+        val metadata = ByteArrayOutputStream().use { outputArray ->
+            encodeMetadata(EventMetadata(user.userId), outputArray)
+            outputArray.toByteArray()
+        }
+        val eventData = EventData
+            .builderAsBinary(
+                event.eventId,
+                event.eventType,
+                eventDataBinary
+            ) // event type gets stored within dto - maybe not good!
+            .metadataAsBytes(metadata)
+            .build()
         client.appendToStream("$streamNamePrefix-$id", eventData).await()
+    }
+
+    @OptIn(ExperimentalSerializationApi::class)
+    fun encodeMetadata(metadata: EventMetadata, outputStream: ByteArrayOutputStream) {
+        Json.encodeToStream(metadata, outputStream)
     }
 
     abstract fun encode(event: T, outputStream: ByteArrayOutputStream)
 
     abstract fun decode(eventData: ByteArray): T
 }
+
+@Serializable
+data class EventMetadata(val userId: String)

@@ -10,5 +10,8 @@ interface DomainEvent {
     val eventType: String
     val eventId: DtoUUID
     val timestamp: Instant
-    val userId: String
 }
+
+interface CreationEvent
+
+interface MutationEvent

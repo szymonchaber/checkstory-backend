@@ -20,9 +20,9 @@ sealed interface ChecklistEvent : DomainEvent {
         val title: String,
         val description: String,
         val tasks: List<Task>,
+        val userId: String,
         override val eventId: DtoUUID,
         override val timestamp: Instant,
-        override val userId: String
     ) : ChecklistEvent {
 
         override val eventType: String = "createChecklist"
@@ -35,7 +35,6 @@ sealed interface ChecklistEvent : DomainEvent {
         val newNotes: String,
         override val eventId: DtoUUID,
         override val timestamp: Instant,
-        override val userId: String
     ) : ChecklistEvent {
 
         override val eventType: String = "editChecklistNotes"
@@ -49,7 +48,6 @@ sealed interface ChecklistEvent : DomainEvent {
         val isChecked: Boolean,
         override val eventId: DtoUUID,
         override val timestamp: Instant,
-        override val userId: String
     ) : ChecklistEvent {
 
         override val eventType: String = "changeTaskChecked"
@@ -61,7 +59,6 @@ sealed interface ChecklistEvent : DomainEvent {
         override val checklistId: DtoUUID,
         override val eventId: DtoUUID,
         override val timestamp: Instant,
-        override val userId: String
     ) : ChecklistEvent {
 
         override val eventType: String

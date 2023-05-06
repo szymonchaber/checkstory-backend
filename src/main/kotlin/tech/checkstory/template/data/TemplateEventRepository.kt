@@ -5,6 +5,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import kotlinx.serialization.json.encodeToStream
+import tech.checkstory.auth.user.User
 import tech.checkstory.data.EventRepository
 import tech.checkstory.template.domain.event.TemplateEvent
 import java.io.ByteArrayOutputStream
@@ -27,9 +28,9 @@ class TemplateEventRepository(client: EventStoreDBClient) : EventRepository<Temp
         "deleteTemplate"
     )
 
-    override suspend fun save(event: TemplateEvent) {
+    override suspend fun save(event: TemplateEvent, user: User) {
         val id = event.templateId
-        save(event, id)
+        save(event, id, user)
     }
 
     @OptIn(ExperimentalSerializationApi::class)

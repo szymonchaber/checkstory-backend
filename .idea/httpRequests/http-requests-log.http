@@ -1,3 +1,457 @@
+GET http://0.0.0.0:8080/templates
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTQ4MjcsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxNDgyNywiZXhwIjoxNjgzNDE4NDI3LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.pskxgszBV0KZBwEzV-LMGLArBPUR5Y9DKm6KgcUx1jltZIA2T5KbIvyGYrK6V5VaiYl9Hef7cTDeNsokK4bqMQ79mhNgkRgKyX1SVzI8dT6Anx6XAn9Ld5oiFhbz00cEc5DTtcJr9Q0hcfuivkmZcK6CPiTjpuzgAmG7j9il4CxH8fFvb_quecPMjuPD3dBOneFfAk9XVunH3ROAzwSswoxBE_ZeyTt0Xenx7xoiRJiyE55w6vex2Lh9dyhomNlXaOcL_aF6Vn4WsT47UDyatF6v50qpX_4yJigx8YjwLQvFrqkt-_alaZYULEIibSK6C-OaBxJ_857EnOZraoE81A
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-07T011357.200.json
+
+###
+
+POST http://0.0.0.0:8080/commands
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTQ4MjcsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxNDgyNywiZXhwIjoxNjgzNDE4NDI3LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.pskxgszBV0KZBwEzV-LMGLArBPUR5Y9DKm6KgcUx1jltZIA2T5KbIvyGYrK6V5VaiYl9Hef7cTDeNsokK4bqMQ79mhNgkRgKyX1SVzI8dT6Anx6XAn9Ld5oiFhbz00cEc5DTtcJr9Q0hcfuivkmZcK6CPiTjpuzgAmG7j9il4CxH8fFvb_quecPMjuPD3dBOneFfAk9XVunH3ROAzwSswoxBE_ZeyTt0Xenx7xoiRJiyE55w6vex2Lh9dyhomNlXaOcL_aF6Vn4WsT47UDyatF6v50qpX_4yJigx8YjwLQvFrqkt-_alaZYULEIibSK6C-OaBxJ_857EnOZraoE81A
+Content-Length: 2437
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+[
+{
+    "type": "createTemplate",
+    "templateId": "8a40c2a4-19fe-4729-b5f4-e6c67ffb17ae",
+    "commandId": "a4d0a211-67cb-4e87-be5b-73ede182cf97",
+    "timestamp": "2023-05-06T23:13:51.943325Z"
+  },
+    {
+    "type": "addTemplateTask",
+    "templateId": "8a40c2a4-19fe-4729-b5f4-e6c67ffb17ae",
+    "taskId": "f4537a3d-a29e-433a-b441-8f89a6e089e7",
+    "parentTaskId": null,
+    "commandId": "720b7556-453d-4523-9740-d2c524453833",
+    "timestamp": "2023-05-06T23:13:51.943408Z"
+  },
+  {
+    "type": "addTemplateTask",
+    "templateId": "8a40c2a4-19fe-4729-b5f4-e6c67ffb17ae",
+    "taskId": "a25a6142-d43d-4cd0-88e4-c148b0efa41c",
+    "parentTaskId": f4537a3d-a29e-433a-b441-8f89a6e089e7,
+    "commandId": "22c4926f-69f3-46cf-8d76-1ed52fbacff4",
+    "timestamp": "2023-05-06T23:13:51.943465Z"
+  },
+  {
+    "type": "editTemplateTitle",
+    "templateId": "8a40c2a4-19fe-4729-b5f4-e6c67ffb17ae",
+    "newTitle": "All the events",
+    "commandId": "a97e1484-5a18-4a61-9b8f-fc2147bd4347",
+    "timestamp": "2023-05-06T23:13:51.943514Z"
+  },
+  {
+    "type": "addTemplateTask",
+    "templateId": "8a40c2a4-19fe-4729-b5f4-e6c67ffb17ae",
+    "taskId": "d36ea39f-4d0e-4d3a-9ac5-efa7a66cc64c",
+    "parentTaskId": null,
+    "commandId": "48e6768a-dfc5-4df8-881d-3aed69eaff15",
+    "timestamp": "2023-05-06T23:13:51.943567Z"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "8a40c2a4-19fe-4729-b5f4-e6c67ffb17ae",
+    "taskId": "a25a6142-d43d-4cd0-88e4-c148b0efa41c",
+    "newTitle": "Task 3 - deleted later",
+    "commandId": "e6af6acf-1945-470b-bc05-25bd1f3f6797",
+    "timestamp": "2023-05-06T23:13:51.943617Z"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "8a40c2a4-19fe-4729-b5f4-e6c67ffb17ae",
+    "taskId": "d36ea39f-4d0e-4d3a-9ac5-efa7a66cc64c",
+    "newTitle": "Task 1",
+    "commandId": "d8ad15bb-edf5-4ccd-b1eb-e0a9c9ef7160",
+    "timestamp": "2023-05-06T23:13:51.943668Z"
+  },
+  {
+    "type": "editTemplateDescription",
+    "templateId": "8a40c2a4-19fe-4729-b5f4-e6c67ffb17ae",
+    "newDescription": "Description",
+    "commandId": "91bca48f-b2ee-4f33-be59-64973a34a97d",
+    "timestamp": "2023-05-06T23:13:51.943716Z"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "8a40c2a4-19fe-4729-b5f4-e6c67ffb17ae",
+    "taskId": "f4537a3d-a29e-433a-b441-8f89a6e089e7",
+    "newTitle": "Task 2",
+    "commandId": "b8323af7-94d7-48ef-9282-2bf1fc59051f",
+    "timestamp": "2023-05-06T23:13:51.943766Z"
+  }
+]
+
+###
+
+POST http://0.0.0.0:8080/auth/register
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTQ4MjcsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxNDgyNywiZXhwIjoxNjgzNDE4NDI3LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.pskxgszBV0KZBwEzV-LMGLArBPUR5Y9DKm6KgcUx1jltZIA2T5KbIvyGYrK6V5VaiYl9Hef7cTDeNsokK4bqMQ79mhNgkRgKyX1SVzI8dT6Anx6XAn9Ld5oiFhbz00cEc5DTtcJr9Q0hcfuivkmZcK6CPiTjpuzgAmG7j9il4CxH8fFvb_quecPMjuPD3dBOneFfAk9XVunH3ROAzwSswoxBE_ZeyTt0Xenx7xoiRJiyE55w6vex2Lh9dyhomNlXaOcL_aF6Vn4WsT47UDyatF6v50qpX_4yJigx8YjwLQvFrqkt-_alaZYULEIibSK6C-OaBxJ_857EnOZraoE81A
+Content-Length: 3
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+}
+
+###
+
+POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAdvWNnIdp0EJsVKBzSZKlCNO_PO8HZrqw
+Content-Type: application/json
+Content-Length: 91
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "email": "szymon.chaber@o2.pl",
+  "password": "password",
+  "returnSecureToken": true
+}
+
+<> 2023-05-07T011347.200.json
+
+###
+
+GET http://0.0.0.0:8080/template/bd3604df-4b4a-48c2-b77a-cd35e5532907/tasks
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTMxODgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxMzE4OCwiZXhwIjoxNjgzNDE2Nzg4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.BAtIEOCBOixDf2u6ocRebvHuvkjV6gI0DSdIGGeYGfzJ7rJKG5N3RX0a2SSNUrPISYYg57rMDRsjtnMjR5B_ZpSorj1Q-m4lev7k0nk8QKBb1ejkoE3tsuH8dfg4Jd84HYsAP94YBuHQCcQHfIjfzP1sMY5J8vKWTXJd7IadvsleABBgMSxIgdg_3xM9GiT1GDWG0px_OetyQEuugON2A9ad37-QhewFSK_7reumWx9wlyAdO9mrJKWFLGk6YxX3aQ1N40QJyv40Ip2gKDPn-JaRIBZnx10erDZ1JGpu43uP8B0qQECJykxjosbBS54FaOgSPgxtYChB1zOSkHFmlA
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+GET http://0.0.0.0:8080/template/bd3604df-4b4a-48c2-b77a-cd35e5532907/tasks
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTMxODgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxMzE4OCwiZXhwIjoxNjgzNDE2Nzg4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.BAtIEOCBOixDf2u6ocRebvHuvkjV6gI0DSdIGGeYGfzJ7rJKG5N3RX0a2SSNUrPISYYg57rMDRsjtnMjR5B_ZpSorj1Q-m4lev7k0nk8QKBb1ejkoE3tsuH8dfg4Jd84HYsAP94YBuHQCcQHfIjfzP1sMY5J8vKWTXJd7IadvsleABBgMSxIgdg_3xM9GiT1GDWG0px_OetyQEuugON2A9ad37-QhewFSK_7reumWx9wlyAdO9mrJKWFLGk6YxX3aQ1N40QJyv40Ip2gKDPn-JaRIBZnx10erDZ1JGpu43uP8B0qQECJykxjosbBS54FaOgSPgxtYChB1zOSkHFmlA
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+GET http://0.0.0.0:8080/checklists/bd3604df-4b4a-48c2-b77a-cd35e5532907
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTMxODgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxMzE4OCwiZXhwIjoxNjgzNDE2Nzg4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.BAtIEOCBOixDf2u6ocRebvHuvkjV6gI0DSdIGGeYGfzJ7rJKG5N3RX0a2SSNUrPISYYg57rMDRsjtnMjR5B_ZpSorj1Q-m4lev7k0nk8QKBb1ejkoE3tsuH8dfg4Jd84HYsAP94YBuHQCcQHfIjfzP1sMY5J8vKWTXJd7IadvsleABBgMSxIgdg_3xM9GiT1GDWG0px_OetyQEuugON2A9ad37-QhewFSK_7reumWx9wlyAdO9mrJKWFLGk6YxX3aQ1N40QJyv40Ip2gKDPn-JaRIBZnx10erDZ1JGpu43uP8B0qQECJykxjosbBS54FaOgSPgxtYChB1zOSkHFmlA
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-07T004834.200.json
+
+###
+
+GET http://0.0.0.0:8080/checklists
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTMxODgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxMzE4OCwiZXhwIjoxNjgzNDE2Nzg4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.BAtIEOCBOixDf2u6ocRebvHuvkjV6gI0DSdIGGeYGfzJ7rJKG5N3RX0a2SSNUrPISYYg57rMDRsjtnMjR5B_ZpSorj1Q-m4lev7k0nk8QKBb1ejkoE3tsuH8dfg4Jd84HYsAP94YBuHQCcQHfIjfzP1sMY5J8vKWTXJd7IadvsleABBgMSxIgdg_3xM9GiT1GDWG0px_OetyQEuugON2A9ad37-QhewFSK_7reumWx9wlyAdO9mrJKWFLGk6YxX3aQ1N40QJyv40Ip2gKDPn-JaRIBZnx10erDZ1JGpu43uP8B0qQECJykxjosbBS54FaOgSPgxtYChB1zOSkHFmlA
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-07T004802.200.json
+
+###
+
+POST http://0.0.0.0:8080/checklist-commands
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTMxODgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxMzE4OCwiZXhwIjoxNjgzNDE2Nzg4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.BAtIEOCBOixDf2u6ocRebvHuvkjV6gI0DSdIGGeYGfzJ7rJKG5N3RX0a2SSNUrPISYYg57rMDRsjtnMjR5B_ZpSorj1Q-m4lev7k0nk8QKBb1ejkoE3tsuH8dfg4Jd84HYsAP94YBuHQCcQHfIjfzP1sMY5J8vKWTXJd7IadvsleABBgMSxIgdg_3xM9GiT1GDWG0px_OetyQEuugON2A9ad37-QhewFSK_7reumWx9wlyAdO9mrJKWFLGk6YxX3aQ1N40QJyv40Ip2gKDPn-JaRIBZnx10erDZ1JGpu43uP8B0qQECJykxjosbBS54FaOgSPgxtYChB1zOSkHFmlA
+Content-Length: 1680
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+[
+    {
+    "type": "createChecklist",
+    "templateId": "058f995e-f95a-4627-9a39-37d7842b67ea",
+    "title": "All the events",
+    "description": "Description",
+    "tasks": [
+     {
+        "id": "f3221b0e-1b3e-43fd-b671-4fd0810c8e1b",
+        "checklistId": bd3604df-4b4a-48c2-b77a-cd35e5532907,
+        "title": "Task 1",
+        "sortPosition": 0,
+        "isChecked": false,
+        "children": [
+          {
+            "id": "a69a7252-cf00-44a5-9010-b032c26498aa",
+            "checklistId": "bd3604df-4b4a-48c2-b77a-cd35e5532907",
+            "title": "Task 2",
+            "sortPosition": 0,
+            "isChecked":  false,
+            "children": []
+          }
+          ]
+    }
+    ],
+    "checklistId": "bd3604df-4b4a-48c2-b77a-cd35e5532907",
+    "commandId": "c341ce09-3e2b-4428-b63e-df48cec61c01",
+    "timestamp": "2023-05-06T22:47:57.029761Z"
+  },
+  {
+    "type": "editChecklistNotes",
+    "newNotes": "My notes are awesome",
+    "checklistId": "bd3604df-4b4a-48c2-b77a-cd35e5532907",
+    "commandId": "9ef9ba84-a988-49fd-8ef8-c9ab20db429b",
+    "timestamp": "2023-05-06T22:47:57.029834Z"
+  },
+    {
+    "type": "changeTaskChecked",
+    "taskId": "f3221b0e-1b3e-43fd-b671-4fd0810c8e1b",
+    "isChecked": true,
+    "checklistId": "bd3604df-4b4a-48c2-b77a-cd35e5532907",
+    "commandId": "cc7ca6d2-4933-4a87-8275-7591f0479ff7",
+    "timestamp": "2023-05-06T22:47:57.029888Z"
+  },
+   {
+    "type": "changeTaskChecked",
+    "taskId": "a69a7252-cf00-44a5-9010-b032c26498aa",
+    "isChecked": true,
+    "checklistId": "bd3604df-4b4a-48c2-b77a-cd35e5532907",
+    "commandId": "7a201b50-fb2e-4061-8d9b-f7b5d170b032",
+    "timestamp": "2023-05-06T22:47:57.029938Z"
+  }
+]
+
+###
+
+GET http://0.0.0.0:8080/checklists/59603b2c-16ca-4d9b-8592-572b5759fe84
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2ZGE4NmU4MWJkNTllMGE4Y2YzNTgwNTJiYjUzYjUzYjE4MzA3NzMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODE4NjExOTUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MTg2MTE5NSwiZXhwIjoxNjgxODY0Nzk1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.S3A5PSmRsHFcE7bzq4i8A3S1n1nZTvaU7aJxs8P_R3k7-9gobRkYRklOAO_cB49kD2nlEcR-52QG0120yQQw_Q7ejTEBoGPL-U2Tpla8ZC6S3BWzYqGMFLb8mTvVGx5Df8_CjY2c8pRGU_EiUjWNnSEiFlGdMlLNzcAb5YaKwkNoZFeofH-GPR-3EkTYmW5wcQTFRrcKELOoQH_-LCnu_Xbj26UWOJ81YgyvwbPEjSOFeKGj4JFVPWIVKpVyIxYA78B6LfSz0hFlT6BUhoR4LvJfEiyFEqAw0vG21XLr0YTdtxuTv55r8rft-aoh-aZVRP8S5rsWsrwakV6x3bNShg
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+GET http://0.0.0.0:8080/checklists
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTMxODgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxMzE4OCwiZXhwIjoxNjgzNDE2Nzg4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.BAtIEOCBOixDf2u6ocRebvHuvkjV6gI0DSdIGGeYGfzJ7rJKG5N3RX0a2SSNUrPISYYg57rMDRsjtnMjR5B_ZpSorj1Q-m4lev7k0nk8QKBb1ejkoE3tsuH8dfg4Jd84HYsAP94YBuHQCcQHfIjfzP1sMY5J8vKWTXJd7IadvsleABBgMSxIgdg_3xM9GiT1GDWG0px_OetyQEuugON2A9ad37-QhewFSK_7reumWx9wlyAdO9mrJKWFLGk6YxX3aQ1N40QJyv40Ip2gKDPn-JaRIBZnx10erDZ1JGpu43uP8B0qQECJykxjosbBS54FaOgSPgxtYChB1zOSkHFmlA
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-07T004700.200.json
+
+###
+
+POST http://0.0.0.0:8080/checklist-commands
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTMxODgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxMzE4OCwiZXhwIjoxNjgzNDE2Nzg4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.BAtIEOCBOixDf2u6ocRebvHuvkjV6gI0DSdIGGeYGfzJ7rJKG5N3RX0a2SSNUrPISYYg57rMDRsjtnMjR5B_ZpSorj1Q-m4lev7k0nk8QKBb1ejkoE3tsuH8dfg4Jd84HYsAP94YBuHQCcQHfIjfzP1sMY5J8vKWTXJd7IadvsleABBgMSxIgdg_3xM9GiT1GDWG0px_OetyQEuugON2A9ad37-QhewFSK_7reumWx9wlyAdO9mrJKWFLGk6YxX3aQ1N40QJyv40Ip2gKDPn-JaRIBZnx10erDZ1JGpu43uP8B0qQECJykxjosbBS54FaOgSPgxtYChB1zOSkHFmlA
+Content-Length: 1680
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+[
+    {
+    "type": "createChecklist",
+    "templateId": "058f995e-f95a-4627-9a39-37d7842b67ea",
+    "title": "All the events",
+    "description": "Description",
+    "tasks": [
+     {
+        "id": "c9eacf73-2bd2-4073-8649-84638f48b47c",
+        "checklistId": 4c4d7ae5-208d-47e9-8438-1c7f96f8db7e,
+        "title": "Task 1",
+        "sortPosition": 0,
+        "isChecked": false,
+        "children": [
+          {
+            "id": "ae2dbaba-ca9e-4e87-8afc-d62627192f67",
+            "checklistId": "4c4d7ae5-208d-47e9-8438-1c7f96f8db7e",
+            "title": "Task 2",
+            "sortPosition": 0,
+            "isChecked":  false,
+            "children": []
+          }
+          ]
+    }
+    ],
+    "checklistId": "4c4d7ae5-208d-47e9-8438-1c7f96f8db7e",
+    "commandId": "fa9c6912-2688-49a7-ac51-67605da1468f",
+    "timestamp": "2023-05-06T22:46:56.747738Z"
+  },
+  {
+    "type": "editChecklistNotes",
+    "newNotes": "My notes are awesome",
+    "checklistId": "4c4d7ae5-208d-47e9-8438-1c7f96f8db7e",
+    "commandId": "93d4d90a-2408-461c-b2bd-ed9130a09f0c",
+    "timestamp": "2023-05-06T22:46:56.747829Z"
+  },
+    {
+    "type": "changeTaskChecked",
+    "taskId": "c9eacf73-2bd2-4073-8649-84638f48b47c",
+    "isChecked": true,
+    "checklistId": "4c4d7ae5-208d-47e9-8438-1c7f96f8db7e",
+    "commandId": "d90a3978-0092-4f9e-b2ca-fa4dba2592de",
+    "timestamp": "2023-05-06T22:46:56.747885Z"
+  },
+   {
+    "type": "changeTaskChecked",
+    "taskId": "ae2dbaba-ca9e-4e87-8afc-d62627192f67",
+    "isChecked": true,
+    "checklistId": "4c4d7ae5-208d-47e9-8438-1c7f96f8db7e",
+    "commandId": "e014a2f8-1549-42df-a86b-b99b8ff9dbd3",
+    "timestamp": "2023-05-06T22:46:56.747936Z"
+  }
+]
+
+###
+
+GET http://0.0.0.0:8080/checklists
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTMxODgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxMzE4OCwiZXhwIjoxNjgzNDE2Nzg4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.BAtIEOCBOixDf2u6ocRebvHuvkjV6gI0DSdIGGeYGfzJ7rJKG5N3RX0a2SSNUrPISYYg57rMDRsjtnMjR5B_ZpSorj1Q-m4lev7k0nk8QKBb1ejkoE3tsuH8dfg4Jd84HYsAP94YBuHQCcQHfIjfzP1sMY5J8vKWTXJd7IadvsleABBgMSxIgdg_3xM9GiT1GDWG0px_OetyQEuugON2A9ad37-QhewFSK_7reumWx9wlyAdO9mrJKWFLGk6YxX3aQ1N40QJyv40Ip2gKDPn-JaRIBZnx10erDZ1JGpu43uP8B0qQECJykxjosbBS54FaOgSPgxtYChB1zOSkHFmlA
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-07T004653.200.json
+
+###
+
+GET http://0.0.0.0:8080/templates
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTMxODgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxMzE4OCwiZXhwIjoxNjgzNDE2Nzg4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.BAtIEOCBOixDf2u6ocRebvHuvkjV6gI0DSdIGGeYGfzJ7rJKG5N3RX0a2SSNUrPISYYg57rMDRsjtnMjR5B_ZpSorj1Q-m4lev7k0nk8QKBb1ejkoE3tsuH8dfg4Jd84HYsAP94YBuHQCcQHfIjfzP1sMY5J8vKWTXJd7IadvsleABBgMSxIgdg_3xM9GiT1GDWG0px_OetyQEuugON2A9ad37-QhewFSK_7reumWx9wlyAdO9mrJKWFLGk6YxX3aQ1N40QJyv40Ip2gKDPn-JaRIBZnx10erDZ1JGpu43uP8B0qQECJykxjosbBS54FaOgSPgxtYChB1zOSkHFmlA
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-07T004645.200.json
+
+###
+
+POST http://0.0.0.0:8080/commands
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTMxODgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxMzE4OCwiZXhwIjoxNjgzNDE2Nzg4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.BAtIEOCBOixDf2u6ocRebvHuvkjV6gI0DSdIGGeYGfzJ7rJKG5N3RX0a2SSNUrPISYYg57rMDRsjtnMjR5B_ZpSorj1Q-m4lev7k0nk8QKBb1ejkoE3tsuH8dfg4Jd84HYsAP94YBuHQCcQHfIjfzP1sMY5J8vKWTXJd7IadvsleABBgMSxIgdg_3xM9GiT1GDWG0px_OetyQEuugON2A9ad37-QhewFSK_7reumWx9wlyAdO9mrJKWFLGk6YxX3aQ1N40QJyv40Ip2gKDPn-JaRIBZnx10erDZ1JGpu43uP8B0qQECJykxjosbBS54FaOgSPgxtYChB1zOSkHFmlA
+Content-Length: 2437
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+[
+{
+    "type": "createTemplate",
+    "templateId": "058f995e-f95a-4627-9a39-37d7842b67ea",
+    "commandId": "14346776-b1e0-4dc6-9b8a-26c4dcb400e0",
+    "timestamp": "2023-05-06T22:46:39.594511Z"
+  },
+    {
+    "type": "addTemplateTask",
+    "templateId": "058f995e-f95a-4627-9a39-37d7842b67ea",
+    "taskId": "74c6b5ee-ab7e-4ba1-b7b1-ec9d66b99e7d",
+    "parentTaskId": null,
+    "commandId": "48bdd712-3da4-45c7-87cb-8ca05b4b619f",
+    "timestamp": "2023-05-06T22:46:39.594596Z"
+  },
+  {
+    "type": "addTemplateTask",
+    "templateId": "058f995e-f95a-4627-9a39-37d7842b67ea",
+    "taskId": "0cfe6ac8-5334-4fe1-8839-30ffb92fd301",
+    "parentTaskId": 74c6b5ee-ab7e-4ba1-b7b1-ec9d66b99e7d,
+    "commandId": "9c17db51-7844-4eab-ab48-ddbe1334dcec",
+    "timestamp": "2023-05-06T22:46:39.594652Z"
+  },
+  {
+    "type": "editTemplateTitle",
+    "templateId": "058f995e-f95a-4627-9a39-37d7842b67ea",
+    "newTitle": "All the events",
+    "commandId": "178069b4-9dcb-488c-b3f7-7648722528b1",
+    "timestamp": "2023-05-06T22:46:39.594703Z"
+  },
+  {
+    "type": "addTemplateTask",
+    "templateId": "058f995e-f95a-4627-9a39-37d7842b67ea",
+    "taskId": "320e8917-0533-430f-a13e-619ea98c9f55",
+    "parentTaskId": null,
+    "commandId": "db04204d-6be2-43fc-abc8-a0ae4a560118",
+    "timestamp": "2023-05-06T22:46:39.594764Z"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "058f995e-f95a-4627-9a39-37d7842b67ea",
+    "taskId": "0cfe6ac8-5334-4fe1-8839-30ffb92fd301",
+    "newTitle": "Task 3 - deleted later",
+    "commandId": "6babd06c-0471-418c-8c61-4fa0ec218c49",
+    "timestamp": "2023-05-06T22:46:39.594848Z"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "058f995e-f95a-4627-9a39-37d7842b67ea",
+    "taskId": "320e8917-0533-430f-a13e-619ea98c9f55",
+    "newTitle": "Task 1",
+    "commandId": "f3998c16-7382-45fb-a82e-4a425ed2f52b",
+    "timestamp": "2023-05-06T22:46:39.594899Z"
+  },
+  {
+    "type": "editTemplateDescription",
+    "templateId": "058f995e-f95a-4627-9a39-37d7842b67ea",
+    "newDescription": "Description",
+    "commandId": "49a6a08d-0f91-430b-8586-640c73db384e",
+    "timestamp": "2023-05-06T22:46:39.594976Z"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "058f995e-f95a-4627-9a39-37d7842b67ea",
+    "taskId": "74c6b5ee-ab7e-4ba1-b7b1-ec9d66b99e7d",
+    "newTitle": "Task 2",
+    "commandId": "516844bb-89d2-4d3e-ae8e-8206268fb9ff",
+    "timestamp": "2023-05-06T22:46:39.595072Z"
+  }
+]
+
+###
+
+GET http://0.0.0.0:8080/templates
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTMxODgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxMzE4OCwiZXhwIjoxNjgzNDE2Nzg4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.BAtIEOCBOixDf2u6ocRebvHuvkjV6gI0DSdIGGeYGfzJ7rJKG5N3RX0a2SSNUrPISYYg57rMDRsjtnMjR5B_ZpSorj1Q-m4lev7k0nk8QKBb1ejkoE3tsuH8dfg4Jd84HYsAP94YBuHQCcQHfIjfzP1sMY5J8vKWTXJd7IadvsleABBgMSxIgdg_3xM9GiT1GDWG0px_OetyQEuugON2A9ad37-QhewFSK_7reumWx9wlyAdO9mrJKWFLGk6YxX3aQ1N40QJyv40Ip2gKDPn-JaRIBZnx10erDZ1JGpu43uP8B0qQECJykxjosbBS54FaOgSPgxtYChB1zOSkHFmlA
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-07T004635.200.json
+
+###
+
+POST http://0.0.0.0:8080/auth/register
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTMxODgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxMzE4OCwiZXhwIjoxNjgzNDE2Nzg4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.BAtIEOCBOixDf2u6ocRebvHuvkjV6gI0DSdIGGeYGfzJ7rJKG5N3RX0a2SSNUrPISYYg57rMDRsjtnMjR5B_ZpSorj1Q-m4lev7k0nk8QKBb1ejkoE3tsuH8dfg4Jd84HYsAP94YBuHQCcQHfIjfzP1sMY5J8vKWTXJd7IadvsleABBgMSxIgdg_3xM9GiT1GDWG0px_OetyQEuugON2A9ad37-QhewFSK_7reumWx9wlyAdO9mrJKWFLGk6YxX3aQ1N40QJyv40Ip2gKDPn-JaRIBZnx10erDZ1JGpu43uP8B0qQECJykxjosbBS54FaOgSPgxtYChB1zOSkHFmlA
+Content-Length: 3
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+}
+
+###
+
+POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAdvWNnIdp0EJsVKBzSZKlCNO_PO8HZrqw
+Content-Type: application/json
+Content-Length: 91
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "email": "szymon.chaber@o2.pl",
+  "password": "password",
+  "returnSecureToken": true
+}
+
+<> 2023-05-07T004628.200.json
+
+###
+
 GET http://0.0.0.0:8080/checklists
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTE0NTYsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxMTQ1NiwiZXhwIjoxNjgzNDE1MDU2LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.C_uQOcK1bDz-eH2wdF2i16cr1IQ3Ty2JXhXepsOa_A25djEeUn09k1mUyNTvqKeyN8sCxF0o2Ih4nKqtvcVBptqzbNgheK8IHYyLVT7N9kWQeD_hMqUvPWlXIL6UUhj6ayc0k8_JEkaqbVBID2pARHzDjN9Eg8uGYIKof-GEkwvMXhwcx8poN3Eq6efFIHUG2_PP4tVQXSxrBWW16r_Ws1DP6CZTeEMmm0ZnrnPScioVLrWczuXsAO0a8yNfIm4RDlw_FF1-ZJxTwM3GaZRiYE80MOaz_GI30DEfT9Wtz96rUyIapT1NVOQiDHs4cS40u-uYQmITquXlDdT1djlhOQ
@@ -988,408 +1442,6 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 
 {
 }
-
-###
-
-POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAdvWNnIdp0EJsVKBzSZKlCNO_PO8HZrqw
-Content-Type: application/json
-Content-Length: 91
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "email": "szymon.chaber@o2.pl",
-  "password": "password",
-  "returnSecureToken": true
-}
-
-<> 2023-05-06T152021.200.json
-
-###
-
-GET http://0.0.0.0:8080/templates
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODMzNjkxMTAsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzM2OTExMCwiZXhwIjoxNjgzMzcyNzEwLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.QaywVTBAKnfwzF6Ctg3uzKulJQSX3SZ0mY_H9jzZJZtcfCjz8BU8xr1x5mxq41QZPojSaObrfZ5i8K-w62ZAO-n2hfr2-u-yeGJze01yVC-fgTBTzd01hgyjqqqROvMyXhLTb1M1m5WQJRSBlYlTsOpHRWDyHRm-jCL4Gkhj8e02duCpHQORsMh7KPRkpShmRqD_hVYaYzRZC6Ztl1i_dZndNZ3ID5Ni9HN8sOe5quTtPDQ4nXICcqYIgjXAzUCaB-z7kenAunx5KAzdXHeo3bYzMBjNur_iU0thjkmwNXIL5luPsvjKMrO5j53Y4ylRk0toe8gh46LL_jccBhMs2Q
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-05-06T123304.200.json
-
-###
-
-POST http://0.0.0.0:8080/auth/register
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODMzNjkxMTAsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzM2OTExMCwiZXhwIjoxNjgzMzcyNzEwLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.QaywVTBAKnfwzF6Ctg3uzKulJQSX3SZ0mY_H9jzZJZtcfCjz8BU8xr1x5mxq41QZPojSaObrfZ5i8K-w62ZAO-n2hfr2-u-yeGJze01yVC-fgTBTzd01hgyjqqqROvMyXhLTb1M1m5WQJRSBlYlTsOpHRWDyHRm-jCL4Gkhj8e02duCpHQORsMh7KPRkpShmRqD_hVYaYzRZC6Ztl1i_dZndNZ3ID5Ni9HN8sOe5quTtPDQ4nXICcqYIgjXAzUCaB-z7kenAunx5KAzdXHeo3bYzMBjNur_iU0thjkmwNXIL5luPsvjKMrO5j53Y4ylRk0toe8gh46LL_jccBhMs2Q
-Content-Length: 3
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-}
-
-###
-
-POST http://0.0.0.0:8080/auth/register
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODMzNjkxMTAsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzM2OTExMCwiZXhwIjoxNjgzMzcyNzEwLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.QaywVTBAKnfwzF6Ctg3uzKulJQSX3SZ0mY_H9jzZJZtcfCjz8BU8xr1x5mxq41QZPojSaObrfZ5i8K-w62ZAO-n2hfr2-u-yeGJze01yVC-fgTBTzd01hgyjqqqROvMyXhLTb1M1m5WQJRSBlYlTsOpHRWDyHRm-jCL4Gkhj8e02duCpHQORsMh7KPRkpShmRqD_hVYaYzRZC6Ztl1i_dZndNZ3ID5Ni9HN8sOe5quTtPDQ4nXICcqYIgjXAzUCaB-z7kenAunx5KAzdXHeo3bYzMBjNur_iU0thjkmwNXIL5luPsvjKMrO5j53Y4ylRk0toe8gh46LL_jccBhMs2Q
-Content-Length: 62
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "id": u8gbjEPXrLOCodJBSJI37XSQUO13,
-  "name": "Szymon 1"
-}
-
-<> 2023-05-06T123215.500.txt
-
-###
-
-GET http://0.0.0.0:8080/templates
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODMzNjkxMTAsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzM2OTExMCwiZXhwIjoxNjgzMzcyNzEwLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.QaywVTBAKnfwzF6Ctg3uzKulJQSX3SZ0mY_H9jzZJZtcfCjz8BU8xr1x5mxq41QZPojSaObrfZ5i8K-w62ZAO-n2hfr2-u-yeGJze01yVC-fgTBTzd01hgyjqqqROvMyXhLTb1M1m5WQJRSBlYlTsOpHRWDyHRm-jCL4Gkhj8e02duCpHQORsMh7KPRkpShmRqD_hVYaYzRZC6Ztl1i_dZndNZ3ID5Ni9HN8sOe5quTtPDQ4nXICcqYIgjXAzUCaB-z7kenAunx5KAzdXHeo3bYzMBjNur_iU0thjkmwNXIL5luPsvjKMrO5j53Y4ylRk0toe8gh46LL_jccBhMs2Q
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-###
-
-POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAdvWNnIdp0EJsVKBzSZKlCNO_PO8HZrqw
-Content-Type: application/json
-Content-Length: 91
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "email": "szymon.chaber@o2.pl",
-  "password": "password",
-  "returnSecureToken": true
-}
-
-<> 2023-05-06T123150.200.json
-
-###
-
-POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAdvWNnIdp0EJsVKBzSZKlCNO_PO8HZrqw
-Content-Type: application/json
-Content-Length: 91
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "email": "szymon.chaber@o2.pl",
-  "password": "password",
-  "returnSecureToken": true
-}
-
-<> 2023-05-06T123145.200.json
-
-###
-
-POST http://0.0.0.0:8080/auth/register
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODMxOTgyNDYsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzE5ODI0NiwiZXhwIjoxNjgzMjAxODQ2LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.ByIdTNcS46GpC0JFAHv2pTX6qtA2IAibMMR6yFuABwL0rTMzF6-vcAZz7NR7EpJARjJUee8JLVGW1uYZCG1vvnEkPX71Da05DxZMNnCPPK6xpGZLUISeZouiGWjmIjkBQifiBLF5ugYrNoTDmDsJEWh9kBiC-O3Fx-55mEfzmsul2APi0AnBQcNCfWyypHOcyJPL3Lz090u5xFSgYN62QSO6aY2dkIYuQcOQ8DbU5UeB6klzdSTf-tbID21U-mZYnPzBuGvB0--kRqmcwx5Zv9P2-EIF7qLqF_ds0HggpSCdTSfe1WRpg6z6w9KR2qqzj4klIxBCRzafpvCGmsNZwA
-Content-Length: 62
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "id": u8gbjEPXrLOCodJBSJI37XSQUO13,
-  "name": "Szymon 1"
-}
-
-###
-
-POST http://0.0.0.0:8080/auth/register
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODMxOTgyNDYsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzE5ODI0NiwiZXhwIjoxNjgzMjAxODQ2LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.ByIdTNcS46GpC0JFAHv2pTX6qtA2IAibMMR6yFuABwL0rTMzF6-vcAZz7NR7EpJARjJUee8JLVGW1uYZCG1vvnEkPX71Da05DxZMNnCPPK6xpGZLUISeZouiGWjmIjkBQifiBLF5ugYrNoTDmDsJEWh9kBiC-O3Fx-55mEfzmsul2APi0AnBQcNCfWyypHOcyJPL3Lz090u5xFSgYN62QSO6aY2dkIYuQcOQ8DbU5UeB6klzdSTf-tbID21U-mZYnPzBuGvB0--kRqmcwx5Zv9P2-EIF7qLqF_ds0HggpSCdTSfe1WRpg6z6w9KR2qqzj4klIxBCRzafpvCGmsNZwA
-Content-Length: 62
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "id": u8gbjEPXrLOCodJBSJI37XSQUO13,
-  "name": "Szymon 1"
-}
-
-###
-
-GET http://0.0.0.0:8080/auth/register
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODMxOTgyNDYsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzE5ODI0NiwiZXhwIjoxNjgzMjAxODQ2LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.ByIdTNcS46GpC0JFAHv2pTX6qtA2IAibMMR6yFuABwL0rTMzF6-vcAZz7NR7EpJARjJUee8JLVGW1uYZCG1vvnEkPX71Da05DxZMNnCPPK6xpGZLUISeZouiGWjmIjkBQifiBLF5ugYrNoTDmDsJEWh9kBiC-O3Fx-55mEfzmsul2APi0AnBQcNCfWyypHOcyJPL3Lz090u5xFSgYN62QSO6aY2dkIYuQcOQ8DbU5UeB6klzdSTf-tbID21U-mZYnPzBuGvB0--kRqmcwx5Zv9P2-EIF7qLqF_ds0HggpSCdTSfe1WRpg6z6w9KR2qqzj4klIxBCRzafpvCGmsNZwA
-Content-Length: 62
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "id": u8gbjEPXrLOCodJBSJI37XSQUO13,
-  "name": "Szymon 1"
-}
-
-###
-
-GET http://0.0.0.0:8080/templates
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODMxOTgyNDYsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzE5ODI0NiwiZXhwIjoxNjgzMjAxODQ2LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.ByIdTNcS46GpC0JFAHv2pTX6qtA2IAibMMR6yFuABwL0rTMzF6-vcAZz7NR7EpJARjJUee8JLVGW1uYZCG1vvnEkPX71Da05DxZMNnCPPK6xpGZLUISeZouiGWjmIjkBQifiBLF5ugYrNoTDmDsJEWh9kBiC-O3Fx-55mEfzmsul2APi0AnBQcNCfWyypHOcyJPL3Lz090u5xFSgYN62QSO6aY2dkIYuQcOQ8DbU5UeB6klzdSTf-tbID21U-mZYnPzBuGvB0--kRqmcwx5Zv9P2-EIF7qLqF_ds0HggpSCdTSfe1WRpg6z6w9KR2qqzj4klIxBCRzafpvCGmsNZwA
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-###
-
-GET http://0.0.0.0:8080/templates
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODMxOTgyNDYsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzE5ODI0NiwiZXhwIjoxNjgzMjAxODQ2LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.ByIdTNcS46GpC0JFAHv2pTX6qtA2IAibMMR6yFuABwL0rTMzF6-vcAZz7NR7EpJARjJUee8JLVGW1uYZCG1vvnEkPX71Da05DxZMNnCPPK6xpGZLUISeZouiGWjmIjkBQifiBLF5ugYrNoTDmDsJEWh9kBiC-O3Fx-55mEfzmsul2APi0AnBQcNCfWyypHOcyJPL3Lz090u5xFSgYN62QSO6aY2dkIYuQcOQ8DbU5UeB6klzdSTf-tbID21U-mZYnPzBuGvB0--kRqmcwx5Zv9P2-EIF7qLqF_ds0HggpSCdTSfe1WRpg6z6w9KR2qqzj4klIxBCRzafpvCGmsNZwA
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-05-04T130422.200.json
-
-###
-
-POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAdvWNnIdp0EJsVKBzSZKlCNO_PO8HZrqw
-Content-Type: application/json
-Content-Length: 91
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "email": "szymon.chaber@o2.pl",
-  "password": "password",
-  "returnSecureToken": true
-}
-
-<> 2023-05-04T130406.200.json
-
-###
-
-GET http://0.0.0.0:8080/checklists
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODMwMjI0MzIsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzAyMjQzMiwiZXhwIjoxNjgzMDI2MDMyLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.LPVCeVThbJL5mYVwNruvzWEdgA7H0prTgP9a42X8V1LnKC-mUSCv4NhNDwvf8tbZcQwNITOmPfwJ0lvK06LopBOWKO4rUkqaiFILgMtU_KshR0re-cqSYrJ5cjnBnXa1fyjSmVndhd8VrXcdFRhna1DMbMODaMg4CqqN2dUmZTj9LFufHd2xJLFfghWzPQVOYIaQprE_bvUpmmXxwalGmB_729e86h_XN2HCWzx31C_Y5NRsIKhlIjh7iiZGGysR-R3eTXtSr1nq0IX7ytEJJFgRdah90QF0gzgCbsFNjWw4cnha6ckkBi1zgfIj6vXK6l_jKZqC03GU2-xuHL81tg
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-05-02T121355.200.json
-
-###
-
-POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAdvWNnIdp0EJsVKBzSZKlCNO_PO8HZrqw
-Content-Type: application/json
-Content-Length: 91
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "email": "szymon.chaber@o2.pl",
-  "password": "password",
-  "returnSecureToken": true
-}
-
-<> 2023-05-02T121352.200.json
-
-###
-
-GET http://0.0.0.0:8080/templates
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODI5NzM1NzAsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4Mjk3MzU3MCwiZXhwIjoxNjgyOTc3MTcwLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.K0-l48Fx93202Z9cV24O5WN98CVbqAw9vQjJHVJ7IghBqTczyU2o-4Vg5H0JtIQfURWP0YldcjhU6bbnWbu_9CuTgXUjAK2TnshvpQp924KYr1scHMuTR96kyjrcCLXvrQlDA__mCx2Rx0oMSLcOqkMTpWddHIczgDkmGOyBCqLlWukXoYHWaJRSdQ_RnjHD-Zv_ncdPwkvZaarbSbopa5tPfJlZeL98ByYfI6Oo5S5qFS5W4ZwdTzJlcyYK3syW8Uv69jq0cWlqSlWHfX120Nio82hdiOOw_8MhOAfiSu_VP9r3PGdGd6DIqtePAdVo7rXnvEMxeIFrwnfL3XJofw
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-05-01T224430.200.json
-
-###
-
-POST http://0.0.0.0:8080/commands
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODI5NzM1NzAsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4Mjk3MzU3MCwiZXhwIjoxNjgyOTc3MTcwLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.K0-l48Fx93202Z9cV24O5WN98CVbqAw9vQjJHVJ7IghBqTczyU2o-4Vg5H0JtIQfURWP0YldcjhU6bbnWbu_9CuTgXUjAK2TnshvpQp924KYr1scHMuTR96kyjrcCLXvrQlDA__mCx2Rx0oMSLcOqkMTpWddHIczgDkmGOyBCqLlWukXoYHWaJRSdQ_RnjHD-Zv_ncdPwkvZaarbSbopa5tPfJlZeL98ByYfI6Oo5S5qFS5W4ZwdTzJlcyYK3syW8Uv69jq0cWlqSlWHfX120Nio82hdiOOw_8MhOAfiSu_VP9r3PGdGd6DIqtePAdVo7rXnvEMxeIFrwnfL3XJofw
-Content-Length: 2680
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-[
-{
-    "type": "createTemplate",
-    "templateId": "ffcd9e95-20ab-4b70-a17d-d7f1bb640c59",
-    "commandId": "75929458-edc2-4743-a4ed-b876fb438fa5",
-    "timestamp": 1682973808,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
-  },
-    {
-    "type": "addTemplateTask",
-    "templateId": "ffcd9e95-20ab-4b70-a17d-d7f1bb640c59",
-    "taskId": "78871cb4-335e-4a28-b9d0-b4a63b9f5810",
-    "parentTaskId": null,
-    "commandId": "380e90ff-8a20-4d2b-866e-78612e5f9194",
-    "timestamp": 1682973808,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
-  },
-  {
-    "type": "addTemplateTask",
-    "templateId": "ffcd9e95-20ab-4b70-a17d-d7f1bb640c59",
-    "taskId": "9cf6d5ae-6517-4983-bd60-25397543c3b3",
-    "parentTaskId": 78871cb4-335e-4a28-b9d0-b4a63b9f5810,
-    "commandId": "aebed6a3-6206-4c57-b2f2-97e12c708237",
-    "timestamp": 1682973808,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
-  },
-  {
-    "type": "editTemplateTitle",
-    "templateId": "ffcd9e95-20ab-4b70-a17d-d7f1bb640c59",
-    "newTitle": "All the events",
-    "commandId": "0dedd9fb-db14-4b72-9e8a-346c455b7b85",
-    "timestamp": 1682973808,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
-  },
-  {
-    "type": "addTemplateTask",
-    "templateId": "ffcd9e95-20ab-4b70-a17d-d7f1bb640c59",
-    "taskId": "242faebb-4459-46cb-bff4-9dff509cc838",
-    "parentTaskId": null,
-    "commandId": "b1a56157-2a5b-49e7-8bcd-42d0480a5fa6",
-    "timestamp": 1682973808,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
-  },
-  {
-    "type": "renameTemplateTask",
-    "templateId": "ffcd9e95-20ab-4b70-a17d-d7f1bb640c59",
-    "taskId": "9cf6d5ae-6517-4983-bd60-25397543c3b3",
-    "newTitle": "Task 3 - deleted later",
-    "commandId": "be58a88e-dfb8-4b19-91af-16924daa26b7",
-    "timestamp": 1682973808,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
-  },
-  {
-    "type": "renameTemplateTask",
-    "templateId": "ffcd9e95-20ab-4b70-a17d-d7f1bb640c59",
-    "taskId": "242faebb-4459-46cb-bff4-9dff509cc838",
-    "newTitle": "Task 1",
-    "commandId": "b5025265-43b5-4608-b166-2cde36c679bd",
-    "timestamp": 1682973808,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
-  },
-  {
-    "type": "editTemplateDescription",
-    "templateId": "ffcd9e95-20ab-4b70-a17d-d7f1bb640c59",
-    "newDescription": "Description",
-    "commandId": "f2fb23aa-b45e-40ba-aee7-eb7eb29c0215",
-    "timestamp": 1682973808,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
-  },
-  {
-    "type": "renameTemplateTask",
-    "templateId": "ffcd9e95-20ab-4b70-a17d-d7f1bb640c59",
-    "taskId": "78871cb4-335e-4a28-b9d0-b4a63b9f5810",
-    "newTitle": "Task 2",
-    "commandId": "b40e11e7-ed1e-4685-9b5a-c4a5bbff2720",
-    "timestamp": 1682973808,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
-  }
-]
-
-###
-
-POST http://0.0.0.0:8080/commands
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODI5NzM1NzAsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4Mjk3MzU3MCwiZXhwIjoxNjgyOTc3MTcwLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.K0-l48Fx93202Z9cV24O5WN98CVbqAw9vQjJHVJ7IghBqTczyU2o-4Vg5H0JtIQfURWP0YldcjhU6bbnWbu_9CuTgXUjAK2TnshvpQp924KYr1scHMuTR96kyjrcCLXvrQlDA__mCx2Rx0oMSLcOqkMTpWddHIczgDkmGOyBCqLlWukXoYHWaJRSdQ_RnjHD-Zv_ncdPwkvZaarbSbopa5tPfJlZeL98ByYfI6Oo5S5qFS5W4ZwdTzJlcyYK3syW8Uv69jq0cWlqSlWHfX120Nio82hdiOOw_8MhOAfiSu_VP9r3PGdGd6DIqtePAdVo7rXnvEMxeIFrwnfL3XJofw
-Content-Length: 2680
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-[
-{
-    "type": "createTemplate",
-    "templateId": "9b5171a1-1063-48ae-96f0-5bd9bb5be2ef",
-    "commandId": "d8054a0c-ee90-49b5-947d-168da74aad5e",
-    "timestamp": 1682973743,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
-  },
-    {
-    "type": "addTemplateTask",
-    "templateId": "9b5171a1-1063-48ae-96f0-5bd9bb5be2ef",
-    "taskId": "1d247150-d3ef-41fe-b092-9e2610e6ea20",
-    "parentTaskId": null,
-    "commandId": "7d816074-3354-49e2-863e-460171e39fd4",
-    "timestamp": 1682973743,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
-  },
-  {
-    "type": "addTemplateTask",
-    "templateId": "9b5171a1-1063-48ae-96f0-5bd9bb5be2ef",
-    "taskId": "3f5e0297-b3ea-4345-84d3-c6a63b3aa755",
-    "parentTaskId": 1d247150-d3ef-41fe-b092-9e2610e6ea20,
-    "commandId": "7f26f665-c1ee-4ff9-bb35-eff505403ef3",
-    "timestamp": 1682973743,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
-  },
-  {
-    "type": "editTemplateTitle",
-    "templateId": "9b5171a1-1063-48ae-96f0-5bd9bb5be2ef",
-    "newTitle": "All the events",
-    "commandId": "09652663-8ea4-4abd-b368-5ebc95efbb5c",
-    "timestamp": 1682973743,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
-  },
-  {
-    "type": "addTemplateTask",
-    "templateId": "9b5171a1-1063-48ae-96f0-5bd9bb5be2ef",
-    "taskId": "632187b6-b8a2-480e-b2a4-6f3046e12147",
-    "parentTaskId": null,
-    "commandId": "2294028b-9c00-4f0b-b799-af7a0fbae984",
-    "timestamp": 1682973743,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
-  },
-  {
-    "type": "renameTemplateTask",
-    "templateId": "9b5171a1-1063-48ae-96f0-5bd9bb5be2ef",
-    "taskId": "3f5e0297-b3ea-4345-84d3-c6a63b3aa755",
-    "newTitle": "Task 3 - deleted later",
-    "commandId": "3170fe49-9baa-4878-9c21-4f7260e707d1",
-    "timestamp": 1682973743,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
-  },
-  {
-    "type": "renameTemplateTask",
-    "templateId": "9b5171a1-1063-48ae-96f0-5bd9bb5be2ef",
-    "taskId": "632187b6-b8a2-480e-b2a4-6f3046e12147",
-    "newTitle": "Task 1",
-    "commandId": "3baf2ecc-7459-46b9-bf9d-4518089c56d0",
-    "timestamp": 1682973743,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
-  },
-  {
-    "type": "editTemplateDescription",
-    "templateId": "9b5171a1-1063-48ae-96f0-5bd9bb5be2ef",
-    "newDescription": "Description",
-    "commandId": "5ccb02e0-7594-4302-a6d4-9404ebfdb80e",
-    "timestamp": 1682973743,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
-  },
-  {
-    "type": "renameTemplateTask",
-    "templateId": "9b5171a1-1063-48ae-96f0-5bd9bb5be2ef",
-    "taskId": "1d247150-d3ef-41fe-b092-9e2610e6ea20",
-    "newTitle": "Task 2",
-    "commandId": "8ec093b0-6114-4efc-bb5d-8f4c3de7fe25",
-    "timestamp": 1682973743,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
-  }
-]
 
 ###
 

@@ -41,7 +41,7 @@ suspend fun handleCommands(
             eventSourcedTemplateRepository.getByIdOrNew(templateId)
                 .applyCommands(user, commands)
                 .forEach {
-                    templateEventRepository.save(it)
+                    templateEventRepository.save(it, user)
                 }
         }
 }

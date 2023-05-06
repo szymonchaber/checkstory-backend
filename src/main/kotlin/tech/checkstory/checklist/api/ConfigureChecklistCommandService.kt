@@ -40,7 +40,7 @@ suspend fun handleChecklistCommands(
             repository.getByIdOrNew(user, checklistId)
                 .applyCommands(commands, user)
                 .forEach {
-                    eventRepository.save(it)
+                    eventRepository.save(it, user)
                 }
         }
 }

@@ -46,8 +46,7 @@ class ChecklistAggregate(val id: UUID) {
                     checklistCommand.checklistId,
                     checklistCommand.newNotes,
                     checklistCommand.commandId,
-                    checklistCommand.timestamp,
-                    userId
+                    checklistCommand.timestamp
                 )
             }
 
@@ -57,8 +56,7 @@ class ChecklistAggregate(val id: UUID) {
                     checklistCommand.taskId,
                     checklistCommand.isChecked,
                     checklistCommand.commandId,
-                    checklistCommand.timestamp,
-                    userId
+                    checklistCommand.timestamp
                 )
             }
 
@@ -66,8 +64,7 @@ class ChecklistAggregate(val id: UUID) {
                 ChecklistEvent.DeleteChecklistEvent(
                     checklistCommand.checklistId,
                     checklistCommand.commandId,
-                    checklistCommand.timestamp,
-                    userId
+                    checklistCommand.timestamp
                 )
             }
         }
@@ -95,7 +92,6 @@ class ChecklistAggregate(val id: UUID) {
                 require(state is ChecklistState.Existing) {
                     "Checklist should exist when applying ChangeTaskCheckedEvent event"
                 }
-                require(state.userId == event.userId)
                 val newTasks = state.tasks.map {
                     it.withUpdatedIsCheckedRecursive(event.taskId, event.isChecked)
                 }
@@ -106,8 +102,6 @@ class ChecklistAggregate(val id: UUID) {
                 require(state is ChecklistState.Existing) {
                     "Checklist should exist when applying DeleteChecklistEvent event"
                 }
-
-                require(state.userId == event.userId)
                 checklistState = state.copy(isDeleted = true)
             }
 
@@ -115,7 +109,6 @@ class ChecklistAggregate(val id: UUID) {
                 require(state is ChecklistState.Existing) {
                     "Checklist should exist when applying EditChecklistNotesEvent event"
                 }
-                require(state.userId == event.userId)
                 checklistState = state.copy(notes = event.newNotes)
             }
         }
