@@ -1,32 +1,25 @@
 package tech.checkstory.template
 
-import com.eventstore.dbclient.EventData
-import com.eventstore.dbclient.EventStoreDBClient
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
-import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.encodeToStream
 import tech.checkstory.auth.firebase.FIREBASE_AUTH
 import tech.checkstory.auth.user.User
 import tech.checkstory.auth.withFirebasePrincipal
-import tech.checkstory.domain.command.DomainCommand
+import tech.checkstory.template.data.TemplateEventRepository
 import tech.checkstory.template.domain.command.TemplateCommand
 import tech.checkstory.template.domain.command.toTemplateEvent
-import tech.checkstory.template.domain.event.TemplateEvent
-import java.io.ByteArrayOutputStream
 
-fun Application.configureTemplateCommandService(client: EventStoreDBClient) {
+fun Application.configureTemplateCommandService(
+    templateEventRepository: TemplateEventRepository
+) {
     routing {
         authenticate(FIREBASE_AUTH) {
-            post("/commands") {
+            post<List<TemplateCommand>>("/commands") { commands ->
                 withFirebasePrincipal {
-                    val commands = call.receive<List<TemplateCommand>>()
-                    handleCommands(it, client, commands)
+                    handleCommands(it, commands, templateEventRepository)
                     call.respond(HttpStatusCode.NoContent)
                 }
             }
@@ -36,35 +29,14 @@ fun Application.configureTemplateCommandService(client: EventStoreDBClient) {
 
 suspend fun handleCommands(
     user: User,
-    client: EventStoreDBClient,
-    commands: List<DomainCommand>
+    commands: List<TemplateCommand>,
+    templateEventRepository: TemplateEventRepository
 ) {
     commands
         .sortedBy { it.timestamp }
         .forEach {
             // TODO also check if the userId in the existing stream is the same as requester's
             require(it.userId == user.userId)
-            when (it) {
-                is TemplateCommand -> {
-                    storeTemplateEvent(client, it.toTemplateEvent())
-                }
-            }
+            templateEventRepository.save(it.toTemplateEvent())
         }
-}
-
-@OptIn(ExperimentalSerializationApi::class)
-fun storeTemplateEvent(client: EventStoreDBClient, templateEvent: TemplateEvent) {
-    val eventData = ByteArrayOutputStream().use {
-        Json.encodeToStream(templateEvent, it)
-        EventData
-            .builderAsBinary(
-                templateEvent.eventId,
-                templateEvent.eventType,
-                it.toByteArray()
-            ) // event type gets stored within dto - maybe not good!
-            .build()
-    }
-
-    client.appendToStream("checklist-template-${templateEvent.templateId}", eventData)
-        .get()
 }

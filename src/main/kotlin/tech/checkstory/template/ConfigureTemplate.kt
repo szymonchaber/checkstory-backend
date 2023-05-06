@@ -7,6 +7,7 @@ import tech.checkstory.template.api.configureTemplateService
 import tech.checkstory.template.api.configureTemplateTaskService
 import tech.checkstory.template.data.EventBasedTemplateRepository
 import tech.checkstory.template.data.RelationalTemplateRepository
+import tech.checkstory.template.data.TemplateEventRepository
 import tech.checkstory.template.data.TemplateTaskRepository
 
 fun Application.configureTemplate(
@@ -15,7 +16,8 @@ fun Application.configureTemplate(
 ) {
     val templateService = RelationalTemplateRepository(database)
     val templateTaskRepository = TemplateTaskRepository(database)
-    configureTemplateService(templateService, EventBasedTemplateRepository(client))
+    val templateEventRepository = TemplateEventRepository(client)
+    configureTemplateService(templateService, EventBasedTemplateRepository(templateEventRepository))
     configureTemplateTaskService(templateService, templateTaskRepository)
-    configureTemplateCommandService(client)
+    configureTemplateCommandService(templateEventRepository)
 }
