@@ -75,7 +75,7 @@ Authorization: Bearer {{auth_token_1}}
     "type": "createTemplate",
     "templateId": "{{template_id}}",
     "commandId": "{{$uuid}}",
-    "timestamp": {{$timestamp}}
+    "timestamp": "{{$isoTimestamp}}"
   },
     {
     "type": "addTemplateTask",
@@ -83,7 +83,7 @@ Authorization: Bearer {{auth_token_1}}
     "taskId": "{{task_2_id}}",
     "parentTaskId": null,
     "commandId": "{{$uuid}}",
-    "timestamp": {{$timestamp}}
+    "timestamp": "{{$isoTimestamp}}"
   },
   {
     "type": "addTemplateTask",
@@ -91,14 +91,14 @@ Authorization: Bearer {{auth_token_1}}
     "taskId": "{{task_3_id}}",
     "parentTaskId": {{task_2_id}},
     "commandId": "{{$uuid}}",
-    "timestamp": {{$timestamp}}
+    "timestamp": "{{$isoTimestamp}}"
   },
   {
     "type": "editTemplateTitle",
     "templateId": "{{template_id}}",
     "newTitle": "All the events",
     "commandId": "{{$uuid}}",
-    "timestamp": {{$timestamp}}
+    "timestamp": "{{$isoTimestamp}}"
   },
   {
     "type": "addTemplateTask",
@@ -106,7 +106,7 @@ Authorization: Bearer {{auth_token_1}}
     "taskId": "{{task_1_id}}",
     "parentTaskId": null,
     "commandId": "{{$uuid}}",
-    "timestamp": {{$timestamp}}
+    "timestamp": "{{$isoTimestamp}}"
   },
   {
     "type": "renameTemplateTask",
@@ -114,7 +114,7 @@ Authorization: Bearer {{auth_token_1}}
     "taskId": "{{task_3_id}}",
     "newTitle": "Task 3 - deleted later",
     "commandId": "{{$uuid}}",
-    "timestamp": {{$timestamp}}
+    "timestamp": "{{$isoTimestamp}}"
   },
   {
     "type": "renameTemplateTask",
@@ -122,14 +122,14 @@ Authorization: Bearer {{auth_token_1}}
     "taskId": "{{task_1_id}}",
     "newTitle": "Task 1",
     "commandId": "{{$uuid}}",
-    "timestamp": {{$timestamp}}
+    "timestamp": "{{$isoTimestamp}}"
   },
   {
     "type": "editTemplateDescription",
     "templateId": "{{template_id}}",
     "newDescription": "Description",
     "commandId": "{{$uuid}}",
-    "timestamp": {{$timestamp}}
+    "timestamp": "{{$isoTimestamp}}"
   },
   {
     "type": "renameTemplateTask",
@@ -137,7 +137,7 @@ Authorization: Bearer {{auth_token_1}}
     "taskId": "{{task_2_id}}",
     "newTitle": "Task 2",
     "commandId": "{{$uuid}}",
-    "timestamp": {{$timestamp}}
+    "timestamp": "{{$isoTimestamp}}"
   }
 ]
 

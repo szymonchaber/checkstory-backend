@@ -1,5 +1,6 @@
 package tech.checkstory.template.domain.event
 
+import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import tech.checkstory.domain.command.DtoUUID
@@ -17,12 +18,11 @@ sealed interface TemplateEvent : DomainEvent {
     data class CreateTemplateEvent(
         override val templateId: DtoUUID,
         override val eventId: DtoUUID,
-        override val timestamp: Long,
+        override val timestamp: Instant,
         override val userId: String
     ) : TemplateEvent {
 
         override val eventType: String = "createTemplate"
-
     }
 
     @Serializable
@@ -31,12 +31,11 @@ sealed interface TemplateEvent : DomainEvent {
         override val templateId: DtoUUID,
         val newTitle: String,
         override val eventId: DtoUUID,
-        override val timestamp: Long,
+        override val timestamp: Instant,
         override val userId: String
     ) : TemplateEvent {
 
         override val eventType: String = "editTemplateTitle"
-
     }
 
     @Serializable
@@ -45,12 +44,11 @@ sealed interface TemplateEvent : DomainEvent {
         override val templateId: DtoUUID,
         val newDescription: String,
         override val eventId: DtoUUID,
-        override val timestamp: Long,
+        override val timestamp: Instant,
         override val userId: String
     ) : TemplateEvent {
 
         override val eventType: String = "editTemplateDescription"
-
     }
 
     @Serializable
@@ -60,12 +58,11 @@ sealed interface TemplateEvent : DomainEvent {
         val taskId: DtoUUID,
         val parentTaskId: DtoUUID?,
         override val eventId: DtoUUID,
-        override val timestamp: Long,
+        override val timestamp: Instant,
         override val userId: String
     ) : TemplateEvent {
 
         override val eventType: String = "addTemplateTask"
-
     }
 
     @Serializable
@@ -75,12 +72,11 @@ sealed interface TemplateEvent : DomainEvent {
         val taskId: DtoUUID,
         val newTitle: String,
         override val eventId: DtoUUID,
-        override val timestamp: Long,
+        override val timestamp: Instant,
         override val userId: String
     ) : TemplateEvent {
 
         override val eventType: String = "renameTemplateTask"
-
     }
 
     @Serializable
@@ -89,12 +85,11 @@ sealed interface TemplateEvent : DomainEvent {
         override val templateId: DtoUUID,
         val taskId: DtoUUID,
         override val eventId: DtoUUID,
-        override val timestamp: Long,
+        override val timestamp: Instant,
         override val userId: String
     ) : TemplateEvent {
 
         override val eventType: String = "deleteTemplateTask"
-
     }
 
     @Serializable
@@ -103,12 +98,11 @@ sealed interface TemplateEvent : DomainEvent {
         override val templateId: DtoUUID,
         val taskIdToLocalPosition: Map<DtoUUID, Long>,
         override val eventId: DtoUUID,
-        override val timestamp: Long,
+        override val timestamp: Instant,
         override val userId: String
     ) : TemplateEvent {
 
         override val eventType: String = "updateTemplateTasksPositions"
-
     }
 
     @Serializable
@@ -118,11 +112,10 @@ sealed interface TemplateEvent : DomainEvent {
         val taskId: DtoUUID,
         val newParentTaskId: DtoUUID?,
         override val eventId: DtoUUID,
-        override val timestamp: Long,
+        override val timestamp: Instant,
         override val userId: String
     ) : TemplateEvent {
         override val eventType: String = "moveTemplateTask"
-
     }
 
     @Serializable
@@ -131,13 +124,11 @@ sealed interface TemplateEvent : DomainEvent {
         override val templateId: DtoUUID,
         val reminder: ReminderDto,
         override val eventId: DtoUUID,
-        override val timestamp: Long,
+        override val timestamp: Instant,
         override val userId: String
     ) : TemplateEvent {
 
-        override val eventType: String
-            get() = "addOrUpdateTemplateReminder"
-
+        override val eventType: String = "addOrUpdateTemplateReminder"
     }
 
     @Serializable
@@ -146,13 +137,11 @@ sealed interface TemplateEvent : DomainEvent {
         override val templateId: DtoUUID,
         val reminderId: DtoUUID,
         override val eventId: DtoUUID,
-        override val timestamp: Long,
+        override val timestamp: Instant,
         override val userId: String
     ) : TemplateEvent {
 
-        override val eventType: String
-            get() = "deleteTemplateReminder"
-
+        override val eventType: String = "deleteTemplateReminder"
     }
 
     @Serializable
@@ -160,13 +149,11 @@ sealed interface TemplateEvent : DomainEvent {
     data class DeleteTemplateEvent(
         override val templateId: DtoUUID,
         override val eventId: DtoUUID,
-        override val timestamp: Long,
+        override val timestamp: Instant,
         override val userId: String
     ) : TemplateEvent {
 
-        override val eventType: String
-            get() = "deleteTemplate"
-
+        override val eventType: String = "deleteTemplate"
     }
 }
 

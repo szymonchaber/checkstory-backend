@@ -1,5 +1,6 @@
 package tech.checkstory.checklist.domain.command
 
+import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import tech.checkstory.checklist.domain.aggregate.Task
@@ -20,7 +21,7 @@ sealed interface ChecklistCommand : DomainCommand {
         val description: String,
         val tasks: List<Task>,
         override val commandId: DtoUUID,
-        override val timestamp: Long
+        override val timestamp: Instant
     ) : ChecklistCommand
 
     @Serializable
@@ -29,7 +30,7 @@ sealed interface ChecklistCommand : DomainCommand {
         override val checklistId: DtoUUID,
         val newNotes: String,
         override val commandId: DtoUUID,
-        override val timestamp: Long
+        override val timestamp: Instant
     ) : ChecklistCommand
 
     @Serializable
@@ -39,7 +40,7 @@ sealed interface ChecklistCommand : DomainCommand {
         val taskId: DtoUUID,
         val isChecked: Boolean,
         override val commandId: DtoUUID,
-        override val timestamp: Long
+        override val timestamp: Instant
     ) : ChecklistCommand
 
     @Serializable
@@ -47,6 +48,6 @@ sealed interface ChecklistCommand : DomainCommand {
     data class DeleteChecklistCommand(
         override val checklistId: DtoUUID,
         override val commandId: DtoUUID,
-        override val timestamp: Long
+        override val timestamp: Instant
     ) : ChecklistCommand
 }

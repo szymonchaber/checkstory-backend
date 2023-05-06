@@ -1,5 +1,6 @@
 package tech.checkstory.domain.command
 
+import kotlinx.datetime.Instant
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -11,7 +12,7 @@ import java.util.*
 interface DomainCommand {
 
     val commandId: DtoUUID
-    val timestamp: Long
+    val timestamp: Instant
 }
 
 object UUIDSerializer : KSerializer<UUID> {

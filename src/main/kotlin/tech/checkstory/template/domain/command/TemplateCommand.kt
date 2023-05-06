@@ -1,6 +1,7 @@
 package tech.checkstory.template.domain.command
 
 import kotlinx.datetime.DayOfWeek
+import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -19,7 +20,7 @@ sealed interface TemplateCommand : DomainCommand {
     data class CreateTemplateCommand(
         override val templateId: DtoUUID,
         override val commandId: DtoUUID,
-        override val timestamp: Long
+        override val timestamp: Instant
     ) : TemplateCommand
 
     @Serializable
@@ -28,7 +29,7 @@ sealed interface TemplateCommand : DomainCommand {
         override val templateId: DtoUUID,
         val newTitle: String,
         override val commandId: DtoUUID,
-        override val timestamp: Long
+        override val timestamp: Instant
     ) : TemplateCommand
 
     @Serializable
@@ -37,7 +38,7 @@ sealed interface TemplateCommand : DomainCommand {
         override val templateId: DtoUUID,
         val newDescription: String,
         override val commandId: DtoUUID,
-        override val timestamp: Long
+        override val timestamp: Instant
     ) : TemplateCommand
 
     @Serializable
@@ -47,7 +48,7 @@ sealed interface TemplateCommand : DomainCommand {
         val taskId: DtoUUID,
         val parentTaskId: DtoUUID?,
         override val commandId: DtoUUID,
-        override val timestamp: Long
+        override val timestamp: Instant
     ) : TemplateCommand
 
     @Serializable
@@ -57,7 +58,7 @@ sealed interface TemplateCommand : DomainCommand {
         val taskId: DtoUUID,
         val newTitle: String,
         override val commandId: DtoUUID,
-        override val timestamp: Long
+        override val timestamp: Instant
     ) : TemplateCommand
 
     @Serializable
@@ -66,7 +67,7 @@ sealed interface TemplateCommand : DomainCommand {
         override val templateId: DtoUUID,
         val taskId: DtoUUID,
         override val commandId: DtoUUID,
-        override val timestamp: Long
+        override val timestamp: Instant
     ) : TemplateCommand
 
     @Serializable
@@ -75,7 +76,7 @@ sealed interface TemplateCommand : DomainCommand {
         override val templateId: DtoUUID,
         val taskIdToLocalPosition: Map<DtoUUID, Long>,
         override val commandId: DtoUUID,
-        override val timestamp: Long
+        override val timestamp: Instant
     ) : TemplateCommand
 
     @Serializable
@@ -85,7 +86,7 @@ sealed interface TemplateCommand : DomainCommand {
         val taskId: DtoUUID,
         val newParentTaskId: DtoUUID?,
         override val commandId: DtoUUID,
-        override val timestamp: Long
+        override val timestamp: Instant
     ) : TemplateCommand
 
     @Serializable
@@ -94,7 +95,7 @@ sealed interface TemplateCommand : DomainCommand {
         override val templateId: DtoUUID,
         val reminder: ReminderDto,
         override val commandId: DtoUUID,
-        override val timestamp: Long
+        override val timestamp: Instant
     ) : TemplateCommand
 
     @Serializable
@@ -103,7 +104,7 @@ sealed interface TemplateCommand : DomainCommand {
         override val templateId: DtoUUID,
         val reminderId: DtoUUID,
         override val commandId: DtoUUID,
-        override val timestamp: Long
+        override val timestamp: Instant
     ) : TemplateCommand
 
     @Serializable
@@ -111,7 +112,7 @@ sealed interface TemplateCommand : DomainCommand {
     data class DeleteTemplateCommandDto(
         override val templateId: DtoUUID,
         override val commandId: DtoUUID,
-        override val timestamp: Long
+        override val timestamp: Instant
     ) : TemplateCommand
 }
 

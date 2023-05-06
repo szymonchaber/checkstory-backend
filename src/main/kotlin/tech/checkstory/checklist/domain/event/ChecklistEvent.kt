@@ -1,5 +1,6 @@
 package tech.checkstory.checklist.domain.event
 
+import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import tech.checkstory.checklist.domain.aggregate.Task
@@ -20,7 +21,7 @@ sealed interface ChecklistEvent : DomainEvent {
         val description: String,
         val tasks: List<Task>,
         override val eventId: DtoUUID,
-        override val timestamp: Long,
+        override val timestamp: Instant,
         override val userId: String
     ) : ChecklistEvent {
 
@@ -33,7 +34,7 @@ sealed interface ChecklistEvent : DomainEvent {
         override val checklistId: DtoUUID,
         val newNotes: String,
         override val eventId: DtoUUID,
-        override val timestamp: Long,
+        override val timestamp: Instant,
         override val userId: String
     ) : ChecklistEvent {
 
@@ -47,7 +48,7 @@ sealed interface ChecklistEvent : DomainEvent {
         val taskId: DtoUUID,
         val isChecked: Boolean,
         override val eventId: DtoUUID,
-        override val timestamp: Long,
+        override val timestamp: Instant,
         override val userId: String
     ) : ChecklistEvent {
 
@@ -59,7 +60,7 @@ sealed interface ChecklistEvent : DomainEvent {
     data class DeleteChecklistEvent(
         override val checklistId: DtoUUID,
         override val eventId: DtoUUID,
-        override val timestamp: Long,
+        override val timestamp: Instant,
         override val userId: String
     ) : ChecklistEvent {
 
