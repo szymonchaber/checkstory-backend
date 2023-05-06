@@ -1,4 +1,4 @@
-package tech.checkstory.api
+package tech.checkstory.template
 
 import com.eventstore.dbclient.EventData
 import com.eventstore.dbclient.EventStoreDBClient

@@ -3,7 +3,6 @@ package tech.checkstory.template
 import com.eventstore.dbclient.EventStoreDBClient
 import io.ktor.server.application.*
 import org.jetbrains.exposed.sql.Database
-import tech.checkstory.api.configureTemplateCommandService
 import tech.checkstory.template.api.configureTemplateService
 import tech.checkstory.template.api.configureTemplateTaskService
 import tech.checkstory.template.data.EventBasedTemplateRepository

@@ -12,9 +12,9 @@ import tech.checkstory.auth.firebase.FirebaseAdmin
 import tech.checkstory.auth.user.UserService
 import tech.checkstory.auth.user.configureUserService
 import tech.checkstory.checklist.configureChecklist
-import tech.checkstory.city.configureCityService
 import tech.checkstory.plugins.*
 import tech.checkstory.template.configureTemplate
+import java.sql.Connection
 
 
 fun main() {
@@ -31,13 +31,13 @@ fun Application.module() {
         driver = "org.h2.Driver",
         password = ""
     )
+    val connection: Connection = connectToPostgres(embedded = true)
     val userService = UserService(database)
     configureSecurity(userService)
     configureHTTP()
     configureMonitoring()
     configureSerialization()
     configureUserService(userService)
-    configureCityService()
     val settings =
         EventStoreDBConnectionString.parse("esdb+discover://localhost:2113?tls=false&keepAliveTimeout=10000&keepAliveInterval=10000")
     val client = EventStoreDBClient.create(settings)
