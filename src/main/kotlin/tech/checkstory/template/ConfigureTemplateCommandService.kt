@@ -8,18 +8,19 @@ import io.ktor.server.routing.*
 import tech.checkstory.auth.firebase.FIREBASE_AUTH
 import tech.checkstory.auth.user.User
 import tech.checkstory.auth.withFirebasePrincipal
+import tech.checkstory.template.data.EventBasedTemplateRepository
 import tech.checkstory.template.data.TemplateEventRepository
 import tech.checkstory.template.domain.command.TemplateCommand
-import tech.checkstory.template.domain.command.toTemplateEvent
 
 fun Application.configureTemplateCommandService(
-    templateEventRepository: TemplateEventRepository
+    templateEventRepository: TemplateEventRepository,
+    eventBasedTemplateRepository: EventBasedTemplateRepository
 ) {
     routing {
         authenticate(FIREBASE_AUTH) {
             post<List<TemplateCommand>>("/commands") { commands ->
                 withFirebasePrincipal {
-                    handleCommands(it, commands, templateEventRepository)
+                    handleCommands(it, commands, templateEventRepository, eventBasedTemplateRepository)
                     call.respond(HttpStatusCode.NoContent)
                 }
             }
@@ -30,13 +31,22 @@ fun Application.configureTemplateCommandService(
 suspend fun handleCommands(
     user: User,
     commands: List<TemplateCommand>,
-    templateEventRepository: TemplateEventRepository
+    templateEventRepository: TemplateEventRepository,
+    eventBasedTemplateRepository: EventBasedTemplateRepository
 ) {
     commands
         .sortedBy { it.timestamp }
-        .forEach {
-            // TODO also check if the userId in the existing stream is the same as requester's
-            require(it.userId == user.userId)
-            templateEventRepository.save(it.toTemplateEvent())
+        .onEach {
+            require(it.userId == user.userId) {
+                "command user id must equal firebase user id"
+            }
+        }
+        .groupBy(TemplateCommand::templateId)
+        .forEach { (templateId, commands) ->
+            eventBasedTemplateRepository.getByIdOrNew(templateId)
+                .applyCommands(commands)
+                .forEach {
+                    templateEventRepository.save(it)
+                }
         }
 }

@@ -44,7 +44,7 @@ class EventBasedChecklistRepository(
             }
     }
 
-    fun new(id: UUID): ChecklistAggregate {
+    private fun new(id: UUID): ChecklistAggregate {
         return ChecklistAggregate(id)
     }
 }

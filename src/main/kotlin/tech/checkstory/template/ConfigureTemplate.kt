@@ -17,7 +17,8 @@ fun Application.configureTemplate(
     val templateService = RelationalTemplateRepository(database)
     val templateTaskRepository = TemplateTaskRepository(database)
     val templateEventRepository = TemplateEventRepository(client)
-    configureTemplateService(templateService, EventBasedTemplateRepository(templateEventRepository))
+    val eventBasedTemplateRepository = EventBasedTemplateRepository(templateEventRepository)
+    configureTemplateService(templateService, eventBasedTemplateRepository)
     configureTemplateTaskService(templateService, templateTaskRepository)
-    configureTemplateCommandService(templateEventRepository)
+    configureTemplateCommandService(templateEventRepository, eventBasedTemplateRepository)
 }
