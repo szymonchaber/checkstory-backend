@@ -1,7 +1,6 @@
 package tech.checkstory
 
 import com.eventstore.dbclient.EventStoreDBClient
-import com.eventstore.dbclient.EventStoreDBClientSettings
 import com.eventstore.dbclient.EventStoreDBConnectionString
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -9,20 +8,13 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.cors.routing.*
 import org.jetbrains.exposed.sql.Database
-import tech.checkstory.api.configureTemplateCommandService
 import tech.checkstory.auth.firebase.FirebaseAdmin
 import tech.checkstory.auth.user.UserService
 import tech.checkstory.auth.user.configureUserService
-import tech.checkstory.checklist.api.configureChecklistCommandService
-import tech.checkstory.checklist.api.configureChecklistService
-import tech.checkstory.checklist.data.EventBasedChecklistRepository
+import tech.checkstory.checklist.configureChecklist
 import tech.checkstory.city.configureCityService
 import tech.checkstory.plugins.*
-import tech.checkstory.template.api.configureTemplateService
-import tech.checkstory.template.api.configureTemplateTaskService
-import tech.checkstory.template.data.EventBasedTemplateRepository
-import tech.checkstory.template.data.RelationalTemplateRepository
-import tech.checkstory.template.data.TemplateTaskRepository
+import tech.checkstory.template.configureTemplate
 
 
 fun main() {
@@ -46,17 +38,11 @@ fun Application.module() {
     configureSerialization()
     configureUserService(userService)
     configureCityService()
-    val settings: EventStoreDBClientSettings =
+    val settings =
         EventStoreDBConnectionString.parse("esdb+discover://localhost:2113?tls=false&keepAliveTimeout=10000&keepAliveInterval=10000")
-    val client: EventStoreDBClient = EventStoreDBClient.create(settings)
-    val templateService = RelationalTemplateRepository(database)
-    val templateTaskRepository = TemplateTaskRepository(database)
-    configureTemplateService(templateService, EventBasedTemplateRepository(client))
-    val checklistRepository = EventBasedChecklistRepository(client)
-    configureChecklistService(checklistRepository)
-    configureTemplateTaskService(templateService, templateTaskRepository)
-    configureTemplateCommandService(client)
-    configureChecklistCommandService(client, checklistRepository)
+    val client = EventStoreDBClient.create(settings)
+    configureTemplate(database, client)
+    configureChecklist(client)
     configureRouting()
     cors()
 }
