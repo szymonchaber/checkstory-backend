@@ -5,8 +5,8 @@ import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import tech.checkstory.auth.firebase.FIREBASE_AUTH
 import tech.checkstory.auth.withFirebasePrincipal
-import tech.checkstory.firebase.FIREBASE_AUTH
 import tech.checkstory.template.data.RelationalTemplateRepository
 import tech.checkstory.template.data.TemplateTaskRepository
 import java.util.*

@@ -6,8 +6,8 @@ import io.ktor.server.auth.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import tech.checkstory.auth.firebase.FIREBASE_AUTH
 import tech.checkstory.auth.withFirebasePrincipal
-import tech.checkstory.firebase.FIREBASE_AUTH
 import tech.checkstory.template.data.EventBasedTemplateRepository
 import tech.checkstory.template.data.RelationalTemplateRepository
 import tech.checkstory.template.domain.aggregate.Template
@@ -32,12 +32,6 @@ fun Application.configureTemplateService(
                 withFirebasePrincipal {
                     val templates = eventBasedTemplateRepository.readAll(it)
                     call.respond(HttpStatusCode.OK, templates)
-                }
-            }
-
-            get("/hello") {
-                withFirebasePrincipal {
-                    call.respond(HttpStatusCode.OK, "Principal has mail: ${it.email} so we allow them to come!")
                 }
             }
 

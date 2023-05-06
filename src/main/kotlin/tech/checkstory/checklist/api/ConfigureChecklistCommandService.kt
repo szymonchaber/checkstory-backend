@@ -11,14 +11,14 @@ import io.ktor.server.routing.*
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToStream
+import tech.checkstory.auth.firebase.FIREBASE_AUTH
+import tech.checkstory.auth.user.User
 import tech.checkstory.auth.withFirebasePrincipal
 import tech.checkstory.checklist.data.EventBasedChecklistRepository
 import tech.checkstory.checklist.domain.aggregate.ChecklistAggregate
 import tech.checkstory.checklist.domain.command.ChecklistCommand
 import tech.checkstory.checklist.domain.event.ChecklistEvent
 import tech.checkstory.domain.command.DtoUUID
-import tech.checkstory.firebase.FIREBASE_AUTH
-import tech.checkstory.firebase.user.FirebaseUser
 import java.io.ByteArrayOutputStream
 
 fun Application.configureChecklistCommandService(
@@ -39,20 +39,20 @@ fun Application.configureChecklistCommandService(
 }
 
 suspend fun handleChecklistCommands(
-    firebaseUser: FirebaseUser,
+    user: User,
     client: EventStoreDBClient,
     commands: List<ChecklistCommand>,
     repository: EventBasedChecklistRepository
 ) {
     commands.sortedBy { it.timestamp }
         .onEach {
-            require(it.userId == firebaseUser.userId) {
+            require(it.userId == user.userId) {
                 "command user id must equal firebase user id"
             }
         }
         .groupBy { it.checklistId }
         .forEach { (checklistId, commands) ->
-            getAggregate(repository, firebaseUser, checklistId, commands)?.let { (aggregate, createEvent) ->
+            getAggregate(repository, user, checklistId, commands)?.let { (aggregate, createEvent) ->
                 createEvent?.let { storeChecklistEvent(client, it) }
                 aggregate
                     .applyCommands(commands.filterNot { it is ChecklistCommand.CreateChecklistCommand })
@@ -65,11 +65,11 @@ suspend fun handleChecklistCommands(
 
 private suspend fun getAggregate(
     repository: EventBasedChecklistRepository,
-    firebaseUser: FirebaseUser,
+    user: User,
     checklistId: DtoUUID,
     commands: List<ChecklistCommand>
 ): Pair<ChecklistAggregate, ChecklistEvent.CreateChecklistEvent?>? {
-    return repository.getAggregate(firebaseUser, checklistId)?.let { it to null } ?: aggregateOrNull(commands)
+    return repository.getAggregate(user, checklistId)?.let { it to null } ?: aggregateOrNull(commands)
 }
 
 fun aggregateOrNull(commands: List<ChecklistCommand>): Pair<ChecklistAggregate, ChecklistEvent.CreateChecklistEvent>? {

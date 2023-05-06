@@ -5,7 +5,7 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
-import tech.checkstory.firebase.user.FirebaseUser
+import tech.checkstory.auth.user.User
 import tech.checkstory.template.data.RelationalTemplateRepository.Templates.id
 import tech.checkstory.template.domain.TemplateRepository
 import tech.checkstory.template.domain.aggregate.Template
@@ -32,20 +32,20 @@ class RelationalTemplateRepository(private val database: Database) : TemplateRep
         return newSuspendedTransaction(Dispatchers.IO) { block() }
     }
 
-    suspend fun create(template: Template, firebaseUser: FirebaseUser) {
+    suspend fun create(template: Template, user: User) {
         dbQuery {
             Templates.insert {
                 it[id] = template.id
-                it[userId] = firebaseUser.userId
+                it[userId] = user.userId
                 it[name] = template.name
                 it[description] = template.description
             }
         }
     }
 
-    override suspend fun read(firebaseUser: FirebaseUser, id: UUID): Template? {
+    override suspend fun read(user: User, id: UUID): Template? {
         return dbQuery {
-            Templates.select { Templates.id eq id and (Templates.userId eq firebaseUser.userId) }
+            Templates.select { Templates.id eq id and (Templates.userId eq user.userId) }
                 .map {
                     Template(
                         id = it[Templates.id],
@@ -58,13 +58,13 @@ class RelationalTemplateRepository(private val database: Database) : TemplateRep
         }
     }
 
-    override suspend fun readAll(firebaseUser: FirebaseUser): List<Template> {
+    override suspend fun readAll(user: User): List<Template> {
         return dbQuery {
-            Templates.select { Templates.userId eq firebaseUser.userId }
+            Templates.select { Templates.userId eq user.userId }
                 .map {
                     Template(
                         id = it[id],
-                        userId = "",
+                        userId = it[Templates.userId],
                         name = it[Templates.name],
                         description = it[Templates.description],
                     )
@@ -72,17 +72,17 @@ class RelationalTemplateRepository(private val database: Database) : TemplateRep
         }
     }
 
-    suspend fun updateTitle(firebaseUser: FirebaseUser, templateId: UUID, newTitle: String) {
+    suspend fun updateTitle(user: User, templateId: UUID, newTitle: String) {
         dbQuery {
-            Templates.update({ (id eq templateId) and (Templates.userId eq firebaseUser.userId) }) {
+            Templates.update({ (id eq templateId) and (Templates.userId eq user.userId) }) {
                 it[name] = newTitle
             }
         }
     }
 
-    suspend fun delete(firebaseUser: FirebaseUser, id: UUID) {
+    suspend fun delete(user: User, id: UUID) {
         dbQuery {
-            Templates.deleteWhere { Templates.id eq id and (userId eq firebaseUser.userId) }
+            Templates.deleteWhere { Templates.id eq id and (userId eq user.userId) }
         }
     }
 }

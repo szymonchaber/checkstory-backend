@@ -1,12 +1,11 @@
-package tech.checkstory.firebase.user
+package tech.checkstory.auth.firebase
 
 import com.google.firebase.auth.FirebaseToken
 import io.ktor.http.auth.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.request.*
-
-data class FirebaseUser(val userId: String = "", val displayName: String = "", val email: String = "") : Principal
+import tech.checkstory.auth.user.User
 
 class FirebaseConfig(name: String?) : AuthenticationProvider.Config(name) {
 
@@ -19,7 +18,7 @@ class FirebaseConfig(name: String?) : AuthenticationProvider.Config(name) {
         throw NotImplementedError(FirebaseImplementationError)
     }
 
-    fun validate(validate: suspend ApplicationCall.(FirebaseToken) -> FirebaseUser?) {
+    fun validate(validate: suspend ApplicationCall.(FirebaseToken) -> User?) {
         firebaseAuthenticationFunction = validate
     }
 }

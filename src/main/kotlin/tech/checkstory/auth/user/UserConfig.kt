@@ -1,4 +1,4 @@
-package tech.checkstory.user
+package tech.checkstory.auth.user
 
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -6,33 +6,25 @@ import io.ktor.server.auth.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import org.jetbrains.exposed.sql.Database
+import kotlinx.serialization.Serializable
+import tech.checkstory.auth.firebase.FIREBASE_AUTH
+import tech.checkstory.auth.firebase.parseAuthorizationHeaderOrNull
+import tech.checkstory.auth.firebase.toFirebaseTokenOrNull
 import tech.checkstory.auth.withFirebasePrincipal
-import tech.checkstory.firebase.FIREBASE_AUTH
 
-fun Application.configureUserService() {
-
-    val database = Database.connect(
-        url = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1",
-        user = "root",
-        driver = "org.h2.Driver",
-        password = ""
-    )
-    val userService = UserService(database)
+fun Application.configureUserService(userService: UserService) {
     routing {
-        authenticate(FIREBASE_AUTH) {
 
-            // Create user
-            post("/user") {
-                withFirebasePrincipal {
-                    val user = call.receive<User>()
-                    val id = userService.create(user, it)
-                    call.respond(HttpStatusCode.Created, id)
-                }
+        post<CreateUserPayload>("auth/register") {
+            call.request.parseAuthorizationHeaderOrNull()?.toFirebaseTokenOrNull()?.let { token ->
+                userService.create(it, token.uid!!)
+                call.respond(HttpStatusCode.Created)
             }
+        }
 
+        authenticate(FIREBASE_AUTH) {
             // Read user
-            get("/user") {
+            get("auth/login") {
                 withFirebasePrincipal {
                     val user = userService.read(it.userId)
                     if (user != null) {
@@ -62,3 +54,6 @@ fun Application.configureUserService() {
         }
     }
 }
+
+@Serializable
+class CreateUserPayload()

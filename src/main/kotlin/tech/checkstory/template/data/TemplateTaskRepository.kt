@@ -5,7 +5,7 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
-import tech.checkstory.firebase.user.FirebaseUser
+import tech.checkstory.auth.user.User
 import tech.checkstory.template.domain.aggregate.TemplateTask
 import java.util.*
 
@@ -30,20 +30,20 @@ class TemplateTaskRepository(private val database: Database) {
         return newSuspendedTransaction(Dispatchers.IO) { block() }
     }
 
-    suspend fun create(newId: UUID, templateTask: TemplateTask, firebaseUser: FirebaseUser) {
+    suspend fun create(newId: UUID, templateTask: TemplateTask, user: User) {
         dbQuery {
             TemplateTasks.insert {
                 it[id] = newId
-                it[userId] = firebaseUser.userId
+                it[userId] = user.userId
                 it[templateId] = templateTask.templateId
                 it[name] = templateTask.title
             }
         }
     }
 
-    suspend fun read(firebaseUser: FirebaseUser, id: UUID): TemplateTask? {
+    suspend fun read(user: User, id: UUID): TemplateTask? {
         return dbQuery {
-            TemplateTasks.select { TemplateTasks.id eq id and (TemplateTasks.userId eq firebaseUser.userId) }
+            TemplateTasks.select { TemplateTasks.id eq id and (TemplateTasks.userId eq user.userId) }
                 .map {
                     TemplateTask(
                         id = it[TemplateTasks.id],
@@ -56,9 +56,9 @@ class TemplateTaskRepository(private val database: Database) {
         }
     }
 
-    suspend fun read(firebaseUser: FirebaseUser): List<TemplateTask> {
+    suspend fun read(user: User): List<TemplateTask> {
         return dbQuery {
-            TemplateTasks.select { TemplateTasks.userId eq firebaseUser.userId }
+            TemplateTasks.select { TemplateTasks.userId eq user.userId }
                 .map {
                     TemplateTask(
                         id = it[TemplateTasks.id],
@@ -70,9 +70,9 @@ class TemplateTaskRepository(private val database: Database) {
         }
     }
 
-    suspend fun getForTemplate(firebaseUser: FirebaseUser, templateId: UUID): List<TemplateTask> {
+    suspend fun getForTemplate(user: User, templateId: UUID): List<TemplateTask> {
         return dbQuery {
-            TemplateTasks.select { (TemplateTasks.templateId eq templateId) and (TemplateTasks.userId eq firebaseUser.userId) }
+            TemplateTasks.select { (TemplateTasks.templateId eq templateId) and (TemplateTasks.userId eq user.userId) }
                 .map {
                     TemplateTask(
                         id = it[TemplateTasks.id],
@@ -84,17 +84,17 @@ class TemplateTaskRepository(private val database: Database) {
         }
     }
 
-    suspend fun updateTitle(firebaseUser: FirebaseUser, templateId: UUID, newTitle: String) {
+    suspend fun updateTitle(user: User, templateId: UUID, newTitle: String) {
         dbQuery {
-            TemplateTasks.update({ (TemplateTasks.id eq templateId) and (TemplateTasks.userId eq firebaseUser.userId) }) {
+            TemplateTasks.update({ (TemplateTasks.id eq templateId) and (TemplateTasks.userId eq user.userId) }) {
                 it[name] = newTitle
             }
         }
     }
 
-    suspend fun delete(firebaseUser: FirebaseUser, id: UUID) {
+    suspend fun delete(user: User, id: UUID) {
         dbQuery {
-            TemplateTasks.deleteWhere { TemplateTasks.id eq id and (userId eq firebaseUser.userId) }
+            TemplateTasks.deleteWhere { TemplateTasks.id eq id and (userId eq user.userId) }
         }
     }
 }

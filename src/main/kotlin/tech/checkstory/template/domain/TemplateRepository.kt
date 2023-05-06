@@ -1,12 +1,12 @@
 package tech.checkstory.template.domain
 
-import tech.checkstory.firebase.user.FirebaseUser
+import tech.checkstory.auth.user.User
 import tech.checkstory.template.domain.aggregate.Template
 import java.util.*
 
 interface TemplateRepository {
 
-    suspend fun read(firebaseUser: FirebaseUser, id: UUID): Template?
+    suspend fun read(user: User, id: UUID): Template?
 
-    suspend fun readAll(firebaseUser: FirebaseUser): List<Template>
+    suspend fun readAll(user: User): List<Template>
 }

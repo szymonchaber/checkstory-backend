@@ -1,4 +1,4 @@
-### Register user 1
+### Register user 1 in Firebase
 POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={{firebase_api_key}}
 Content-Type: application/json
 
@@ -12,6 +12,14 @@ Content-Type: application/json
     client.global.set("auth_token_1", response.body.idToken);
     client.global.set("user_id_1", response.body.localId);
 %}
+
+### POST
+POST http://0.0.0.0:8080/auth/register
+Content-Type: application/json
+Authorization: Bearer {{auth_token_1}}
+
+{
+}
 
 ### Register user 2
 POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={{firebase_api_key}}

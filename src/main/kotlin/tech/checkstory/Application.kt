@@ -10,18 +10,19 @@ import io.ktor.server.netty.*
 import io.ktor.server.plugins.cors.routing.*
 import org.jetbrains.exposed.sql.Database
 import tech.checkstory.api.configureTemplateCommandService
+import tech.checkstory.auth.firebase.FirebaseAdmin
+import tech.checkstory.auth.user.UserService
+import tech.checkstory.auth.user.configureUserService
 import tech.checkstory.checklist.api.configureChecklistCommandService
 import tech.checkstory.checklist.api.configureChecklistService
 import tech.checkstory.checklist.data.EventBasedChecklistRepository
 import tech.checkstory.city.configureCityService
-import tech.checkstory.firebase.FirebaseAdmin
 import tech.checkstory.plugins.*
 import tech.checkstory.template.api.configureTemplateService
 import tech.checkstory.template.api.configureTemplateTaskService
 import tech.checkstory.template.data.EventBasedTemplateRepository
 import tech.checkstory.template.data.RelationalTemplateRepository
 import tech.checkstory.template.data.TemplateTaskRepository
-import tech.checkstory.user.configureUserService
 
 
 fun main() {
@@ -32,18 +33,19 @@ fun main() {
 }
 
 fun Application.module() {
-    configureSecurity()
-    configureHTTP()
-    configureMonitoring()
-    configureSerialization()
-    configureUserService()
-    configureCityService()
     val database = Database.connect(
         url = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1",
         user = "root",
         driver = "org.h2.Driver",
         password = ""
     )
+    val userService = UserService(database)
+    configureSecurity(userService)
+    configureHTTP()
+    configureMonitoring()
+    configureSerialization()
+    configureUserService(userService)
+    configureCityService()
     val settings: EventStoreDBClientSettings =
         EventStoreDBConnectionString.parse("esdb+discover://localhost:2113?tls=false&keepAliveTimeout=10000&keepAliveInterval=10000")
     val client: EventStoreDBClient = EventStoreDBClient.create(settings)
@@ -61,7 +63,6 @@ fun Application.module() {
 
 fun Application.cors() {
     install(CORS) {
-
         allowMethod(HttpMethod.Options)
         allowMethod(HttpMethod.Put)
         allowMethod(HttpMethod.Delete)

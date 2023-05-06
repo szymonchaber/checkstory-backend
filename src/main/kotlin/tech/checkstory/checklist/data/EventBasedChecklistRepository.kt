@@ -7,17 +7,17 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
+import tech.checkstory.auth.user.User
 import tech.checkstory.checklist.domain.ChecklistRepository
 import tech.checkstory.checklist.domain.aggregate.Checklist
 import tech.checkstory.checklist.domain.aggregate.ChecklistAggregate
 import tech.checkstory.checklist.domain.event.ChecklistEvent
-import tech.checkstory.firebase.user.FirebaseUser
 import tech.checkstory.template.extensions.requireStartsWith
 import java.util.*
 
 class EventBasedChecklistRepository(private val client: EventStoreDBClient) : ChecklistRepository {
 
-    override suspend fun readAll(firebaseUser: FirebaseUser): List<Checklist> {
+    override suspend fun readAll(user: User): List<Checklist> {
         val result = withContext(Dispatchers.IO) {
             client.readAll(ReadAllOptions.get().fromStart().forwards()).await()
         }
@@ -34,7 +34,7 @@ class EventBasedChecklistRepository(private val client: EventStoreDBClient) : Ch
                 ChecklistAggregate(createChecklist, otherEvents).checklist
             }
             .filter {
-                it.userId == firebaseUser.userId
+                it.userId == user.userId
             }
             .filterNot {
                 it.isDeleted
@@ -42,11 +42,11 @@ class EventBasedChecklistRepository(private val client: EventStoreDBClient) : Ch
             .toList()
     }
 
-    override suspend fun read(firebaseUser: FirebaseUser, id: UUID): Checklist? {
-        return getAggregate(firebaseUser, id)?.checklist
+    override suspend fun read(user: User, id: UUID): Checklist? {
+        return getAggregate(user, id)?.checklist
     }
 
-    suspend fun getAggregate(firebaseUser: FirebaseUser, id: UUID): ChecklistAggregate? {
+    suspend fun getAggregate(user: User, id: UUID): ChecklistAggregate? {
         val result = withContext(Dispatchers.IO) {
             try {
                 client.readStream("checklist-template-$id", readStreamOptions()).await().events
@@ -60,7 +60,7 @@ class EventBasedChecklistRepository(private val client: EventStoreDBClient) : Ch
         val (createChecklist, otherEvents) = result.mapNotNull(::deserializeEvent)
             .requireStartsWith<ChecklistEvent, ChecklistEvent.CreateChecklistEvent>()
         val checklistAggregate = ChecklistAggregate(createChecklist, otherEvents)
-        if (checklistAggregate.checklist.userId != firebaseUser.userId) {
+        if (checklistAggregate.checklist.userId != user.userId) {
             error("unauthorized access - 403")
         }
         return checklistAggregate

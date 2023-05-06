@@ -10,7 +10,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
-import tech.checkstory.firebase.user.FirebaseUser
+import tech.checkstory.auth.user.User
 import tech.checkstory.template.domain.TemplateRepository
 import tech.checkstory.template.domain.aggregate.Template
 import tech.checkstory.template.domain.event.TemplateEvent
@@ -20,7 +20,7 @@ import java.util.*
 
 class EventBasedTemplateRepository(private val client: EventStoreDBClient) : TemplateRepository {
 
-    override suspend fun readAll(firebaseUser: FirebaseUser): List<Template> {
+    override suspend fun readAll(user: User): List<Template> {
         val result = withContext(Dispatchers.IO) {
             client.readAll(ReadAllOptions.get().fromStart().forwards()).await()
         }
@@ -34,7 +34,7 @@ class EventBasedTemplateRepository(private val client: EventStoreDBClient) : Tem
                 TemplateAggregate(createTemplate, otherEvents).template
             }
             .filter {
-                it.userId == firebaseUser.userId
+                it.userId == user.userId
             }
             .filterNot {
                 it.isDeleted
@@ -42,7 +42,7 @@ class EventBasedTemplateRepository(private val client: EventStoreDBClient) : Tem
             .toList()
     }
 
-    override suspend fun read(firebaseUser: FirebaseUser, id: UUID): Template? {
+    override suspend fun read(user: User, id: UUID): Template? {
         val result = withContext(Dispatchers.IO) {
             client.readStream("checklist-template-$id", readStreamOptions()).await()
         }

@@ -1,4 +1,4 @@
-package tech.checkstory.firebase
+package tech.checkstory.auth.firebase
 
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.firebase.FirebaseApp
@@ -11,7 +11,6 @@ import io.ktor.server.auth.*
 import io.ktor.server.response.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import tech.checkstory.firebase.user.FirebaseConfig
 import java.io.InputStream
 
 object FirebaseAdmin {
@@ -62,21 +61,26 @@ class FirebaseAuthProvider(config: FirebaseConfig) : AuthenticationProvider(conf
 suspend fun verifyFirebaseIdToken(
     call: ApplicationCall,
     authHeader: HttpAuthHeader,
-    tokenData: suspend ApplicationCall.(FirebaseToken) -> Principal?
+    principalFactory: suspend ApplicationCall.(FirebaseToken) -> Principal?
 ): Principal? {
-    val token: FirebaseToken = try {
-        if (authHeader.authScheme == "Bearer" && authHeader is HttpAuthHeader.Single) {
+    return authHeader.toFirebaseTokenOrNull()?.let {
+        principalFactory(call, it)
+    }
+}
+
+suspend fun HttpAuthHeader.toFirebaseTokenOrNull(): FirebaseToken? {
+    return try {
+        if (authScheme == "Bearer" && this is HttpAuthHeader.Single) {
             withContext(Dispatchers.IO) {
-                FirebaseAuth.getInstance().verifyIdToken(authHeader.blob)
+                FirebaseAuth.getInstance().verifyIdToken(blob)
             }
         } else {
             null
         }
-    } catch (ex: Exception) {
-        ex.printStackTrace()
-        return null
-    } ?: return null
-    return tokenData(call, token)
+    } catch (exception: Exception) {
+        exception.printStackTrace()
+        null
+    }
 }
 
 fun HttpAuthHeader.Companion.bearerAuthChallenge(realm: String): HttpAuthHeader =

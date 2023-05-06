@@ -1,11 +1,11 @@
 package tech.checkstory.checklist.domain
 
+import tech.checkstory.auth.user.User
 import tech.checkstory.checklist.domain.aggregate.Checklist
-import tech.checkstory.firebase.user.FirebaseUser
 import java.util.*
 
 interface ChecklistRepository {
 
-    suspend fun readAll(firebaseUser: FirebaseUser): List<Checklist>
-    suspend fun read(firebaseUser: FirebaseUser, id: UUID): Checklist?
+    suspend fun readAll(user: User): List<Checklist>
+    suspend fun read(user: User, id: UUID): Checklist?
 }
