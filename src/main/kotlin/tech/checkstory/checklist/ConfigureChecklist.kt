@@ -1,13 +1,13 @@
 package tech.checkstory.checklist
 
-import com.eventstore.dbclient.EventStoreDBClient
 import io.ktor.server.application.*
 import tech.checkstory.checklist.api.configureChecklistCommandService
 import tech.checkstory.checklist.api.configureChecklistService
+import tech.checkstory.checklist.data.ChecklistEventRepository
 import tech.checkstory.checklist.data.EventBasedChecklistRepository
 
-fun Application.configureChecklist(client: EventStoreDBClient) {
-    val checklistRepository = EventBasedChecklistRepository(client)
+fun Application.configureChecklist(checklistEventRepository: ChecklistEventRepository) {
+    val checklistRepository = EventBasedChecklistRepository(checklistEventRepository)
     configureChecklistService(checklistRepository)
-    configureChecklistCommandService(client, checklistRepository)
+    configureChecklistCommandService(checklistRepository, checklistEventRepository)
 }

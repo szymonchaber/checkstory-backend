@@ -12,6 +12,7 @@ import tech.checkstory.auth.firebase.FirebaseAdmin
 import tech.checkstory.auth.user.UserService
 import tech.checkstory.auth.user.configureUserService
 import tech.checkstory.checklist.configureChecklist
+import tech.checkstory.checklist.data.ChecklistEventRepository
 import tech.checkstory.plugins.*
 import tech.checkstory.template.configureTemplate
 import java.sql.Connection
@@ -42,7 +43,7 @@ fun Application.module() {
         EventStoreDBConnectionString.parse("esdb+discover://localhost:2113?tls=false&keepAliveTimeout=10000&keepAliveInterval=10000")
     val client = EventStoreDBClient.create(settings)
     configureTemplate(database, client)
-    configureChecklist(client)
+    configureChecklist(ChecklistEventRepository(client))
     configureRouting()
     cors()
 }
