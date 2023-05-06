@@ -15,10 +15,8 @@ import tech.checkstory.auth.firebase.FIREBASE_AUTH
 import tech.checkstory.auth.user.User
 import tech.checkstory.auth.withFirebasePrincipal
 import tech.checkstory.checklist.data.EventBasedChecklistRepository
-import tech.checkstory.checklist.domain.aggregate.ChecklistAggregate
 import tech.checkstory.checklist.domain.command.ChecklistCommand
 import tech.checkstory.checklist.domain.event.ChecklistEvent
-import tech.checkstory.domain.command.DtoUUID
 import java.io.ByteArrayOutputStream
 
 fun Application.configureChecklistCommandService(
@@ -52,44 +50,14 @@ suspend fun handleChecklistCommands(
         }
         .groupBy { it.checklistId }
         .forEach { (checklistId, commands) ->
-            getAggregate(repository, user, checklistId, commands)?.let { (aggregate, createEvent) ->
-                createEvent?.let { storeChecklistEvent(client, it) }
-                aggregate
-                    .applyCommands(commands.filterNot { it is ChecklistCommand.CreateChecklistCommand })
-                    .forEach {
-                        storeChecklistEvent(client, it)
-                    }
-            }
+            repository.getByIdOrNew(user, checklistId)
+                .applyCommands(commands)
+                .forEach {
+                    storeChecklistEvent(client, it)
+                }
         }
 }
 
-private suspend fun getAggregate(
-    repository: EventBasedChecklistRepository,
-    user: User,
-    checklistId: DtoUUID,
-    commands: List<ChecklistCommand>
-): Pair<ChecklistAggregate, ChecklistEvent.CreateChecklistEvent?>? {
-    return repository.getAggregate(user, checklistId)?.let { it to null } ?: aggregateOrNull(commands)
-}
-
-fun aggregateOrNull(commands: List<ChecklistCommand>): Pair<ChecklistAggregate, ChecklistEvent.CreateChecklistEvent>? {
-    return when (val createEvent = commands.firstOrNull()) {
-        is ChecklistCommand.CreateChecklistCommand -> {
-            ChecklistAggregate(createEvent) to ChecklistEvent.CreateChecklistEvent(
-                checklistId = createEvent.checklistId,
-                templateId = createEvent.templateId,
-                title = createEvent.title,
-                description = createEvent.description,
-                tasks = createEvent.tasks,
-                eventId = createEvent.commandId,
-                timestamp = createEvent.timestamp,
-                userId = createEvent.userId
-            )
-        }
-
-        else -> null
-    }
-}
 
 @OptIn(ExperimentalSerializationApi::class)
 fun storeChecklistEvent(client: EventStoreDBClient, checklistEvent: ChecklistEvent) {

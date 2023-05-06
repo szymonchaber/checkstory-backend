@@ -12,7 +12,7 @@ import tech.checkstory.checklist.domain.ChecklistRepository
 import tech.checkstory.checklist.domain.aggregate.Checklist
 import tech.checkstory.checklist.domain.aggregate.ChecklistAggregate
 import tech.checkstory.checklist.domain.event.ChecklistEvent
-import tech.checkstory.template.extensions.requireStartsWith
+import tech.checkstory.domain.command.DtoUUID
 import java.util.*
 
 class EventBasedChecklistRepository(private val client: EventStoreDBClient) : ChecklistRepository {
@@ -29,9 +29,8 @@ class EventBasedChecklistRepository(private val client: EventStoreDBClient) : Ch
             .mapNotNull(::deserializeEvent)
             .groupBy {
                 it.checklistId
-            }.map { (_, events) ->
-                val (createChecklist, otherEvents) = events.requireStartsWith<ChecklistEvent, ChecklistEvent.CreateChecklistEvent>()
-                ChecklistAggregate(createChecklist, otherEvents).checklist
+            }.mapNotNull { (id, events) ->
+                ChecklistAggregate.fromHistory(id, events).toChecklistOrNull()
             }
             .filter {
                 it.userId == user.userId
@@ -43,10 +42,28 @@ class EventBasedChecklistRepository(private val client: EventStoreDBClient) : Ch
     }
 
     override suspend fun read(user: User, id: UUID): Checklist? {
-        return getAggregate(user, id)?.checklist
+        return getById(user, id).toChecklistOrNull()
     }
 
-    suspend fun getAggregate(user: User, id: UUID): ChecklistAggregate? {
+    suspend fun getByIdOrNew(user: User, checklistId: DtoUUID): ChecklistAggregate {
+        return getById(user, checklistId)
+    }
+
+    suspend fun getById(user: User, id: UUID): ChecklistAggregate {
+        return getEventsForAggregate(id)
+            .fold(new(id), ChecklistAggregate::applyEvent)
+            .also {
+                if (!it.isOwnedBy(user)) {
+                    error("unauthorized access - 403")
+                }
+            }
+    }
+
+    fun new(id: UUID): ChecklistAggregate {
+        return ChecklistAggregate(id)
+    }
+
+    private suspend fun getEventsForAggregate(id: UUID): List<ChecklistEvent> {
         val result = withContext(Dispatchers.IO) {
             try {
                 client.readStream("checklist-template-$id", readStreamOptions()).await().events
@@ -54,16 +71,7 @@ class EventBasedChecklistRepository(private val client: EventStoreDBClient) : Ch
                 listOf()
             }
         }
-        if (result.isEmpty()) {
-            return null
-        }
-        val (createChecklist, otherEvents) = result.mapNotNull(::deserializeEvent)
-            .requireStartsWith<ChecklistEvent, ChecklistEvent.CreateChecklistEvent>()
-        val checklistAggregate = ChecklistAggregate(createChecklist, otherEvents)
-        if (checklistAggregate.checklist.userId != user.userId) {
-            error("unauthorized access - 403")
-        }
-        return checklistAggregate
+        return result.mapNotNull(::deserializeEvent)
     }
 
     private fun readStreamOptions(): ReadStreamOptions {
