@@ -17,17 +17,16 @@ class ChecklistAggregate(val id: UUID) {
         }
     }
 
-    fun applyCommands(commands: List<ChecklistCommand>): List<ChecklistEvent> {
+    fun applyCommands(commands: List<ChecklistCommand>, user: User): List<ChecklistEvent> {
+        require(checklistState is ChecklistState.NonExistent || user.userId == (checklistState as ChecklistState.Existing).userId) {
+            "commands' user id must equal firebase user id"
+        }
         return commands.map {
-            val state = checklistState
-            require(state is ChecklistState.NonExistent || it.userId == (state as ChecklistState.Existing).userId) {
-                "command user id must equal firebase user id"
-            }
-            toChecklistEvent(it)
+            toChecklistEvent(it, user.userId)
         }
     }
 
-    private fun toChecklistEvent(checklistCommand: ChecklistCommand): ChecklistEvent {
+    private fun toChecklistEvent(checklistCommand: ChecklistCommand, userId: String): ChecklistEvent {
         return when (checklistCommand) {
             is ChecklistCommand.CreateChecklistCommand -> {
                 ChecklistEvent.CreateChecklistEvent(
@@ -38,7 +37,7 @@ class ChecklistAggregate(val id: UUID) {
                     tasks = checklistCommand.tasks,
                     eventId = checklistCommand.commandId,
                     timestamp = checklistCommand.timestamp,
-                    userId = checklistCommand.userId
+                    userId = userId
                 )
             }
 
@@ -48,7 +47,7 @@ class ChecklistAggregate(val id: UUID) {
                     checklistCommand.newNotes,
                     checklistCommand.commandId,
                     checklistCommand.timestamp,
-                    checklistCommand.userId
+                    userId
                 )
             }
 
@@ -59,7 +58,7 @@ class ChecklistAggregate(val id: UUID) {
                     checklistCommand.isChecked,
                     checklistCommand.commandId,
                     checklistCommand.timestamp,
-                    checklistCommand.userId
+                    userId
                 )
             }
 
@@ -68,7 +67,7 @@ class ChecklistAggregate(val id: UUID) {
                     checklistCommand.checklistId,
                     checklistCommand.commandId,
                     checklistCommand.timestamp,
-                    checklistCommand.userId
+                    userId
                 )
             }
         }

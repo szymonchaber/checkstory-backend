@@ -35,15 +35,10 @@ suspend fun handleChecklistCommands(
     eventRepository: ChecklistEventRepository
 ) {
     commands.sortedBy { it.timestamp }
-        .onEach {
-            require(it.userId == user.userId) {
-                "command user id must equal firebase user id"
-            }
-        }
         .groupBy { it.checklistId }
         .forEach { (checklistId, commands) ->
             repository.getByIdOrNew(user, checklistId)
-                .applyCommands(commands)
+                .applyCommands(commands, user)
                 .forEach {
                     eventRepository.save(it)
                 }

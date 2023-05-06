@@ -13,7 +13,7 @@ import tech.checkstory.template.domain.event.withExtractedTask
 import tech.checkstory.template.domain.event.withMovedChildRecursive
 import java.util.*
 
-class EventBasedTemplateRepository(
+class EventSourcedTemplateRepository(
     private val templateEventRepository: TemplateEventRepository
 ) : TemplateRepository {
 
@@ -198,17 +198,17 @@ class TemplateAggregate(val id: UUID) {
         }
     }
 
-    fun applyCommands(commands: List<TemplateCommand>): List<TemplateEvent> {
+    fun applyCommands(user: User, commands: List<TemplateCommand>): List<TemplateEvent> {
+        val state = templateState
+        require(state is TemplateState.NonExistent || user.userId == (state as TemplateState.Existing).userId) {
+            "command users must equal firebase users"
+        }
         return commands.map {
-            val state = templateState
-            require(state is TemplateState.NonExistent || it.userId == (state as TemplateState.Existing).userId) {
-                "command user id must equal firebase user id"
-            }
-            it.toTemplateEvent()
+            it.toTemplateEvent(user.userId)
         }
     }
 
-    private fun TemplateCommand.toTemplateEvent(): TemplateEvent {
+    private fun TemplateCommand.toTemplateEvent(userId: String): TemplateEvent {
         return when (this) {
             is TemplateCommand.CreateTemplateCommand -> {
                 TemplateEvent.CreateTemplateEvent(

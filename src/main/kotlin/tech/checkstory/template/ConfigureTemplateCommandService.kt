@@ -8,19 +8,19 @@ import io.ktor.server.routing.*
 import tech.checkstory.auth.firebase.FIREBASE_AUTH
 import tech.checkstory.auth.user.User
 import tech.checkstory.auth.withFirebasePrincipal
-import tech.checkstory.template.data.EventBasedTemplateRepository
+import tech.checkstory.template.data.EventSourcedTemplateRepository
 import tech.checkstory.template.data.TemplateEventRepository
 import tech.checkstory.template.domain.command.TemplateCommand
 
 fun Application.configureTemplateCommandService(
     templateEventRepository: TemplateEventRepository,
-    eventBasedTemplateRepository: EventBasedTemplateRepository
+    eventSourcedTemplateRepository: EventSourcedTemplateRepository
 ) {
     routing {
         authenticate(FIREBASE_AUTH) {
             post<List<TemplateCommand>>("/commands") { commands ->
                 withFirebasePrincipal {
-                    handleCommands(it, commands, templateEventRepository, eventBasedTemplateRepository)
+                    handleCommands(it, commands, templateEventRepository, eventSourcedTemplateRepository)
                     call.respond(HttpStatusCode.NoContent)
                 }
             }
@@ -32,19 +32,14 @@ suspend fun handleCommands(
     user: User,
     commands: List<TemplateCommand>,
     templateEventRepository: TemplateEventRepository,
-    eventBasedTemplateRepository: EventBasedTemplateRepository
+    eventSourcedTemplateRepository: EventSourcedTemplateRepository
 ) {
     commands
         .sortedBy { it.timestamp }
-        .onEach {
-            require(it.userId == user.userId) {
-                "command user id must equal firebase user id"
-            }
-        }
         .groupBy(TemplateCommand::templateId)
         .forEach { (templateId, commands) ->
-            eventBasedTemplateRepository.getByIdOrNew(templateId)
-                .applyCommands(commands)
+            eventSourcedTemplateRepository.getByIdOrNew(templateId)
+                .applyCommands(user, commands)
                 .forEach {
                     templateEventRepository.save(it)
                 }

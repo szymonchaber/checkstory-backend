@@ -8,14 +8,14 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import tech.checkstory.auth.firebase.FIREBASE_AUTH
 import tech.checkstory.auth.withFirebasePrincipal
-import tech.checkstory.template.data.EventBasedTemplateRepository
+import tech.checkstory.template.data.EventSourcedTemplateRepository
 import tech.checkstory.template.data.RelationalTemplateRepository
 import tech.checkstory.template.domain.aggregate.Template
 import java.util.*
 
 fun Application.configureTemplateService(
     templateService: RelationalTemplateRepository,
-    eventBasedTemplateRepository: EventBasedTemplateRepository
+    eventSourcedTemplateRepository: EventSourcedTemplateRepository
 ) {
     routing {
         authenticate(FIREBASE_AUTH) {
@@ -30,7 +30,7 @@ fun Application.configureTemplateService(
 
             get("/templates") {
                 withFirebasePrincipal {
-                    val templates = eventBasedTemplateRepository.readAll(it)
+                    val templates = eventSourcedTemplateRepository.readAll(it)
                     call.respond(HttpStatusCode.OK, templates)
                 }
             }
@@ -38,7 +38,7 @@ fun Application.configureTemplateService(
             get("/templates/{id}") {
                 withFirebasePrincipal {
                     val id = call.parameters["id"] ?: throw IllegalArgumentException("Invalid ID")
-                    val template = eventBasedTemplateRepository.read(it, UUID.fromString(id))?.let {
+                    val template = eventSourcedTemplateRepository.read(it, UUID.fromString(id))?.let {
                         it.copy(name = "Event sourced " + it.name)
                     }
                     if (template != null) {

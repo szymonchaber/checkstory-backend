@@ -12,7 +12,6 @@ interface DomainCommand {
 
     val commandId: DtoUUID
     val timestamp: Long
-    val userId: String
 }
 
 object UUIDSerializer : KSerializer<UUID> {
