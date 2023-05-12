@@ -23,19 +23,17 @@ fun Application.configureUserService(userService: UserService) {
         }
 
         authenticate(FIREBASE_AUTH) {
-            // Read user
             get("auth/login") {
                 withFirebasePrincipal {
                     val user = userService.read(it.userId)
                     if (user != null) {
-                        call.respond(HttpStatusCode.OK, user)
+                        call.respond(HttpStatusCode.OK, UserDto.fromUser(user))
                     } else {
                         call.respond(HttpStatusCode.NotFound)
                     }
                 }
             }
 
-            // Update user
             put("/user") {
                 withFirebasePrincipal {
                     val user = call.receive<User>()
@@ -44,7 +42,13 @@ fun Application.configureUserService(userService: UserService) {
                 }
             }
 
-            // Delete user
+            post<SubscriptionInformation>("/user/subscription") {
+                withFirebasePrincipal { user ->
+                    userService.markIsPaidUser(user, it.isPaidUser)
+                    call.respond(HttpStatusCode.OK)
+                }
+            }
+
             delete("/user") {
                 withFirebasePrincipal {
                     userService.delete(it.userId)
@@ -56,4 +60,21 @@ fun Application.configureUserService(userService: UserService) {
 }
 
 @Serializable
-class CreateUserPayload()
+class CreateUserPayload
+
+@Serializable
+data class SubscriptionInformation(val isPaidUser: Boolean)
+
+@Serializable
+data class UserDto(val userId: String, val isPaidUser: Boolean) {
+
+    companion object {
+
+        fun fromUser(user: User): UserDto {
+            return UserDto(
+                user.userId,
+                user.isPaidUser
+            )
+        }
+    }
+}
