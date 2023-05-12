@@ -25,6 +25,11 @@ application {
 repositories {
     mavenCentral()
 }
+tasks.named("compileKotlin", org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask::class.java) {
+    compilerOptions {
+        freeCompilerArgs.add("-Xcontext-receivers")
+    }
+}
 
 dependencies {
     implementation("org.postgresql:postgresql:$postgres_version")

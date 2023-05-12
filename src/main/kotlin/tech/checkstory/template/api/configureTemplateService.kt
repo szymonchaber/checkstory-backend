@@ -3,11 +3,10 @@ package tech.checkstory.template.api
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
-import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import tech.checkstory.auth.firebase.FIREBASE_AUTH
-import tech.checkstory.auth.withFirebasePrincipal
+import tech.checkstory.auth.withPrincipal
 import tech.checkstory.template.data.EventSourcedTemplateRepository
 import tech.checkstory.template.data.RelationalTemplateRepository
 import tech.checkstory.template.domain.aggregate.Template
@@ -20,25 +19,24 @@ fun Application.configureTemplateService(
     routing {
         authenticate(FIREBASE_AUTH) {
 
-            post("/templates") {
-                withFirebasePrincipal {
-                    val user = call.receive<Template>()
-                    val id = templateService.create(user, it)
+            post<Template>("/templates") {
+                withPrincipal {
+                    val id = templateService.create(it)
                     call.respond(HttpStatusCode.Created, id)
                 }
             }
 
             get("/templates") {
-                withFirebasePrincipal {
-                    val templates = eventSourcedTemplateRepository.readAll(it)
+                withPrincipal {
+                    val templates = eventSourcedTemplateRepository.readAll()
                     call.respond(HttpStatusCode.OK, templates)
                 }
             }
 
             get("/templates/{id}") {
-                withFirebasePrincipal {
+                withPrincipal {
                     val id = call.parameters["id"] ?: throw IllegalArgumentException("Invalid ID")
-                    val template = eventSourcedTemplateRepository.read(it, UUID.fromString(id))?.let {
+                    val template = eventSourcedTemplateRepository.read(UUID.fromString(id))?.let {
                         it.copy(name = "Event sourced " + it.name)
                     }
                     if (template != null) {
@@ -59,9 +57,9 @@ fun Application.configureTemplateService(
 //            }
 
             delete("/templates/{id}") {
-                withFirebasePrincipal {
+                withPrincipal {
                     val id = call.parameters["id"] ?: throw IllegalArgumentException("Invalid ID")
-                    templateService.delete(it, UUID.fromString(id))
+                    templateService.delete(UUID.fromString(id))
                     call.respond(HttpStatusCode.OK)
                 }
             }

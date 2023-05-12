@@ -5,13 +5,14 @@ import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.response.*
 import io.ktor.util.pipeline.*
+import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.auth.user.User
 
-suspend fun PipelineContext<Unit, ApplicationCall>.withFirebasePrincipal(
-    block: suspend PipelineContext<Unit, ApplicationCall>.(User) -> Unit
+suspend fun PipelineContext<Unit, ApplicationCall>.withPrincipal(
+    block: suspend context(AuthenticatedScope) () -> Unit
 ) {
     call.principal<User>()
         ?.let {
-            block(it)
+            block(AuthenticatedScope(it))
         } ?: call.respond(HttpStatusCode.Unauthorized)
 }

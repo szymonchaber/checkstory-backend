@@ -3,14 +3,13 @@ package tech.checkstory.auth.user
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
-import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.Serializable
 import tech.checkstory.auth.firebase.FIREBASE_AUTH
 import tech.checkstory.auth.firebase.parseAuthorizationHeaderOrNull
 import tech.checkstory.auth.firebase.toFirebaseTokenOrNull
-import tech.checkstory.auth.withFirebasePrincipal
+import tech.checkstory.auth.withPrincipal
 
 fun Application.configureUserService(userService: UserService) {
     routing {
@@ -24,8 +23,8 @@ fun Application.configureUserService(userService: UserService) {
 
         authenticate(FIREBASE_AUTH) {
             get("auth/login") {
-                withFirebasePrincipal {
-                    val user = userService.read(it.userId)
+                withPrincipal {
+                    val user = userService.read()
                     if (user != null) {
                         call.respond(HttpStatusCode.OK, UserDto.fromUser(user))
                     } else {
@@ -34,24 +33,16 @@ fun Application.configureUserService(userService: UserService) {
                 }
             }
 
-            put("/user") {
-                withFirebasePrincipal {
-                    val user = call.receive<User>()
-                    userService.update(it.userId, user)
-                    call.respond(HttpStatusCode.OK)
-                }
-            }
-
             post<SubscriptionInformation>("/user/subscription") {
-                withFirebasePrincipal { user ->
-                    userService.markIsPaidUser(user, it.isPaidUser)
+                withPrincipal {
+                    userService.markIsPaidUser(it.isPaidUser)
                     call.respond(HttpStatusCode.OK)
                 }
             }
 
             delete("/user") {
-                withFirebasePrincipal {
-                    userService.delete(it.userId)
+                withPrincipal {
+                    userService.delete()
                     call.respond(HttpStatusCode.OK)
                 }
             }
@@ -78,3 +69,7 @@ data class UserDto(val userId: String, val isPaidUser: Boolean) {
         }
     }
 }
+
+class AuthenticatedScope(
+    val principal: User
+)

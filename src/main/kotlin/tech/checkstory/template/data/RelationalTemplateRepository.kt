@@ -5,7 +5,7 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
-import tech.checkstory.auth.user.User
+import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.template.data.RelationalTemplateRepository.Templates.id
 import tech.checkstory.template.domain.TemplateRepository
 import tech.checkstory.template.domain.aggregate.Template
@@ -32,24 +32,26 @@ class RelationalTemplateRepository(private val database: Database) : TemplateRep
         return newSuspendedTransaction(Dispatchers.IO) { block() }
     }
 
-    suspend fun create(template: Template, user: User) {
+    context(AuthenticatedScope)
+    suspend fun create(template: Template) {
         dbQuery {
             Templates.insert {
                 it[id] = template.id
-                it[userId] = user.userId
+                it[userId] = principal.userId
                 it[name] = template.name
                 it[description] = template.description
             }
         }
     }
 
-    override suspend fun read(user: User, id: UUID): Template? {
+    context(AuthenticatedScope)
+    override suspend fun read(id: UUID): Template? {
         return dbQuery {
-            Templates.select { Templates.id eq id and (Templates.userId eq user.userId) }
+            Templates.select { Templates.id eq id and (Templates.userId eq principal.userId) }
                 .map {
                     Template(
                         id = it[Templates.id],
-                        userId = "",
+                        userId = it[Templates.userId],
                         name = it[Templates.name],
                         description = it[Templates.description]
                     )
@@ -58,9 +60,10 @@ class RelationalTemplateRepository(private val database: Database) : TemplateRep
         }
     }
 
-    override suspend fun readAll(user: User): List<Template> {
+    context(AuthenticatedScope)
+    override suspend fun readAll(): List<Template> {
         return dbQuery {
-            Templates.select { Templates.userId eq user.userId }
+            Templates.select { Templates.userId eq principal.userId }
                 .map {
                     Template(
                         id = it[id],
@@ -72,17 +75,19 @@ class RelationalTemplateRepository(private val database: Database) : TemplateRep
         }
     }
 
-    suspend fun updateTitle(user: User, templateId: UUID, newTitle: String) {
+    context(AuthenticatedScope)
+    suspend fun updateTitle(templateId: UUID, newTitle: String) {
         dbQuery {
-            Templates.update({ (id eq templateId) and (Templates.userId eq user.userId) }) {
+            Templates.update({ (id eq templateId) and (Templates.userId eq principal.userId) }) {
                 it[name] = newTitle
             }
         }
     }
 
-    suspend fun delete(user: User, id: UUID) {
+    context(AuthenticatedScope)
+    suspend fun delete(id: UUID) {
         dbQuery {
-            Templates.deleteWhere { Templates.id eq id and (userId eq user.userId) }
+            Templates.deleteWhere { Templates.id eq id and (userId eq principal.userId) }
         }
     }
 }

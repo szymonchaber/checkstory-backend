@@ -6,7 +6,7 @@ import io.ktor.server.auth.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import tech.checkstory.auth.firebase.FIREBASE_AUTH
-import tech.checkstory.auth.withFirebasePrincipal
+import tech.checkstory.auth.withPrincipal
 import tech.checkstory.checklist.data.EventBasedChecklistRepository
 import java.util.*
 
@@ -16,16 +16,16 @@ fun Application.configureChecklistService(
     routing {
         authenticate(FIREBASE_AUTH) {
             get("/checklists") {
-                withFirebasePrincipal {
-                    val checklists = eventBasedChecklistRepository.readAll(it)
+                withPrincipal {
+                    val checklists = eventBasedChecklistRepository.readAll()
                     call.respond(HttpStatusCode.OK, checklists)
                 }
             }
 
             get("/checklists/{id}") {
-                withFirebasePrincipal {
+                withPrincipal {
                     val id = call.parameters["id"] ?: throw IllegalArgumentException("Invalid ID")
-                    val template = eventBasedChecklistRepository.read(it, UUID.fromString(id))
+                    val template = eventBasedChecklistRepository.read(UUID.fromString(id))
                     if (template != null) {
                         call.respond(HttpStatusCode.OK, template)
                     } else {

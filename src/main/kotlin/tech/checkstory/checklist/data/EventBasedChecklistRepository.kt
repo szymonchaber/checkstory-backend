@@ -1,6 +1,6 @@
 package tech.checkstory.checklist.data
 
-import tech.checkstory.auth.user.User
+import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.checklist.domain.ChecklistRepository
 import tech.checkstory.checklist.domain.aggregate.Checklist
 import tech.checkstory.checklist.domain.aggregate.ChecklistAggregate
@@ -12,7 +12,8 @@ class EventBasedChecklistRepository(
     private val eventRepository: ChecklistEventRepository
 ) : ChecklistRepository {
 
-    override suspend fun readAll(user: User): List<Checklist> {
+    context(AuthenticatedScope)
+    override suspend fun readAll(): List<Checklist> {
         return eventRepository.getAll()
             .groupBy(ChecklistEvent::checklistId)
             .asSequence()
@@ -20,25 +21,28 @@ class EventBasedChecklistRepository(
                 ChecklistAggregate.fromHistory(id, events).toChecklistOrNull()
             }
             .filter {
-                it.userId == user.userId
+                it.userId == principal.userId
             }
             .filterNot(Checklist::isDeleted)
             .toList()
     }
 
-    override suspend fun read(user: User, id: UUID): Checklist? {
-        return getById(user, id).toChecklistOrNull()
+    context(AuthenticatedScope)
+    override suspend fun read(id: UUID): Checklist? {
+        return getById(id).toChecklistOrNull()
     }
 
-    suspend fun getByIdOrNew(user: User, checklistId: DtoUUID): ChecklistAggregate {
-        return getById(user, checklistId)
+    context(AuthenticatedScope)
+    suspend fun getByIdOrNew(checklistId: DtoUUID): ChecklistAggregate {
+        return getById(checklistId)
     }
 
-    suspend fun getById(user: User, id: UUID): ChecklistAggregate {
+    context(AuthenticatedScope)
+    suspend fun getById(id: UUID): ChecklistAggregate {
         return eventRepository.getEventsForAggregate(id)
             .fold(new(id), ChecklistAggregate::applyEvent)
             .also {
-                if (!it.isOwnedBy(user)) {
+                if (!it.isOwnedBy(principal)) {
                     error("unauthorized access - 403")
                 }
             }

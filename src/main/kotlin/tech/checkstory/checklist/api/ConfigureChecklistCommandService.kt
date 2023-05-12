@@ -6,8 +6,8 @@ import io.ktor.server.auth.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import tech.checkstory.auth.firebase.FIREBASE_AUTH
-import tech.checkstory.auth.user.User
-import tech.checkstory.auth.withFirebasePrincipal
+import tech.checkstory.auth.user.AuthenticatedScope
+import tech.checkstory.auth.withPrincipal
 import tech.checkstory.checklist.data.ChecklistEventRepository
 import tech.checkstory.checklist.data.EventBasedChecklistRepository
 import tech.checkstory.checklist.domain.command.ChecklistCommand
@@ -19,8 +19,8 @@ fun Application.configureChecklistCommandService(
     routing {
         authenticate(FIREBASE_AUTH) {
             post<List<ChecklistCommand>>("/checklist-commands") { commands ->
-                withFirebasePrincipal {
-                    handleChecklistCommands(it, commands, repository, eventRepository)
+                withPrincipal {
+                    handleChecklistCommands(commands, repository, eventRepository)
                     call.respond(HttpStatusCode.NoContent)
                 }
             }
@@ -28,8 +28,8 @@ fun Application.configureChecklistCommandService(
     }
 }
 
+context(AuthenticatedScope)
 suspend fun handleChecklistCommands(
-    user: User,
     commands: List<ChecklistCommand>,
     repository: EventBasedChecklistRepository,
     eventRepository: ChecklistEventRepository
@@ -37,10 +37,10 @@ suspend fun handleChecklistCommands(
     commands.sortedBy { it.timestamp }
         .groupBy { it.checklistId }
         .forEach { (checklistId, commands) ->
-            repository.getByIdOrNew(user, checklistId)
-                .applyCommands(commands, user)
+            repository.getByIdOrNew(checklistId)
+                .applyCommands(commands, principal)
                 .forEach {
-                    eventRepository.save(it, user)
+                    eventRepository.save(it, principal)
                 }
         }
 }

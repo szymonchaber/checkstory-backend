@@ -1,6 +1,6 @@
 package tech.checkstory.template.data
 
-import tech.checkstory.auth.user.User
+import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.template.domain.TemplateRepository
 import tech.checkstory.template.domain.aggregate.Template
 import java.util.*
@@ -9,7 +9,8 @@ class EventSourcedTemplateRepository(
     private val templateEventRepository: TemplateEventRepository
 ) : TemplateRepository {
 
-    override suspend fun readAll(user: User): List<Template> {
+    context(AuthenticatedScope)
+    override suspend fun readAll(): List<Template> {
         return templateEventRepository.getAll()
             .groupBy {
                 it.templateId
@@ -19,7 +20,7 @@ class EventSourcedTemplateRepository(
                 TemplateAggregate.fromHistory(id, events).toTemplateOrNull()
             }
             .filter {
-                it.userId == user.userId
+                it.userId == principal.userId
             }
             .filterNot {
                 it.isDeleted
@@ -27,7 +28,7 @@ class EventSourcedTemplateRepository(
             .toList()
     }
 
-    override suspend fun read(user: User, id: UUID): Template? {
+    override suspend fun read(id: UUID): Template? {
         return TemplateAggregate.fromHistory(id, templateEventRepository.getEventsForAggregate(id)).toTemplateOrNull()
     }
 

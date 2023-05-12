@@ -5,6 +5,7 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
+import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.auth.user.User
 import tech.checkstory.template.domain.aggregate.TemplateTask
 import java.util.*
@@ -70,9 +71,10 @@ class TemplateTaskRepository(private val database: Database) {
         }
     }
 
-    suspend fun getForTemplate(user: User, templateId: UUID): List<TemplateTask> {
+    context(AuthenticatedScope)
+    suspend fun getForTemplate(templateId: UUID): List<TemplateTask> {
         return dbQuery {
-            TemplateTasks.select { (TemplateTasks.templateId eq templateId) and (TemplateTasks.userId eq user.userId) }
+            TemplateTasks.select { (TemplateTasks.templateId eq templateId) and (TemplateTasks.userId eq principal.userId) }
                 .map {
                     TemplateTask(
                         id = it[TemplateTasks.id],

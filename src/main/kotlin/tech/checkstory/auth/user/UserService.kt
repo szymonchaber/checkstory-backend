@@ -33,9 +33,14 @@ class UserService(private val database: Database) {
         }
     }
 
-    suspend fun read(id: String): User? {
+    context(AuthenticatedScope)
+    suspend fun read(): User? {
+        return readById(principal.userId)
+    }
+
+    suspend fun readById(userId: String): User? {
         return dbQuery {
-            Users.select { firebaseId eq id }
+            Users.select { firebaseId eq userId }
                 .map {
                     User(
                         userId = it[Users.firebaseId],
@@ -46,25 +51,19 @@ class UserService(private val database: Database) {
         }
     }
 
-    suspend fun markIsPaidUser(user: User, isPaidUser: Boolean) {
+    context(AuthenticatedScope)
+    suspend fun markIsPaidUser(isPaidUser: Boolean) {
         dbQuery {
-            Users.update({ firebaseId eq user.userId }) {
+            Users.update({ firebaseId eq principal.userId }) {
                 it[Users.isPaidUser] = isPaidUser
             }
         }
     }
 
-    suspend fun update(id: String, user: User) {
+    context(AuthenticatedScope)
+    suspend fun delete() {
         dbQuery {
-            Users.update({ firebaseId eq id }) {
-//                it[name] = user.name
-            }
-        }
-    }
-
-    suspend fun delete(id: String) {
-        dbQuery {
-            Users.deleteWhere { firebaseId eq id }
+            Users.deleteWhere { firebaseId eq principal.userId }
         }
     }
 }

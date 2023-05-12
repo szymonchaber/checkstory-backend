@@ -44,7 +44,7 @@ Authorization: Bearer {{auth_token_1}}
 <> 2023-04-19T015306.200.json
 
 ###
-GET http://0.0.0.0:8080/template/{{checklist_id}}/tasks
+GET http://0.0.0.0:8080/checklists/{{checklist_id}}/tasks
 Content-Type: application/json
 Authorization: Bearer {{auth_token_1}}
 

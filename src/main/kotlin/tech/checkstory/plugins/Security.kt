@@ -9,7 +9,7 @@ fun Application.configureSecurity(userService: UserService) {
     authentication {
         firebase {
             validate {
-                userService.read(it.uid) ?: error("Provided user token is not a registered user")
+                userService.readById(it.uid) ?: error("Provided user token is not a registered user")
             }
         }
     }
