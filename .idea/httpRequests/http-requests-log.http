@@ -1,3 +1,441 @@
+POST http://0.0.0.0:8080/commands
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjFiYjI2MzY4YTNkMWExNDg1YmNhNTJiNGY4M2JkYjQ5YjY0ZWM2MmYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM5Nzg3OTEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4Mzk3ODc5MSwiZXhwIjoxNjgzOTgyMzkxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.brmUsBZpIxtWiPM8NghAGlHvP1RjZPTHzyu9dG3aMgaNVq4WzAu5t_YvqqV4AYuOItjYwI2nCY1lyvA46v5DpsFWAxksQqE5zgL69E-nGg6mzKW1k6ge5GP5KIrcAMTreAi8R-kalGt9RHjZcESJ7F6xco_V_puWZzZPW7S6nkiZDRhoSHeFmGF7NOK5xawT_sisOfox9iMW0SISIKM4_Dxbuj3AeQMSSgnWdNmCh8v3clHmSHUGkBT-nXmRD7mgY3B_sA0E38cSNZbzOKebDV-chhiz56EpnxFDMxhKdEnUfIMAcCyJ3Fa7NUngZI5AvArTQwXI5tpqhIwsNkDRXw
+Content-Length: 2437
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+[
+{
+    "type": "createTemplate",
+    "templateId": "d19585fc-5bab-4ba7-b5d5-090b1d755396",
+    "commandId": "98c1c1ec-81a1-4b08-b35f-a3f9c3b3bcc3",
+    "timestamp": "2023-05-13T11:58:03.826101Z"
+  },
+    {
+    "type": "addTemplateTask",
+    "templateId": "d19585fc-5bab-4ba7-b5d5-090b1d755396",
+    "taskId": "9472296c-7564-41ad-b588-0ea26be016e9",
+    "parentTaskId": null,
+    "commandId": "920bc975-e6a7-48b7-ab1f-dc08c3d677fc",
+    "timestamp": "2023-05-13T11:58:03.826198Z"
+  },
+  {
+    "type": "addTemplateTask",
+    "templateId": "d19585fc-5bab-4ba7-b5d5-090b1d755396",
+    "taskId": "3a9c5bda-50b7-46a8-b781-df35f53e4811",
+    "parentTaskId": 9472296c-7564-41ad-b588-0ea26be016e9,
+    "commandId": "2fba14df-f629-47b5-839c-53633f2f59f8",
+    "timestamp": "2023-05-13T11:58:03.826246Z"
+  },
+  {
+    "type": "editTemplateTitle",
+    "templateId": "d19585fc-5bab-4ba7-b5d5-090b1d755396",
+    "newTitle": "All the events",
+    "commandId": "794228c8-cf95-4de3-90ef-b7ace78dce60",
+    "timestamp": "2023-05-13T11:58:03.826294Z"
+  },
+  {
+    "type": "addTemplateTask",
+    "templateId": "d19585fc-5bab-4ba7-b5d5-090b1d755396",
+    "taskId": "71ecdb70-c9d1-4344-b711-9ad57ee296dc",
+    "parentTaskId": null,
+    "commandId": "ed25ad34-3c77-4c30-a750-8ec10dc09304",
+    "timestamp": "2023-05-13T11:58:03.826342Z"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "d19585fc-5bab-4ba7-b5d5-090b1d755396",
+    "taskId": "3a9c5bda-50b7-46a8-b781-df35f53e4811",
+    "newTitle": "Task 3 - deleted later",
+    "commandId": "58b9e6f7-611a-4266-af19-842a9bd27180",
+    "timestamp": "2023-05-13T11:58:03.826389Z"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "d19585fc-5bab-4ba7-b5d5-090b1d755396",
+    "taskId": "71ecdb70-c9d1-4344-b711-9ad57ee296dc",
+    "newTitle": "Task 1",
+    "commandId": "186f33f0-d9d4-4798-acbc-817747f21f2f",
+    "timestamp": "2023-05-13T11:58:03.826433Z"
+  },
+  {
+    "type": "editTemplateDescription",
+    "templateId": "d19585fc-5bab-4ba7-b5d5-090b1d755396",
+    "newDescription": "Description",
+    "commandId": "0bf93501-4e22-474e-b5c0-0a23d87b701c",
+    "timestamp": "2023-05-13T11:58:03.826475Z"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "d19585fc-5bab-4ba7-b5d5-090b1d755396",
+    "taskId": "9472296c-7564-41ad-b588-0ea26be016e9",
+    "newTitle": "Task 2",
+    "commandId": "45f03b94-af3c-48bf-b0cf-7dd64e1361cd",
+    "timestamp": "2023-05-13T11:58:03.826521Z"
+  }
+]
+
+###
+
+GET http://0.0.0.0:8080/templates/9fedb356-58f8-4466-b966-6efbe3b2a16f
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjFiYjI2MzY4YTNkMWExNDg1YmNhNTJiNGY4M2JkYjQ5YjY0ZWM2MmYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM5Nzg3OTEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4Mzk3ODc5MSwiZXhwIjoxNjgzOTgyMzkxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.brmUsBZpIxtWiPM8NghAGlHvP1RjZPTHzyu9dG3aMgaNVq4WzAu5t_YvqqV4AYuOItjYwI2nCY1lyvA46v5DpsFWAxksQqE5zgL69E-nGg6mzKW1k6ge5GP5KIrcAMTreAi8R-kalGt9RHjZcESJ7F6xco_V_puWZzZPW7S6nkiZDRhoSHeFmGF7NOK5xawT_sisOfox9iMW0SISIKM4_Dxbuj3AeQMSSgnWdNmCh8v3clHmSHUGkBT-nXmRD7mgY3B_sA0E38cSNZbzOKebDV-chhiz56EpnxFDMxhKdEnUfIMAcCyJ3Fa7NUngZI5AvArTQwXI5tpqhIwsNkDRXw
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+POST http://0.0.0.0:8080/user/subscription
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjFiYjI2MzY4YTNkMWExNDg1YmNhNTJiNGY4M2JkYjQ5YjY0ZWM2MmYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM5Nzg3OTEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4Mzk3ODc5MSwiZXhwIjoxNjgzOTgyMzkxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.brmUsBZpIxtWiPM8NghAGlHvP1RjZPTHzyu9dG3aMgaNVq4WzAu5t_YvqqV4AYuOItjYwI2nCY1lyvA46v5DpsFWAxksQqE5zgL69E-nGg6mzKW1k6ge5GP5KIrcAMTreAi8R-kalGt9RHjZcESJ7F6xco_V_puWZzZPW7S6nkiZDRhoSHeFmGF7NOK5xawT_sisOfox9iMW0SISIKM4_Dxbuj3AeQMSSgnWdNmCh8v3clHmSHUGkBT-nXmRD7mgY3B_sA0E38cSNZbzOKebDV-chhiz56EpnxFDMxhKdEnUfIMAcCyJ3Fa7NUngZI5AvArTQwXI5tpqhIwsNkDRXw
+Content-Length: 24
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "isPaidUser": true
+}
+
+###
+
+POST http://0.0.0.0:8080/commands
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjFiYjI2MzY4YTNkMWExNDg1YmNhNTJiNGY4M2JkYjQ5YjY0ZWM2MmYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM5Nzg3OTEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4Mzk3ODc5MSwiZXhwIjoxNjgzOTgyMzkxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.brmUsBZpIxtWiPM8NghAGlHvP1RjZPTHzyu9dG3aMgaNVq4WzAu5t_YvqqV4AYuOItjYwI2nCY1lyvA46v5DpsFWAxksQqE5zgL69E-nGg6mzKW1k6ge5GP5KIrcAMTreAi8R-kalGt9RHjZcESJ7F6xco_V_puWZzZPW7S6nkiZDRhoSHeFmGF7NOK5xawT_sisOfox9iMW0SISIKM4_Dxbuj3AeQMSSgnWdNmCh8v3clHmSHUGkBT-nXmRD7mgY3B_sA0E38cSNZbzOKebDV-chhiz56EpnxFDMxhKdEnUfIMAcCyJ3Fa7NUngZI5AvArTQwXI5tpqhIwsNkDRXw
+Content-Length: 2437
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+[
+{
+    "type": "createTemplate",
+    "templateId": "a099bb32-7bf0-4b60-b7c9-3369017271b4",
+    "commandId": "93ceaf85-eca1-45a6-a874-9771ef25d638",
+    "timestamp": "2023-05-13T11:57:46.452645Z"
+  },
+    {
+    "type": "addTemplateTask",
+    "templateId": "a099bb32-7bf0-4b60-b7c9-3369017271b4",
+    "taskId": "07023ca6-1f38-4069-9ac0-c98973f329be",
+    "parentTaskId": null,
+    "commandId": "ab88cf7b-0d03-4b9f-9e7c-ac23e94bcace",
+    "timestamp": "2023-05-13T11:57:46.452718Z"
+  },
+  {
+    "type": "addTemplateTask",
+    "templateId": "a099bb32-7bf0-4b60-b7c9-3369017271b4",
+    "taskId": "73579f20-6943-434f-9913-338e0b8140fe",
+    "parentTaskId": 07023ca6-1f38-4069-9ac0-c98973f329be,
+    "commandId": "92747f22-c1f3-4fe1-87af-1237d6175170",
+    "timestamp": "2023-05-13T11:57:46.452769Z"
+  },
+  {
+    "type": "editTemplateTitle",
+    "templateId": "a099bb32-7bf0-4b60-b7c9-3369017271b4",
+    "newTitle": "All the events",
+    "commandId": "87b9e936-f52d-4949-802c-b4a4f0a37a9e",
+    "timestamp": "2023-05-13T11:57:46.452815Z"
+  },
+  {
+    "type": "addTemplateTask",
+    "templateId": "a099bb32-7bf0-4b60-b7c9-3369017271b4",
+    "taskId": "ee9de902-e7b2-4dea-bbc0-c6c88c616119",
+    "parentTaskId": null,
+    "commandId": "6212ee5d-59d2-4611-9824-35c0d3c64683",
+    "timestamp": "2023-05-13T11:57:46.452867Z"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "a099bb32-7bf0-4b60-b7c9-3369017271b4",
+    "taskId": "73579f20-6943-434f-9913-338e0b8140fe",
+    "newTitle": "Task 3 - deleted later",
+    "commandId": "6edc2f42-94b1-4c27-a848-f5ff3dfcd98e",
+    "timestamp": "2023-05-13T11:57:46.452912Z"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "a099bb32-7bf0-4b60-b7c9-3369017271b4",
+    "taskId": "ee9de902-e7b2-4dea-bbc0-c6c88c616119",
+    "newTitle": "Task 1",
+    "commandId": "298f1a25-9c13-4c0b-bf96-dbc02ea9039b",
+    "timestamp": "2023-05-13T11:57:46.452958Z"
+  },
+  {
+    "type": "editTemplateDescription",
+    "templateId": "a099bb32-7bf0-4b60-b7c9-3369017271b4",
+    "newDescription": "Description",
+    "commandId": "a02449f8-e257-4fdf-9a54-6690556686c7",
+    "timestamp": "2023-05-13T11:57:46.453003Z"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "a099bb32-7bf0-4b60-b7c9-3369017271b4",
+    "taskId": "07023ca6-1f38-4069-9ac0-c98973f329be",
+    "newTitle": "Task 2",
+    "commandId": "a5d1d643-20c9-4ea2-be10-cace64a301bf",
+    "timestamp": "2023-05-13T11:57:46.453051Z"
+  }
+]
+
+<> 2023-05-13T135746.402.txt
+
+###
+
+POST http://0.0.0.0:8080/auth/register
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjFiYjI2MzY4YTNkMWExNDg1YmNhNTJiNGY4M2JkYjQ5YjY0ZWM2MmYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM5Nzg3OTEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4Mzk3ODc5MSwiZXhwIjoxNjgzOTgyMzkxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.brmUsBZpIxtWiPM8NghAGlHvP1RjZPTHzyu9dG3aMgaNVq4WzAu5t_YvqqV4AYuOItjYwI2nCY1lyvA46v5DpsFWAxksQqE5zgL69E-nGg6mzKW1k6ge5GP5KIrcAMTreAi8R-kalGt9RHjZcESJ7F6xco_V_puWZzZPW7S6nkiZDRhoSHeFmGF7NOK5xawT_sisOfox9iMW0SISIKM4_Dxbuj3AeQMSSgnWdNmCh8v3clHmSHUGkBT-nXmRD7mgY3B_sA0E38cSNZbzOKebDV-chhiz56EpnxFDMxhKdEnUfIMAcCyJ3Fa7NUngZI5AvArTQwXI5tpqhIwsNkDRXw
+Content-Length: 3
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+}
+
+###
+
+POST http://0.0.0.0:8080/checklist-commands
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjFiYjI2MzY4YTNkMWExNDg1YmNhNTJiNGY4M2JkYjQ5YjY0ZWM2MmYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM5Nzg3OTEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4Mzk3ODc5MSwiZXhwIjoxNjgzOTgyMzkxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.brmUsBZpIxtWiPM8NghAGlHvP1RjZPTHzyu9dG3aMgaNVq4WzAu5t_YvqqV4AYuOItjYwI2nCY1lyvA46v5DpsFWAxksQqE5zgL69E-nGg6mzKW1k6ge5GP5KIrcAMTreAi8R-kalGt9RHjZcESJ7F6xco_V_puWZzZPW7S6nkiZDRhoSHeFmGF7NOK5xawT_sisOfox9iMW0SISIKM4_Dxbuj3AeQMSSgnWdNmCh8v3clHmSHUGkBT-nXmRD7mgY3B_sA0E38cSNZbzOKebDV-chhiz56EpnxFDMxhKdEnUfIMAcCyJ3Fa7NUngZI5AvArTQwXI5tpqhIwsNkDRXw
+Content-Length: 1680
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+[
+    {
+    "type": "createChecklist",
+    "templateId": "36d1ca3d-c577-4d9f-b8b3-ebfb379d1cd8",
+    "title": "All the events",
+    "description": "Description",
+    "tasks": [
+     {
+        "id": "19bb4346-30d3-4dfa-a1ac-9fa5cb2ff735",
+        "checklistId": 3a63bfb0-7b4f-4086-84e5-5d910b31e6a8,
+        "title": "Task 1",
+        "sortPosition": 0,
+        "isChecked": false,
+        "children": [
+          {
+            "id": "012f18f9-2ae9-4ebd-bb39-4eb201f91149",
+            "checklistId": "3a63bfb0-7b4f-4086-84e5-5d910b31e6a8",
+            "title": "Task 2",
+            "sortPosition": 0,
+            "isChecked":  false,
+            "children": []
+          }
+          ]
+    }
+    ],
+    "checklistId": "3a63bfb0-7b4f-4086-84e5-5d910b31e6a8",
+    "commandId": "0f6fcc0f-2cb3-4afa-b3b3-4b2db995ea15",
+    "timestamp": "2023-05-13T11:54:00.233168Z"
+  },
+  {
+    "type": "editChecklistNotes",
+    "newNotes": "My notes are awesome",
+    "checklistId": "3a63bfb0-7b4f-4086-84e5-5d910b31e6a8",
+    "commandId": "f608b3c3-98ab-4773-a3d0-0c63dd7d1b8d",
+    "timestamp": "2023-05-13T11:54:00.233244Z"
+  },
+    {
+    "type": "changeTaskChecked",
+    "taskId": "19bb4346-30d3-4dfa-a1ac-9fa5cb2ff735",
+    "isChecked": true,
+    "checklistId": "3a63bfb0-7b4f-4086-84e5-5d910b31e6a8",
+    "commandId": "428cf2a1-ec82-49b0-a260-0cc8f74831e0",
+    "timestamp": "2023-05-13T11:54:00.233293Z"
+  },
+   {
+    "type": "changeTaskChecked",
+    "taskId": "012f18f9-2ae9-4ebd-bb39-4eb201f91149",
+    "isChecked": true,
+    "checklistId": "3a63bfb0-7b4f-4086-84e5-5d910b31e6a8",
+    "commandId": "bdbe551a-a94a-4b33-aea2-d9330eeae25a",
+    "timestamp": "2023-05-13T11:54:00.233393Z"
+  }
+]
+
+###
+
+POST http://0.0.0.0:8080/user/subscription
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjFiYjI2MzY4YTNkMWExNDg1YmNhNTJiNGY4M2JkYjQ5YjY0ZWM2MmYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM5Nzg3OTEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4Mzk3ODc5MSwiZXhwIjoxNjgzOTgyMzkxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.brmUsBZpIxtWiPM8NghAGlHvP1RjZPTHzyu9dG3aMgaNVq4WzAu5t_YvqqV4AYuOItjYwI2nCY1lyvA46v5DpsFWAxksQqE5zgL69E-nGg6mzKW1k6ge5GP5KIrcAMTreAi8R-kalGt9RHjZcESJ7F6xco_V_puWZzZPW7S6nkiZDRhoSHeFmGF7NOK5xawT_sisOfox9iMW0SISIKM4_Dxbuj3AeQMSSgnWdNmCh8v3clHmSHUGkBT-nXmRD7mgY3B_sA0E38cSNZbzOKebDV-chhiz56EpnxFDMxhKdEnUfIMAcCyJ3Fa7NUngZI5AvArTQwXI5tpqhIwsNkDRXw
+Content-Length: 24
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "isPaidUser": true
+}
+
+###
+
+POST http://0.0.0.0:8080/checklist-commands
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjFiYjI2MzY4YTNkMWExNDg1YmNhNTJiNGY4M2JkYjQ5YjY0ZWM2MmYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM5Nzg3OTEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4Mzk3ODc5MSwiZXhwIjoxNjgzOTgyMzkxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.brmUsBZpIxtWiPM8NghAGlHvP1RjZPTHzyu9dG3aMgaNVq4WzAu5t_YvqqV4AYuOItjYwI2nCY1lyvA46v5DpsFWAxksQqE5zgL69E-nGg6mzKW1k6ge5GP5KIrcAMTreAi8R-kalGt9RHjZcESJ7F6xco_V_puWZzZPW7S6nkiZDRhoSHeFmGF7NOK5xawT_sisOfox9iMW0SISIKM4_Dxbuj3AeQMSSgnWdNmCh8v3clHmSHUGkBT-nXmRD7mgY3B_sA0E38cSNZbzOKebDV-chhiz56EpnxFDMxhKdEnUfIMAcCyJ3Fa7NUngZI5AvArTQwXI5tpqhIwsNkDRXw
+Content-Length: 1680
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+[
+    {
+    "type": "createChecklist",
+    "templateId": "36d1ca3d-c577-4d9f-b8b3-ebfb379d1cd8",
+    "title": "All the events",
+    "description": "Description",
+    "tasks": [
+     {
+        "id": "b2b87a9e-e03e-4831-85f8-a57daf08904e",
+        "checklistId": 0e1ca05d-e672-4435-9656-a67efc9b037c,
+        "title": "Task 1",
+        "sortPosition": 0,
+        "isChecked": false,
+        "children": [
+          {
+            "id": "500d866c-8e52-476e-a009-3d43b052ee5f",
+            "checklistId": "0e1ca05d-e672-4435-9656-a67efc9b037c",
+            "title": "Task 2",
+            "sortPosition": 0,
+            "isChecked":  false,
+            "children": []
+          }
+          ]
+    }
+    ],
+    "checklistId": "0e1ca05d-e672-4435-9656-a67efc9b037c",
+    "commandId": "4e66953c-8889-4f39-9d47-cee517e23107",
+    "timestamp": "2023-05-13T11:53:44.092293Z"
+  },
+  {
+    "type": "editChecklistNotes",
+    "newNotes": "My notes are awesome",
+    "checklistId": "0e1ca05d-e672-4435-9656-a67efc9b037c",
+    "commandId": "88cc32ee-ff66-4727-bd92-310e5d84bb7e",
+    "timestamp": "2023-05-13T11:53:44.092358Z"
+  },
+    {
+    "type": "changeTaskChecked",
+    "taskId": "b2b87a9e-e03e-4831-85f8-a57daf08904e",
+    "isChecked": true,
+    "checklistId": "0e1ca05d-e672-4435-9656-a67efc9b037c",
+    "commandId": "d1b9db95-9b61-41b7-a129-205dcfc8b0e0",
+    "timestamp": "2023-05-13T11:53:44.092409Z"
+  },
+   {
+    "type": "changeTaskChecked",
+    "taskId": "500d866c-8e52-476e-a009-3d43b052ee5f",
+    "isChecked": true,
+    "checklistId": "0e1ca05d-e672-4435-9656-a67efc9b037c",
+    "commandId": "b26f850e-fe59-4c76-b1c5-2199b1def718",
+    "timestamp": "2023-05-13T11:53:44.092466Z"
+  }
+]
+
+<> 2023-05-13T135344.402.txt
+
+###
+
+POST http://0.0.0.0:8080/auth/register
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjFiYjI2MzY4YTNkMWExNDg1YmNhNTJiNGY4M2JkYjQ5YjY0ZWM2MmYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM5Nzg3OTEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4Mzk3ODc5MSwiZXhwIjoxNjgzOTgyMzkxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.brmUsBZpIxtWiPM8NghAGlHvP1RjZPTHzyu9dG3aMgaNVq4WzAu5t_YvqqV4AYuOItjYwI2nCY1lyvA46v5DpsFWAxksQqE5zgL69E-nGg6mzKW1k6ge5GP5KIrcAMTreAi8R-kalGt9RHjZcESJ7F6xco_V_puWZzZPW7S6nkiZDRhoSHeFmGF7NOK5xawT_sisOfox9iMW0SISIKM4_Dxbuj3AeQMSSgnWdNmCh8v3clHmSHUGkBT-nXmRD7mgY3B_sA0E38cSNZbzOKebDV-chhiz56EpnxFDMxhKdEnUfIMAcCyJ3Fa7NUngZI5AvArTQwXI5tpqhIwsNkDRXw
+Content-Length: 3
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+}
+
+###
+
+POST http://0.0.0.0:8080/checklist-commands
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjFiYjI2MzY4YTNkMWExNDg1YmNhNTJiNGY4M2JkYjQ5YjY0ZWM2MmYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM5Nzg3OTEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4Mzk3ODc5MSwiZXhwIjoxNjgzOTgyMzkxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.brmUsBZpIxtWiPM8NghAGlHvP1RjZPTHzyu9dG3aMgaNVq4WzAu5t_YvqqV4AYuOItjYwI2nCY1lyvA46v5DpsFWAxksQqE5zgL69E-nGg6mzKW1k6ge5GP5KIrcAMTreAi8R-kalGt9RHjZcESJ7F6xco_V_puWZzZPW7S6nkiZDRhoSHeFmGF7NOK5xawT_sisOfox9iMW0SISIKM4_Dxbuj3AeQMSSgnWdNmCh8v3clHmSHUGkBT-nXmRD7mgY3B_sA0E38cSNZbzOKebDV-chhiz56EpnxFDMxhKdEnUfIMAcCyJ3Fa7NUngZI5AvArTQwXI5tpqhIwsNkDRXw
+Content-Length: 1680
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+[
+    {
+    "type": "createChecklist",
+    "templateId": "36d1ca3d-c577-4d9f-b8b3-ebfb379d1cd8",
+    "title": "All the events",
+    "description": "Description",
+    "tasks": [
+     {
+        "id": "dfc346d0-f104-4c6e-93da-8a3fa1873984",
+        "checklistId": eee6711a-7037-409b-ad38-3ea4333b754f,
+        "title": "Task 1",
+        "sortPosition": 0,
+        "isChecked": false,
+        "children": [
+          {
+            "id": "a74e5e6d-d8fd-4230-b7e1-c95fbe461e04",
+            "checklistId": "eee6711a-7037-409b-ad38-3ea4333b754f",
+            "title": "Task 2",
+            "sortPosition": 0,
+            "isChecked":  false,
+            "children": []
+          }
+          ]
+    }
+    ],
+    "checklistId": "eee6711a-7037-409b-ad38-3ea4333b754f",
+    "commandId": "c5e56c5f-dadd-41bc-aa9a-caeb3675c9dc",
+    "timestamp": "2023-05-13T11:53:20.796773Z"
+  },
+  {
+    "type": "editChecklistNotes",
+    "newNotes": "My notes are awesome",
+    "checklistId": "eee6711a-7037-409b-ad38-3ea4333b754f",
+    "commandId": "0941a841-4374-433b-b4f6-1cd91834bd49",
+    "timestamp": "2023-05-13T11:53:20.798280Z"
+  },
+    {
+    "type": "changeTaskChecked",
+    "taskId": "dfc346d0-f104-4c6e-93da-8a3fa1873984",
+    "isChecked": true,
+    "checklistId": "eee6711a-7037-409b-ad38-3ea4333b754f",
+    "commandId": "d0f61732-4187-45e3-865a-8436f026d55d",
+    "timestamp": "2023-05-13T11:53:20.798347Z"
+  },
+   {
+    "type": "changeTaskChecked",
+    "taskId": "a74e5e6d-d8fd-4230-b7e1-c95fbe461e04",
+    "isChecked": true,
+    "checklistId": "eee6711a-7037-409b-ad38-3ea4333b754f",
+    "commandId": "51de68c1-fd13-407c-8257-a71fb57cfa8e",
+    "timestamp": "2023-05-13T11:53:20.798452Z"
+  }
+]
+
+###
+
+POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAdvWNnIdp0EJsVKBzSZKlCNO_PO8HZrqw
+Content-Type: application/json
+Content-Length: 91
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "email": "szymon.chaber@o2.pl",
+  "password": "password",
+  "returnSecureToken": true
+}
+
+<> 2023-05-13T135311.200.json
+
+###
+
 GET http://0.0.0.0:8080/checklists/d743ba1e-0397-4a4e-be66-eaf112a80884/tasks
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjFiYjI2MzY4YTNkMWExNDg1YmNhNTJiNGY4M2JkYjQ5YjY0ZWM2MmYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM4OTYzOTksInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4Mzg5NjM5OSwiZXhwIjoxNjgzODk5OTk5LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.Er_K-eHWb2Vqn2TiNQwriXyTQkzNb0nO-s4MSgpDIWzyX_jCwtRKGIm6oy748L-9KdB_MTGiwyrot6K-NX_1TXfk_8tVXldruy2AFTbWbueL8xHu8rEV_jLr5sUl16-3ns49-ZTVYvv3XO2QjjIG0OyBx7ZkqRQ3N2qaRUX9IB58TRHlDL5IAdo0uYNKkDesJUTI7XaPYdER3xaCKA-KtoJyqzSMwnq4w20GBgD7nuxbdhJoAeKfEY9MAvzD4FBCv6BaDLi9py2TI4SwRVK_dcdMxtKnF4aVjHJY1d1fvImd4iO_BKPGc7kzk_nXZnsB8OT_oSNqzyGA9cr48smmVw
@@ -708,366 +1146,6 @@ Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2ZGE4NmU4MWJkNTllMGE4Y2YzNT
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
-
-###
-
-GET http://0.0.0.0:8080/checklists
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTMxODgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxMzE4OCwiZXhwIjoxNjgzNDE2Nzg4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.BAtIEOCBOixDf2u6ocRebvHuvkjV6gI0DSdIGGeYGfzJ7rJKG5N3RX0a2SSNUrPISYYg57rMDRsjtnMjR5B_ZpSorj1Q-m4lev7k0nk8QKBb1ejkoE3tsuH8dfg4Jd84HYsAP94YBuHQCcQHfIjfzP1sMY5J8vKWTXJd7IadvsleABBgMSxIgdg_3xM9GiT1GDWG0px_OetyQEuugON2A9ad37-QhewFSK_7reumWx9wlyAdO9mrJKWFLGk6YxX3aQ1N40QJyv40Ip2gKDPn-JaRIBZnx10erDZ1JGpu43uP8B0qQECJykxjosbBS54FaOgSPgxtYChB1zOSkHFmlA
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-05-07T004700.200.json
-
-###
-
-POST http://0.0.0.0:8080/checklist-commands
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTMxODgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxMzE4OCwiZXhwIjoxNjgzNDE2Nzg4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.BAtIEOCBOixDf2u6ocRebvHuvkjV6gI0DSdIGGeYGfzJ7rJKG5N3RX0a2SSNUrPISYYg57rMDRsjtnMjR5B_ZpSorj1Q-m4lev7k0nk8QKBb1ejkoE3tsuH8dfg4Jd84HYsAP94YBuHQCcQHfIjfzP1sMY5J8vKWTXJd7IadvsleABBgMSxIgdg_3xM9GiT1GDWG0px_OetyQEuugON2A9ad37-QhewFSK_7reumWx9wlyAdO9mrJKWFLGk6YxX3aQ1N40QJyv40Ip2gKDPn-JaRIBZnx10erDZ1JGpu43uP8B0qQECJykxjosbBS54FaOgSPgxtYChB1zOSkHFmlA
-Content-Length: 1680
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-[
-    {
-    "type": "createChecklist",
-    "templateId": "058f995e-f95a-4627-9a39-37d7842b67ea",
-    "title": "All the events",
-    "description": "Description",
-    "tasks": [
-     {
-        "id": "c9eacf73-2bd2-4073-8649-84638f48b47c",
-        "checklistId": 4c4d7ae5-208d-47e9-8438-1c7f96f8db7e,
-        "title": "Task 1",
-        "sortPosition": 0,
-        "isChecked": false,
-        "children": [
-          {
-            "id": "ae2dbaba-ca9e-4e87-8afc-d62627192f67",
-            "checklistId": "4c4d7ae5-208d-47e9-8438-1c7f96f8db7e",
-            "title": "Task 2",
-            "sortPosition": 0,
-            "isChecked":  false,
-            "children": []
-          }
-          ]
-    }
-    ],
-    "checklistId": "4c4d7ae5-208d-47e9-8438-1c7f96f8db7e",
-    "commandId": "fa9c6912-2688-49a7-ac51-67605da1468f",
-    "timestamp": "2023-05-06T22:46:56.747738Z"
-  },
-  {
-    "type": "editChecklistNotes",
-    "newNotes": "My notes are awesome",
-    "checklistId": "4c4d7ae5-208d-47e9-8438-1c7f96f8db7e",
-    "commandId": "93d4d90a-2408-461c-b2bd-ed9130a09f0c",
-    "timestamp": "2023-05-06T22:46:56.747829Z"
-  },
-    {
-    "type": "changeTaskChecked",
-    "taskId": "c9eacf73-2bd2-4073-8649-84638f48b47c",
-    "isChecked": true,
-    "checklistId": "4c4d7ae5-208d-47e9-8438-1c7f96f8db7e",
-    "commandId": "d90a3978-0092-4f9e-b2ca-fa4dba2592de",
-    "timestamp": "2023-05-06T22:46:56.747885Z"
-  },
-   {
-    "type": "changeTaskChecked",
-    "taskId": "ae2dbaba-ca9e-4e87-8afc-d62627192f67",
-    "isChecked": true,
-    "checklistId": "4c4d7ae5-208d-47e9-8438-1c7f96f8db7e",
-    "commandId": "e014a2f8-1549-42df-a86b-b99b8ff9dbd3",
-    "timestamp": "2023-05-06T22:46:56.747936Z"
-  }
-]
-
-###
-
-GET http://0.0.0.0:8080/checklists
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTMxODgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxMzE4OCwiZXhwIjoxNjgzNDE2Nzg4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.BAtIEOCBOixDf2u6ocRebvHuvkjV6gI0DSdIGGeYGfzJ7rJKG5N3RX0a2SSNUrPISYYg57rMDRsjtnMjR5B_ZpSorj1Q-m4lev7k0nk8QKBb1ejkoE3tsuH8dfg4Jd84HYsAP94YBuHQCcQHfIjfzP1sMY5J8vKWTXJd7IadvsleABBgMSxIgdg_3xM9GiT1GDWG0px_OetyQEuugON2A9ad37-QhewFSK_7reumWx9wlyAdO9mrJKWFLGk6YxX3aQ1N40QJyv40Ip2gKDPn-JaRIBZnx10erDZ1JGpu43uP8B0qQECJykxjosbBS54FaOgSPgxtYChB1zOSkHFmlA
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-05-07T004653.200.json
-
-###
-
-GET http://0.0.0.0:8080/templates
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTMxODgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxMzE4OCwiZXhwIjoxNjgzNDE2Nzg4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.BAtIEOCBOixDf2u6ocRebvHuvkjV6gI0DSdIGGeYGfzJ7rJKG5N3RX0a2SSNUrPISYYg57rMDRsjtnMjR5B_ZpSorj1Q-m4lev7k0nk8QKBb1ejkoE3tsuH8dfg4Jd84HYsAP94YBuHQCcQHfIjfzP1sMY5J8vKWTXJd7IadvsleABBgMSxIgdg_3xM9GiT1GDWG0px_OetyQEuugON2A9ad37-QhewFSK_7reumWx9wlyAdO9mrJKWFLGk6YxX3aQ1N40QJyv40Ip2gKDPn-JaRIBZnx10erDZ1JGpu43uP8B0qQECJykxjosbBS54FaOgSPgxtYChB1zOSkHFmlA
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-05-07T004645.200.json
-
-###
-
-POST http://0.0.0.0:8080/commands
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTMxODgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxMzE4OCwiZXhwIjoxNjgzNDE2Nzg4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.BAtIEOCBOixDf2u6ocRebvHuvkjV6gI0DSdIGGeYGfzJ7rJKG5N3RX0a2SSNUrPISYYg57rMDRsjtnMjR5B_ZpSorj1Q-m4lev7k0nk8QKBb1ejkoE3tsuH8dfg4Jd84HYsAP94YBuHQCcQHfIjfzP1sMY5J8vKWTXJd7IadvsleABBgMSxIgdg_3xM9GiT1GDWG0px_OetyQEuugON2A9ad37-QhewFSK_7reumWx9wlyAdO9mrJKWFLGk6YxX3aQ1N40QJyv40Ip2gKDPn-JaRIBZnx10erDZ1JGpu43uP8B0qQECJykxjosbBS54FaOgSPgxtYChB1zOSkHFmlA
-Content-Length: 2437
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-[
-{
-    "type": "createTemplate",
-    "templateId": "058f995e-f95a-4627-9a39-37d7842b67ea",
-    "commandId": "14346776-b1e0-4dc6-9b8a-26c4dcb400e0",
-    "timestamp": "2023-05-06T22:46:39.594511Z"
-  },
-    {
-    "type": "addTemplateTask",
-    "templateId": "058f995e-f95a-4627-9a39-37d7842b67ea",
-    "taskId": "74c6b5ee-ab7e-4ba1-b7b1-ec9d66b99e7d",
-    "parentTaskId": null,
-    "commandId": "48bdd712-3da4-45c7-87cb-8ca05b4b619f",
-    "timestamp": "2023-05-06T22:46:39.594596Z"
-  },
-  {
-    "type": "addTemplateTask",
-    "templateId": "058f995e-f95a-4627-9a39-37d7842b67ea",
-    "taskId": "0cfe6ac8-5334-4fe1-8839-30ffb92fd301",
-    "parentTaskId": 74c6b5ee-ab7e-4ba1-b7b1-ec9d66b99e7d,
-    "commandId": "9c17db51-7844-4eab-ab48-ddbe1334dcec",
-    "timestamp": "2023-05-06T22:46:39.594652Z"
-  },
-  {
-    "type": "editTemplateTitle",
-    "templateId": "058f995e-f95a-4627-9a39-37d7842b67ea",
-    "newTitle": "All the events",
-    "commandId": "178069b4-9dcb-488c-b3f7-7648722528b1",
-    "timestamp": "2023-05-06T22:46:39.594703Z"
-  },
-  {
-    "type": "addTemplateTask",
-    "templateId": "058f995e-f95a-4627-9a39-37d7842b67ea",
-    "taskId": "320e8917-0533-430f-a13e-619ea98c9f55",
-    "parentTaskId": null,
-    "commandId": "db04204d-6be2-43fc-abc8-a0ae4a560118",
-    "timestamp": "2023-05-06T22:46:39.594764Z"
-  },
-  {
-    "type": "renameTemplateTask",
-    "templateId": "058f995e-f95a-4627-9a39-37d7842b67ea",
-    "taskId": "0cfe6ac8-5334-4fe1-8839-30ffb92fd301",
-    "newTitle": "Task 3 - deleted later",
-    "commandId": "6babd06c-0471-418c-8c61-4fa0ec218c49",
-    "timestamp": "2023-05-06T22:46:39.594848Z"
-  },
-  {
-    "type": "renameTemplateTask",
-    "templateId": "058f995e-f95a-4627-9a39-37d7842b67ea",
-    "taskId": "320e8917-0533-430f-a13e-619ea98c9f55",
-    "newTitle": "Task 1",
-    "commandId": "f3998c16-7382-45fb-a82e-4a425ed2f52b",
-    "timestamp": "2023-05-06T22:46:39.594899Z"
-  },
-  {
-    "type": "editTemplateDescription",
-    "templateId": "058f995e-f95a-4627-9a39-37d7842b67ea",
-    "newDescription": "Description",
-    "commandId": "49a6a08d-0f91-430b-8586-640c73db384e",
-    "timestamp": "2023-05-06T22:46:39.594976Z"
-  },
-  {
-    "type": "renameTemplateTask",
-    "templateId": "058f995e-f95a-4627-9a39-37d7842b67ea",
-    "taskId": "74c6b5ee-ab7e-4ba1-b7b1-ec9d66b99e7d",
-    "newTitle": "Task 2",
-    "commandId": "516844bb-89d2-4d3e-ae8e-8206268fb9ff",
-    "timestamp": "2023-05-06T22:46:39.595072Z"
-  }
-]
-
-###
-
-GET http://0.0.0.0:8080/templates
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTMxODgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxMzE4OCwiZXhwIjoxNjgzNDE2Nzg4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.BAtIEOCBOixDf2u6ocRebvHuvkjV6gI0DSdIGGeYGfzJ7rJKG5N3RX0a2SSNUrPISYYg57rMDRsjtnMjR5B_ZpSorj1Q-m4lev7k0nk8QKBb1ejkoE3tsuH8dfg4Jd84HYsAP94YBuHQCcQHfIjfzP1sMY5J8vKWTXJd7IadvsleABBgMSxIgdg_3xM9GiT1GDWG0px_OetyQEuugON2A9ad37-QhewFSK_7reumWx9wlyAdO9mrJKWFLGk6YxX3aQ1N40QJyv40Ip2gKDPn-JaRIBZnx10erDZ1JGpu43uP8B0qQECJykxjosbBS54FaOgSPgxtYChB1zOSkHFmlA
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-05-07T004635.200.json
-
-###
-
-POST http://0.0.0.0:8080/auth/register
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTMxODgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxMzE4OCwiZXhwIjoxNjgzNDE2Nzg4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.BAtIEOCBOixDf2u6ocRebvHuvkjV6gI0DSdIGGeYGfzJ7rJKG5N3RX0a2SSNUrPISYYg57rMDRsjtnMjR5B_ZpSorj1Q-m4lev7k0nk8QKBb1ejkoE3tsuH8dfg4Jd84HYsAP94YBuHQCcQHfIjfzP1sMY5J8vKWTXJd7IadvsleABBgMSxIgdg_3xM9GiT1GDWG0px_OetyQEuugON2A9ad37-QhewFSK_7reumWx9wlyAdO9mrJKWFLGk6YxX3aQ1N40QJyv40Ip2gKDPn-JaRIBZnx10erDZ1JGpu43uP8B0qQECJykxjosbBS54FaOgSPgxtYChB1zOSkHFmlA
-Content-Length: 3
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-}
-
-###
-
-POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAdvWNnIdp0EJsVKBzSZKlCNO_PO8HZrqw
-Content-Type: application/json
-Content-Length: 91
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "email": "szymon.chaber@o2.pl",
-  "password": "password",
-  "returnSecureToken": true
-}
-
-<> 2023-05-07T004628.200.json
-
-###
-
-GET http://0.0.0.0:8080/checklists
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTE0NTYsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxMTQ1NiwiZXhwIjoxNjgzNDE1MDU2LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.C_uQOcK1bDz-eH2wdF2i16cr1IQ3Ty2JXhXepsOa_A25djEeUn09k1mUyNTvqKeyN8sCxF0o2Ih4nKqtvcVBptqzbNgheK8IHYyLVT7N9kWQeD_hMqUvPWlXIL6UUhj6ayc0k8_JEkaqbVBID2pARHzDjN9Eg8uGYIKof-GEkwvMXhwcx8poN3Eq6efFIHUG2_PP4tVQXSxrBWW16r_Ws1DP6CZTeEMmm0ZnrnPScioVLrWczuXsAO0a8yNfIm4RDlw_FF1-ZJxTwM3GaZRiYE80MOaz_GI30DEfT9Wtz96rUyIapT1NVOQiDHs4cS40u-uYQmITquXlDdT1djlhOQ
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-05-07T002257.200.json
-
-###
-
-POST http://0.0.0.0:8080/checklist-commands
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTE0NTYsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxMTQ1NiwiZXhwIjoxNjgzNDE1MDU2LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.C_uQOcK1bDz-eH2wdF2i16cr1IQ3Ty2JXhXepsOa_A25djEeUn09k1mUyNTvqKeyN8sCxF0o2Ih4nKqtvcVBptqzbNgheK8IHYyLVT7N9kWQeD_hMqUvPWlXIL6UUhj6ayc0k8_JEkaqbVBID2pARHzDjN9Eg8uGYIKof-GEkwvMXhwcx8poN3Eq6efFIHUG2_PP4tVQXSxrBWW16r_Ws1DP6CZTeEMmm0ZnrnPScioVLrWczuXsAO0a8yNfIm4RDlw_FF1-ZJxTwM3GaZRiYE80MOaz_GI30DEfT9Wtz96rUyIapT1NVOQiDHs4cS40u-uYQmITquXlDdT1djlhOQ
-Content-Length: 1680
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-[
-    {
-    "type": "createChecklist",
-    "templateId": "046a8e49-a7c5-4f52-bbf1-4705487502e4",
-    "title": "All the events",
-    "description": "Description",
-    "tasks": [
-     {
-        "id": "429e76d4-84b6-4db0-a1e0-8bb8b78e13f0",
-        "checklistId": 2ceafbb9-6b08-4a06-97e1-1260c0d775a0,
-        "title": "Task 1",
-        "sortPosition": 0,
-        "isChecked": false,
-        "children": [
-          {
-            "id": "db92e512-e07b-47a8-a2b8-987ec89d00fc",
-            "checklistId": "2ceafbb9-6b08-4a06-97e1-1260c0d775a0",
-            "title": "Task 2",
-            "sortPosition": 0,
-            "isChecked":  false,
-            "children": []
-          }
-          ]
-    }
-    ],
-    "checklistId": "2ceafbb9-6b08-4a06-97e1-1260c0d775a0",
-    "commandId": "3c008030-8b6a-433c-be21-44c4e5b7adab",
-    "timestamp": "2023-05-06T22:22:49.032281Z"
-  },
-  {
-    "type": "editChecklistNotes",
-    "newNotes": "My notes are awesome",
-    "checklistId": "2ceafbb9-6b08-4a06-97e1-1260c0d775a0",
-    "commandId": "6de2285c-c8d3-4256-86cf-2d9c4ab23e0c",
-    "timestamp": "2023-05-06T22:22:49.032367Z"
-  },
-    {
-    "type": "changeTaskChecked",
-    "taskId": "429e76d4-84b6-4db0-a1e0-8bb8b78e13f0",
-    "isChecked": true,
-    "checklistId": "2ceafbb9-6b08-4a06-97e1-1260c0d775a0",
-    "commandId": "45154e4e-46e1-4df1-87d6-96e434976ea6",
-    "timestamp": "2023-05-06T22:22:49.032475Z"
-  },
-   {
-    "type": "changeTaskChecked",
-    "taskId": "db92e512-e07b-47a8-a2b8-987ec89d00fc",
-    "isChecked": true,
-    "checklistId": "2ceafbb9-6b08-4a06-97e1-1260c0d775a0",
-    "commandId": "c5e756fb-4e6a-444e-bc9c-e5c1cbffabc3",
-    "timestamp": "2023-05-06T22:22:49.032567Z"
-  }
-]
-
-###
-
-POST http://0.0.0.0:8080/checklist-commands
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODM0MTE0NTYsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4MzQxMTQ1NiwiZXhwIjoxNjgzNDE1MDU2LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.C_uQOcK1bDz-eH2wdF2i16cr1IQ3Ty2JXhXepsOa_A25djEeUn09k1mUyNTvqKeyN8sCxF0o2Ih4nKqtvcVBptqzbNgheK8IHYyLVT7N9kWQeD_hMqUvPWlXIL6UUhj6ayc0k8_JEkaqbVBID2pARHzDjN9Eg8uGYIKof-GEkwvMXhwcx8poN3Eq6efFIHUG2_PP4tVQXSxrBWW16r_Ws1DP6CZTeEMmm0ZnrnPScioVLrWczuXsAO0a8yNfIm4RDlw_FF1-ZJxTwM3GaZRiYE80MOaz_GI30DEfT9Wtz96rUyIapT1NVOQiDHs4cS40u-uYQmITquXlDdT1djlhOQ
-Content-Length: 1672
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-[
-    {
-    "type": "createChecklist",
-    "templateId": "046a8e49-a7c5-4f52-bbf1-4705487502e4",
-    "title": "All the events",
-    "description": "Description",
-    "tasks": [
-     {
-        "id": "d987f31e-763e-4750-9972-261b21ff4e49",
-        "checklistId": b26e16eb-f9cc-4b0e-8ad3-95b7acd65dfb,
-        "title": "Task 1",
-        "sortPosition": 0,
-        "isChecked": false,
-        "children": [
-          {
-            "id": "f63f3e4e-a12c-4c7b-8352-215ff5d51677",
-            "checklistId": "b26e16eb-f9cc-4b0e-8ad3-95b7acd65dfb",
-            "title": "Task 2",
-            "sortPosition": 0,
-            "isChecked":  false,
-            "children": []
-          }
-          ]
-    }
-    ],
-    "checklistId": "b26e16eb-f9cc-4b0e-8ad3-95b7acd65dfb",
-    "eventId": "84734de4-560b-4d7f-bf5d-9f43e2782b5a",
-    "timestamp": "2023-05-06T22:22:26.044043Z"
-  },
-  {
-    "type": "editChecklistNotes",
-    "newNotes": "My notes are awesome",
-    "checklistId": "b26e16eb-f9cc-4b0e-8ad3-95b7acd65dfb",
-    "eventId": "8c2183e0-2cbb-4b81-bb34-467a784c2d64",
-    "timestamp": "2023-05-06T22:22:26.044135Z"
-  },
-    {
-    "type": "changeTaskChecked",
-    "taskId": "d987f31e-763e-4750-9972-261b21ff4e49",
-    "isChecked": true,
-    "checklistId": "b26e16eb-f9cc-4b0e-8ad3-95b7acd65dfb",
-    "eventId": "61da60e8-cdad-49dc-bc2b-d0e2236d8c1a",
-    "timestamp": "2023-05-06T22:22:26.044199Z"
-  },
-   {
-    "type": "changeTaskChecked",
-    "taskId": "f63f3e4e-a12c-4c7b-8352-215ff5d51677",
-    "isChecked": true,
-    "checklistId": "b26e16eb-f9cc-4b0e-8ad3-95b7acd65dfb",
-    "eventId": "5ac4762c-dc3d-4bbb-95f1-92b9f6b2fce5",
-    "timestamp": "2023-05-06T22:22:26.044259Z"
-  }
-]
-
-<> 2023-05-07T002226.500.txt
 
 ###
 

@@ -6,6 +6,7 @@ import io.ktor.server.auth.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import tech.checkstory.auth.firebase.FIREBASE_AUTH
+import tech.checkstory.auth.payment.requirePayment
 import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.auth.withPrincipal
 import tech.checkstory.checklist.data.ChecklistEventRepository
@@ -18,6 +19,7 @@ fun Application.configureChecklistCommandService(
 ) {
     routing {
         authenticate(FIREBASE_AUTH) {
+            requirePayment()
             post<List<ChecklistCommand>>("/checklist-commands") { commands ->
                 withPrincipal {
                     handleChecklistCommands(commands, repository, eventRepository)
