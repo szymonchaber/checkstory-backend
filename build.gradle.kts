@@ -58,6 +58,12 @@ dependencies {
     implementation("io.ktor:ktor-server-content-negotiation-jvm:2.3.0")
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:2.3.0")
     implementation("io.ktor:ktor-server-netty-jvm:2.3.0")
+
+    implementation(platform("com.google.cloud:libraries-bom:26.14.0"))
+    implementation("com.google.cloud:google-cloud-pubsub")
+
+    implementation("com.google.api-client:google-api-client:1.32.1")
+
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
     testImplementation("io.ktor:ktor-server-tests-jvm:2.3.0")
     testImplementation("io.ktor:ktor-server-test-host-jvm:2.3.0")
