@@ -11,7 +11,6 @@ class UserService(private val database: Database) {
 
     object Users : Table() {
         val firebaseId = varchar("firebaseId", length = 255)
-        val isPaidUser = bool("isPaidUser").default(false)
         override val primaryKey = PrimaryKey(firebaseId)
     }
 
@@ -44,19 +43,9 @@ class UserService(private val database: Database) {
                 .map {
                     User(
                         userId = it[Users.firebaseId],
-                        isPaidUser = it[Users.isPaidUser]
                     )
                 }
                 .singleOrNull()
-        }
-    }
-
-    context(AuthenticatedScope)
-    suspend fun markIsPaidUser(isPaidUser: Boolean) {
-        dbQuery {
-            Users.update({ firebaseId eq principal.userId }) {
-                it[Users.isPaidUser] = isPaidUser
-            }
         }
     }
 

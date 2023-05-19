@@ -18,6 +18,10 @@ import tech.checkstory.auth.user.UserService
 import tech.checkstory.auth.user.configureUserService
 import tech.checkstory.checklist.configureChecklist
 import tech.checkstory.checklist.data.ChecklistEventRepository
+import tech.checkstory.payment.configurePayment
+import tech.checkstory.payment.data.PaymentRepository
+import tech.checkstory.payment.data.google_play.SubscriptionsGoogleApi
+import tech.checkstory.payment.domain.GetPaymentStateUseCase
 import tech.checkstory.plugins.*
 import tech.checkstory.template.configureTemplate
 import java.sql.Connection
@@ -40,7 +44,9 @@ fun Application.module() {
     )
     val connection: Connection = connectToPostgres(embedded = true)
     val userService = UserService(database)
-    configureSecurity(userService)
+    val paymentRepository = PaymentRepository(database)
+    configureSecurity(userService, GetPaymentStateUseCase(paymentRepository, SubscriptionsGoogleApi()))
+    configurePayment(paymentRepository)
     configureHTTP()
     configureMonitoring()
     configureSerialization()

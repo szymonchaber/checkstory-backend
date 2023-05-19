@@ -24,19 +24,7 @@ fun Application.configureUserService(userService: UserService) {
         authenticate(FIREBASE_AUTH) {
             get("auth/login") {
                 withPrincipal {
-                    val user = userService.read()
-                    if (user != null) {
-                        call.respond(HttpStatusCode.OK, UserDto.fromUser(user))
-                    } else {
-                        call.respond(HttpStatusCode.NotFound)
-                    }
-                }
-            }
-
-            post<SubscriptionInformation>("/user/subscription") {
-                withPrincipal {
-                    userService.markIsPaidUser(it.isPaidUser)
-                    call.respond(HttpStatusCode.OK)
+                    call.respond(HttpStatusCode.OK, UserDto.fromUser(principal))
                 }
             }
 
@@ -52,9 +40,6 @@ fun Application.configureUserService(userService: UserService) {
 
 @Serializable
 class CreateUserPayload
-
-@Serializable
-data class SubscriptionInformation(val isPaidUser: Boolean)
 
 @Serializable
 data class UserDto(val userId: String, val isPaidUser: Boolean) {

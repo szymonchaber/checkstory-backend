@@ -21,13 +21,13 @@ Authorization: Bearer {{auth_token_1}}
 {
 }
 
-### Mark first user as paid
-POST http://0.0.0.0:8080/user/subscription
+### Post a token for the current user
+POST http://0.0.0.0:8080/payment/google-play-token
 Content-Type: application/json
 Authorization: Bearer {{auth_token_1}}
 
 {
-  "isPaidUser": true
+  "token": "{{active_purchase_token}}"
 }
 
 ### Login

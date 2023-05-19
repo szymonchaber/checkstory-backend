@@ -4,12 +4,15 @@ import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import tech.checkstory.auth.firebase.firebase
 import tech.checkstory.auth.user.UserService
+import tech.checkstory.payment.domain.GetPaymentStateUseCase
 
-fun Application.configureSecurity(userService: UserService) {
+fun Application.configureSecurity(userService: UserService, getPaymentStateUseCase: GetPaymentStateUseCase) {
     authentication {
         firebase {
             validate {
-                userService.readById(it.uid) ?: error("Provided user token is not a registered user")
+                val isPaidUser = getPaymentStateUseCase.getPaymentStateForUser(it.uid).isSubscriptionActive
+                userService.readById(it.uid)?.copy(isPaidUser = isPaidUser)
+                    ?: error("Provided user token is not a registered user")
             }
         }
     }

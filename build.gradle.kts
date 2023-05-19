@@ -63,6 +63,8 @@ dependencies {
     implementation("com.google.cloud:google-cloud-pubsub")
 
     implementation("com.google.api-client:google-api-client:1.32.1")
+    implementation("com.google.apis:google-api-services-androidpublisher:v3-rev20230511-2.0.0")
+    implementation("com.google.api-client:google-api-client:1.32.1")
 
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
     testImplementation("io.ktor:ktor-server-tests-jvm:2.3.0")
