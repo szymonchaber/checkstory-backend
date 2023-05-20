@@ -6,15 +6,16 @@ import com.google.api.services.androidpublisher.AndroidPublisher
 import com.google.auth.http.HttpCredentialsAdapter
 import com.google.auth.oauth2.ServiceAccountCredentials
 import tech.checkstory.payment.domain.model.SubscriptionPurchaseWrapper
-import java.io.FileInputStream
+import java.io.InputStream
 
 class SubscriptionsGoogleApi {
 
-    private val jsonPath = "checkstory-940fc-6593b2b68c13.json"
     private val httpTransport = GoogleNetHttpTransport.newTrustedTransport()
     private val jsonFactory = JacksonFactory.getDefaultInstance()
 
-    private val credentials = ServiceAccountCredentials.fromStream(FileInputStream(jsonPath))
+    private val serviceAccount: InputStream =
+        this::class.java.classLoader.getResourceAsStream("checkstory-940fc-6593b2b68c13.json")!!
+    private val credentials = ServiceAccountCredentials.fromStream(serviceAccount)
     private val credentialAdapter = HttpCredentialsAdapter(credentials)
 
     private val publisher = AndroidPublisher.Builder(httpTransport, jsonFactory, credentialAdapter)

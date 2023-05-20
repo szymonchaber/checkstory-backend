@@ -14,7 +14,7 @@ Content-Type: application/json
 %}
 
 ### Register user 1 in the backend
-POST http://0.0.0.0:8080/auth/register
+POST {{endpoint}}/auth/register
 Content-Type: application/json
 Authorization: Bearer {{auth_token_1}}
 
@@ -22,7 +22,7 @@ Authorization: Bearer {{auth_token_1}}
 }
 
 ### Post a token for the current user
-POST http://0.0.0.0:8080/payment/google-play-token
+POST {{endpoint}}/payment/google-play-token
 Content-Type: application/json
 Authorization: Bearer {{auth_token_1}}
 
@@ -31,9 +31,13 @@ Authorization: Bearer {{auth_token_1}}
 }
 
 ### Login
-GET http://0.0.0.0:8080/auth/login
+GET {{endpoint}}/auth/login
 Content-Type: application/json
 Authorization: Bearer {{auth_token_1}}
+
+### 404
+GET {{endpoint}}/
+Content-Type: application/json
 
 
 ### Register user 2
@@ -52,12 +56,12 @@ Content-Type: application/json
 %}
 
 ### Get all templates of user 1
-GET http://0.0.0.0:8080/templates
+GET {{endpoint}}/templates
 Content-Type: application/json
 Authorization: Bearer {{auth_token_1}}
 
 ### Get concrete template
-GET http://0.0.0.0:8080/templates/9fedb356-58f8-4466-b966-6efbe3b2a16f
+GET {{endpoint}}/templates/9fedb356-58f8-4466-b966-6efbe3b2a16f
 Content-Type: application/json
 Authorization: Bearer {{auth_token_1}}
 
@@ -81,7 +85,7 @@ Authorization: Bearer {{auth_token_1}}
     request.variables.set("task_2_id", generateUUID());
     request.variables.set("task_3_id", generateUUID());
 %}
-POST http://0.0.0.0:8080/commands
+POST {{endpoint}}/commands
 Content-Type: application/json
 Authorization: Bearer {{auth_token_1}}
 
@@ -171,7 +175,7 @@ Authorization: Bearer {{auth_token_1}}
     request.variables.set("task_2_id", generateUUID());
     request.variables.set("task_3_id", generateUUID());
 %}
-POST http://0.0.0.0:8080/commands
+POST {{endpoint}}/commands
 Content-Type: application/json
 Authorization: Bearer {{auth_token_1}}
 
@@ -211,3 +215,6 @@ Authorization: Bearer {{auth_token_1}}
     "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
   }
 ]
+
+###
+GET http://104.198.139.204:2113/gossip

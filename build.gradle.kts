@@ -22,6 +22,14 @@ application {
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
 
+ktor {
+    docker {
+        jreVersion.set(io.ktor.plugin.features.JreVersion.JRE_17)
+        localImageName.set("checkstory-docker-image")
+        imageTag.set("0.0.1-preview")
+    }
+}
+
 repositories {
     mavenCentral()
 }

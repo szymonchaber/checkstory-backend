@@ -52,7 +52,8 @@ fun Application.module() {
     configureSerialization()
     configureUserService(userService)
     val settings =
-        EventStoreDBConnectionString.parse("esdb+discover://localhost:2113?tls=false&keepAliveTimeout=10000&keepAliveInterval=10000")
+//        EventStoreDBConnectionString.parse("esdb+discover://localhost:2113?tls=false&keepAliveTimeout=10000&keepAliveInterval=10000")
+        EventStoreDBConnectionString.parse("esdb://$eventStoreDbIp/?tls=false&keepAliveTimeout=10000&keepAliveInterval=10000")
     val client = EventStoreDBClient.create(settings)
     configureTemplate(database, client)
     configureChecklist(ChecklistEventRepository(client))
@@ -80,7 +81,7 @@ fun Application.cors() {
 
 object SubscribeAsyncExample {
     @Throws(Exception::class)
-    @JvmStatic
+//    @JvmStatic
     fun main(args: Array<String>) {
         // TODO(developer): Replace these variables before running the sample.
         subscribeAsyncExample(projectId, subscriptionId)
