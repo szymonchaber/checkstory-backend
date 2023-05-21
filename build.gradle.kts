@@ -1,3 +1,4 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val ktor_version: String by project
@@ -37,6 +38,10 @@ tasks.named("compileKotlin", org.jetbrains.kotlin.gradle.tasks.KotlinCompilation
     compilerOptions {
         freeCompilerArgs.add("-Xcontext-receivers")
     }
+}
+
+tasks.named("shadowJar", ShadowJar::class.java) {
+    mergeServiceFiles()
 }
 
 dependencies {
