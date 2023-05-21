@@ -7,11 +7,16 @@ import com.google.cloud.pubsub.v1.MessageReceiver
 import com.google.cloud.pubsub.v1.Subscriber
 import com.google.pubsub.v1.ProjectSubscriptionName
 import com.google.pubsub.v1.PubsubMessage
+import com.typesafe.config.ConfigFactory
+import io.ktor.client.*
+import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.cors.routing.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 import org.jetbrains.exposed.sql.Database
 import tech.checkstory.auth.firebase.FirebaseAdmin
 import tech.checkstory.auth.user.UserService
@@ -24,9 +29,7 @@ import tech.checkstory.payment.data.google_play.SubscriptionsGoogleApi
 import tech.checkstory.payment.domain.GetPaymentStateUseCase
 import tech.checkstory.plugins.*
 import tech.checkstory.template.configureTemplate
-import java.sql.Connection
 import java.util.concurrent.TimeoutException
-
 
 fun main() {
     embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module, configure = {
@@ -36,13 +39,10 @@ fun main() {
 }
 
 fun Application.module() {
-    val database = Database.connect(
-        url = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1",
-        user = "root",
-        driver = "org.h2.Driver",
-        password = ""
-    )
-    val connection: Connection = connectToPostgres(embedded = true)
+    val config = ConfigFactory.load()
+    val database = Database.connect(getNewConnection = {
+        connectToPostgres(false, config)
+    })
     val userService = UserService(database)
     val paymentRepository = PaymentRepository(database)
     configureSecurity(userService, GetPaymentStateUseCase(paymentRepository, SubscriptionsGoogleApi()))
@@ -51,9 +51,8 @@ fun Application.module() {
     configureMonitoring()
     configureSerialization()
     configureUserService(userService)
-    val settings =
-//        EventStoreDBConnectionString.parse("esdb+discover://localhost:2113?tls=false&keepAliveTimeout=10000&keepAliveInterval=10000")
-        EventStoreDBConnectionString.parse("esdb://$eventStoreDbIp/?tls=false&keepAliveTimeout=10000&keepAliveInterval=10000")
+    val connectionString = config.getString("eventStore.connectionString")!!
+    val settings = EventStoreDBConnectionString.parse(connectionString)
     val client = EventStoreDBClient.create(settings)
     configureTemplate(database, client)
     configureChecklist(ChecklistEventRepository(client))

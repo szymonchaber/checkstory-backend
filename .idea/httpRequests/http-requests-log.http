@@ -1,17 +1,121 @@
-GET http://0.0.0.0:8080/templates
+GET http://159.203.187.86:8080/auth/login
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MjQzOTcsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYyNDM5NywiZXhwIjoxNjg0NjI3OTk3LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.j-MnhJ_L2f-FZYeEUr4U_bTB9DIN0j8JCTiu2o7_F6Hig9MOBqBk7yml0I9cVkxJDDlqTsPV3w-SIXWMKSRwe1JwHVQWjeoypIwXEMg4zmVN5zBZMfpz5Ldh6ALcTZeCMYS6zH1HAVcqshSA6qFyqzCdZwcXWZ78HBcks1yHsiSvYTXTqjzWTdLYv3FBoKtvD8GMkSAe_WhBEg4LRmGMTL5WEIdRs7KrVuwk7UFA7gf3KmKCmf6XVw3z3lnzRjrnCtq7xdALkAwCiqzvnG9kv8QvJqU6ns2bcOwqjRE3r22aIk69y8JkWP38vfk_ADfzyLH1mjm7vBY30-c7xF331A
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTM5ODEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMzk4MSwiZXhwIjoxNjg0NzE3NTgxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.cOHhLiwFjpK4IyPZVdQNj8OjDDfuqAir4jtRIFyMgwBSCv_ha8mH4I2BJgKRPBAsUAXC9SyzX1xoOQHCNN4FqxAobZPV-70cVGd_KRMPCzseSNchlr-jDermXdIMpvznTl4KN7u399eIN4O-KUHXAbQV04PFnjeFSlsmW3hjOIwHZrHxoijtxMJebChnIeV5iy9odxN27dX1kDp6_bLu48123l4nZCzxttkjWhilduOC2QVIsVjv4pLxKWYgTJ2iRR1032rOUy-ScZGUM1KuJNeWL54kns1x_4Su1w-NGJ-PvtP4gpZgJCly0qfKB_9_sLSBs9VvExn9zcRm9mch8g
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-<> 2023-05-21T015148.200.json
+<> 2023-05-22T021920.200.json
 
 ###
 
-POST http://0.0.0.0:8080/commands
+POST http://159.203.187.86:8080/payment/google-play-token
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MjQzOTcsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYyNDM5NywiZXhwIjoxNjg0NjI3OTk3LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.j-MnhJ_L2f-FZYeEUr4U_bTB9DIN0j8JCTiu2o7_F6Hig9MOBqBk7yml0I9cVkxJDDlqTsPV3w-SIXWMKSRwe1JwHVQWjeoypIwXEMg4zmVN5zBZMfpz5Ldh6ALcTZeCMYS6zH1HAVcqshSA6qFyqzCdZwcXWZ78HBcks1yHsiSvYTXTqjzWTdLYv3FBoKtvD8GMkSAe_WhBEg4LRmGMTL5WEIdRs7KrVuwk7UFA7gf3KmKCmf6XVw3z3lnzRjrnCtq7xdALkAwCiqzvnG9kv8QvJqU6ns2bcOwqjRE3r22aIk69y8JkWP38vfk_ADfzyLH1mjm7vBY30-c7xF331A
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTM5ODEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMzk4MSwiZXhwIjoxNjg0NzE3NTgxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.cOHhLiwFjpK4IyPZVdQNj8OjDDfuqAir4jtRIFyMgwBSCv_ha8mH4I2BJgKRPBAsUAXC9SyzX1xoOQHCNN4FqxAobZPV-70cVGd_KRMPCzseSNchlr-jDermXdIMpvznTl4KN7u399eIN4O-KUHXAbQV04PFnjeFSlsmW3hjOIwHZrHxoijtxMJebChnIeV5iy9odxN27dX1kDp6_bLu48123l4nZCzxttkjWhilduOC2QVIsVjv4pLxKWYgTJ2iRR1032rOUy-ScZGUM1KuJNeWL54kns1x_4Su1w-NGJ-PvtP4gpZgJCly0qfKB_9_sLSBs9VvExn9zcRm9mch8g
+Content-Length: 161
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "token": "pcndhaakkocgaijdgbpkgobh.AO-J1OzbW74RwG5RKc5dKLjpWBEmS8Mjq8BKoKaK6fcEf6YAFPCB2QuC4ZHyHv8Lr0IJFh3AJPVWwM945dkh9etntJWdwjZfRM3WUjFfYdiYusH4cpnPQC8"
+}
+
+<> 2023-05-22T021914.500.txt
+
+###
+
+GET http://159.203.187.86:8080/templates
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTM5ODEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMzk4MSwiZXhwIjoxNjg0NzE3NTgxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.cOHhLiwFjpK4IyPZVdQNj8OjDDfuqAir4jtRIFyMgwBSCv_ha8mH4I2BJgKRPBAsUAXC9SyzX1xoOQHCNN4FqxAobZPV-70cVGd_KRMPCzseSNchlr-jDermXdIMpvznTl4KN7u399eIN4O-KUHXAbQV04PFnjeFSlsmW3hjOIwHZrHxoijtxMJebChnIeV5iy9odxN27dX1kDp6_bLu48123l4nZCzxttkjWhilduOC2QVIsVjv4pLxKWYgTJ2iRR1032rOUy-ScZGUM1KuJNeWL54kns1x_4Su1w-NGJ-PvtP4gpZgJCly0qfKB_9_sLSBs9VvExn9zcRm9mch8g
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-22T021902.200.json
+
+###
+
+GET http://159.203.187.86:8080/templates
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTM5ODEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMzk4MSwiZXhwIjoxNjg0NzE3NTgxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.cOHhLiwFjpK4IyPZVdQNj8OjDDfuqAir4jtRIFyMgwBSCv_ha8mH4I2BJgKRPBAsUAXC9SyzX1xoOQHCNN4FqxAobZPV-70cVGd_KRMPCzseSNchlr-jDermXdIMpvznTl4KN7u399eIN4O-KUHXAbQV04PFnjeFSlsmW3hjOIwHZrHxoijtxMJebChnIeV5iy9odxN27dX1kDp6_bLu48123l4nZCzxttkjWhilduOC2QVIsVjv4pLxKWYgTJ2iRR1032rOUy-ScZGUM1KuJNeWL54kns1x_4Su1w-NGJ-PvtP4gpZgJCly0qfKB_9_sLSBs9VvExn9zcRm9mch8g
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-22T021751.500.txt
+
+###
+
+GET http://159.203.187.86:8080/templates
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTM5ODEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMzk4MSwiZXhwIjoxNjg0NzE3NTgxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.cOHhLiwFjpK4IyPZVdQNj8OjDDfuqAir4jtRIFyMgwBSCv_ha8mH4I2BJgKRPBAsUAXC9SyzX1xoOQHCNN4FqxAobZPV-70cVGd_KRMPCzseSNchlr-jDermXdIMpvznTl4KN7u399eIN4O-KUHXAbQV04PFnjeFSlsmW3hjOIwHZrHxoijtxMJebChnIeV5iy9odxN27dX1kDp6_bLu48123l4nZCzxttkjWhilduOC2QVIsVjv4pLxKWYgTJ2iRR1032rOUy-ScZGUM1KuJNeWL54kns1x_4Su1w-NGJ-PvtP4gpZgJCly0qfKB_9_sLSBs9VvExn9zcRm9mch8g
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-22T021741.500.txt
+
+###
+
+GET http://159.203.187.86:8080/templates
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTM5ODEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMzk4MSwiZXhwIjoxNjg0NzE3NTgxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.cOHhLiwFjpK4IyPZVdQNj8OjDDfuqAir4jtRIFyMgwBSCv_ha8mH4I2BJgKRPBAsUAXC9SyzX1xoOQHCNN4FqxAobZPV-70cVGd_KRMPCzseSNchlr-jDermXdIMpvznTl4KN7u399eIN4O-KUHXAbQV04PFnjeFSlsmW3hjOIwHZrHxoijtxMJebChnIeV5iy9odxN27dX1kDp6_bLu48123l4nZCzxttkjWhilduOC2QVIsVjv4pLxKWYgTJ2iRR1032rOUy-ScZGUM1KuJNeWL54kns1x_4Su1w-NGJ-PvtP4gpZgJCly0qfKB_9_sLSBs9VvExn9zcRm9mch8g
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-22T021630.500.txt
+
+###
+
+GET http://159.203.187.86:8080/templates
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTM5ODEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMzk4MSwiZXhwIjoxNjg0NzE3NTgxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.cOHhLiwFjpK4IyPZVdQNj8OjDDfuqAir4jtRIFyMgwBSCv_ha8mH4I2BJgKRPBAsUAXC9SyzX1xoOQHCNN4FqxAobZPV-70cVGd_KRMPCzseSNchlr-jDermXdIMpvznTl4KN7u399eIN4O-KUHXAbQV04PFnjeFSlsmW3hjOIwHZrHxoijtxMJebChnIeV5iy9odxN27dX1kDp6_bLu48123l4nZCzxttkjWhilduOC2QVIsVjv4pLxKWYgTJ2iRR1032rOUy-ScZGUM1KuJNeWL54kns1x_4Su1w-NGJ-PvtP4gpZgJCly0qfKB_9_sLSBs9VvExn9zcRm9mch8g
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-22T021601.200.json
+
+###
+
+GET http://159.203.187.86:8080/templates
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTM5ODEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMzk4MSwiZXhwIjoxNjg0NzE3NTgxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.cOHhLiwFjpK4IyPZVdQNj8OjDDfuqAir4jtRIFyMgwBSCv_ha8mH4I2BJgKRPBAsUAXC9SyzX1xoOQHCNN4FqxAobZPV-70cVGd_KRMPCzseSNchlr-jDermXdIMpvznTl4KN7u399eIN4O-KUHXAbQV04PFnjeFSlsmW3hjOIwHZrHxoijtxMJebChnIeV5iy9odxN27dX1kDp6_bLu48123l4nZCzxttkjWhilduOC2QVIsVjv4pLxKWYgTJ2iRR1032rOUy-ScZGUM1KuJNeWL54kns1x_4Su1w-NGJ-PvtP4gpZgJCly0qfKB_9_sLSBs9VvExn9zcRm9mch8g
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-22T021551.200.json
+
+###
+
+GET http://159.203.187.86:8080/templates
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTM5ODEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMzk4MSwiZXhwIjoxNjg0NzE3NTgxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.cOHhLiwFjpK4IyPZVdQNj8OjDDfuqAir4jtRIFyMgwBSCv_ha8mH4I2BJgKRPBAsUAXC9SyzX1xoOQHCNN4FqxAobZPV-70cVGd_KRMPCzseSNchlr-jDermXdIMpvznTl4KN7u399eIN4O-KUHXAbQV04PFnjeFSlsmW3hjOIwHZrHxoijtxMJebChnIeV5iy9odxN27dX1kDp6_bLu48123l4nZCzxttkjWhilduOC2QVIsVjv4pLxKWYgTJ2iRR1032rOUy-ScZGUM1KuJNeWL54kns1x_4Su1w-NGJ-PvtP4gpZgJCly0qfKB_9_sLSBs9VvExn9zcRm9mch8g
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-22T020804.200.json
+
+###
+
+GET http://159.203.187.86:8080/templates
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTM5ODEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMzk4MSwiZXhwIjoxNjg0NzE3NTgxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.cOHhLiwFjpK4IyPZVdQNj8OjDDfuqAir4jtRIFyMgwBSCv_ha8mH4I2BJgKRPBAsUAXC9SyzX1xoOQHCNN4FqxAobZPV-70cVGd_KRMPCzseSNchlr-jDermXdIMpvznTl4KN7u399eIN4O-KUHXAbQV04PFnjeFSlsmW3hjOIwHZrHxoijtxMJebChnIeV5iy9odxN27dX1kDp6_bLu48123l4nZCzxttkjWhilduOC2QVIsVjv4pLxKWYgTJ2iRR1032rOUy-ScZGUM1KuJNeWL54kns1x_4Su1w-NGJ-PvtP4gpZgJCly0qfKB_9_sLSBs9VvExn9zcRm9mch8g
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-22T020714.200.json
+
+###
+
+POST http://159.203.187.86:8080/commands
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTM5ODEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMzk4MSwiZXhwIjoxNjg0NzE3NTgxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.cOHhLiwFjpK4IyPZVdQNj8OjDDfuqAir4jtRIFyMgwBSCv_ha8mH4I2BJgKRPBAsUAXC9SyzX1xoOQHCNN4FqxAobZPV-70cVGd_KRMPCzseSNchlr-jDermXdIMpvznTl4KN7u399eIN4O-KUHXAbQV04PFnjeFSlsmW3hjOIwHZrHxoijtxMJebChnIeV5iy9odxN27dX1kDp6_bLu48123l4nZCzxttkjWhilduOC2QVIsVjv4pLxKWYgTJ2iRR1032rOUy-ScZGUM1KuJNeWL54kns1x_4Su1w-NGJ-PvtP4gpZgJCly0qfKB_9_sLSBs9VvExn9zcRm9mch8g
 Content-Length: 2437
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
@@ -20,90 +124,117 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 [
 {
     "type": "createTemplate",
-    "templateId": "c8d3c69b-97fe-4afc-9d23-68eaaacbb833",
-    "commandId": "deb383f8-a15f-430b-8f03-bce509f07819",
-    "timestamp": "2023-05-20T23:51:40.180712Z"
+    "templateId": "660391e3-cd4f-4a69-bca0-ad7e9c2d5c46",
+    "commandId": "b1954fef-519a-4917-b994-6dc4e7b25d4f",
+    "timestamp": "2023-05-22T00:07:06.616786Z"
   },
     {
     "type": "addTemplateTask",
-    "templateId": "c8d3c69b-97fe-4afc-9d23-68eaaacbb833",
-    "taskId": "0b5737db-9598-45e3-9a18-3d37f8b143ab",
+    "templateId": "660391e3-cd4f-4a69-bca0-ad7e9c2d5c46",
+    "taskId": "1b12bc8b-f4a0-4526-8a80-83135f1c6c94",
     "parentTaskId": null,
-    "commandId": "e7300c08-3d4d-4683-a17f-72661601ce2b",
-    "timestamp": "2023-05-20T23:51:40.180839Z"
+    "commandId": "6610bfc2-e358-4b37-8780-845ff98ce0f2",
+    "timestamp": "2023-05-22T00:07:06.616911Z"
   },
   {
     "type": "addTemplateTask",
-    "templateId": "c8d3c69b-97fe-4afc-9d23-68eaaacbb833",
-    "taskId": "52f8c1d6-2d94-4c1f-8b4e-d58df0d21c11",
-    "parentTaskId": 0b5737db-9598-45e3-9a18-3d37f8b143ab,
-    "commandId": "9504df18-d474-44e9-b56e-e6435e5fd5af",
-    "timestamp": "2023-05-20T23:51:40.180904Z"
+    "templateId": "660391e3-cd4f-4a69-bca0-ad7e9c2d5c46",
+    "taskId": "2d1d8404-d6d1-41d1-b993-46d4d02a3bc6",
+    "parentTaskId": 1b12bc8b-f4a0-4526-8a80-83135f1c6c94,
+    "commandId": "09aa2a26-4281-4f26-beb6-7d7eb358943d",
+    "timestamp": "2023-05-22T00:07:06.616957Z"
   },
   {
     "type": "editTemplateTitle",
-    "templateId": "c8d3c69b-97fe-4afc-9d23-68eaaacbb833",
+    "templateId": "660391e3-cd4f-4a69-bca0-ad7e9c2d5c46",
     "newTitle": "All the events",
-    "commandId": "11f590ac-aa40-48c2-bc02-4add9b8f4952",
-    "timestamp": "2023-05-20T23:51:40.180967Z"
+    "commandId": "2e1a7ce4-c298-4756-a859-044d8926de0e",
+    "timestamp": "2023-05-22T00:07:06.617007Z"
   },
   {
     "type": "addTemplateTask",
-    "templateId": "c8d3c69b-97fe-4afc-9d23-68eaaacbb833",
-    "taskId": "7370edb7-f755-486a-b928-587795f0751e",
+    "templateId": "660391e3-cd4f-4a69-bca0-ad7e9c2d5c46",
+    "taskId": "131752b9-1512-417b-9db2-54a8130de427",
     "parentTaskId": null,
-    "commandId": "1e94674f-a782-47ff-920e-b90e79d8d787",
-    "timestamp": "2023-05-20T23:51:40.181022Z"
+    "commandId": "dc5e1bf7-6a96-4cd9-9b18-0a3239028e0b",
+    "timestamp": "2023-05-22T00:07:06.617050Z"
   },
   {
     "type": "renameTemplateTask",
-    "templateId": "c8d3c69b-97fe-4afc-9d23-68eaaacbb833",
-    "taskId": "52f8c1d6-2d94-4c1f-8b4e-d58df0d21c11",
+    "templateId": "660391e3-cd4f-4a69-bca0-ad7e9c2d5c46",
+    "taskId": "2d1d8404-d6d1-41d1-b993-46d4d02a3bc6",
     "newTitle": "Task 3 - deleted later",
-    "commandId": "7592acd4-4703-4a78-8db6-bd2382bbd5aa",
-    "timestamp": "2023-05-20T23:51:40.181084Z"
+    "commandId": "614a8de8-427e-4624-9ba5-c1d4d4650a37",
+    "timestamp": "2023-05-22T00:07:06.617186Z"
   },
   {
     "type": "renameTemplateTask",
-    "templateId": "c8d3c69b-97fe-4afc-9d23-68eaaacbb833",
-    "taskId": "7370edb7-f755-486a-b928-587795f0751e",
+    "templateId": "660391e3-cd4f-4a69-bca0-ad7e9c2d5c46",
+    "taskId": "131752b9-1512-417b-9db2-54a8130de427",
     "newTitle": "Task 1",
-    "commandId": "04816863-c850-44da-bfcd-b35de1e9305f",
-    "timestamp": "2023-05-20T23:51:40.181145Z"
+    "commandId": "8c4fbabd-9cbc-42c6-9cd0-3963b2b7442a",
+    "timestamp": "2023-05-22T00:07:06.617343Z"
   },
   {
     "type": "editTemplateDescription",
-    "templateId": "c8d3c69b-97fe-4afc-9d23-68eaaacbb833",
+    "templateId": "660391e3-cd4f-4a69-bca0-ad7e9c2d5c46",
     "newDescription": "Description",
-    "commandId": "c40dbacd-d099-4206-9e46-9cec7fdabe37",
-    "timestamp": "2023-05-20T23:51:40.181200Z"
+    "commandId": "863a6747-1ebe-44ae-9c13-79328fa2c156",
+    "timestamp": "2023-05-22T00:07:06.617453Z"
   },
   {
     "type": "renameTemplateTask",
-    "templateId": "c8d3c69b-97fe-4afc-9d23-68eaaacbb833",
-    "taskId": "0b5737db-9598-45e3-9a18-3d37f8b143ab",
+    "templateId": "660391e3-cd4f-4a69-bca0-ad7e9c2d5c46",
+    "taskId": "1b12bc8b-f4a0-4526-8a80-83135f1c6c94",
     "newTitle": "Task 2",
-    "commandId": "a3341b0e-dbf7-4a38-9f69-c0a2ac8af6f8",
-    "timestamp": "2023-05-20T23:51:40.181262Z"
+    "commandId": "d88adf7a-a371-4c63-bee3-a7cd1433906a",
+    "timestamp": "2023-05-22T00:07:06.617514Z"
   }
 ]
 
 ###
 
-GET http://0.0.0.0:8080/auth/login
+GET http://159.203.187.86:8080/templates
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MjQzOTcsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYyNDM5NywiZXhwIjoxNjg0NjI3OTk3LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.j-MnhJ_L2f-FZYeEUr4U_bTB9DIN0j8JCTiu2o7_F6Hig9MOBqBk7yml0I9cVkxJDDlqTsPV3w-SIXWMKSRwe1JwHVQWjeoypIwXEMg4zmVN5zBZMfpz5Ldh6ALcTZeCMYS6zH1HAVcqshSA6qFyqzCdZwcXWZ78HBcks1yHsiSvYTXTqjzWTdLYv3FBoKtvD8GMkSAe_WhBEg4LRmGMTL5WEIdRs7KrVuwk7UFA7gf3KmKCmf6XVw3z3lnzRjrnCtq7xdALkAwCiqzvnG9kv8QvJqU6ns2bcOwqjRE3r22aIk69y8JkWP38vfk_ADfzyLH1mjm7vBY30-c7xF331A
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTM5ODEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMzk4MSwiZXhwIjoxNjg0NzE3NTgxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.cOHhLiwFjpK4IyPZVdQNj8OjDDfuqAir4jtRIFyMgwBSCv_ha8mH4I2BJgKRPBAsUAXC9SyzX1xoOQHCNN4FqxAobZPV-70cVGd_KRMPCzseSNchlr-jDermXdIMpvznTl4KN7u399eIN4O-KUHXAbQV04PFnjeFSlsmW3hjOIwHZrHxoijtxMJebChnIeV5iy9odxN27dX1kDp6_bLu48123l4nZCzxttkjWhilduOC2QVIsVjv4pLxKWYgTJ2iRR1032rOUy-ScZGUM1KuJNeWL54kns1x_4Su1w-NGJ-PvtP4gpZgJCly0qfKB_9_sLSBs9VvExn9zcRm9mch8g
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-<> 2023-05-21T015132.200.json
+<> 2023-05-22T020700.200.json
 
 ###
 
-POST http://0.0.0.0:8080/payment/google-play-token
+GET http://159.203.187.86:8080/auth/login
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MjQzOTcsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYyNDM5NywiZXhwIjoxNjg0NjI3OTk3LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.j-MnhJ_L2f-FZYeEUr4U_bTB9DIN0j8JCTiu2o7_F6Hig9MOBqBk7yml0I9cVkxJDDlqTsPV3w-SIXWMKSRwe1JwHVQWjeoypIwXEMg4zmVN5zBZMfpz5Ldh6ALcTZeCMYS6zH1HAVcqshSA6qFyqzCdZwcXWZ78HBcks1yHsiSvYTXTqjzWTdLYv3FBoKtvD8GMkSAe_WhBEg4LRmGMTL5WEIdRs7KrVuwk7UFA7gf3KmKCmf6XVw3z3lnzRjrnCtq7xdALkAwCiqzvnG9kv8QvJqU6ns2bcOwqjRE3r22aIk69y8JkWP38vfk_ADfzyLH1mjm7vBY30-c7xF331A
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTM5ODEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMzk4MSwiZXhwIjoxNjg0NzE3NTgxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.cOHhLiwFjpK4IyPZVdQNj8OjDDfuqAir4jtRIFyMgwBSCv_ha8mH4I2BJgKRPBAsUAXC9SyzX1xoOQHCNN4FqxAobZPV-70cVGd_KRMPCzseSNchlr-jDermXdIMpvznTl4KN7u399eIN4O-KUHXAbQV04PFnjeFSlsmW3hjOIwHZrHxoijtxMJebChnIeV5iy9odxN27dX1kDp6_bLu48123l4nZCzxttkjWhilduOC2QVIsVjv4pLxKWYgTJ2iRR1032rOUy-ScZGUM1KuJNeWL54kns1x_4Su1w-NGJ-PvtP4gpZgJCly0qfKB_9_sLSBs9VvExn9zcRm9mch8g
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-22T020653.200.json
+
+###
+
+POST http://159.203.187.86:8080/payment/google-play-token
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTM5ODEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMzk4MSwiZXhwIjoxNjg0NzE3NTgxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.cOHhLiwFjpK4IyPZVdQNj8OjDDfuqAir4jtRIFyMgwBSCv_ha8mH4I2BJgKRPBAsUAXC9SyzX1xoOQHCNN4FqxAobZPV-70cVGd_KRMPCzseSNchlr-jDermXdIMpvznTl4KN7u399eIN4O-KUHXAbQV04PFnjeFSlsmW3hjOIwHZrHxoijtxMJebChnIeV5iy9odxN27dX1kDp6_bLu48123l4nZCzxttkjWhilduOC2QVIsVjv4pLxKWYgTJ2iRR1032rOUy-ScZGUM1KuJNeWL54kns1x_4Su1w-NGJ-PvtP4gpZgJCly0qfKB_9_sLSBs9VvExn9zcRm9mch8g
+Content-Length: 161
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "token": "pcndhaakkocgaijdgbpkgobh.AO-J1OzbW74RwG5RKc5dKLjpWBEmS8Mjq8BKoKaK6fcEf6YAFPCB2QuC4ZHyHv8Lr0IJFh3AJPVWwM945dkh9etntJWdwjZfRM3WUjFfYdiYusH4cpnPQC8"
+}
+
+<> 2023-05-22T020647.500.txt
+
+###
+
+POST http://159.203.187.86:8080/payment/google-play-token
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTM5ODEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMzk4MSwiZXhwIjoxNjg0NzE3NTgxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.cOHhLiwFjpK4IyPZVdQNj8OjDDfuqAir4jtRIFyMgwBSCv_ha8mH4I2BJgKRPBAsUAXC9SyzX1xoOQHCNN4FqxAobZPV-70cVGd_KRMPCzseSNchlr-jDermXdIMpvznTl4KN7u399eIN4O-KUHXAbQV04PFnjeFSlsmW3hjOIwHZrHxoijtxMJebChnIeV5iy9odxN27dX1kDp6_bLu48123l4nZCzxttkjWhilduOC2QVIsVjv4pLxKWYgTJ2iRR1032rOUy-ScZGUM1KuJNeWL54kns1x_4Su1w-NGJ-PvtP4gpZgJCly0qfKB_9_sLSBs9VvExn9zcRm9mch8g
 Content-Length: 161
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
@@ -115,370 +246,186 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 
 ###
 
-POST http://0.0.0.0:8080/commands
+POST http://159.203.187.86:8080/auth/register
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MjQzOTcsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYyNDM5NywiZXhwIjoxNjg0NjI3OTk3LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.j-MnhJ_L2f-FZYeEUr4U_bTB9DIN0j8JCTiu2o7_F6Hig9MOBqBk7yml0I9cVkxJDDlqTsPV3w-SIXWMKSRwe1JwHVQWjeoypIwXEMg4zmVN5zBZMfpz5Ldh6ALcTZeCMYS6zH1HAVcqshSA6qFyqzCdZwcXWZ78HBcks1yHsiSvYTXTqjzWTdLYv3FBoKtvD8GMkSAe_WhBEg4LRmGMTL5WEIdRs7KrVuwk7UFA7gf3KmKCmf6XVw3z3lnzRjrnCtq7xdALkAwCiqzvnG9kv8QvJqU6ns2bcOwqjRE3r22aIk69y8JkWP38vfk_ADfzyLH1mjm7vBY30-c7xF331A
-Content-Length: 1150
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTM5ODEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMzk4MSwiZXhwIjoxNjg0NzE3NTgxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.cOHhLiwFjpK4IyPZVdQNj8OjDDfuqAir4jtRIFyMgwBSCv_ha8mH4I2BJgKRPBAsUAXC9SyzX1xoOQHCNN4FqxAobZPV-70cVGd_KRMPCzseSNchlr-jDermXdIMpvznTl4KN7u399eIN4O-KUHXAbQV04PFnjeFSlsmW3hjOIwHZrHxoijtxMJebChnIeV5iy9odxN27dX1kDp6_bLu48123l4nZCzxttkjWhilduOC2QVIsVjv4pLxKWYgTJ2iRR1032rOUy-ScZGUM1KuJNeWL54kns1x_4Su1w-NGJ-PvtP4gpZgJCly0qfKB_9_sLSBs9VvExn9zcRm9mch8g
+Content-Length: 3
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+}
+
+###
+
+POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAdvWNnIdp0EJsVKBzSZKlCNO_PO8HZrqw
+Content-Type: application/json
+Content-Length: 91
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "email": "szymon.chaber@o2.pl",
+  "password": "password",
+  "returnSecureToken": true
+}
+
+<> 2023-05-22T020621.200.json
+
+###
+
+GET http://159.203.187.86:8080/auth/login
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTEzNTMsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMTM1MywiZXhwIjoxNjg0NzE0OTUzLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.Vows2Ak_-UU7mlY6DgjZ8q2bFTFl8SXj4DppePpkmZwdUHFvPcdghlw2LG9bkkCjqKlAuAbo4sRnxDgw1QzZz1OcZnBOlljfxojf4DOiacN7_8j9Vu-fGyGlhbNvDspF7kr7eYYj7Zm_x7MK5avEZ1OaZQVSj-BIk1BFeWI-hEW_fSzY0u1-VdSt6v_U2DNEBl2A-FgBS6lJCzN7GpZMqd41tSn5gQcmqAhKaV0txA7hA7Y4FvuCoqwYcel8Bzum0bMEitAemZN6wSm3mSJvrb65Fa9OxNDdB2tNJyACNiYJKdD1TJg0VTXpagh6HIIgVT2t8Qf0MQniRgpNreOMrg
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-22T013610.200.json
+
+###
+
+GET http://159.203.187.86:8080/auth/login
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTEzNTMsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMTM1MywiZXhwIjoxNjg0NzE0OTUzLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.Vows2Ak_-UU7mlY6DgjZ8q2bFTFl8SXj4DppePpkmZwdUHFvPcdghlw2LG9bkkCjqKlAuAbo4sRnxDgw1QzZz1OcZnBOlljfxojf4DOiacN7_8j9Vu-fGyGlhbNvDspF7kr7eYYj7Zm_x7MK5avEZ1OaZQVSj-BIk1BFeWI-hEW_fSzY0u1-VdSt6v_U2DNEBl2A-FgBS6lJCzN7GpZMqd41tSn5gQcmqAhKaV0txA7hA7Y4FvuCoqwYcel8Bzum0bMEitAemZN6wSm3mSJvrb65Fa9OxNDdB2tNJyACNiYJKdD1TJg0VTXpagh6HIIgVT2t8Qf0MQniRgpNreOMrg
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-22T012647.200.json
+
+###
+
+GET http://159.203.187.86:8080/templates
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTEzNTMsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMTM1MywiZXhwIjoxNjg0NzE0OTUzLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.Vows2Ak_-UU7mlY6DgjZ8q2bFTFl8SXj4DppePpkmZwdUHFvPcdghlw2LG9bkkCjqKlAuAbo4sRnxDgw1QzZz1OcZnBOlljfxojf4DOiacN7_8j9Vu-fGyGlhbNvDspF7kr7eYYj7Zm_x7MK5avEZ1OaZQVSj-BIk1BFeWI-hEW_fSzY0u1-VdSt6v_U2DNEBl2A-FgBS6lJCzN7GpZMqd41tSn5gQcmqAhKaV0txA7hA7Y4FvuCoqwYcel8Bzum0bMEitAemZN6wSm3mSJvrb65Fa9OxNDdB2tNJyACNiYJKdD1TJg0VTXpagh6HIIgVT2t8Qf0MQniRgpNreOMrg
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-22T012616.200.json
+
+###
+
+POST http://159.203.187.86:8080/commands
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTEzNTMsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMTM1MywiZXhwIjoxNjg0NzE0OTUzLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.Vows2Ak_-UU7mlY6DgjZ8q2bFTFl8SXj4DppePpkmZwdUHFvPcdghlw2LG9bkkCjqKlAuAbo4sRnxDgw1QzZz1OcZnBOlljfxojf4DOiacN7_8j9Vu-fGyGlhbNvDspF7kr7eYYj7Zm_x7MK5avEZ1OaZQVSj-BIk1BFeWI-hEW_fSzY0u1-VdSt6v_U2DNEBl2A-FgBS6lJCzN7GpZMqd41tSn5gQcmqAhKaV0txA7hA7Y4FvuCoqwYcel8Bzum0bMEitAemZN6wSm3mSJvrb65Fa9OxNDdB2tNJyACNiYJKdD1TJg0VTXpagh6HIIgVT2t8Qf0MQniRgpNreOMrg
+Content-Length: 2437
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 [
-  {
+{
     "type": "createTemplate",
-    "templateId": "12557df4-d6e5-406f-9eb8-b606ff4a4b89",
-    "commandId": "bd1f1c53-c692-47ae-9dcd-505985bfde15",
-    "timestamp": 1682967814927,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
+    "templateId": "536e1020-d6f3-4823-a696-76a7340e8989",
+    "commandId": "829f1434-7f08-4e8d-8b2e-b7d9efc8a8f9",
+    "timestamp": "2023-05-21T23:26:05.923756Z"
+  },
+    {
+    "type": "addTemplateTask",
+    "templateId": "536e1020-d6f3-4823-a696-76a7340e8989",
+    "taskId": "1424631d-c8e4-418a-b1db-4e61380f67b2",
+    "parentTaskId": null,
+    "commandId": "b64852d6-72ef-4e08-84a1-7357dc50fc11",
+    "timestamp": "2023-05-21T23:26:05.923832Z"
   },
   {
     "type": "addTemplateTask",
-    "templateId": "12557df4-d6e5-406f-9eb8-b606ff4a4b89",
-    "taskId": "f182beb7-d8fc-4991-a19f-f23d01e24251",
-    "parentTaskId": null,
-    "commandId": "3c3cf9e4-220b-4b3f-b067-71cd807ebbb2",
-    "timestamp": 1682967821234,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
-  },
-  {
-    "type": "updateTemplateTasksPositions",
-    "templateId": "12557df4-d6e5-406f-9eb8-b606ff4a4b89",
-    "taskIdToLocalPosition": {
-      "f182beb7-d8fc-4991-a19f-f23d01e24251": 0
-    },
-    "commandId": "481f3733-a027-46e2-a3eb-9c7e59029c73",
-    "timestamp": 1682967822606,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
+    "templateId": "536e1020-d6f3-4823-a696-76a7340e8989",
+    "taskId": "9ba5cdb2-c511-4fd7-9f9d-a13e327024da",
+    "parentTaskId": 1424631d-c8e4-418a-b1db-4e61380f67b2,
+    "commandId": "4a256095-e620-42e0-a2d9-d2a938dc34e5",
+    "timestamp": "2023-05-21T23:26:05.923884Z"
   },
   {
     "type": "editTemplateTitle",
-    "templateId": "12557df4-d6e5-406f-9eb8-b606ff4a4b89",
-    "newTitle": "Is no tasks illegal?",
-    "commandId": "4eeb144c-7f87-46ec-a8de-a8804b003681",
-    "timestamp": 1682967820099,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
+    "templateId": "536e1020-d6f3-4823-a696-76a7340e8989",
+    "newTitle": "All the events",
+    "commandId": "704770e6-15ff-473e-88c1-e900ceba1350",
+    "timestamp": "2023-05-21T23:26:05.923934Z"
+  },
+  {
+    "type": "addTemplateTask",
+    "templateId": "536e1020-d6f3-4823-a696-76a7340e8989",
+    "taskId": "dcee6620-611c-4854-a138-d20490469284",
+    "parentTaskId": null,
+    "commandId": "e46a2eb2-93b6-41af-84cb-fc5a81400481",
+    "timestamp": "2023-05-21T23:26:05.923986Z"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "536e1020-d6f3-4823-a696-76a7340e8989",
+    "taskId": "9ba5cdb2-c511-4fd7-9f9d-a13e327024da",
+    "newTitle": "Task 3 - deleted later",
+    "commandId": "55c1f3f0-a637-429b-b78a-5773a287d65d",
+    "timestamp": "2023-05-21T23:26:05.924034Z"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "536e1020-d6f3-4823-a696-76a7340e8989",
+    "taskId": "dcee6620-611c-4854-a138-d20490469284",
+    "newTitle": "Task 1",
+    "commandId": "081f5da3-08b4-498a-80ed-1d5a36927070",
+    "timestamp": "2023-05-21T23:26:05.924083Z"
+  },
+  {
+    "type": "editTemplateDescription",
+    "templateId": "536e1020-d6f3-4823-a696-76a7340e8989",
+    "newDescription": "Description",
+    "commandId": "57f66361-e527-46a5-b7a1-20bb4cc291f4",
+    "timestamp": "2023-05-21T23:26:05.924130Z"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "536e1020-d6f3-4823-a696-76a7340e8989",
+    "taskId": "1424631d-c8e4-418a-b1db-4e61380f67b2",
+    "newTitle": "Task 2",
+    "commandId": "dd0318a1-5777-401c-9958-3278d7f73592",
+    "timestamp": "2023-05-21T23:26:05.924187Z"
   }
 ]
 
-<> 2023-05-21T015111.402.txt
-
 ###
 
-GET http://0.0.0.0:8080/templates
+GET http://159.203.187.86:8080/auth/login
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MjQzOTcsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYyNDM5NywiZXhwIjoxNjg0NjI3OTk3LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.j-MnhJ_L2f-FZYeEUr4U_bTB9DIN0j8JCTiu2o7_F6Hig9MOBqBk7yml0I9cVkxJDDlqTsPV3w-SIXWMKSRwe1JwHVQWjeoypIwXEMg4zmVN5zBZMfpz5Ldh6ALcTZeCMYS6zH1HAVcqshSA6qFyqzCdZwcXWZ78HBcks1yHsiSvYTXTqjzWTdLYv3FBoKtvD8GMkSAe_WhBEg4LRmGMTL5WEIdRs7KrVuwk7UFA7gf3KmKCmf6XVw3z3lnzRjrnCtq7xdALkAwCiqzvnG9kv8QvJqU6ns2bcOwqjRE3r22aIk69y8JkWP38vfk_ADfzyLH1mjm7vBY30-c7xF331A
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTEzNTMsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMTM1MywiZXhwIjoxNjg0NzE0OTUzLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.Vows2Ak_-UU7mlY6DgjZ8q2bFTFl8SXj4DppePpkmZwdUHFvPcdghlw2LG9bkkCjqKlAuAbo4sRnxDgw1QzZz1OcZnBOlljfxojf4DOiacN7_8j9Vu-fGyGlhbNvDspF7kr7eYYj7Zm_x7MK5avEZ1OaZQVSj-BIk1BFeWI-hEW_fSzY0u1-VdSt6v_U2DNEBl2A-FgBS6lJCzN7GpZMqd41tSn5gQcmqAhKaV0txA7hA7Y4FvuCoqwYcel8Bzum0bMEitAemZN6wSm3mSJvrb65Fa9OxNDdB2tNJyACNiYJKdD1TJg0VTXpagh6HIIgVT2t8Qf0MQniRgpNreOMrg
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-<> 2023-05-21T015100.200.json
+<> 2023-05-22T012553.200.json
 
 ###
 
-POST http://0.0.0.0:8080/auth/register
+GET http://159.203.187.86:8080/templates
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MjQzOTcsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYyNDM5NywiZXhwIjoxNjg0NjI3OTk3LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.j-MnhJ_L2f-FZYeEUr4U_bTB9DIN0j8JCTiu2o7_F6Hig9MOBqBk7yml0I9cVkxJDDlqTsPV3w-SIXWMKSRwe1JwHVQWjeoypIwXEMg4zmVN5zBZMfpz5Ldh6ALcTZeCMYS6zH1HAVcqshSA6qFyqzCdZwcXWZ78HBcks1yHsiSvYTXTqjzWTdLYv3FBoKtvD8GMkSAe_WhBEg4LRmGMTL5WEIdRs7KrVuwk7UFA7gf3KmKCmf6XVw3z3lnzRjrnCtq7xdALkAwCiqzvnG9kv8QvJqU6ns2bcOwqjRE3r22aIk69y8JkWP38vfk_ADfzyLH1mjm7vBY30-c7xF331A
-Content-Length: 3
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTEzNTMsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMTM1MywiZXhwIjoxNjg0NzE0OTUzLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.Vows2Ak_-UU7mlY6DgjZ8q2bFTFl8SXj4DppePpkmZwdUHFvPcdghlw2LG9bkkCjqKlAuAbo4sRnxDgw1QzZz1OcZnBOlljfxojf4DOiacN7_8j9Vu-fGyGlhbNvDspF7kr7eYYj7Zm_x7MK5avEZ1OaZQVSj-BIk1BFeWI-hEW_fSzY0u1-VdSt6v_U2DNEBl2A-FgBS6lJCzN7GpZMqd41tSn5gQcmqAhKaV0txA7hA7Y4FvuCoqwYcel8Bzum0bMEitAemZN6wSm3mSJvrb65Fa9OxNDdB2tNJyACNiYJKdD1TJg0VTXpagh6HIIgVT2t8Qf0MQniRgpNreOMrg
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-}
+<> 2023-05-22T012331.200.json
 
 ###
 
-GET http://0.0.0.0:8080/templates
+GET http://159.203.187.86:8080/auth/login
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MjQzOTcsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYyNDM5NywiZXhwIjoxNjg0NjI3OTk3LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.j-MnhJ_L2f-FZYeEUr4U_bTB9DIN0j8JCTiu2o7_F6Hig9MOBqBk7yml0I9cVkxJDDlqTsPV3w-SIXWMKSRwe1JwHVQWjeoypIwXEMg4zmVN5zBZMfpz5Ldh6ALcTZeCMYS6zH1HAVcqshSA6qFyqzCdZwcXWZ78HBcks1yHsiSvYTXTqjzWTdLYv3FBoKtvD8GMkSAe_WhBEg4LRmGMTL5WEIdRs7KrVuwk7UFA7gf3KmKCmf6XVw3z3lnzRjrnCtq7xdALkAwCiqzvnG9kv8QvJqU6ns2bcOwqjRE3r22aIk69y8JkWP38vfk_ADfzyLH1mjm7vBY30-c7xF331A
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTEzNTMsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMTM1MywiZXhwIjoxNjg0NzE0OTUzLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.Vows2Ak_-UU7mlY6DgjZ8q2bFTFl8SXj4DppePpkmZwdUHFvPcdghlw2LG9bkkCjqKlAuAbo4sRnxDgw1QzZz1OcZnBOlljfxojf4DOiacN7_8j9Vu-fGyGlhbNvDspF7kr7eYYj7Zm_x7MK5avEZ1OaZQVSj-BIk1BFeWI-hEW_fSzY0u1-VdSt6v_U2DNEBl2A-FgBS6lJCzN7GpZMqd41tSn5gQcmqAhKaV0txA7hA7Y4FvuCoqwYcel8Bzum0bMEitAemZN6wSm3mSJvrb65Fa9OxNDdB2tNJyACNiYJKdD1TJg0VTXpagh6HIIgVT2t8Qf0MQniRgpNreOMrg
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-<> 2023-05-21T012418.500.txt
+<> 2023-05-22T012325.200.json
 
 ###
 
-GET http://0.0.0.0:8080
+POST http://159.203.187.86:8080/payment/google-play-token
 Content-Type: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-###
-
-POST http://0.0.0.0:8080/auth/register
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MjQzOTcsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYyNDM5NywiZXhwIjoxNjg0NjI3OTk3LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.j-MnhJ_L2f-FZYeEUr4U_bTB9DIN0j8JCTiu2o7_F6Hig9MOBqBk7yml0I9cVkxJDDlqTsPV3w-SIXWMKSRwe1JwHVQWjeoypIwXEMg4zmVN5zBZMfpz5Ldh6ALcTZeCMYS6zH1HAVcqshSA6qFyqzCdZwcXWZ78HBcks1yHsiSvYTXTqjzWTdLYv3FBoKtvD8GMkSAe_WhBEg4LRmGMTL5WEIdRs7KrVuwk7UFA7gf3KmKCmf6XVw3z3lnzRjrnCtq7xdALkAwCiqzvnG9kv8QvJqU6ns2bcOwqjRE3r22aIk69y8JkWP38vfk_ADfzyLH1mjm7vBY30-c7xF331A
-Content-Length: 3
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-}
-
-###
-
-GET http://104.198.139.204:2113/gossip
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-05-21T012306.200.json
-
-###
-
-GET http://104.198.139.204:2113
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-05-21T012258.200.html
-
-###
-
-GET http://0.0.0.0:8080/templates
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MjQzOTcsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYyNDM5NywiZXhwIjoxNjg0NjI3OTk3LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.j-MnhJ_L2f-FZYeEUr4U_bTB9DIN0j8JCTiu2o7_F6Hig9MOBqBk7yml0I9cVkxJDDlqTsPV3w-SIXWMKSRwe1JwHVQWjeoypIwXEMg4zmVN5zBZMfpz5Ldh6ALcTZeCMYS6zH1HAVcqshSA6qFyqzCdZwcXWZ78HBcks1yHsiSvYTXTqjzWTdLYv3FBoKtvD8GMkSAe_WhBEg4LRmGMTL5WEIdRs7KrVuwk7UFA7gf3KmKCmf6XVw3z3lnzRjrnCtq7xdALkAwCiqzvnG9kv8QvJqU6ns2bcOwqjRE3r22aIk69y8JkWP38vfk_ADfzyLH1mjm7vBY30-c7xF331A
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-05-21T011354.500.txt
-
-###
-
-POST http://0.0.0.0:8080/auth/register
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MjQzOTcsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYyNDM5NywiZXhwIjoxNjg0NjI3OTk3LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.j-MnhJ_L2f-FZYeEUr4U_bTB9DIN0j8JCTiu2o7_F6Hig9MOBqBk7yml0I9cVkxJDDlqTsPV3w-SIXWMKSRwe1JwHVQWjeoypIwXEMg4zmVN5zBZMfpz5Ldh6ALcTZeCMYS6zH1HAVcqshSA6qFyqzCdZwcXWZ78HBcks1yHsiSvYTXTqjzWTdLYv3FBoKtvD8GMkSAe_WhBEg4LRmGMTL5WEIdRs7KrVuwk7UFA7gf3KmKCmf6XVw3z3lnzRjrnCtq7xdALkAwCiqzvnG9kv8QvJqU6ns2bcOwqjRE3r22aIk69y8JkWP38vfk_ADfzyLH1mjm7vBY30-c7xF331A
-Content-Length: 3
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-}
-
-###
-
-GET http://0.0.0.0:8080/templates
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MjQzOTcsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYyNDM5NywiZXhwIjoxNjg0NjI3OTk3LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.j-MnhJ_L2f-FZYeEUr4U_bTB9DIN0j8JCTiu2o7_F6Hig9MOBqBk7yml0I9cVkxJDDlqTsPV3w-SIXWMKSRwe1JwHVQWjeoypIwXEMg4zmVN5zBZMfpz5Ldh6ALcTZeCMYS6zH1HAVcqshSA6qFyqzCdZwcXWZ78HBcks1yHsiSvYTXTqjzWTdLYv3FBoKtvD8GMkSAe_WhBEg4LRmGMTL5WEIdRs7KrVuwk7UFA7gf3KmKCmf6XVw3z3lnzRjrnCtq7xdALkAwCiqzvnG9kv8QvJqU6ns2bcOwqjRE3r22aIk69y8JkWP38vfk_ADfzyLH1mjm7vBY30-c7xF331A
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-###
-
-GET http://0.0.0.0:8080/templates/9fedb356-58f8-4466-b966-6efbe3b2a16f
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MjQzOTcsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYyNDM5NywiZXhwIjoxNjg0NjI3OTk3LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.j-MnhJ_L2f-FZYeEUr4U_bTB9DIN0j8JCTiu2o7_F6Hig9MOBqBk7yml0I9cVkxJDDlqTsPV3w-SIXWMKSRwe1JwHVQWjeoypIwXEMg4zmVN5zBZMfpz5Ldh6ALcTZeCMYS6zH1HAVcqshSA6qFyqzCdZwcXWZ78HBcks1yHsiSvYTXTqjzWTdLYv3FBoKtvD8GMkSAe_WhBEg4LRmGMTL5WEIdRs7KrVuwk7UFA7gf3KmKCmf6XVw3z3lnzRjrnCtq7xdALkAwCiqzvnG9kv8QvJqU6ns2bcOwqjRE3r22aIk69y8JkWP38vfk_ADfzyLH1mjm7vBY30-c7xF331A
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-###
-
-GET http://0.0.0.0:8080/templates/9fedb356-58f8-4466-b966-6efbe3b2a16f
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MjQzOTcsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYyNDM5NywiZXhwIjoxNjg0NjI3OTk3LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.j-MnhJ_L2f-FZYeEUr4U_bTB9DIN0j8JCTiu2o7_F6Hig9MOBqBk7yml0I9cVkxJDDlqTsPV3w-SIXWMKSRwe1JwHVQWjeoypIwXEMg4zmVN5zBZMfpz5Ldh6ALcTZeCMYS6zH1HAVcqshSA6qFyqzCdZwcXWZ78HBcks1yHsiSvYTXTqjzWTdLYv3FBoKtvD8GMkSAe_WhBEg4LRmGMTL5WEIdRs7KrVuwk7UFA7gf3KmKCmf6XVw3z3lnzRjrnCtq7xdALkAwCiqzvnG9kv8QvJqU6ns2bcOwqjRE3r22aIk69y8JkWP38vfk_ADfzyLH1mjm7vBY30-c7xF331A
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-###
-
-POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAdvWNnIdp0EJsVKBzSZKlCNO_PO8HZrqw
-Content-Type: application/json
-Content-Length: 91
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "email": "szymon.chaber@o2.pl",
-  "password": "password",
-  "returnSecureToken": true
-}
-
-<> 2023-05-21T011317.200.json
-
-###
-
-GET http://0.0.0.0:8080/templates/9fedb356-58f8-4466-b966-6efbe3b2a16f
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MjQxMTcsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYyNDExNywiZXhwIjoxNjg0NjI3NzE3LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.Vh7V1ccrcdkae_O3YoabJCYN-nKjVSgQhNJLoJkhHrkKNqN6QeSExqrJJno8jmz5NgeW6lfxelKifWUO-dKlyDVef7pmmsLv3nNAvd9TjSGHL1dZA8_nYQZsskFgfG1ngf_cDUkrFRWKiouC1QB1K7hKHmfQI3KOgk-z8PXarC_qKA9g3kV7JmBF1Qb_Kgrmrk1kVkq6ENPKFIsRqeE2Yo2r13uuSl2MCCEWeO6fyj605YyDAiutIj6PDoHCLr8hUtAY54FhPjZgZDyVypbVMgRSd0bzyD2JBySnZwcbgyeQLBdbugIo6hr3Vx-ctn1ymxMvggxRsAuYZwtcSBwHbQ
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-05-21T010858.500.txt
-
-###
-
-GET http://0.0.0.0:8080/templates
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MjQxMTcsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYyNDExNywiZXhwIjoxNjg0NjI3NzE3LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.Vh7V1ccrcdkae_O3YoabJCYN-nKjVSgQhNJLoJkhHrkKNqN6QeSExqrJJno8jmz5NgeW6lfxelKifWUO-dKlyDVef7pmmsLv3nNAvd9TjSGHL1dZA8_nYQZsskFgfG1ngf_cDUkrFRWKiouC1QB1K7hKHmfQI3KOgk-z8PXarC_qKA9g3kV7JmBF1Qb_Kgrmrk1kVkq6ENPKFIsRqeE2Yo2r13uuSl2MCCEWeO6fyj605YyDAiutIj6PDoHCLr8hUtAY54FhPjZgZDyVypbVMgRSd0bzyD2JBySnZwcbgyeQLBdbugIo6hr3Vx-ctn1ymxMvggxRsAuYZwtcSBwHbQ
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-05-21T010851.500.txt
-
-###
-
-GET http://0.0.0.0:8080/auth/login
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MjQxMTcsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYyNDExNywiZXhwIjoxNjg0NjI3NzE3LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.Vh7V1ccrcdkae_O3YoabJCYN-nKjVSgQhNJLoJkhHrkKNqN6QeSExqrJJno8jmz5NgeW6lfxelKifWUO-dKlyDVef7pmmsLv3nNAvd9TjSGHL1dZA8_nYQZsskFgfG1ngf_cDUkrFRWKiouC1QB1K7hKHmfQI3KOgk-z8PXarC_qKA9g3kV7JmBF1Qb_Kgrmrk1kVkq6ENPKFIsRqeE2Yo2r13uuSl2MCCEWeO6fyj605YyDAiutIj6PDoHCLr8hUtAY54FhPjZgZDyVypbVMgRSd0bzyD2JBySnZwcbgyeQLBdbugIo6hr3Vx-ctn1ymxMvggxRsAuYZwtcSBwHbQ
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-05-21T010846.200.json
-
-###
-
-POST http://0.0.0.0:8080/auth/register
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MjQxMTcsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYyNDExNywiZXhwIjoxNjg0NjI3NzE3LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.Vh7V1ccrcdkae_O3YoabJCYN-nKjVSgQhNJLoJkhHrkKNqN6QeSExqrJJno8jmz5NgeW6lfxelKifWUO-dKlyDVef7pmmsLv3nNAvd9TjSGHL1dZA8_nYQZsskFgfG1ngf_cDUkrFRWKiouC1QB1K7hKHmfQI3KOgk-z8PXarC_qKA9g3kV7JmBF1Qb_Kgrmrk1kVkq6ENPKFIsRqeE2Yo2r13uuSl2MCCEWeO6fyj605YyDAiutIj6PDoHCLr8hUtAY54FhPjZgZDyVypbVMgRSd0bzyD2JBySnZwcbgyeQLBdbugIo6hr3Vx-ctn1ymxMvggxRsAuYZwtcSBwHbQ
-Content-Length: 3
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-}
-
-###
-
-POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAdvWNnIdp0EJsVKBzSZKlCNO_PO8HZrqw
-Content-Type: application/json
-Content-Length: 91
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "email": "szymon.chaber@o2.pl",
-  "password": "password",
-  "returnSecureToken": true
-}
-
-<> 2023-05-21T010837.200.json
-
-###
-
-GET https://checkstory-backend-gjtdgwzhla-uc.a.run.app/auth/login
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MjA4ODUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYyMDg4NSwiZXhwIjoxNjg0NjI0NDg1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.QIbZNMZ3X50Uhx9mK1wwPSAjp635QhZ6WlrhMpDrclEuGivbHVJsjMfh4eQgnz4fd16QFMAcUgBLLuZMF3BptLePgG2vUA5yEbiMOb_k_K3OO7KBGScn55CCFpeg5MVLQQmhDiu3b7Jy7B4CbpxkDQ4P7bAZQcTu6S17dfFPEr4N-LwxAdeXk3Y-opqlQISNXst-WHLl0Q4oulnAJ5KdQ0Iq0_CqhjWIfT7R4FWdgHNyTnnZww_2M82eKgUMIS876hXgs28_guYlS7KtvyBkqeY1jL3UjNN32KznGdM5PZWGBqF1NEMYPhzgmFJIa8rBfHukkJZp6Kr5EW2cHJbfSA
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-05-21T001550.200.json
-
-###
-
-POST https://checkstory-backend-gjtdgwzhla-uc.a.run.app/auth/register
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MjA4ODUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYyMDg4NSwiZXhwIjoxNjg0NjI0NDg1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.QIbZNMZ3X50Uhx9mK1wwPSAjp635QhZ6WlrhMpDrclEuGivbHVJsjMfh4eQgnz4fd16QFMAcUgBLLuZMF3BptLePgG2vUA5yEbiMOb_k_K3OO7KBGScn55CCFpeg5MVLQQmhDiu3b7Jy7B4CbpxkDQ4P7bAZQcTu6S17dfFPEr4N-LwxAdeXk3Y-opqlQISNXst-WHLl0Q4oulnAJ5KdQ0Iq0_CqhjWIfT7R4FWdgHNyTnnZww_2M82eKgUMIS876hXgs28_guYlS7KtvyBkqeY1jL3UjNN32KznGdM5PZWGBqF1NEMYPhzgmFJIa8rBfHukkJZp6Kr5EW2cHJbfSA
-Content-Length: 3
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-}
-
-###
-
-GET https://checkstory-backend-gjtdgwzhla-uc.a.run.app
-Content-Type: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-###
-
-POST http://0.0.0.0:8080/auth/register
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MjA4ODUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYyMDg4NSwiZXhwIjoxNjg0NjI0NDg1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.QIbZNMZ3X50Uhx9mK1wwPSAjp635QhZ6WlrhMpDrclEuGivbHVJsjMfh4eQgnz4fd16QFMAcUgBLLuZMF3BptLePgG2vUA5yEbiMOb_k_K3OO7KBGScn55CCFpeg5MVLQQmhDiu3b7Jy7B4CbpxkDQ4P7bAZQcTu6S17dfFPEr4N-LwxAdeXk3Y-opqlQISNXst-WHLl0Q4oulnAJ5KdQ0Iq0_CqhjWIfT7R4FWdgHNyTnnZww_2M82eKgUMIS876hXgs28_guYlS7KtvyBkqeY1jL3UjNN32KznGdM5PZWGBqF1NEMYPhzgmFJIa8rBfHukkJZp6Kr5EW2cHJbfSA
-Content-Length: 3
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-}
-
-###
-
-POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAdvWNnIdp0EJsVKBzSZKlCNO_PO8HZrqw
-Content-Type: application/json
-Content-Length: 91
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "email": "szymon.chaber@o2.pl",
-  "password": "password",
-  "returnSecureToken": true
-}
-
-<> 2023-05-21T001445.200.json
-
-###
-
-POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAdvWNnIdp0EJsVKBzSZKlCNO_PO8HZrqw
-Content-Type: application/json
-Content-Length: 91
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "email": "szymon.chaber@o2.pl",
-  "password": "password",
-  "returnSecureToken": true
-}
-
-<> 2023-05-21T000940.200.json
-
-###
-
-POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={{firebase_api_key}}
-Content-Type: application/json
-Content-Length: 89
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "email": "{{login_1}}",
-  "password": "{{password_1}}",
-  "returnSecureToken": true
-}
-
-<> 2023-05-21T000859.400.json
-
-###
-
-GET http://0.0.0.0:8080/auth/login
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MDU4MzcsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYwNTgzNywiZXhwIjoxNjg0NjA5NDM3LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.ARKv04at5XFpIxFVNeb39nipk83OI5aiRg9sWmYTh4--9mLXrux2n0gPYeQcP8bgvNSRquQ5bgkOHyVat30vEFQpizMEVt0UU3dQgyK3fNKAjBoRIKJ2IYsNIBIh1kn7Ox7vtTPALeC9zYfrxVMxPxg3_M7Au7Zbm3xUwnC9WS-EHOWxyVGsx0_O7rvwLWdb7f7dB5whpu4Vpq3lCXqrvRhMIhmTfexhJKvAZpLdaTjU3Y6DCWP9ANRllGFW0c38CjtgC5mn3cqEQfhjmNEXB6Tti2I4LSWib2D0AnU-rwkp-P76nR0gMptFPr7ZbEf3ZQLMmdj_VC4pdY0CcpApaw
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-05-20T200628.200.json
-
-###
-
-POST http://0.0.0.0:8080/payment/google-play-token
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MDU4MzcsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYwNTgzNywiZXhwIjoxNjg0NjA5NDM3LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.ARKv04at5XFpIxFVNeb39nipk83OI5aiRg9sWmYTh4--9mLXrux2n0gPYeQcP8bgvNSRquQ5bgkOHyVat30vEFQpizMEVt0UU3dQgyK3fNKAjBoRIKJ2IYsNIBIh1kn7Ox7vtTPALeC9zYfrxVMxPxg3_M7Au7Zbm3xUwnC9WS-EHOWxyVGsx0_O7rvwLWdb7f7dB5whpu4Vpq3lCXqrvRhMIhmTfexhJKvAZpLdaTjU3Y6DCWP9ANRllGFW0c38CjtgC5mn3cqEQfhjmNEXB6Tti2I4LSWib2D0AnU-rwkp-P76nR0gMptFPr7ZbEf3ZQLMmdj_VC4pdY0CcpApaw
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTEzNTMsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMTM1MywiZXhwIjoxNjg0NzE0OTUzLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.Vows2Ak_-UU7mlY6DgjZ8q2bFTFl8SXj4DppePpkmZwdUHFvPcdghlw2LG9bkkCjqKlAuAbo4sRnxDgw1QzZz1OcZnBOlljfxojf4DOiacN7_8j9Vu-fGyGlhbNvDspF7kr7eYYj7Zm_x7MK5avEZ1OaZQVSj-BIk1BFeWI-hEW_fSzY0u1-VdSt6v_U2DNEBl2A-FgBS6lJCzN7GpZMqd41tSn5gQcmqAhKaV0txA7hA7Y4FvuCoqwYcel8Bzum0bMEitAemZN6wSm3mSJvrb65Fa9OxNDdB2tNJyACNiYJKdD1TJg0VTXpagh6HIIgVT2t8Qf0MQniRgpNreOMrg
 Content-Length: 161
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
@@ -490,20 +437,191 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 
 ###
 
-GET http://0.0.0.0:8080/auth/login
+GET http://159.203.187.86:8080/auth/login
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MDU4MzcsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYwNTgzNywiZXhwIjoxNjg0NjA5NDM3LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.ARKv04at5XFpIxFVNeb39nipk83OI5aiRg9sWmYTh4--9mLXrux2n0gPYeQcP8bgvNSRquQ5bgkOHyVat30vEFQpizMEVt0UU3dQgyK3fNKAjBoRIKJ2IYsNIBIh1kn7Ox7vtTPALeC9zYfrxVMxPxg3_M7Au7Zbm3xUwnC9WS-EHOWxyVGsx0_O7rvwLWdb7f7dB5whpu4Vpq3lCXqrvRhMIhmTfexhJKvAZpLdaTjU3Y6DCWP9ANRllGFW0c38CjtgC5mn3cqEQfhjmNEXB6Tti2I4LSWib2D0AnU-rwkp-P76nR0gMptFPr7ZbEf3ZQLMmdj_VC4pdY0CcpApaw
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTEzNTMsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMTM1MywiZXhwIjoxNjg0NzE0OTUzLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.Vows2Ak_-UU7mlY6DgjZ8q2bFTFl8SXj4DppePpkmZwdUHFvPcdghlw2LG9bkkCjqKlAuAbo4sRnxDgw1QzZz1OcZnBOlljfxojf4DOiacN7_8j9Vu-fGyGlhbNvDspF7kr7eYYj7Zm_x7MK5avEZ1OaZQVSj-BIk1BFeWI-hEW_fSzY0u1-VdSt6v_U2DNEBl2A-FgBS6lJCzN7GpZMqd41tSn5gQcmqAhKaV0txA7hA7Y4FvuCoqwYcel8Bzum0bMEitAemZN6wSm3mSJvrb65Fa9OxNDdB2tNJyACNiYJKdD1TJg0VTXpagh6HIIgVT2t8Qf0MQniRgpNreOMrg
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-<> 2023-05-20T200622.200.json
+<> 2023-05-22T012317.200.json
 
 ###
 
-POST http://0.0.0.0:8080/auth/register
+POST http://159.203.187.86:8080/auth/register
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MDU4MzcsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYwNTgzNywiZXhwIjoxNjg0NjA5NDM3LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.ARKv04at5XFpIxFVNeb39nipk83OI5aiRg9sWmYTh4--9mLXrux2n0gPYeQcP8bgvNSRquQ5bgkOHyVat30vEFQpizMEVt0UU3dQgyK3fNKAjBoRIKJ2IYsNIBIh1kn7Ox7vtTPALeC9zYfrxVMxPxg3_M7Au7Zbm3xUwnC9WS-EHOWxyVGsx0_O7rvwLWdb7f7dB5whpu4Vpq3lCXqrvRhMIhmTfexhJKvAZpLdaTjU3Y6DCWP9ANRllGFW0c38CjtgC5mn3cqEQfhjmNEXB6Tti2I4LSWib2D0AnU-rwkp-P76nR0gMptFPr7ZbEf3ZQLMmdj_VC4pdY0CcpApaw
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MTEzNTMsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcxMTM1MywiZXhwIjoxNjg0NzE0OTUzLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.Vows2Ak_-UU7mlY6DgjZ8q2bFTFl8SXj4DppePpkmZwdUHFvPcdghlw2LG9bkkCjqKlAuAbo4sRnxDgw1QzZz1OcZnBOlljfxojf4DOiacN7_8j9Vu-fGyGlhbNvDspF7kr7eYYj7Zm_x7MK5avEZ1OaZQVSj-BIk1BFeWI-hEW_fSzY0u1-VdSt6v_U2DNEBl2A-FgBS6lJCzN7GpZMqd41tSn5gQcmqAhKaV0txA7hA7Y4FvuCoqwYcel8Bzum0bMEitAemZN6wSm3mSJvrb65Fa9OxNDdB2tNJyACNiYJKdD1TJg0VTXpagh6HIIgVT2t8Qf0MQniRgpNreOMrg
+Content-Length: 3
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+}
+
+<> 2023-05-22T012236.500.txt
+
+###
+
+POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAdvWNnIdp0EJsVKBzSZKlCNO_PO8HZrqw
+Content-Type: application/json
+Content-Length: 91
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "email": "szymon.chaber@o2.pl",
+  "password": "password",
+  "returnSecureToken": true
+}
+
+<> 2023-05-22T012233.200.json
+
+###
+
+GET http://159.203.187.86:8080/templates
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MDc2MTgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcwNzYxOCwiZXhwIjoxNjg0NzExMjE4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.hN-_bUIhzdxoXrW6cxVJcLGDJHg2d1ZueNvYR106z1Y-W_KwHlT0L1w-FwWs4yPcm2kjcs3sb-n-bU2OsP0n2Xb8axy3CObwvmPHm_INFBXabKFrWwTXIqVMiaYSg95BRqrUmm7umWbtYJAdin-jqwSWurERMAGvSPW2iAG1RlhN-jkbrhCGcBHCZ3unGEC12TQ3JEd9N3mwVf7vimf-BPuGn2dD7Xrq9q6QMyUiufgRg3aIgLbYlDN5r054sDAujHIBseRkwwnn0bpon-OE_ibBSkLEuanG_wdRn-KgUpN6GYYqRo5CbAC1GUVvMIgANOHxCwufUmKKB9VKFqtaKg
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-22T002436.200.json
+
+###
+
+POST http://159.203.187.86:8080/commands
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MDc2MTgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcwNzYxOCwiZXhwIjoxNjg0NzExMjE4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.hN-_bUIhzdxoXrW6cxVJcLGDJHg2d1ZueNvYR106z1Y-W_KwHlT0L1w-FwWs4yPcm2kjcs3sb-n-bU2OsP0n2Xb8axy3CObwvmPHm_INFBXabKFrWwTXIqVMiaYSg95BRqrUmm7umWbtYJAdin-jqwSWurERMAGvSPW2iAG1RlhN-jkbrhCGcBHCZ3unGEC12TQ3JEd9N3mwVf7vimf-BPuGn2dD7Xrq9q6QMyUiufgRg3aIgLbYlDN5r054sDAujHIBseRkwwnn0bpon-OE_ibBSkLEuanG_wdRn-KgUpN6GYYqRo5CbAC1GUVvMIgANOHxCwufUmKKB9VKFqtaKg
+Content-Length: 2437
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+[
+{
+    "type": "createTemplate",
+    "templateId": "3f795990-4fad-4ce5-9fa2-78701671894d",
+    "commandId": "faa7b41c-592f-4824-b2d1-1436b0e3e558",
+    "timestamp": "2023-05-21T22:24:28.357780Z"
+  },
+    {
+    "type": "addTemplateTask",
+    "templateId": "3f795990-4fad-4ce5-9fa2-78701671894d",
+    "taskId": "2874a855-66ca-4db8-a686-e65dc98ffdd6",
+    "parentTaskId": null,
+    "commandId": "d7488e40-32a6-400e-bb23-63b8c6b919ed",
+    "timestamp": "2023-05-21T22:24:28.357877Z"
+  },
+  {
+    "type": "addTemplateTask",
+    "templateId": "3f795990-4fad-4ce5-9fa2-78701671894d",
+    "taskId": "2575f71e-2ed8-499c-9064-2b9b9043b12e",
+    "parentTaskId": 2874a855-66ca-4db8-a686-e65dc98ffdd6,
+    "commandId": "6e23736e-5fb8-453e-8ede-ff7cbc4839a2",
+    "timestamp": "2023-05-21T22:24:28.357935Z"
+  },
+  {
+    "type": "editTemplateTitle",
+    "templateId": "3f795990-4fad-4ce5-9fa2-78701671894d",
+    "newTitle": "All the events",
+    "commandId": "76e36583-aa93-414a-9168-a3ccf3f60a12",
+    "timestamp": "2023-05-21T22:24:28.357988Z"
+  },
+  {
+    "type": "addTemplateTask",
+    "templateId": "3f795990-4fad-4ce5-9fa2-78701671894d",
+    "taskId": "39b97652-7ae7-4c91-b2a2-fb9a771c2893",
+    "parentTaskId": null,
+    "commandId": "a72951c3-1478-4690-84d0-50374ac221ef",
+    "timestamp": "2023-05-21T22:24:28.358461Z"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "3f795990-4fad-4ce5-9fa2-78701671894d",
+    "taskId": "2575f71e-2ed8-499c-9064-2b9b9043b12e",
+    "newTitle": "Task 3 - deleted later",
+    "commandId": "3fcae540-5bf4-4895-93be-484374c58afa",
+    "timestamp": "2023-05-21T22:24:28.358714Z"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "3f795990-4fad-4ce5-9fa2-78701671894d",
+    "taskId": "39b97652-7ae7-4c91-b2a2-fb9a771c2893",
+    "newTitle": "Task 1",
+    "commandId": "615a77b4-5707-42a6-9e18-5510d1cb6e69",
+    "timestamp": "2023-05-21T22:24:28.358789Z"
+  },
+  {
+    "type": "editTemplateDescription",
+    "templateId": "3f795990-4fad-4ce5-9fa2-78701671894d",
+    "newDescription": "Description",
+    "commandId": "6b78ce4c-cb33-41c8-af20-12f4735a8c56",
+    "timestamp": "2023-05-21T22:24:28.358846Z"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "3f795990-4fad-4ce5-9fa2-78701671894d",
+    "taskId": "2874a855-66ca-4db8-a686-e65dc98ffdd6",
+    "newTitle": "Task 2",
+    "commandId": "8646d42e-6e2f-4a48-a4d7-b300c3f68229",
+    "timestamp": "2023-05-21T22:24:28.359023Z"
+  }
+]
+
+###
+
+GET http://159.203.187.86:8080/templates
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MDc2MTgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcwNzYxOCwiZXhwIjoxNjg0NzExMjE4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.hN-_bUIhzdxoXrW6cxVJcLGDJHg2d1ZueNvYR106z1Y-W_KwHlT0L1w-FwWs4yPcm2kjcs3sb-n-bU2OsP0n2Xb8axy3CObwvmPHm_INFBXabKFrWwTXIqVMiaYSg95BRqrUmm7umWbtYJAdin-jqwSWurERMAGvSPW2iAG1RlhN-jkbrhCGcBHCZ3unGEC12TQ3JEd9N3mwVf7vimf-BPuGn2dD7Xrq9q6QMyUiufgRg3aIgLbYlDN5r054sDAujHIBseRkwwnn0bpon-OE_ibBSkLEuanG_wdRn-KgUpN6GYYqRo5CbAC1GUVvMIgANOHxCwufUmKKB9VKFqtaKg
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-22T002423.200.json
+
+###
+
+GET http://159.203.187.86:8080/auth/login
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MDc2MTgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcwNzYxOCwiZXhwIjoxNjg0NzExMjE4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.hN-_bUIhzdxoXrW6cxVJcLGDJHg2d1ZueNvYR106z1Y-W_KwHlT0L1w-FwWs4yPcm2kjcs3sb-n-bU2OsP0n2Xb8axy3CObwvmPHm_INFBXabKFrWwTXIqVMiaYSg95BRqrUmm7umWbtYJAdin-jqwSWurERMAGvSPW2iAG1RlhN-jkbrhCGcBHCZ3unGEC12TQ3JEd9N3mwVf7vimf-BPuGn2dD7Xrq9q6QMyUiufgRg3aIgLbYlDN5r054sDAujHIBseRkwwnn0bpon-OE_ibBSkLEuanG_wdRn-KgUpN6GYYqRo5CbAC1GUVvMIgANOHxCwufUmKKB9VKFqtaKg
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-22T002414.200.json
+
+###
+
+POST http://159.203.187.86:8080/payment/google-play-token
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MDc2MTgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcwNzYxOCwiZXhwIjoxNjg0NzExMjE4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.hN-_bUIhzdxoXrW6cxVJcLGDJHg2d1ZueNvYR106z1Y-W_KwHlT0L1w-FwWs4yPcm2kjcs3sb-n-bU2OsP0n2Xb8axy3CObwvmPHm_INFBXabKFrWwTXIqVMiaYSg95BRqrUmm7umWbtYJAdin-jqwSWurERMAGvSPW2iAG1RlhN-jkbrhCGcBHCZ3unGEC12TQ3JEd9N3mwVf7vimf-BPuGn2dD7Xrq9q6QMyUiufgRg3aIgLbYlDN5r054sDAujHIBseRkwwnn0bpon-OE_ibBSkLEuanG_wdRn-KgUpN6GYYqRo5CbAC1GUVvMIgANOHxCwufUmKKB9VKFqtaKg
+Content-Length: 161
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "token": "pcndhaakkocgaijdgbpkgobh.AO-J1OzbW74RwG5RKc5dKLjpWBEmS8Mjq8BKoKaK6fcEf6YAFPCB2QuC4ZHyHv8Lr0IJFh3AJPVWwM945dkh9etntJWdwjZfRM3WUjFfYdiYusH4cpnPQC8"
+}
+
+###
+
+GET http://159.203.187.86:8080/templates
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MDc2MTgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcwNzYxOCwiZXhwIjoxNjg0NzExMjE4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.hN-_bUIhzdxoXrW6cxVJcLGDJHg2d1ZueNvYR106z1Y-W_KwHlT0L1w-FwWs4yPcm2kjcs3sb-n-bU2OsP0n2Xb8axy3CObwvmPHm_INFBXabKFrWwTXIqVMiaYSg95BRqrUmm7umWbtYJAdin-jqwSWurERMAGvSPW2iAG1RlhN-jkbrhCGcBHCZ3unGEC12TQ3JEd9N3mwVf7vimf-BPuGn2dD7Xrq9q6QMyUiufgRg3aIgLbYlDN5r054sDAujHIBseRkwwnn0bpon-OE_ibBSkLEuanG_wdRn-KgUpN6GYYqRo5CbAC1GUVvMIgANOHxCwufUmKKB9VKFqtaKg
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-22T002357.200.json
+
+###
+
+POST http://159.203.187.86:8080/auth/register
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MDc2MTgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcwNzYxOCwiZXhwIjoxNjg0NzExMjE4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.hN-_bUIhzdxoXrW6cxVJcLGDJHg2d1ZueNvYR106z1Y-W_KwHlT0L1w-FwWs4yPcm2kjcs3sb-n-bU2OsP0n2Xb8axy3CObwvmPHm_INFBXabKFrWwTXIqVMiaYSg95BRqrUmm7umWbtYJAdin-jqwSWurERMAGvSPW2iAG1RlhN-jkbrhCGcBHCZ3unGEC12TQ3JEd9N3mwVf7vimf-BPuGn2dD7Xrq9q6QMyUiufgRg3aIgLbYlDN5r054sDAujHIBseRkwwnn0bpon-OE_ibBSkLEuanG_wdRn-KgUpN6GYYqRo5CbAC1GUVvMIgANOHxCwufUmKKB9VKFqtaKg
 Content-Length: 3
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
@@ -527,13 +645,13 @@ Accept-Encoding: br,deflate,gzip,x-gzip
   "returnSecureToken": true
 }
 
-<> 2023-05-20T200357.200.json
+<> 2023-05-22T002018.200.json
 
 ###
 
 POST http://0.0.0.0:8080/auth/register
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ2MDU3OTYsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDYwNTc5NiwiZXhwIjoxNjg0NjA5Mzk2LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.Ang5-7CGcI2YFvYyWZnjc1IC6Ht3DNlizy2e16sR7ztua0HHK8rxPeSsg9hxx2VPw_f_NgDkjkB8fd1u5q289cgNDDkPXEtt6TEFKmSKGFQMvo2WGaTmnPDoxGT0Vc8y6kduSM7LcSbfv13qjIRi5FWcekFDgihoUgBfPDbgsYbahtavYAantZHM1m5SDDN63IcZcxUAEQdMoSc-uPQr66Kwczb1xqYyDBixvD-7tueO4jfKCEYcJ8YE3kkbO2ZDX1YJwEkqa0xFACGB3-vSWcm5APOojukBPLj5NrCp2h5OG0tFv93IizNZkwbiimBueDdg74375T6pIg7t9NvR6A
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MDc1OTgsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcwNzU5OCwiZXhwIjoxNjg0NzExMTk4LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.DtoCDMXamId96g51SAo0JxUsps3EpG56oM6TtUAHanhVvMW_OkKvDgY1izK39gLfhCOyPV8g0fEXB4bhBMh3Q_lqkxKjAwtkKOXgQO6r5ZovOXqpfASdZzCQH0jSNxVd4akrIl0TIl6R6F6wlOHWMuEMHXhR4zU0QFPc6oDHeNRITUSzWEV3GFqW_m6IdeRkUanUebiA2eITgtNGREfqhscLcOoXk7Pj_6wO25q6-VbRLY6CMSM12Kt9lQlX3TuzprnOKAflqPe5qzPbTDbH-NeUxzbQXbRVXcrVLbhxB6wkomPyn-8V9jYX43Byqk46UF2PblD9csdoBdrZz2cBkA
 Content-Length: 3
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
@@ -542,7 +660,7 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 {
 }
 
-<> 2023-05-20T200319.500.txt
+<> 2023-05-22T002007.500.txt
 
 ###
 
@@ -559,24 +677,35 @@ Accept-Encoding: br,deflate,gzip,x-gzip
   "returnSecureToken": true
 }
 
-<> 2023-05-20T200316.200.json
+<> 2023-05-22T001958.200.json
+
+###
+
+GET http://0.0.0.0:8080/templates
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MDMxMjUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcwMzEyNSwiZXhwIjoxNjg0NzA2NzI1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.fvvVGxPtsj1NfMb46mgLGc23jpQWBf0GCsWJsclu2FbQ6b9HExa9MdbxpzUci60kRWdRFXBxA-XdiJv8ahdkFadiw27MOI3Ti1C-KaexhFO3dj73A8DwdN4ZOs6PMqaXeagwoaAHFHQKL1yI3_WOyVMa-J1XRqdU49_ud54N3RLOnUNyRcRtMOMlTVTly7S2RxSCalMJRmlxjXzeWMVVwvq8BDUd4qNFYKBAjWXutK3VZG3GvjMWRKidkyBB5UYTur_e56YEe7hxJXoqNMfJpJPeZFxvPrdDQSN3BrnxwmCMbeg7WrpWUKsd0g9ghSyB1yRx1ddQGmS2fc80BF8cYA
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-21T234038.200.json
 
 ###
 
 GET http://0.0.0.0:8080/auth/login
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ0ODI4MjUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDQ4MjgyNSwiZXhwIjoxNjg0NDg2NDI1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.CO5QHmdOYAWVJEcvjLc4jB_NZkXzr6ZOsgd_UvmhYYG4h76yMfU6ChyPKTqnHpuIthgN528X5KH7TYoFzngSqQJUIyD4aSTj6zlD7rXBtFwDMBnqeXZNqe79bzew4I-ITq0aMwzlYpPr-9u4BwNm9RNjfb4d5dYbHWA8jAW66ih3RkXfg6m49RVorwZA6Lw-NmJXUFa8aeqwxsN3PXiHUenAoxstQkR-KWGQ0VGr65KpIYonKotDiI1FCYCkfuV_wKnpT0w1rCNbI-XB-HOCxSXb2zRey1jv2wsnkuDfv2MF-CiP8kgg4SvppeIjRAV0DPOmT2vCQdsLL6j_otc9RQ
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MDMxMjUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcwMzEyNSwiZXhwIjoxNjg0NzA2NzI1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.fvvVGxPtsj1NfMb46mgLGc23jpQWBf0GCsWJsclu2FbQ6b9HExa9MdbxpzUci60kRWdRFXBxA-XdiJv8ahdkFadiw27MOI3Ti1C-KaexhFO3dj73A8DwdN4ZOs6PMqaXeagwoaAHFHQKL1yI3_WOyVMa-J1XRqdU49_ud54N3RLOnUNyRcRtMOMlTVTly7S2RxSCalMJRmlxjXzeWMVVwvq8BDUd4qNFYKBAjWXutK3VZG3GvjMWRKidkyBB5UYTur_e56YEe7hxJXoqNMfJpJPeZFxvPrdDQSN3BrnxwmCMbeg7WrpWUKsd0g9ghSyB1yRx1ddQGmS2fc80BF8cYA
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-<> 2023-05-19T095814.200.json
+<> 2023-05-21T234028.200.json
 
 ###
 
 POST http://0.0.0.0:8080/payment/google-play-token
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ0ODI4MjUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDQ4MjgyNSwiZXhwIjoxNjg0NDg2NDI1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.CO5QHmdOYAWVJEcvjLc4jB_NZkXzr6ZOsgd_UvmhYYG4h76yMfU6ChyPKTqnHpuIthgN528X5KH7TYoFzngSqQJUIyD4aSTj6zlD7rXBtFwDMBnqeXZNqe79bzew4I-ITq0aMwzlYpPr-9u4BwNm9RNjfb4d5dYbHWA8jAW66ih3RkXfg6m49RVorwZA6Lw-NmJXUFa8aeqwxsN3PXiHUenAoxstQkR-KWGQ0VGr65KpIYonKotDiI1FCYCkfuV_wKnpT0w1rCNbI-XB-HOCxSXb2zRey1jv2wsnkuDfv2MF-CiP8kgg4SvppeIjRAV0DPOmT2vCQdsLL6j_otc9RQ
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MDMxMjUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcwMzEyNSwiZXhwIjoxNjg0NzA2NzI1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.fvvVGxPtsj1NfMb46mgLGc23jpQWBf0GCsWJsclu2FbQ6b9HExa9MdbxpzUci60kRWdRFXBxA-XdiJv8ahdkFadiw27MOI3Ti1C-KaexhFO3dj73A8DwdN4ZOs6PMqaXeagwoaAHFHQKL1yI3_WOyVMa-J1XRqdU49_ud54N3RLOnUNyRcRtMOMlTVTly7S2RxSCalMJRmlxjXzeWMVVwvq8BDUd4qNFYKBAjWXutK3VZG3GvjMWRKidkyBB5UYTur_e56YEe7hxJXoqNMfJpJPeZFxvPrdDQSN3BrnxwmCMbeg7WrpWUKsd0g9ghSyB1yRx1ddQGmS2fc80BF8cYA
 Content-Length: 161
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
@@ -590,7 +719,7 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 
 POST http://0.0.0.0:8080/auth/register
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ0ODI4MjUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDQ4MjgyNSwiZXhwIjoxNjg0NDg2NDI1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.CO5QHmdOYAWVJEcvjLc4jB_NZkXzr6ZOsgd_UvmhYYG4h76yMfU6ChyPKTqnHpuIthgN528X5KH7TYoFzngSqQJUIyD4aSTj6zlD7rXBtFwDMBnqeXZNqe79bzew4I-ITq0aMwzlYpPr-9u4BwNm9RNjfb4d5dYbHWA8jAW66ih3RkXfg6m49RVorwZA6Lw-NmJXUFa8aeqwxsN3PXiHUenAoxstQkR-KWGQ0VGr65KpIYonKotDiI1FCYCkfuV_wKnpT0w1rCNbI-XB-HOCxSXb2zRey1jv2wsnkuDfv2MF-CiP8kgg4SvppeIjRAV0DPOmT2vCQdsLL6j_otc9RQ
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MDMxMjUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcwMzEyNSwiZXhwIjoxNjg0NzA2NzI1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.fvvVGxPtsj1NfMb46mgLGc23jpQWBf0GCsWJsclu2FbQ6b9HExa9MdbxpzUci60kRWdRFXBxA-XdiJv8ahdkFadiw27MOI3Ti1C-KaexhFO3dj73A8DwdN4ZOs6PMqaXeagwoaAHFHQKL1yI3_WOyVMa-J1XRqdU49_ud54N3RLOnUNyRcRtMOMlTVTly7S2RxSCalMJRmlxjXzeWMVVwvq8BDUd4qNFYKBAjWXutK3VZG3GvjMWRKidkyBB5UYTur_e56YEe7hxJXoqNMfJpJPeZFxvPrdDQSN3BrnxwmCMbeg7WrpWUKsd0g9ghSyB1yRx1ddQGmS2fc80BF8cYA
 Content-Length: 3
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
@@ -601,72 +730,20 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 
 ###
 
-GET http://0.0.0.0:8080/auth/login
+GET http://159.203.187.86:8080/templates
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ0ODI4MjUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDQ4MjgyNSwiZXhwIjoxNjg0NDg2NDI1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.CO5QHmdOYAWVJEcvjLc4jB_NZkXzr6ZOsgd_UvmhYYG4h76yMfU6ChyPKTqnHpuIthgN528X5KH7TYoFzngSqQJUIyD4aSTj6zlD7rXBtFwDMBnqeXZNqe79bzew4I-ITq0aMwzlYpPr-9u4BwNm9RNjfb4d5dYbHWA8jAW66ih3RkXfg6m49RVorwZA6Lw-NmJXUFa8aeqwxsN3PXiHUenAoxstQkR-KWGQ0VGr65KpIYonKotDiI1FCYCkfuV_wKnpT0w1rCNbI-XB-HOCxSXb2zRey1jv2wsnkuDfv2MF-CiP8kgg4SvppeIjRAV0DPOmT2vCQdsLL6j_otc9RQ
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MDMxMjUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcwMzEyNSwiZXhwIjoxNjg0NzA2NzI1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.fvvVGxPtsj1NfMb46mgLGc23jpQWBf0GCsWJsclu2FbQ6b9HExa9MdbxpzUci60kRWdRFXBxA-XdiJv8ahdkFadiw27MOI3Ti1C-KaexhFO3dj73A8DwdN4ZOs6PMqaXeagwoaAHFHQKL1yI3_WOyVMa-J1XRqdU49_ud54N3RLOnUNyRcRtMOMlTVTly7S2RxSCalMJRmlxjXzeWMVVwvq8BDUd4qNFYKBAjWXutK3VZG3GvjMWRKidkyBB5UYTur_e56YEe7hxJXoqNMfJpJPeZFxvPrdDQSN3BrnxwmCMbeg7WrpWUKsd0g9ghSyB1yRx1ddQGmS2fc80BF8cYA
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-<> 2023-05-19T095550.200.json
+<> 2023-05-21T232058.500.txt
 
 ###
 
-POST http://0.0.0.0:8080/payment/google-play-token
+POST http://159.203.187.86:8080/auth/register
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ0ODI4MjUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDQ4MjgyNSwiZXhwIjoxNjg0NDg2NDI1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.CO5QHmdOYAWVJEcvjLc4jB_NZkXzr6ZOsgd_UvmhYYG4h76yMfU6ChyPKTqnHpuIthgN528X5KH7TYoFzngSqQJUIyD4aSTj6zlD7rXBtFwDMBnqeXZNqe79bzew4I-ITq0aMwzlYpPr-9u4BwNm9RNjfb4d5dYbHWA8jAW66ih3RkXfg6m49RVorwZA6Lw-NmJXUFa8aeqwxsN3PXiHUenAoxstQkR-KWGQ0VGr65KpIYonKotDiI1FCYCkfuV_wKnpT0w1rCNbI-XB-HOCxSXb2zRey1jv2wsnkuDfv2MF-CiP8kgg4SvppeIjRAV0DPOmT2vCQdsLL6j_otc9RQ
-Content-Length: 161
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "token": "pcndhaakkocgaijdgbpkgobh.AO-J1OzbW74RwG5RKc5dKLjpWBEmS8Mjq8BKoKaK6fcEf6YAFPCB2QuC4ZHyHv8Lr0IJFh3AJPVWwM945dkh9etntJWdwjZfRM3WUjFfYdiYusH4cpnPQC8"
-}
-
-<> 2023-05-19T095537.500.txt
-
-###
-
-GET http://0.0.0.0:8080/auth/login
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ0ODI4MjUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDQ4MjgyNSwiZXhwIjoxNjg0NDg2NDI1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.CO5QHmdOYAWVJEcvjLc4jB_NZkXzr6ZOsgd_UvmhYYG4h76yMfU6ChyPKTqnHpuIthgN528X5KH7TYoFzngSqQJUIyD4aSTj6zlD7rXBtFwDMBnqeXZNqe79bzew4I-ITq0aMwzlYpPr-9u4BwNm9RNjfb4d5dYbHWA8jAW66ih3RkXfg6m49RVorwZA6Lw-NmJXUFa8aeqwxsN3PXiHUenAoxstQkR-KWGQ0VGr65KpIYonKotDiI1FCYCkfuV_wKnpT0w1rCNbI-XB-HOCxSXb2zRey1jv2wsnkuDfv2MF-CiP8kgg4SvppeIjRAV0DPOmT2vCQdsLL6j_otc9RQ
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-05-19T095422.200.json
-
-###
-
-GET http://0.0.0.0:8080/auth/login
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ0ODI4MjUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDQ4MjgyNSwiZXhwIjoxNjg0NDg2NDI1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.CO5QHmdOYAWVJEcvjLc4jB_NZkXzr6ZOsgd_UvmhYYG4h76yMfU6ChyPKTqnHpuIthgN528X5KH7TYoFzngSqQJUIyD4aSTj6zlD7rXBtFwDMBnqeXZNqe79bzew4I-ITq0aMwzlYpPr-9u4BwNm9RNjfb4d5dYbHWA8jAW66ih3RkXfg6m49RVorwZA6Lw-NmJXUFa8aeqwxsN3PXiHUenAoxstQkR-KWGQ0VGr65KpIYonKotDiI1FCYCkfuV_wKnpT0w1rCNbI-XB-HOCxSXb2zRey1jv2wsnkuDfv2MF-CiP8kgg4SvppeIjRAV0DPOmT2vCQdsLL6j_otc9RQ
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-05-19T095402.200.json
-
-###
-
-POST http://0.0.0.0:8080/payment/google-play-token
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ0ODI4MjUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDQ4MjgyNSwiZXhwIjoxNjg0NDg2NDI1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.CO5QHmdOYAWVJEcvjLc4jB_NZkXzr6ZOsgd_UvmhYYG4h76yMfU6ChyPKTqnHpuIthgN528X5KH7TYoFzngSqQJUIyD4aSTj6zlD7rXBtFwDMBnqeXZNqe79bzew4I-ITq0aMwzlYpPr-9u4BwNm9RNjfb4d5dYbHWA8jAW66ih3RkXfg6m49RVorwZA6Lw-NmJXUFa8aeqwxsN3PXiHUenAoxstQkR-KWGQ0VGr65KpIYonKotDiI1FCYCkfuV_wKnpT0w1rCNbI-XB-HOCxSXb2zRey1jv2wsnkuDfv2MF-CiP8kgg4SvppeIjRAV0DPOmT2vCQdsLL6j_otc9RQ
-Content-Length: 161
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "token": "pcndhaakkocgaijdgbpkgobh.AO-J1OzbW74RwG5RKc5dKLjpWBEmS8Mjq8BKoKaK6fcEf6YAFPCB2QuC4ZHyHv8Lr0IJFh3AJPVWwM945dkh9etntJWdwjZfRM3WUjFfYdiYusH4cpnPQC8"
-}
-
-###
-
-POST http://0.0.0.0:8080/auth/register
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ0ODI4MjUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDQ4MjgyNSwiZXhwIjoxNjg0NDg2NDI1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.CO5QHmdOYAWVJEcvjLc4jB_NZkXzr6ZOsgd_UvmhYYG4h76yMfU6ChyPKTqnHpuIthgN528X5KH7TYoFzngSqQJUIyD4aSTj6zlD7rXBtFwDMBnqeXZNqe79bzew4I-ITq0aMwzlYpPr-9u4BwNm9RNjfb4d5dYbHWA8jAW66ih3RkXfg6m49RVorwZA6Lw-NmJXUFa8aeqwxsN3PXiHUenAoxstQkR-KWGQ0VGr65KpIYonKotDiI1FCYCkfuV_wKnpT0w1rCNbI-XB-HOCxSXb2zRey1jv2wsnkuDfv2MF-CiP8kgg4SvppeIjRAV0DPOmT2vCQdsLL6j_otc9RQ
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MDMxMjUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcwMzEyNSwiZXhwIjoxNjg0NzA2NzI1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.fvvVGxPtsj1NfMb46mgLGc23jpQWBf0GCsWJsclu2FbQ6b9HExa9MdbxpzUci60kRWdRFXBxA-XdiJv8ahdkFadiw27MOI3Ti1C-KaexhFO3dj73A8DwdN4ZOs6PMqaXeagwoaAHFHQKL1yI3_WOyVMa-J1XRqdU49_ud54N3RLOnUNyRcRtMOMlTVTly7S2RxSCalMJRmlxjXzeWMVVwvq8BDUd4qNFYKBAjWXutK3VZG3GvjMWRKidkyBB5UYTur_e56YEe7hxJXoqNMfJpJPeZFxvPrdDQSN3BrnxwmCMbeg7WrpWUKsd0g9ghSyB1yRx1ddQGmS2fc80BF8cYA
 Content-Length: 3
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
@@ -677,37 +754,31 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 
 ###
 
-POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAdvWNnIdp0EJsVKBzSZKlCNO_PO8HZrqw
+GET http://159.203.187.86:8080/templates
 Content-Type: application/json
-Content-Length: 91
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MDMxMjUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcwMzEyNSwiZXhwIjoxNjg0NzA2NzI1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.fvvVGxPtsj1NfMb46mgLGc23jpQWBf0GCsWJsclu2FbQ6b9HExa9MdbxpzUci60kRWdRFXBxA-XdiJv8ahdkFadiw27MOI3Ti1C-KaexhFO3dj73A8DwdN4ZOs6PMqaXeagwoaAHFHQKL1yI3_WOyVMa-J1XRqdU49_ud54N3RLOnUNyRcRtMOMlTVTly7S2RxSCalMJRmlxjXzeWMVVwvq8BDUd4qNFYKBAjWXutK3VZG3GvjMWRKidkyBB5UYTur_e56YEe7hxJXoqNMfJpJPeZFxvPrdDQSN3BrnxwmCMbeg7WrpWUKsd0g9ghSyB1yRx1ddQGmS2fc80BF8cYA
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-  "email": "szymon.chaber@o2.pl",
-  "password": "password",
-  "returnSecureToken": true
-}
-
-<> 2023-05-19T095345.200.json
+<> 2023-05-21T231600.500.txt
 
 ###
 
-GET http://0.0.0.0:8080/auth/login
+GET http://159.203.187.86:8080/auth/login
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ0Nzg3ODEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDQ3ODc4MSwiZXhwIjoxNjg0NDgyMzgxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.FiZ6nJNxPc2Sr4U0ld0NOLgbbJ8grID4w2Xy9iL885lGkKA1d_rZ4BEa_Dzwctrxqp8ZMJB07IdF3w74WDt9B65w_dSBY6k1lZEslsKbxQlKiLmJGV7sc5UcPuhOAKTBTxWYit81xq4wF8FdkoUAXr9pArjVB8mxvWLn4DDzyhQkr8ofcyA662n8z-6fHSqVUjjgnsKGPc2jMlByzQwqLUbYRyOCBN0K1lDWgBWBUUhixuqsiycbEbGqiiEhDyH-a1UpfXDgblIrx5pIOtCyZiyvxMtcp8Glodn06wH32Ps-4Rcoq_NUNsJvuE8TPRavLwWsHrbbLdielWcRq0bK_w
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MDMxMjUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcwMzEyNSwiZXhwIjoxNjg0NzA2NzI1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.fvvVGxPtsj1NfMb46mgLGc23jpQWBf0GCsWJsclu2FbQ6b9HExa9MdbxpzUci60kRWdRFXBxA-XdiJv8ahdkFadiw27MOI3Ti1C-KaexhFO3dj73A8DwdN4ZOs6PMqaXeagwoaAHFHQKL1yI3_WOyVMa-J1XRqdU49_ud54N3RLOnUNyRcRtMOMlTVTly7S2RxSCalMJRmlxjXzeWMVVwvq8BDUd4qNFYKBAjWXutK3VZG3GvjMWRKidkyBB5UYTur_e56YEe7hxJXoqNMfJpJPeZFxvPrdDQSN3BrnxwmCMbeg7WrpWUKsd0g9ghSyB1yRx1ddQGmS2fc80BF8cYA
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-<> 2023-05-19T090146.200.json
+<> 2023-05-21T231554.200.json
 
 ###
 
-POST http://0.0.0.0:8080/payment/google-play-token
+POST http://159.203.187.86:8080/payment/google-play-token
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ0Nzg3ODEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDQ3ODc4MSwiZXhwIjoxNjg0NDgyMzgxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.FiZ6nJNxPc2Sr4U0ld0NOLgbbJ8grID4w2Xy9iL885lGkKA1d_rZ4BEa_Dzwctrxqp8ZMJB07IdF3w74WDt9B65w_dSBY6k1lZEslsKbxQlKiLmJGV7sc5UcPuhOAKTBTxWYit81xq4wF8FdkoUAXr9pArjVB8mxvWLn4DDzyhQkr8ofcyA662n8z-6fHSqVUjjgnsKGPc2jMlByzQwqLUbYRyOCBN0K1lDWgBWBUUhixuqsiycbEbGqiiEhDyH-a1UpfXDgblIrx5pIOtCyZiyvxMtcp8Glodn06wH32Ps-4Rcoq_NUNsJvuE8TPRavLwWsHrbbLdielWcRq0bK_w
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MDMxMjUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcwMzEyNSwiZXhwIjoxNjg0NzA2NzI1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.fvvVGxPtsj1NfMb46mgLGc23jpQWBf0GCsWJsclu2FbQ6b9HExa9MdbxpzUci60kRWdRFXBxA-XdiJv8ahdkFadiw27MOI3Ti1C-KaexhFO3dj73A8DwdN4ZOs6PMqaXeagwoaAHFHQKL1yI3_WOyVMa-J1XRqdU49_ud54N3RLOnUNyRcRtMOMlTVTly7S2RxSCalMJRmlxjXzeWMVVwvq8BDUd4qNFYKBAjWXutK3VZG3GvjMWRKidkyBB5UYTur_e56YEe7hxJXoqNMfJpJPeZFxvPrdDQSN3BrnxwmCMbeg7WrpWUKsd0g9ghSyB1yRx1ddQGmS2fc80BF8cYA
 Content-Length: 161
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
@@ -719,14 +790,35 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 
 ###
 
-GET http://0.0.0.0:8080/auth/login
+POST http://159.203.187.86:8080/auth/register
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ0Nzg3ODEsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDQ3ODc4MSwiZXhwIjoxNjg0NDgyMzgxLCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.FiZ6nJNxPc2Sr4U0ld0NOLgbbJ8grID4w2Xy9iL885lGkKA1d_rZ4BEa_Dzwctrxqp8ZMJB07IdF3w74WDt9B65w_dSBY6k1lZEslsKbxQlKiLmJGV7sc5UcPuhOAKTBTxWYit81xq4wF8FdkoUAXr9pArjVB8mxvWLn4DDzyhQkr8ofcyA662n8z-6fHSqVUjjgnsKGPc2jMlByzQwqLUbYRyOCBN0K1lDWgBWBUUhixuqsiycbEbGqiiEhDyH-a1UpfXDgblIrx5pIOtCyZiyvxMtcp8Glodn06wH32Ps-4Rcoq_NUNsJvuE8TPRavLwWsHrbbLdielWcRq0bK_w
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MDMxMjUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcwMzEyNSwiZXhwIjoxNjg0NzA2NzI1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.fvvVGxPtsj1NfMb46mgLGc23jpQWBf0GCsWJsclu2FbQ6b9HExa9MdbxpzUci60kRWdRFXBxA-XdiJv8ahdkFadiw27MOI3Ti1C-KaexhFO3dj73A8DwdN4ZOs6PMqaXeagwoaAHFHQKL1yI3_WOyVMa-J1XRqdU49_ud54N3RLOnUNyRcRtMOMlTVTly7S2RxSCalMJRmlxjXzeWMVVwvq8BDUd4qNFYKBAjWXutK3VZG3GvjMWRKidkyBB5UYTur_e56YEe7hxJXoqNMfJpJPeZFxvPrdDQSN3BrnxwmCMbeg7WrpWUKsd0g9ghSyB1yRx1ddQGmS2fc80BF8cYA
+Content-Length: 3
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-<> 2023-05-19T090138.200.json
+{
+}
+
+###
+
+GET http://159.203.187.86:8080/templates
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQwZTFkMjM5MDllNzZmZjRhNzJlZTA4ODUxOWM5M2JiOTg4ZjE4NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlY2tzdG9yeS05NDBmYyIsImF1ZCI6ImNoZWNrc3RvcnktOTQwZmMiLCJhdXRoX3RpbWUiOjE2ODQ3MDMxMjUsInVzZXJfaWQiOiJ1OGdiakVQWHJMT0NvZEpCU0pJMzdYU1FVTzEzIiwic3ViIjoidThnYmpFUFhyTE9Db2RKQlNKSTM3WFNRVU8xMyIsImlhdCI6MTY4NDcwMzEyNSwiZXhwIjoxNjg0NzA2NzI1LCJlbWFpbCI6InN6eW1vbi5jaGFiZXJAbzIucGwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3p5bW9uLmNoYWJlckBvMi5wbCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.fvvVGxPtsj1NfMb46mgLGc23jpQWBf0GCsWJsclu2FbQ6b9HExa9MdbxpzUci60kRWdRFXBxA-XdiJv8ahdkFadiw27MOI3Ti1C-KaexhFO3dj73A8DwdN4ZOs6PMqaXeagwoaAHFHQKL1yI3_WOyVMa-J1XRqdU49_ud54N3RLOnUNyRcRtMOMlTVTly7S2RxSCalMJRmlxjXzeWMVVwvq8BDUd4qNFYKBAjWXutK3VZG3GvjMWRKidkyBB5UYTur_e56YEe7hxJXoqNMfJpJPeZFxvPrdDQSN3BrnxwmCMbeg7WrpWUKsd0g9ghSyB1yRx1ddQGmS2fc80BF8cYA
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-21T230727.500.txt
+
+###
+
+GET http://159.203.187.86:8080
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
 
 ###
 

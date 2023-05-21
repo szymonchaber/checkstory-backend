@@ -1,5 +1,6 @@
 package tech.checkstory.plugins
 
+import com.typesafe.config.Config
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -30,14 +31,14 @@ import java.sql.*
  * @return [Connection] that represent connection to the database. Please, don't forget to close this connection when
  * your application shuts down by calling [Connection.close]
  * */
-fun Application.connectToPostgres(embedded: Boolean): Connection {
+fun Application.connectToPostgres(embedded: Boolean, config: Config): Connection {
     Class.forName("org.postgresql.Driver")
     return if (embedded) {
         DriverManager.getConnection("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", "root", "")
     } else {
-        val url = environment.config.property("postgres.url").getString()
-        val user = environment.config.property("postgres.user").getString()
-        val password = environment.config.property("postgres.password").getString()
+        val url = config.getString("postgres.url")!!
+        val user = config.getString("postgres.user")!!
+        val password = config.getString("postgres.password")!!
 
         DriverManager.getConnection(url, user, password)
     }
