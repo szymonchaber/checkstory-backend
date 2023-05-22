@@ -29,16 +29,7 @@ class ChecklistAggregate(val id: UUID) {
     private fun toChecklistEvent(checklistCommand: ChecklistCommand, userId: String): ChecklistEvent {
         return when (checklistCommand) {
             is ChecklistCommand.CreateChecklistCommand -> {
-                ChecklistEvent.CreateChecklistEvent(
-                    checklistId = checklistCommand.checklistId,
-                    templateId = checklistCommand.templateId,
-                    title = checklistCommand.title,
-                    description = checklistCommand.description,
-                    tasks = checklistCommand.tasks,
-                    eventId = checklistCommand.commandId,
-                    timestamp = checklistCommand.timestamp,
-                    userId = userId
-                )
+                handleCreateChecklistCommand(checklistCommand, userId)
             }
 
             is ChecklistCommand.EditChecklistNotesCommand -> {
@@ -68,6 +59,28 @@ class ChecklistAggregate(val id: UUID) {
                 )
             }
         }
+    }
+
+    private fun handleCreateChecklistCommand(
+        checklistCommand: ChecklistCommand.CreateChecklistCommand,
+        userId: String
+    ): ChecklistEvent.CreateChecklistEvent {
+        fun Task.allTasksInHierarchyHaveChecklistId(): Boolean {
+            return this.checklistId == checklistCommand.checklistId && this.children.all {
+                it.allTasksInHierarchyHaveChecklistId()
+            }
+        }
+        require(checklistCommand.tasks.all(Task::allTasksInHierarchyHaveChecklistId))
+        return ChecklistEvent.CreateChecklistEvent(
+            checklistId = checklistCommand.checklistId,
+            templateId = checklistCommand.templateId,
+            title = checklistCommand.title,
+            description = checklistCommand.description,
+            tasks = checklistCommand.tasks,
+            eventId = checklistCommand.commandId,
+            timestamp = checklistCommand.timestamp,
+            userId = userId
+        )
     }
 
     fun applyEvent(event: ChecklistEvent): ChecklistAggregate {
