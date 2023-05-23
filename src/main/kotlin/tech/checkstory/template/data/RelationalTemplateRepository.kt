@@ -1,6 +1,7 @@
 package tech.checkstory.template.data
 
 import kotlinx.coroutines.Dispatchers
+import kotlinx.datetime.Clock
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
@@ -53,7 +54,8 @@ class RelationalTemplateRepository(private val database: Database) : TemplateRep
                         id = it[Templates.id],
                         userId = it[Templates.userId],
                         name = it[Templates.name],
-                        description = it[Templates.description]
+                        description = it[Templates.description],
+                        createdAt = Clock.System.now()
                     )
                 }
                 .singleOrNull()
@@ -70,6 +72,7 @@ class RelationalTemplateRepository(private val database: Database) : TemplateRep
                         userId = it[Templates.userId],
                         name = it[Templates.name],
                         description = it[Templates.description],
+                        createdAt = Clock.System.now(),
                     )
                 }
         }

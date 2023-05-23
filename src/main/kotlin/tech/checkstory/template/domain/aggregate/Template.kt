@@ -1,5 +1,6 @@
 package tech.checkstory.template.domain.aggregate
 
+import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
 import tech.checkstory.domain.command.DtoUUID
 
@@ -11,5 +12,6 @@ data class Template(
     val description: String,
     val tasks: List<TemplateTask> = listOf(),
     val reminders: List<Reminder> = listOf(),
+    val createdAt: Instant,
     val isDeleted: Boolean = false
 )

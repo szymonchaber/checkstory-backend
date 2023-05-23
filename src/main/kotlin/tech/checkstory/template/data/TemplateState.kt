@@ -1,5 +1,6 @@
 package tech.checkstory.template.data
 
+import kotlinx.datetime.Instant
 import tech.checkstory.domain.command.DtoUUID
 import tech.checkstory.template.domain.aggregate.Reminder
 import tech.checkstory.template.domain.aggregate.Template
@@ -16,6 +17,7 @@ sealed interface TemplateState {
         val description: String,
         val tasks: List<TemplateTask> = listOf(),
         val reminders: List<Reminder> = listOf(),
+        val createdAt: Instant,
         val isDeleted: Boolean = false
     ) : TemplateState {
 
@@ -27,6 +29,7 @@ sealed interface TemplateState {
                 description = description,
                 tasks = tasks,
                 reminders = reminders,
+                createdAt = createdAt,
                 isDeleted = isDeleted,
             )
         }

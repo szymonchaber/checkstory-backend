@@ -46,6 +46,7 @@ class TemplateAggregate(val id: UUID) {
                             id = templateEvent.templateId,
                             name = "",
                             description = "",
+                            createdAt = templateEvent.timestamp
                         )
                     }
 
