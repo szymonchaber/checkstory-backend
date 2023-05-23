@@ -1,5 +1,6 @@
 package tech.checkstory.checklist.domain.aggregate
 
+import kotlinx.datetime.Instant
 import tech.checkstory.auth.user.User
 import tech.checkstory.checklist.domain.command.ChecklistCommand
 import tech.checkstory.checklist.domain.event.ChecklistEvent
@@ -97,7 +98,8 @@ class ChecklistAggregate(val id: UUID) {
                     description = event.description,
                     tasks = event.tasks,
                     userId = event.userId,
-                    notes = ""
+                    notes = "",
+                    createdAt = event.timestamp
                 )
             }
 
@@ -157,6 +159,7 @@ sealed interface ChecklistState {
         val description: String,
         val notes: String,
         val tasks: List<Task> = listOf(),
+        val createdAt: Instant,
         val isDeleted: Boolean = false
     ) : ChecklistState {
 
@@ -169,6 +172,7 @@ sealed interface ChecklistState {
                 description = description,
                 notes = notes,
                 tasks = tasks,
+                createdAt = createdAt,
                 isDeleted = isDeleted,
             )
         }

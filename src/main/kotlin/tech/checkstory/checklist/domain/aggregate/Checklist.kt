@@ -1,5 +1,6 @@
 package tech.checkstory.checklist.domain.aggregate
 
+import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
 import tech.checkstory.domain.command.DtoUUID
 
@@ -12,5 +13,6 @@ data class Checklist(
     val description: String,
     val notes: String,
     val tasks: List<Task> = listOf(),
+    val createdAt: Instant,
     val isDeleted: Boolean = false
 )
