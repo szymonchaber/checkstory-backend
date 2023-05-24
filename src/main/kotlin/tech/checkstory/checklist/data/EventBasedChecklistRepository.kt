@@ -6,17 +6,18 @@ import tech.checkstory.checklist.domain.aggregate.Checklist
 import tech.checkstory.checklist.domain.aggregate.ChecklistAggregate
 import tech.checkstory.checklist.domain.event.ChecklistEvent
 import tech.checkstory.domain.command.DtoUUID
+import tech.checkstory.template.data.EventSourcedTemplateRepository
 import java.util.*
 
 class EventBasedChecklistRepository(
-    private val eventRepository: ChecklistEventRepository
+    private val eventRepository: ChecklistEventRepository,
+    private val templateRepository: EventSourcedTemplateRepository
 ) : ChecklistRepository {
 
     context(AuthenticatedScope)
     override suspend fun readAll(): List<Checklist> {
         return eventRepository.getAll()
             .groupBy(ChecklistEvent::checklistId)
-            .asSequence()
             .mapNotNull { (id, events) ->
                 ChecklistAggregate.fromHistory(id, events).toChecklistOrNull()
             }
@@ -24,7 +25,13 @@ class EventBasedChecklistRepository(
                 it.userId == principal.userId
             }
             .filterNot(Checklist::isDeleted)
-            .toList()
+            .filterNot {
+                isOrphaned(it)
+            }
+    }
+
+    private suspend fun isOrphaned(checklist: Checklist): Boolean {
+        return templateRepository.read(checklist.templateId)?.isDeleted == true
     }
 
     context(AuthenticatedScope)
