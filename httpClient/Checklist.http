@@ -1,40 +1,10 @@
-### Register user 1
-POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={{firebase_api_key}}
-Content-Type: application/json
-
-{
-  "email": "{{login_1}}",
-  "password": "{{password_1}}",
-  "returnSecureToken": true
-}
-
-> {%
-    client.global.set("auth_token_1", response.body.idToken);
-    client.global.set("user_id_1", response.body.localId);
-%}
-
-### Register user 2
-POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={{firebase_api_key}}
-Content-Type: application/json
-
-{
-  "email": "{{login_2}}",
-  "password": "{{password_2}}",
-  "returnSecureToken": true
-}
-
-> {%
-    client.global.set("auth_token_2", response.body.idToken);
-    client.global.set("user_id_2", response.body.localId);
-%}
-
 ### Get all checklists of user 1
-GET http://0.0.0.0:8080/checklists
+GET {{endpoint}}/checklists
 Content-Type: application/json
 Authorization: Bearer {{auth_token_1}}
 
 ### Get concrete checklist
-GET http://0.0.0.0:8080/checklists/{{checklist_id}}
+GET {{endpoint}}/checklists/{{checklist_id}}
 Content-Type: application/json
 Authorization: Bearer {{auth_token_1}}
 
@@ -44,7 +14,7 @@ Authorization: Bearer {{auth_token_1}}
 <> 2023-04-19T015306.200.json
 
 ###
-GET http://0.0.0.0:8080/checklists/{{checklist_id}}/tasks
+GET {{endpoint}}/checklists/{{checklist_id}}/tasks
 Content-Type: application/json
 Authorization: Bearer {{auth_token_1}}
 
@@ -64,7 +34,7 @@ Authorization: Bearer {{auth_token_1}}
     request.variables.set("task_2_id", generateUUID());
     request.variables.set("task_3_id", generateUUID());
 %}
-POST http://0.0.0.0:8080/checklist-commands
+POST {{endpoint}}/checklist-commands
 Content-Type: application/json
 Authorization: Bearer {{auth_token_1}}
 

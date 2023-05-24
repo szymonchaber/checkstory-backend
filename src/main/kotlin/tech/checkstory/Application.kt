@@ -29,6 +29,8 @@ import tech.checkstory.payment.data.google_play.SubscriptionsGoogleApi
 import tech.checkstory.payment.domain.GetPaymentStateUseCase
 import tech.checkstory.plugins.*
 import tech.checkstory.template.configureTemplate
+import tech.checkstory.template.data.EventSourcedTemplateRepository
+import tech.checkstory.template.data.TemplateEventRepository
 import java.util.concurrent.TimeoutException
 
 fun main() {
@@ -54,8 +56,14 @@ fun Application.module() {
     val connectionString = config.getString("eventStore.connectionString")!!
     val settings = EventStoreDBConnectionString.parse(connectionString)
     val client = EventStoreDBClient.create(settings)
-    configureTemplate(database, client)
-    configureChecklist(ChecklistEventRepository(client))
+    val templateEventRepository = TemplateEventRepository(client)
+    val eventSourcedTemplateRepository = EventSourcedTemplateRepository(templateEventRepository)
+    configureTemplate(
+        database,
+        TemplateEventRepository(client),
+        eventSourcedTemplateRepository
+    )
+    configureChecklist(ChecklistEventRepository(client), eventSourcedTemplateRepository)
     configureRouting()
     cors()
 }
