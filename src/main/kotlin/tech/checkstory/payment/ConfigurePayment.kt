@@ -11,18 +11,20 @@ import tech.checkstory.payment.api.StoreGooglePlayTokenPayload
 import tech.checkstory.payment.data.PaymentRepository
 import tech.checkstory.payment.domain.GooglePlayPaymentToken
 import tech.checkstory.payment.domain.StoreGooglePlayTokenUseCase
+import tech.checkstory.payment.domain.StoreTokenResult
 
 fun Application.configurePayment(
     paymentRepository: PaymentRepository
 ) {
     val storeGooglePlayTokenUseCase = StoreGooglePlayTokenUseCase(paymentRepository)
-
     routing {
         authenticate(FIREBASE_AUTH) {
             post<StoreGooglePlayTokenPayload>("/payment/google-play-token") {
                 withPrincipal {
-                    storeGooglePlayTokenUseCase.storePaymentToken(GooglePlayPaymentToken(it.token))
-                    call.respond(HttpStatusCode.OK)
+                    when (storeGooglePlayTokenUseCase.storePaymentToken(GooglePlayPaymentToken(it.token))) {
+                        StoreTokenResult.Success -> call.respond(HttpStatusCode.OK)
+                        StoreTokenResult.TokenAssignedToAnotherUser -> call.respond(HttpStatusCode.Conflict)
+                    }
                 }
             }
         }

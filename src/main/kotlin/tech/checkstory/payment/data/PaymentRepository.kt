@@ -6,6 +6,7 @@ import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransacti
 import org.jetbrains.exposed.sql.transactions.transaction
 import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.payment.domain.GooglePlayPaymentToken
+import tech.checkstory.payment.domain.StoreTokenResult
 
 class PaymentRepository(private val database: Database) {
 
@@ -27,11 +28,25 @@ class PaymentRepository(private val database: Database) {
     }
 
     context(AuthenticatedScope)
-    suspend fun storeToken(googlePlayToken: GooglePlayPaymentToken) {
-        dbQuery {
-            GooglePlayTokenToUser.insert {
-                it[token] = googlePlayToken.purchaseToken
-                it[userId] = principal.userId
+    suspend fun storeToken(googlePlayToken: GooglePlayPaymentToken): StoreTokenResult {
+        return dbQuery {
+            val existing =
+                GooglePlayTokenToUser
+                    .select { GooglePlayTokenToUser.token eq googlePlayToken.purchaseToken }
+                    .firstOrNull()
+            if (existing == null) {
+                GooglePlayTokenToUser.insert {
+                    it[token] = googlePlayToken.purchaseToken
+                    it[userId] = principal.userId
+                }
+                StoreTokenResult.Success
+            } else {
+                val currentTokenUser = existing[GooglePlayTokenToUser.userId]
+                if (currentTokenUser == principal.userId) {
+                    StoreTokenResult.Success
+                } else {
+                    StoreTokenResult.TokenAssignedToAnotherUser
+                }
             }
         }
     }
