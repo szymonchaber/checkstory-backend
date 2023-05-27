@@ -17,7 +17,7 @@ fun Application.configureUserService(userService: UserService) {
         post<CreateUserPayload>("auth/register") {
             call.request.parseAuthorizationHeaderOrNull()?.toFirebaseTokenOrNull()?.let { token ->
                 userService.create(it, token.uid!!)
-                call.respond(HttpStatusCode.Created)
+                call.respond(HttpStatusCode.Created, UserDto(token.uid, false))
             }
         }
 
