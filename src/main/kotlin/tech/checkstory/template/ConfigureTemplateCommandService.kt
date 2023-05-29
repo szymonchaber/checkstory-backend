@@ -9,13 +9,15 @@ import tech.checkstory.auth.firebase.FIREBASE_AUTH
 import tech.checkstory.auth.payment.requirePayment
 import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.auth.withPrincipal
+import tech.checkstory.notification.firebase.UserDataChangeNotifier
 import tech.checkstory.template.data.EventSourcedTemplateRepository
 import tech.checkstory.template.data.TemplateEventRepository
 import tech.checkstory.template.domain.command.TemplateCommand
 
 fun Application.configureTemplateCommandService(
     templateEventRepository: TemplateEventRepository,
-    eventSourcedTemplateRepository: EventSourcedTemplateRepository
+    eventSourcedTemplateRepository: EventSourcedTemplateRepository,
+    userDataChangeNotifier: UserDataChangeNotifier
 ) {
     routing {
         authenticate(FIREBASE_AUTH) {
@@ -23,6 +25,8 @@ fun Application.configureTemplateCommandService(
             post<List<TemplateCommand>>("/commands") { commands ->
                 withPrincipal {
                     handleCommands(commands, templateEventRepository, eventSourcedTemplateRepository)
+                    this@configureTemplateCommandService.log.debug("Notifying the user of changes")
+                    userDataChangeNotifier.notifyUser()
                     call.respond(HttpStatusCode.NoContent)
                 }
             }

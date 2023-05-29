@@ -12,10 +12,12 @@ import tech.checkstory.auth.withPrincipal
 import tech.checkstory.checklist.data.ChecklistEventRepository
 import tech.checkstory.checklist.data.EventBasedChecklistRepository
 import tech.checkstory.checklist.domain.command.ChecklistCommand
+import tech.checkstory.notification.firebase.UserDataChangeNotifier
 
 fun Application.configureChecklistCommandService(
     repository: EventBasedChecklistRepository,
-    eventRepository: ChecklistEventRepository
+    eventRepository: ChecklistEventRepository,
+    userDataChangeNotifier: UserDataChangeNotifier
 ) {
     routing {
         authenticate(FIREBASE_AUTH) {
@@ -23,6 +25,7 @@ fun Application.configureChecklistCommandService(
             post<List<ChecklistCommand>>("/checklist-commands") { commands ->
                 withPrincipal {
                     handleChecklistCommands(commands, repository, eventRepository)
+                    userDataChangeNotifier.notifyUser()
                     call.respond(HttpStatusCode.NoContent)
                 }
             }

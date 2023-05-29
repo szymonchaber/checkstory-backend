@@ -2,6 +2,7 @@ package tech.checkstory.template
 
 import io.ktor.server.application.*
 import org.jetbrains.exposed.sql.Database
+import tech.checkstory.notification.firebase.UserDataChangeNotifier
 import tech.checkstory.template.api.configureTemplateService
 import tech.checkstory.template.api.configureTemplateTaskService
 import tech.checkstory.template.data.EventSourcedTemplateRepository
@@ -12,11 +13,16 @@ import tech.checkstory.template.data.TemplateTaskRepository
 fun Application.configureTemplate(
     database: Database,
     templateEventRepository: TemplateEventRepository,
-    eventSourcedTemplateRepository: EventSourcedTemplateRepository
+    eventSourcedTemplateRepository: EventSourcedTemplateRepository,
+    userDataChangeNotifier: UserDataChangeNotifier
 ) {
     val templateService = RelationalTemplateRepository(database)
     val templateTaskRepository = TemplateTaskRepository(database)
     configureTemplateService(templateService, eventSourcedTemplateRepository)
     configureTemplateTaskService(templateService, templateTaskRepository)
-    configureTemplateCommandService(templateEventRepository, eventSourcedTemplateRepository)
+    configureTemplateCommandService(
+        templateEventRepository,
+        eventSourcedTemplateRepository,
+        userDataChangeNotifier
+    )
 }

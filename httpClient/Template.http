@@ -142,7 +142,7 @@ Authorization: Bearer {{auth_token_1}}
   {
     "type": "editTemplateTitle",
     "templateId": "{{template_id}}",
-    "newTitle": "And again!",
+    "newTitle": "This firebase token might simply be correct XD",
     "commandId": "{{$uuid}}",
     "timestamp": "{{$isoTimestamp}}"
   },

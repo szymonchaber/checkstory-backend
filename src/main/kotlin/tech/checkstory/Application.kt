@@ -25,6 +25,7 @@ import tech.checkstory.checklist.configureChecklist
 import tech.checkstory.checklist.data.ChecklistEventRepository
 import tech.checkstory.notification.configureNotification
 import tech.checkstory.notification.data.FirebaseMessagingTokenRepository
+import tech.checkstory.notification.firebase.UserDataChangeNotifier
 import tech.checkstory.payment.configurePayment
 import tech.checkstory.payment.data.PaymentRepository
 import tech.checkstory.payment.data.google_play.SubscriptionsGoogleApi
@@ -61,12 +62,14 @@ fun Application.module() {
     val client = EventStoreDBClient.create(settings)
     val templateEventRepository = TemplateEventRepository(client)
     val eventSourcedTemplateRepository = EventSourcedTemplateRepository(templateEventRepository)
+    val userDataChangeNotifier = UserDataChangeNotifier(messagingTokenRepository, log)
     configureTemplate(
         database,
         TemplateEventRepository(client),
-        eventSourcedTemplateRepository
+        eventSourcedTemplateRepository,
+        userDataChangeNotifier
     )
-    configureChecklist(ChecklistEventRepository(client), eventSourcedTemplateRepository)
+    configureChecklist(ChecklistEventRepository(client), eventSourcedTemplateRepository, userDataChangeNotifier)
     configureRouting()
     cors()
 }

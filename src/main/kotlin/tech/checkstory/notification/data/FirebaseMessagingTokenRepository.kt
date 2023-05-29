@@ -2,6 +2,7 @@ package tech.checkstory.notification.data
 
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 import tech.checkstory.auth.user.AuthenticatedScope
@@ -33,7 +34,7 @@ class FirebaseMessagingTokenRepository(private val database: Database) {
     }
 
     context (AuthenticatedScope)
-    suspend fun read(): List<FirebaseMessagingToken> {
+    suspend fun readAll(): List<FirebaseMessagingToken> {
         return getByUserId(principal.userId)
     }
 
@@ -43,6 +44,12 @@ class FirebaseMessagingTokenRepository(private val database: Database) {
                 .map {
                     FirebaseMessagingToken(it[FirebaseMessagingTokenToUser.token])
                 }
+        }
+    }
+
+    suspend fun remove(token: FirebaseMessagingToken) {
+        dbQuery {
+            FirebaseMessagingTokenToUser.deleteWhere { FirebaseMessagingTokenToUser.token eq token.token }
         }
     }
 
