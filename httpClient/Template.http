@@ -45,7 +45,7 @@ Authorization: Bearer {{auth_token_2}}
 {
 }
 
-### Post a token for the user 1
+### Post a purchase token for the user 1
 POST {{endpoint}}/payment/google-play-token
 Content-Type: application/json
 Authorization: Bearer {{auth_token_1}}
@@ -54,13 +54,22 @@ Authorization: Bearer {{auth_token_1}}
   "token": "{{active_purchase_token}}"
 }
 
-### Post the same token for the user 2 - expect 409
+### Post the same purchase token for the user 2 - expect 409
 POST {{endpoint}}/payment/google-play-token
 Content-Type: application/json
 Authorization: Bearer {{auth_token_2}}
 
 {
   "token": "{{active_purchase_token}}"
+}
+
+### Post Firebase messaging token
+POST {{endpoint}}/notification/firebase-token
+Content-Type: application/json
+Authorization: Bearer {{auth_token_1}}
+
+{
+  "token": "{{active_messaging_token}}"
 }
 
 ### Login
@@ -133,7 +142,7 @@ Authorization: Bearer {{auth_token_1}}
   {
     "type": "editTemplateTitle",
     "templateId": "{{template_id}}",
-    "newTitle": "All the events",
+    "newTitle": "And again!",
     "commandId": "{{$uuid}}",
     "timestamp": "{{$isoTimestamp}}"
   },

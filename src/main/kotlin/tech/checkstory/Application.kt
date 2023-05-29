@@ -18,11 +18,13 @@ import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.jetbrains.exposed.sql.Database
-import tech.checkstory.auth.firebase.FirebaseAdmin
+import tech.checkstory.auth.firebase.Firebase
 import tech.checkstory.auth.user.UserService
 import tech.checkstory.auth.user.configureUserService
 import tech.checkstory.checklist.configureChecklist
 import tech.checkstory.checklist.data.ChecklistEventRepository
+import tech.checkstory.notification.configureNotification
+import tech.checkstory.notification.data.FirebaseMessagingTokenRepository
 import tech.checkstory.payment.configurePayment
 import tech.checkstory.payment.data.PaymentRepository
 import tech.checkstory.payment.data.google_play.SubscriptionsGoogleApi
@@ -34,10 +36,7 @@ import tech.checkstory.template.data.TemplateEventRepository
 import java.util.concurrent.TimeoutException
 
 fun main() {
-    embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module, configure = {
-        FirebaseAdmin.init()
-    })
-        .start(wait = true)
+    embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module).start(wait = true)
 }
 
 fun Application.module() {
@@ -45,6 +44,8 @@ fun Application.module() {
     val database = Database.connect(getNewConnection = {
         connectToPostgres(false, config)
     })
+    Firebase.init()
+
     val userService = UserService(database)
     val paymentRepository = PaymentRepository(database)
     configureSecurity(userService, GetPaymentStateUseCase(paymentRepository, SubscriptionsGoogleApi()))
@@ -53,6 +54,8 @@ fun Application.module() {
     configureMonitoring()
     configureSerialization()
     configureUserService(userService)
+    val messagingTokenRepository = FirebaseMessagingTokenRepository(database)
+    configureNotification(messagingTokenRepository)
     val connectionString = config.getString("eventStore.connectionString")!!
     val settings = EventStoreDBConnectionString.parse(connectionString)
     val client = EventStoreDBClient.create(settings)
@@ -81,7 +84,6 @@ fun Application.cors() {
         allowCredentials = true
         allowSameOrigin = true
         allowHost("*", listOf("http", "https")) // TODO frontendHost might be "*" but should not be
-        this@cors.log.info("Enabled cors!")
     }
 }
 
