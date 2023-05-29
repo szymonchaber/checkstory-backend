@@ -43,7 +43,7 @@ class TemplateAggregate(val id: UUID) {
                         }
                         templateState = TemplateState.Existing(
                             userId = templateEvent.userId,
-                            id = templateEvent.templateId,
+                            id = id,
                             name = "",
                             description = "",
                             createdAt = templateEvent.timestamp
@@ -80,7 +80,7 @@ class TemplateAggregate(val id: UUID) {
             is TemplateEvent.AddTemplateTaskEvent -> {
                 val newItem =
                     TemplateTask(
-                        templateEvent.taskId, templateEvent.templateId, "",
+                        templateEvent.taskId, id, "",
                         state.tasks.size.toLong()
                     )
                 val items = if (templateEvent.parentTaskId == null) {

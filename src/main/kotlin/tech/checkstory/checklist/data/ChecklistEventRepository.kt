@@ -5,7 +5,6 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import kotlinx.serialization.json.encodeToStream
-import tech.checkstory.auth.user.User
 import tech.checkstory.checklist.domain.event.ChecklistEvent
 import tech.checkstory.data.EventRepository
 import java.io.ByteArrayOutputStream
@@ -20,11 +19,6 @@ class ChecklistEventRepository(client: EventStoreDBClient) : EventRepository<Che
         "changeTaskChecked",
         "deleteChecklist"
     )
-
-    override suspend fun save(event: ChecklistEvent, user: User) {
-        val id = event.checklistId
-        save(event, id, user)
-    }
 
     @OptIn(ExperimentalSerializationApi::class)
     override fun encode(event: ChecklistEvent, outputStream: ByteArrayOutputStream) {

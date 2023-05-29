@@ -44,10 +44,9 @@ suspend fun handleCommands(
         .sortedBy { it.timestamp }
         .groupBy(TemplateCommand::templateId)
         .forEach { (templateId, commands) ->
-            eventSourcedTemplateRepository.getByIdOrNew(templateId)
+            val events = eventSourcedTemplateRepository
+                .getByIdOrNew(templateId)
                 .applyCommands(principal, commands)
-                .forEach {
-                    templateEventRepository.save(it, principal)
-                }
+            templateEventRepository.saveAll(events, templateId)
         }
 }

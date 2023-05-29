@@ -42,10 +42,8 @@ suspend fun handleChecklistCommands(
     commands.sortedBy { it.timestamp }
         .groupBy { it.checklistId }
         .forEach { (checklistId, commands) ->
-            repository.getByIdOrNew(checklistId)
+            val events = repository.getByIdOrNew(checklistId)
                 .applyCommands(commands, principal)
-                .forEach {
-                    eventRepository.save(it, principal)
-                }
+            eventRepository.saveAll(events, checklistId)
         }
 }

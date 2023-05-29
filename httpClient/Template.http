@@ -243,5 +243,484 @@ Authorization: Bearer {{auth_token_1}}
   }
 ]
 
-###
-GET http://104.198.139.204:2113/gossip
+### Send insane count of commands as user 1
+< {%
+    function generateUUID() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0,
+                v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+
+    client.global.set("template_id", generateUUID());
+    request.variables.set("task_1_id", generateUUID());
+    request.variables.set("task_2_id", generateUUID());
+    request.variables.set("task_3_id", generateUUID());
+%}
+POST {{endpoint}}/commands
+Content-Type: application/json
+Authorization: Bearer {{auth_token_1}}
+
+[
+{
+    "type": "createTemplate",
+    "templateId": "{{template_id}}",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+    {
+    "type": "addTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "parentTaskId": null,
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "addTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_3_id}}",
+    "parentTaskId": {{task_2_id}},
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "editTemplateTitle",
+    "templateId": "{{template_id}}",
+    "newTitle": "This firebase token might simply be correct XD",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "addTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_1_id}}",
+    "parentTaskId": null,
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_3_id}}",
+    "newTitle": "Task 3 - deleted later",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_1_id}}",
+    "newTitle": "Task 1",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "editTemplateDescription",
+    "templateId": "{{template_id}}",
+    "newDescription": "Description",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  },
+  {
+    "type": "renameTemplateTask",
+    "templateId": "{{template_id}}",
+    "taskId": "{{task_2_id}}",
+    "newTitle": "Task 2",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  }
+]
