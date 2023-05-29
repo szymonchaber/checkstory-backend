@@ -18,6 +18,9 @@ class UserDataChangeNotifier(
     context(AuthenticatedScope)
     suspend fun notifyUser() {
         val tokens = messagingTokenRepository.readAll()
+        if (tokens.isEmpty()) {
+            return
+        }
         tokens.mapNotNull { token ->
             try {
                 Message.builder()
