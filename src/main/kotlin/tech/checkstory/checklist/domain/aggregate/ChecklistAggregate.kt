@@ -35,7 +35,6 @@ class ChecklistAggregate(val id: UUID) {
 
             is ChecklistCommand.EditChecklistNotesCommand -> {
                 ChecklistEvent.EditChecklistNotesEvent(
-                    checklistCommand.checklistId,
                     checklistCommand.newNotes,
                     checklistCommand.commandId,
                     checklistCommand.timestamp
@@ -44,7 +43,6 @@ class ChecklistAggregate(val id: UUID) {
 
             is ChecklistCommand.ChangeTaskCheckedCommand -> {
                 ChecklistEvent.ChangeTaskCheckedEvent(
-                    checklistCommand.checklistId,
                     checklistCommand.taskId,
                     checklistCommand.isChecked,
                     checklistCommand.commandId,
@@ -54,7 +52,6 @@ class ChecklistAggregate(val id: UUID) {
 
             is ChecklistCommand.DeleteChecklistCommand -> {
                 ChecklistEvent.DeleteChecklistEvent(
-                    checklistCommand.checklistId,
                     checklistCommand.commandId,
                     checklistCommand.timestamp
                 )
@@ -73,7 +70,6 @@ class ChecklistAggregate(val id: UUID) {
         }
         require(checklistCommand.tasks.all(Task::allTasksInHierarchyHaveChecklistId))
         return ChecklistEvent.CreateChecklistEvent(
-            checklistId = checklistCommand.checklistId,
             templateId = checklistCommand.templateId,
             title = checklistCommand.title,
             description = checklistCommand.description,
@@ -92,7 +88,7 @@ class ChecklistAggregate(val id: UUID) {
                     "Checklist should not exist when applying CreateChecklist event"
                 }
                 checklistState = ChecklistState.Existing(
-                    id = event.checklistId,
+                    id = id,
                     templateId = event.templateId,
                     title = event.title,
                     description = event.description,

@@ -1,13 +1,8 @@
 package tech.checkstory.checklist.data
 
 import com.eventstore.dbclient.EventStoreDBClient
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromStream
-import kotlinx.serialization.json.encodeToStream
 import tech.checkstory.checklist.domain.event.ChecklistEvent
 import tech.checkstory.data.EventRepository
-import java.io.ByteArrayOutputStream
 
 class ChecklistEventRepository(client: EventStoreDBClient) : EventRepository<ChecklistEvent>(client) {
 
@@ -20,13 +15,5 @@ class ChecklistEventRepository(client: EventStoreDBClient) : EventRepository<Che
         "deleteChecklist"
     )
 
-    @OptIn(ExperimentalSerializationApi::class)
-    override fun encode(event: ChecklistEvent, outputStream: ByteArrayOutputStream) {
-        Json.encodeToStream(event, outputStream)
-    }
-
-    @OptIn(ExperimentalSerializationApi::class)
-    override fun decode(eventData: ByteArray): ChecklistEvent {
-        return Json.decodeFromStream(ChecklistEvent.serializer(), eventData.inputStream())
-    }
+    override fun getSerializer() = ChecklistEvent.serializer()
 }

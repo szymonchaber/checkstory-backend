@@ -11,10 +11,7 @@ class EventSourcedTemplateRepository(
 
     context(AuthenticatedScope)
     override suspend fun readAll(): List<Template> {
-        return templateEventRepository.getAll()
-            .groupBy {
-                it.templateId
-            }
+        return templateEventRepository.getAllGrouped()
             .asSequence()
             .mapNotNull { (id, events) ->
                 TemplateAggregate.fromHistory(id, events).toTemplateOrNull()

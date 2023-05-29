@@ -5,8 +5,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.future.await
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
 import kotlinx.serialization.json.encodeToStream
 import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.auth.user.User
@@ -15,24 +17,33 @@ import tech.checkstory.domain.event.DomainEvent
 import java.io.ByteArrayOutputStream
 import java.util.*
 
-abstract class EventRepository<T : DomainEvent>(private val client: EventStoreDBClient) {
+abstract class EventRepository<T : DomainEvent>(
+    private val client: EventStoreDBClient,
+    private val json: Json = Json {
+        ignoreUnknownKeys = true
+    }
+) {
 
     abstract val streamNamePrefix: String
 
     abstract val knownEventTypes: Set<String>
 
-    suspend fun getAll(): List<T> {
+    private val fullStreamNamePrefix by lazy { "$streamNamePrefix-" }
+
+    suspend fun getAllGrouped(): Map<DtoUUID, List<T>> {
         val result = withContext(Dispatchers.IO) {
             client.readAll(ReadAllOptions.get().fromStart().forwards()).await()
         }
         return result.events
-            .mapNotNull(::deserializeEvent)
+            .mapNotNull { deserializeEventWithAggregateId(it) }
+            .groupBy(keySelector = Pair<DtoUUID, T>::first, valueTransform = Pair<DtoUUID, T>::second)
     }
+
 
     suspend fun getEventsForAggregate(id: UUID): List<T> {
         val result = withContext(Dispatchers.IO) {
             try {
-                client.readStream("$streamNamePrefix-$id", readStreamOptions()).await().events
+                client.readStream("$fullStreamNamePrefix$id", readStreamOptions()).await().events
             } catch (exception: StreamNotFoundException) {
                 listOf()
             }
@@ -57,10 +68,21 @@ abstract class EventRepository<T : DomainEvent>(private val client: EventStoreDB
         }
     }
 
+    private fun deserializeEventWithAggregateId(event: ResolvedEvent): Pair<DtoUUID, T>? {
+        val eventType = event.event.eventType
+        val eventData = event.event.eventData
+        val streamId = event.event.streamId
+        return if (eventType in knownEventTypes) {
+            DtoUUID.fromString(streamId.removePrefix(fullStreamNamePrefix)) to decode(eventData)
+        } else {
+            null
+        }
+    }
+
     context(AuthenticatedScope)
     suspend fun save(event: T, aggregateId: DtoUUID) {
         val eventData = toEventData(event, principal)
-        client.appendToStream("$streamNamePrefix-$aggregateId", eventData).await()
+        client.appendToStream("$fullStreamNamePrefix$aggregateId", eventData).await()
     }
 
     context(AuthenticatedScope)
@@ -68,7 +90,7 @@ abstract class EventRepository<T : DomainEvent>(private val client: EventStoreDB
         val eventDataList = events.map {
             toEventData(it, principal)
         }
-        client.appendToStream("$streamNamePrefix-$aggregateId", eventDataList.listIterator()).await()
+        client.appendToStream("$fullStreamNamePrefix$aggregateId", eventDataList.listIterator()).await()
     }
 
     private fun toEventData(event: T, user: User): EventData {
@@ -95,9 +117,17 @@ abstract class EventRepository<T : DomainEvent>(private val client: EventStoreDB
         Json.encodeToStream(metadata, outputStream)
     }
 
-    abstract fun encode(event: T, outputStream: ByteArrayOutputStream)
+    @OptIn(ExperimentalSerializationApi::class)
+    private fun decode(eventData: ByteArray): T {
+        return json.decodeFromStream(getSerializer(), eventData.inputStream())
+    }
 
-    abstract fun decode(eventData: ByteArray): T
+    @OptIn(ExperimentalSerializationApi::class)
+    private fun encode(event: T, outputStream: ByteArrayOutputStream) {
+        json.encodeToStream(getSerializer(), event, outputStream)
+    }
+
+    abstract fun getSerializer(): KSerializer<T>
 }
 
 @Serializable

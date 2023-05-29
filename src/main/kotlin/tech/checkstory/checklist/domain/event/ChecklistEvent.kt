@@ -10,12 +10,9 @@ import tech.checkstory.domain.event.DomainEvent
 @Serializable
 sealed interface ChecklistEvent : DomainEvent {
 
-    val checklistId: DtoUUID
-
     @Serializable
     @SerialName("createChecklist")
     data class CreateChecklistEvent(
-        override val checklistId: DtoUUID,
         val templateId: DtoUUID,
         val title: String,
         val description: String,
@@ -31,7 +28,6 @@ sealed interface ChecklistEvent : DomainEvent {
     @Serializable
     @SerialName("editChecklistNotes")
     data class EditChecklistNotesEvent(
-        override val checklistId: DtoUUID,
         val newNotes: String,
         override val eventId: DtoUUID,
         override val timestamp: Instant,
@@ -43,7 +39,6 @@ sealed interface ChecklistEvent : DomainEvent {
     @Serializable
     @SerialName("changeTaskChecked")
     data class ChangeTaskCheckedEvent(
-        override val checklistId: DtoUUID,
         val taskId: DtoUUID,
         val isChecked: Boolean,
         override val eventId: DtoUUID,
@@ -56,7 +51,6 @@ sealed interface ChecklistEvent : DomainEvent {
     @Serializable
     @SerialName("deleteChecklist")
     data class DeleteChecklistEvent(
-        override val checklistId: DtoUUID,
         override val eventId: DtoUUID,
         override val timestamp: Instant,
     ) : ChecklistEvent {

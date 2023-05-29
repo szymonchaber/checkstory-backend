@@ -4,7 +4,6 @@ import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.checklist.domain.ChecklistRepository
 import tech.checkstory.checklist.domain.aggregate.Checklist
 import tech.checkstory.checklist.domain.aggregate.ChecklistAggregate
-import tech.checkstory.checklist.domain.event.ChecklistEvent
 import tech.checkstory.domain.command.DtoUUID
 import tech.checkstory.template.data.EventSourcedTemplateRepository
 import java.util.*
@@ -16,8 +15,7 @@ class EventBasedChecklistRepository(
 
     context(AuthenticatedScope)
     override suspend fun readAll(): List<Checklist> {
-        return eventRepository.getAll()
-            .groupBy(ChecklistEvent::checklistId)
+        return eventRepository.getAllGrouped()
             .mapNotNull { (id, events) ->
                 ChecklistAggregate.fromHistory(id, events).toChecklistOrNull()
             }
