@@ -1,18 +1,16 @@
 package tech.checkstory.payment.domain
 
-import tech.checkstory.payment.data.PaymentRepository
-import tech.checkstory.payment.data.google_play.SubscriptionsGoogleApi
-import tech.checkstory.payment.domain.model.SubscriptionPurchaseWrapper.SubscriptionState.Companion.shouldGrantAccess
+import kotlinx.datetime.Clock
+import tech.checkstory.payment.data.PurchaseRepository
 
 class GetPaymentStateUseCase(
-    private val repository: PaymentRepository,
-    private val subscriptionsGoogleApi: SubscriptionsGoogleApi
+    private val purchaseRepository: PurchaseRepository
 ) {
 
     suspend fun getPaymentStateForUser(userId: String): PaymentState {
-        val isAnySubscriptionActive = repository.getByUserId(userId)
+        val isAnySubscriptionActive = purchaseRepository.getByUserId(userId)
             .any {
-                subscriptionsGoogleApi.getSubscription(it.purchaseToken).subscriptionState.shouldGrantAccess
+                Clock.System.now() < it.expirationDate
             }
         return PaymentState(isSubscriptionActive = isAnySubscriptionActive)
     }

@@ -26,7 +26,7 @@ fun Application.configureTemplateCommandService(
                 withPrincipal {
                     handleCommands(commands, templateEventRepository, eventSourcedTemplateRepository)
                     this@configureTemplateCommandService.log.debug("Notifying the user of changes")
-                    userDataChangeNotifier.notifyUser()
+                    userDataChangeNotifier.notifyUserOfDataChange()
                     call.respond(HttpStatusCode.NoContent)
                 }
             }

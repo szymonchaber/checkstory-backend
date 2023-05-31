@@ -16,8 +16,15 @@ class UserDataChangeNotifier(
     }
 
     context(AuthenticatedScope)
-    suspend fun notifyUser() {
-        val tokens = messagingTokenRepository.readAll()
+    suspend fun notifyUserOfDataChange() {
+        notifyUser(messagingTokenRepository.readAll())
+    }
+
+    suspend fun notifyUserOfPaymentStatusChange(userId: String) {
+        notifyUser(messagingTokenRepository.readAllById(userId))
+    }
+
+    private suspend fun notifyUser(tokens: List<FirebaseMessagingToken>) {
         if (tokens.isEmpty()) {
             return
         }

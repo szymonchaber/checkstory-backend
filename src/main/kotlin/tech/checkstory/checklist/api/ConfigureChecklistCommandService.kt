@@ -25,7 +25,7 @@ fun Application.configureChecklistCommandService(
             post<List<ChecklistCommand>>("/checklist-commands") { commands ->
                 withPrincipal {
                     handleChecklistCommands(commands, repository, eventRepository)
-                    userDataChangeNotifier.notifyUser()
+                    userDataChangeNotifier.notifyUserOfDataChange()
                     call.respond(HttpStatusCode.NoContent)
                 }
             }

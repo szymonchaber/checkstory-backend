@@ -38,6 +38,10 @@ class FirebaseMessagingTokenRepository(private val database: Database) {
         return getByUserId(principal.userId)
     }
 
+    suspend fun readAllById(userId: String): List<FirebaseMessagingToken> {
+        return getByUserId(userId)
+    }
+
     private suspend fun getByUserId(userId: String): List<FirebaseMessagingToken> {
         return dbQuery {
             FirebaseMessagingTokenToUser.select { FirebaseMessagingTokenToUser.userId eq userId }

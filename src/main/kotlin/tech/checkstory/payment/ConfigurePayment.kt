@@ -8,15 +8,17 @@ import io.ktor.server.routing.*
 import tech.checkstory.auth.firebase.FIREBASE_AUTH
 import tech.checkstory.auth.withPrincipal
 import tech.checkstory.payment.api.StoreGooglePlayTokenPayload
-import tech.checkstory.payment.data.PaymentRepository
+import tech.checkstory.payment.data.PurchaseRepository
+import tech.checkstory.payment.data.google_play.SubscriptionsGoogleApi
 import tech.checkstory.payment.domain.GooglePlayPaymentToken
 import tech.checkstory.payment.domain.StoreGooglePlayTokenUseCase
 import tech.checkstory.payment.domain.StoreTokenResult
 
 fun Application.configurePayment(
-    paymentRepository: PaymentRepository
+    purchaseRepository: PurchaseRepository,
+    subscriptionsGoogleApi: SubscriptionsGoogleApi
 ) {
-    val storeGooglePlayTokenUseCase = StoreGooglePlayTokenUseCase(paymentRepository)
+    val storeGooglePlayTokenUseCase = StoreGooglePlayTokenUseCase(purchaseRepository, subscriptionsGoogleApi)
     routing {
         authenticate(FIREBASE_AUTH) {
             post<StoreGooglePlayTokenPayload>("/payment/google-play-token") {
