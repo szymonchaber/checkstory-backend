@@ -31,6 +31,7 @@ import tech.checkstory.plugins.*
 import tech.checkstory.template.configureTemplate
 import tech.checkstory.template.data.EventSourcedTemplateRepository
 import tech.checkstory.template.data.TemplateEventRepository
+import tech.checkstory.template.data.TemplateEventRepositoryImpl
 import java.util.*
 
 fun main() {
@@ -45,7 +46,7 @@ fun Application.module() = module(DI {
         EventStoreDBClient.create(settings)
     }
     bind<TemplateEventRepository>() with singleton {
-        TemplateEventRepository(instance())
+        TemplateEventRepositoryImpl(instance())
     }
     bind<ChecklistEventRepository>() with singleton {
         ChecklistEventRepositoryImpl(instance())
@@ -79,13 +80,12 @@ fun Application.module(kodein: DI) {
     configureUserService(userService)
     val messagingTokenRepository = FirebaseMessagingTokenRepository(database)
     configureNotification(messagingTokenRepository)
-    val client by kodein.instance<EventStoreDBClient>()
     val templateEventRepository by kodein.instance<TemplateEventRepository>()
     val eventSourcedTemplateRepository = EventSourcedTemplateRepository(templateEventRepository)
     val userDataChangeNotifier = UserDataChangeNotifier(messagingTokenRepository, log)
     configureTemplate(
         database,
-        TemplateEventRepository(client),
+        templateEventRepository,
         eventSourcedTemplateRepository,
         userDataChangeNotifier
     )
