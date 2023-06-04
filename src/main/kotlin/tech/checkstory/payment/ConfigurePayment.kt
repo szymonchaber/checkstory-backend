@@ -5,6 +5,8 @@ import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import org.kodein.di.DI
+import org.kodein.di.instance
 import tech.checkstory.auth.firebase.FIREBASE_AUTH
 import tech.checkstory.auth.withPrincipal
 import tech.checkstory.payment.api.StoreGooglePlayTokenPayload
@@ -14,10 +16,10 @@ import tech.checkstory.payment.domain.GooglePlayPaymentToken
 import tech.checkstory.payment.domain.StoreGooglePlayTokenUseCase
 import tech.checkstory.payment.domain.StoreTokenResult
 
-fun Application.configurePayment(
-    purchaseRepository: PurchaseRepository,
-    subscriptionsGoogleApi: SubscriptionsGoogleApi
-) {
+context(DI)
+fun Application.configurePayment() {
+    val subscriptionsGoogleApi by instance<SubscriptionsGoogleApi>()
+    val purchaseRepository by instance<PurchaseRepository>()
     val storeGooglePlayTokenUseCase = StoreGooglePlayTokenUseCase(purchaseRepository, subscriptionsGoogleApi)
     routing {
         authenticate(FIREBASE_AUTH) {

@@ -6,12 +6,16 @@ import io.ktor.server.auth.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.Serializable
+import org.kodein.di.DI
+import org.kodein.di.instance
 import tech.checkstory.auth.firebase.FIREBASE_AUTH
 import tech.checkstory.auth.firebase.parseAuthorizationHeaderOrNull
 import tech.checkstory.auth.firebase.toFirebaseTokenOrNull
 import tech.checkstory.auth.withPrincipal
 
-fun Application.configureUserService(userService: UserService) {
+context(DI)
+fun Application.configureUserService() {
+    val userService by instance<UserService>()
     routing {
 
         post<CreateUserPayload>("auth/register") {

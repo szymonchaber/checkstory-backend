@@ -9,8 +9,6 @@ import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.cors.routing.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
 import org.jetbrains.exposed.sql.Database
 import org.kodein.di.*
 import tech.checkstory.auth.firebase.Firebase
@@ -26,24 +24,39 @@ import tech.checkstory.payment.configurePayment
 import tech.checkstory.payment.data.PurchaseRepository
 import tech.checkstory.payment.data.google_play.SubscriptionsGoogleApi
 import tech.checkstory.payment.domain.GetPaymentStateUseCase
-import tech.checkstory.payment.playbilling.PlayBillingPubSubHandler
+import tech.checkstory.payment.playbilling.configurePlayBillingPubSub
 import tech.checkstory.plugins.*
 import tech.checkstory.template.configureTemplate
 import tech.checkstory.template.data.EventSourcedTemplateRepository
 import tech.checkstory.template.data.TemplateEventRepository
 import tech.checkstory.template.data.TemplateEventRepositoryImpl
-import java.util.*
 
 fun main() {
     embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module).start(wait = true)
 }
 
-fun Application.module() = module(DI {
+fun Application.module() = DI {
     bind<Config>() with singleton { ConfigFactory.load() }
+    bindSingleton {
+        Database.connect(
+            getNewConnection = {
+                connectToPostgres(false, instance())
+            }
+        )
+    }
     bind<EventStoreDBClient>() with singleton {
         val connectionString = instance<Config>().getString("eventStore.connectionString")!!
         val settings = EventStoreDBConnectionString.parse(connectionString)
         EventStoreDBClient.create(settings)
+    }
+    bindSingleton {
+        UserService(instance())
+    }
+    bindSingleton {
+        SubscriptionsGoogleApi()
+    }
+    bindSingleton {
+        PurchaseRepository(instance())
     }
     bind<TemplateEventRepository>() with singleton {
         TemplateEventRepositoryImpl(instance())
@@ -51,47 +64,36 @@ fun Application.module() = module(DI {
     bind<ChecklistEventRepository>() with singleton {
         ChecklistEventRepositoryImpl(instance())
     }
-})
+    bindSingleton {
+        EventSourcedTemplateRepository(instance())
+    }
+    bindSingleton {
+        FirebaseMessagingTokenRepository(instance())
+    }
+    bindSingleton {
+        log
+    }
+    bindSingleton {
+        UserDataChangeNotifier(instance(), instance())
+    }
+    bindSingleton {
+        GetPaymentStateUseCase(instance())
+    }
+}.apply { module() }
 
-/**
- * This is the application module that has a
- * preconfigured [kodein] instance as input.
- *
- * The idea of this method, is that the different modules
- * can call this with several configured kodein variants
- * and also you can call it from the tests setting mocks
- * instead of the default mappings.
- */
-private operator fun Random.get(range: IntRange) = range.first + this.nextInt(range.last - range.first)
-fun Application.module(kodein: DI) {
-    val config by kodein.instance<Config>()
-    val database = Database.connect(getNewConnection = {
-        connectToPostgres(false, config)
-    })
+context(DI)
+fun Application.module() {
     Firebase.init()
-    val userService = UserService(database)
-    val subscriptionsGoogleApi = SubscriptionsGoogleApi()
-    val purchaseRepository = PurchaseRepository(database)
-    configureSecurity(userService, GetPaymentStateUseCase(purchaseRepository))
-    configurePayment(purchaseRepository, subscriptionsGoogleApi)
+    configureSecurity()
+    configurePayment()
     configureHTTP()
     configureMonitoring()
     configureSerialization()
-    configureUserService(userService)
-    val messagingTokenRepository = FirebaseMessagingTokenRepository(database)
-    configureNotification(messagingTokenRepository)
-    val templateEventRepository by kodein.instance<TemplateEventRepository>()
-    val eventSourcedTemplateRepository = EventSourcedTemplateRepository(templateEventRepository)
-    val userDataChangeNotifier = UserDataChangeNotifier(messagingTokenRepository, log)
-    configureTemplate(
-        database,
-        templateEventRepository,
-        eventSourcedTemplateRepository,
-        userDataChangeNotifier
-    )
-    val checklistEventRepository by kodein.instance<ChecklistEventRepository>()
-    configureChecklist(checklistEventRepository, eventSourcedTemplateRepository, userDataChangeNotifier)
-    PlayBillingPubSubHandler(subscriptionsGoogleApi, purchaseRepository, userDataChangeNotifier)
+    configureUserService()
+    configureNotification()
+    configureTemplate()
+    configureChecklist()
+    configurePlayBillingPubSub()
     configureRouting()
     cors()
 }
