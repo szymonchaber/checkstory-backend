@@ -9,13 +9,14 @@ import tech.checkstory.auth.firebase.FIREBASE_AUTH
 import tech.checkstory.auth.payment.requirePayment
 import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.auth.withPrincipal
+import tech.checkstory.data.EventRepository
 import tech.checkstory.notification.firebase.UserDataChangeNotifier
 import tech.checkstory.template.data.EventSourcedTemplateRepository
-import tech.checkstory.template.data.TemplateEventRepository
 import tech.checkstory.template.domain.command.TemplateCommand
+import tech.checkstory.template.domain.event.TemplateEvent
 
 fun Application.configureTemplateCommandService(
-    templateEventRepository: TemplateEventRepository,
+    templateEventRepository: EventRepository<TemplateEvent>,
     eventSourcedTemplateRepository: EventSourcedTemplateRepository,
     userDataChangeNotifier: UserDataChangeNotifier
 ) {
@@ -37,7 +38,7 @@ fun Application.configureTemplateCommandService(
 context(AuthenticatedScope)
 suspend fun handleCommands(
     commands: List<TemplateCommand>,
-    templateEventRepository: TemplateEventRepository,
+    templateEventRepository: EventRepository<TemplateEvent>,
     eventSourcedTemplateRepository: EventSourcedTemplateRepository
 ) {
     commands

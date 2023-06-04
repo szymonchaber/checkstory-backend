@@ -15,8 +15,9 @@ import tech.checkstory.auth.firebase.Firebase
 import tech.checkstory.auth.user.UserService
 import tech.checkstory.auth.user.configureUserService
 import tech.checkstory.checklist.configureChecklist
-import tech.checkstory.checklist.data.ChecklistEventRepository
-import tech.checkstory.checklist.data.ChecklistEventRepositoryImpl
+import tech.checkstory.checklist.data.InMemoryChecklistEventRepository
+import tech.checkstory.checklist.domain.event.ChecklistEvent
+import tech.checkstory.data.EventRepository
 import tech.checkstory.notification.configureNotification
 import tech.checkstory.notification.data.FirebaseMessagingTokenRepository
 import tech.checkstory.notification.firebase.UserDataChangeNotifier
@@ -28,8 +29,8 @@ import tech.checkstory.payment.playbilling.configurePlayBillingPubSub
 import tech.checkstory.plugins.*
 import tech.checkstory.template.configureTemplate
 import tech.checkstory.template.data.EventSourcedTemplateRepository
-import tech.checkstory.template.data.TemplateEventRepository
-import tech.checkstory.template.data.TemplateEventRepositoryImpl
+import tech.checkstory.template.data.InMemoryTemplateEventRepository
+import tech.checkstory.template.domain.event.TemplateEvent
 
 fun main() {
     embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module).start(wait = true)
@@ -58,11 +59,13 @@ fun Application.module() = DI {
     bindSingleton {
         PurchaseRepository(instance())
     }
-    bind<TemplateEventRepository>() with singleton {
-        TemplateEventRepositoryImpl(instance())
+    bind<EventRepository<TemplateEvent>>() with singleton {
+//        TemplateEventRepositoryImpl(instance())
+        InMemoryTemplateEventRepository()
     }
-    bind<ChecklistEventRepository>() with singleton {
-        ChecklistEventRepositoryImpl(instance())
+    bind<EventRepository<ChecklistEvent>>() with singleton {
+//        ChecklistEventRepositoryImpl(instance())
+        InMemoryChecklistEventRepository()
     }
     bindSingleton {
         EventSourcedTemplateRepository(instance())

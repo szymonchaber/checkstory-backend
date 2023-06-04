@@ -9,14 +9,15 @@ import tech.checkstory.auth.firebase.FIREBASE_AUTH
 import tech.checkstory.auth.payment.requirePayment
 import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.auth.withPrincipal
-import tech.checkstory.checklist.data.ChecklistEventRepository
 import tech.checkstory.checklist.data.EventBasedChecklistRepository
 import tech.checkstory.checklist.domain.command.ChecklistCommand
+import tech.checkstory.checklist.domain.event.ChecklistEvent
+import tech.checkstory.data.EventRepository
 import tech.checkstory.notification.firebase.UserDataChangeNotifier
 
 fun Application.configureChecklistCommandService(
     repository: EventBasedChecklistRepository,
-    eventRepository: ChecklistEventRepository,
+    eventRepository: EventRepository<ChecklistEvent>,
     userDataChangeNotifier: UserDataChangeNotifier
 ) {
     routing {
@@ -37,7 +38,7 @@ context(AuthenticatedScope)
 suspend fun handleChecklistCommands(
     commands: List<ChecklistCommand>,
     repository: EventBasedChecklistRepository,
-    eventRepository: ChecklistEventRepository
+    eventRepository: EventRepository<ChecklistEvent>
 ) {
     commands.sortedBy { it.timestamp }
         .groupBy { it.checklistId }

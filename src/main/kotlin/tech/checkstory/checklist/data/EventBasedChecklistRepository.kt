@@ -4,12 +4,14 @@ import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.checklist.domain.ChecklistRepository
 import tech.checkstory.checklist.domain.aggregate.Checklist
 import tech.checkstory.checklist.domain.aggregate.ChecklistAggregate
+import tech.checkstory.checklist.domain.event.ChecklistEvent
+import tech.checkstory.data.EventRepository
 import tech.checkstory.domain.command.DtoUUID
 import tech.checkstory.template.data.EventSourcedTemplateRepository
 import java.util.*
 
 class EventBasedChecklistRepository(
-    private val eventRepository: ChecklistEventRepository,
+    private val eventRepository: EventRepository<ChecklistEvent>,
     private val templateRepository: EventSourcedTemplateRepository
 ) : ChecklistRepository {
 

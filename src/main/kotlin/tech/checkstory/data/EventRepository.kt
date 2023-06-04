@@ -10,6 +10,7 @@ interface EventRepository<T : DomainEvent> {
     suspend fun getAllGrouped(): Map<DtoUUID, List<T>>
 
     suspend fun getEventsForAggregate(id: UUID): List<T>
+
     context(AuthenticatedScope)
     suspend fun save(event: T, aggregateId: DtoUUID)
 

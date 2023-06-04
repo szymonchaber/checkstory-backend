@@ -1,12 +1,11 @@
 package tech.checkstory.template.data
 
 import com.eventstore.dbclient.EventStoreDBClient
-import tech.checkstory.data.EventRepository
 import tech.checkstory.data.EventStoreEventRepository
+import tech.checkstory.data.InMemoryEventRepository
 import tech.checkstory.template.domain.event.TemplateEvent
 
-class TemplateEventRepositoryImpl(client: EventStoreDBClient) : EventStoreEventRepository<TemplateEvent>(client),
-    TemplateEventRepository {
+class TemplateEventRepositoryImpl(client: EventStoreDBClient) : EventStoreEventRepository<TemplateEvent>(client) {
 
     override val streamNamePrefix = "checklist-template"
 
@@ -27,4 +26,4 @@ class TemplateEventRepositoryImpl(client: EventStoreDBClient) : EventStoreEventR
     override fun getSerializer() = TemplateEvent.serializer()
 }
 
-interface TemplateEventRepository : EventRepository<TemplateEvent>
+class InMemoryTemplateEventRepository : InMemoryEventRepository<TemplateEvent>()
