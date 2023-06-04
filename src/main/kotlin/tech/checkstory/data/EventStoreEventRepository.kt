@@ -22,7 +22,7 @@ abstract class EventStoreEventRepository<T : DomainEvent>(
     private val json: Json = Json {
         ignoreUnknownKeys = true
     }
-) {
+) : EventRepository<T> {
 
     abstract val streamNamePrefix: String
 
@@ -30,7 +30,7 @@ abstract class EventStoreEventRepository<T : DomainEvent>(
 
     private val fullStreamNamePrefix by lazy { "$streamNamePrefix-" }
 
-    suspend fun getAllGrouped(): Map<DtoUUID, List<T>> {
+    override suspend fun getAllGrouped(): Map<DtoUUID, List<T>> {
         val result = withContext(Dispatchers.IO) {
             client.readAll(ReadAllOptions.get().fromStart().forwards()).await()
         }
@@ -40,7 +40,7 @@ abstract class EventStoreEventRepository<T : DomainEvent>(
     }
 
 
-    suspend fun getEventsForAggregate(id: UUID): List<T> {
+    override suspend fun getEventsForAggregate(id: UUID): List<T> {
         val result = withContext(Dispatchers.IO) {
             try {
                 client.readStream("$fullStreamNamePrefix$id", readStreamOptions()).await().events
@@ -80,13 +80,13 @@ abstract class EventStoreEventRepository<T : DomainEvent>(
     }
 
     context(AuthenticatedScope)
-    suspend fun save(event: T, aggregateId: DtoUUID) {
+    override suspend fun save(event: T, aggregateId: DtoUUID) {
         val eventData = toEventData(event, principal)
         client.appendToStream("$fullStreamNamePrefix$aggregateId", eventData).await()
     }
 
     context(AuthenticatedScope)
-    suspend fun saveAll(events: List<T>, aggregateId: DtoUUID) {
+    override suspend fun saveAll(events: List<T>, aggregateId: DtoUUID) {
         val eventDataList = events.map {
             toEventData(it, principal)
         }

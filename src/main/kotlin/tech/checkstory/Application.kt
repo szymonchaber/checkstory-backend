@@ -18,6 +18,7 @@ import tech.checkstory.auth.user.UserService
 import tech.checkstory.auth.user.configureUserService
 import tech.checkstory.checklist.configureChecklist
 import tech.checkstory.checklist.data.ChecklistEventRepository
+import tech.checkstory.checklist.data.ChecklistEventRepositoryImpl
 import tech.checkstory.notification.configureNotification
 import tech.checkstory.notification.data.FirebaseMessagingTokenRepository
 import tech.checkstory.notification.firebase.UserDataChangeNotifier
@@ -47,7 +48,7 @@ fun Application.module() = module(DI {
         TemplateEventRepository(instance())
     }
     bind<ChecklistEventRepository>() with singleton {
-        ChecklistEventRepository(instance())
+        ChecklistEventRepositoryImpl(instance())
     }
 })
 

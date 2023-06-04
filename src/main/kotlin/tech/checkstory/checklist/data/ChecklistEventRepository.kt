@@ -2,9 +2,11 @@ package tech.checkstory.checklist.data
 
 import com.eventstore.dbclient.EventStoreDBClient
 import tech.checkstory.checklist.domain.event.ChecklistEvent
+import tech.checkstory.data.EventRepository
 import tech.checkstory.data.EventStoreEventRepository
 
-class ChecklistEventRepository(client: EventStoreDBClient) : EventStoreEventRepository<ChecklistEvent>(client) {
+class ChecklistEventRepositoryImpl(client: EventStoreDBClient) : EventStoreEventRepository<ChecklistEvent>(client),
+    ChecklistEventRepository {
 
     override val streamNamePrefix = "checklist"
 
@@ -17,3 +19,5 @@ class ChecklistEventRepository(client: EventStoreDBClient) : EventStoreEventRepo
 
     override fun getSerializer() = ChecklistEvent.serializer()
 }
+
+interface ChecklistEventRepository : EventRepository<ChecklistEvent>
