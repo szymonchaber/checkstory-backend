@@ -17,7 +17,7 @@ import tech.checkstory.domain.event.DomainEvent
 import java.io.ByteArrayOutputStream
 import java.util.*
 
-abstract class EventRepository<T : DomainEvent>(
+abstract class EventStoreEventRepository<T : DomainEvent>(
     private val client: EventStoreDBClient,
     private val json: Json = Json {
         ignoreUnknownKeys = true
