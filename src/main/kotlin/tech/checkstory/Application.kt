@@ -2,13 +2,17 @@ package tech.checkstory
 
 import com.eventstore.dbclient.EventStoreDBClient
 import com.eventstore.dbclient.EventStoreDBConnectionString
+import com.typesafe.config.Config
 import com.typesafe.config.ConfigFactory
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.cors.routing.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 import org.jetbrains.exposed.sql.Database
+import org.kodein.di.*
 import tech.checkstory.auth.firebase.Firebase
 import tech.checkstory.auth.user.UserService
 import tech.checkstory.auth.user.configureUserService
@@ -26,13 +30,39 @@ import tech.checkstory.plugins.*
 import tech.checkstory.template.configureTemplate
 import tech.checkstory.template.data.EventSourcedTemplateRepository
 import tech.checkstory.template.data.TemplateEventRepository
+import java.util.*
 
 fun main() {
     embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module).start(wait = true)
 }
 
-fun Application.module() {
-    val config = ConfigFactory.load()
+fun Application.module() = module(DI {
+    bind<Config>() with singleton { ConfigFactory.load() }
+    bind<EventStoreDBClient>() with singleton {
+        val connectionString = instance<Config>().getString("eventStore.connectionString")!!
+        val settings = EventStoreDBConnectionString.parse(connectionString)
+        EventStoreDBClient.create(settings)
+    }
+    bind<TemplateEventRepository>() with singleton {
+        TemplateEventRepository(instance())
+    }
+    bind<ChecklistEventRepository>() with singleton {
+        ChecklistEventRepository(instance())
+    }
+})
+
+/**
+ * This is the application module that has a
+ * preconfigured [kodein] instance as input.
+ *
+ * The idea of this method, is that the different modules
+ * can call this with several configured kodein variants
+ * and also you can call it from the tests setting mocks
+ * instead of the default mappings.
+ */
+private operator fun Random.get(range: IntRange) = range.first + this.nextInt(range.last - range.first)
+fun Application.module(kodein: DI) {
+    val config by kodein.instance<Config>()
     val database = Database.connect(getNewConnection = {
         connectToPostgres(false, config)
     })
@@ -48,10 +78,8 @@ fun Application.module() {
     configureUserService(userService)
     val messagingTokenRepository = FirebaseMessagingTokenRepository(database)
     configureNotification(messagingTokenRepository)
-    val connectionString = config.getString("eventStore.connectionString")!!
-    val settings = EventStoreDBConnectionString.parse(connectionString)
-    val client = EventStoreDBClient.create(settings)
-    val templateEventRepository = TemplateEventRepository(client)
+    val client by kodein.instance<EventStoreDBClient>()
+    val templateEventRepository by kodein.instance<TemplateEventRepository>()
     val eventSourcedTemplateRepository = EventSourcedTemplateRepository(templateEventRepository)
     val userDataChangeNotifier = UserDataChangeNotifier(messagingTokenRepository, log)
     configureTemplate(
@@ -60,7 +88,8 @@ fun Application.module() {
         eventSourcedTemplateRepository,
         userDataChangeNotifier
     )
-    configureChecklist(ChecklistEventRepository(client), eventSourcedTemplateRepository, userDataChangeNotifier)
+    val checklistEventRepository by kodein.instance<ChecklistEventRepository>()
+    configureChecklist(checklistEventRepository, eventSourcedTemplateRepository, userDataChangeNotifier)
     PlayBillingPubSubHandler(subscriptionsGoogleApi, purchaseRepository, userDataChangeNotifier)
     configureRouting()
     cors()

@@ -78,6 +78,7 @@ dependencies {
     implementation("io.ktor:ktor-server-content-negotiation-jvm:2.3.1")
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:2.3.1")
     implementation("io.ktor:ktor-server-netty-jvm:2.3.1")
+    implementation("org.kodein.di:kodein-di-jvm:7.20.1")
 
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
