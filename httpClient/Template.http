@@ -187,62 +187,6 @@ Authorization: Bearer {{auth_token_1}}
   }
 ]
 
-### Send more commands as user 1
-< {%
-    function generateUUID() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            var r = Math.random() * 16 | 0,
-                v = c === 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
-    }
-
-    client.global.set("template_id", generateUUID());
-    request.variables.set("task_1_id", generateUUID());
-    request.variables.set("task_2_id", generateUUID());
-    request.variables.set("task_3_id", generateUUID());
-%}
-POST {{endpoint}}/commands
-Content-Type: application/json
-Authorization: Bearer {{auth_token_1}}
-
-[
-  {
-    "type": "createTemplate",
-    "templateId": "12557df4-d6e5-406f-9eb8-b606ff4a4b89",
-    "commandId": "bd1f1c53-c692-47ae-9dcd-505985bfde15",
-    "timestamp": 1682967814927,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
-  },
-  {
-    "type": "addTemplateTask",
-    "templateId": "12557df4-d6e5-406f-9eb8-b606ff4a4b89",
-    "taskId": "f182beb7-d8fc-4991-a19f-f23d01e24251",
-    "parentTaskId": null,
-    "commandId": "3c3cf9e4-220b-4b3f-b067-71cd807ebbb2",
-    "timestamp": 1682967821234,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
-  },
-  {
-    "type": "updateTemplateTasksPositions",
-    "templateId": "12557df4-d6e5-406f-9eb8-b606ff4a4b89",
-    "taskIdToLocalPosition": {
-      "f182beb7-d8fc-4991-a19f-f23d01e24251": 0
-    },
-    "commandId": "481f3733-a027-46e2-a3eb-9c7e59029c73",
-    "timestamp": 1682967822606,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
-  },
-  {
-    "type": "editTemplateTitle",
-    "templateId": "12557df4-d6e5-406f-9eb8-b606ff4a4b89",
-    "newTitle": "Is no tasks illegal?",
-    "commandId": "4eeb144c-7f87-46ec-a8de-a8804b003681",
-    "timestamp": 1682967820099,
-    "userId": "u8gbjEPXrLOCodJBSJI37XSQUO13"
-  }
-]
-
 ### Send insane count of commands as user 1
 < {%
     function generateUUID() {
