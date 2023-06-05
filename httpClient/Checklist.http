@@ -42,12 +42,15 @@ Authorization: Bearer {{auth_token_1}}
     {
     "type": "createChecklist",
     "templateId": "{{template_id}}",
+    "checklistId": "{{checklist_id}}",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}",
     "title": "All the events",
     "description": "Description",
     "tasks": [
      {
         "id": "{{task_1_id}}",
-        "checklistId": {{checklist_id}},
+        "checklistId": "{{checklist_id}}",
         "title": "Task 1",
         "sortPosition": 0,
         "isChecked": false,
@@ -62,10 +65,7 @@ Authorization: Bearer {{auth_token_1}}
           }
           ]
     }
-    ],
-    "checklistId": "{{checklist_id}}",
-    "commandId": "{{$uuid}}",
-    "timestamp": "{{$isoTimestamp}}"
+    ]
   },
   {
     "type": "editChecklistNotes",
