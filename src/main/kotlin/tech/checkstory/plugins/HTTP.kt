@@ -5,7 +5,7 @@ import io.ktor.server.plugins.defaultheaders.*
 
 fun Application.configureHTTP() {
     install(DefaultHeaders) {
-        header("X-Engine", "Ktor") // will send this header with each response
+        header("X-Engine", "Ktor")
     }
 //    install(HttpsRedirect) {
 //         The port to redirect to. By default 443, the default HTTPS port.

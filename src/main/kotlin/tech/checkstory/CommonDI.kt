@@ -5,6 +5,7 @@ import com.eventstore.dbclient.EventStoreDBConnectionString
 import com.typesafe.config.Config
 import com.typesafe.config.ConfigFactory
 import io.ktor.server.application.*
+import kotlinx.serialization.json.Json
 import org.jetbrains.exposed.sql.Database
 import org.kodein.di.*
 import tech.checkstory.auth.user.UserService
@@ -30,6 +31,13 @@ val Application.commonDI
                     connectToPostgres(false, instance())
                 }
             )
+        }
+        bindSingleton {
+            Json {
+                encodeDefaults = true
+                explicitNulls = false
+                prettyPrint = true
+            }
         }
         bind<EventStoreDBClient>() with singleton {
             val connectionString = instance<Config>().getString("eventStore.connectionString")!!
