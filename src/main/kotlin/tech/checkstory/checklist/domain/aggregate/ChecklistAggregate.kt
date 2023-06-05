@@ -64,7 +64,7 @@ class ChecklistAggregate(val id: UUID) {
         userId: String
     ): ChecklistEvent.CreateChecklistEvent {
         fun Task.allTasksInHierarchyHaveChecklistId(): Boolean {
-            return this.checklistId == checklistCommand.checklistId && this.children.all {
+            return checklistId == checklistCommand.checklistId && children.all {
                 it.allTasksInHierarchyHaveChecklistId()
             }
         }
@@ -76,6 +76,7 @@ class ChecklistAggregate(val id: UUID) {
             tasks = checklistCommand.tasks,
             eventId = checklistCommand.commandId,
             timestamp = checklistCommand.timestamp,
+            notes = checklistCommand.notes,
             userId = userId
         )
     }
@@ -94,7 +95,7 @@ class ChecklistAggregate(val id: UUID) {
                     description = event.description,
                     tasks = event.tasks,
                     userId = event.userId,
-                    notes = "",
+                    notes = event.notes.orEmpty(),
                     createdAt = event.timestamp
                 )
             }

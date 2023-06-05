@@ -20,6 +20,7 @@ sealed interface ChecklistCommand : DomainCommand {
         val title: String,
         val description: String,
         val tasks: List<Task>,
+        val notes: String?,
         override val commandId: DtoUUID,
         override val timestamp: Instant
     ) : ChecklistCommand

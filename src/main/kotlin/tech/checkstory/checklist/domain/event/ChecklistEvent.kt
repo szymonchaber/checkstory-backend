@@ -18,6 +18,7 @@ sealed interface ChecklistEvent : DomainEvent {
         val description: String,
         val tasks: List<Task>,
         val userId: String,
+        val notes: String?,
         override val eventId: DtoUUID,
         override val timestamp: Instant,
     ) : ChecklistEvent {
