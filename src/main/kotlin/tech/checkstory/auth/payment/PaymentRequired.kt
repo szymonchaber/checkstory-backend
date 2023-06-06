@@ -12,8 +12,12 @@ val PaymentRequiredPlugin = createRouteScopedPlugin(
 ) {
     pluginConfig.apply {
         on(AuthenticationChecked) { call ->
-            val isPaidUser = call.principal<User>()?.isPaidUser ?: false
-            if (!isPaidUser) {
+            val user = call.principal<User>()
+            if (user == null) {
+                call.respond(HttpStatusCode.Unauthorized)
+                return@on
+            }
+            if (!user.isPaidUser) {
                 call.respondText("You are not subscribed to any tier", status = HttpStatusCode.PaymentRequired)
             }
         }

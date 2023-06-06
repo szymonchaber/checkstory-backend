@@ -15,8 +15,6 @@ import kotlinx.serialization.json.decodeFromStream
 import tech.checkstory.notification.firebase.UserDataChangeNotifier
 import tech.checkstory.payment.data.PurchaseRepository
 import tech.checkstory.payment.data.google_play.SubscriptionsGoogleApi
-import tech.checkstory.projectId
-import tech.checkstory.subscriptionId
 import java.io.ByteArrayInputStream
 
 @OptIn(ExperimentalSerializationApi::class)
@@ -32,7 +30,7 @@ class PlayBillingPubSubHandler(
     init {
         GlobalScope.launch {
             withContext(Dispatchers.Default) {
-                subscribeAsyncExample(projectId, subscriptionId)
+//                subscribeAsyncExample(projectId, subscriptionId)
             }
         }
     }
