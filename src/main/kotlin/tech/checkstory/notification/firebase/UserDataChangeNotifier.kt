@@ -17,10 +17,12 @@ class UserDataChangeNotifier(
 
     context(AuthenticatedScope)
     suspend fun notifyUserOfDataChange() {
+        logger.debug("Notifying the user of data changes")
         notifyUser(messagingTokenRepository.readAll())
     }
 
     suspend fun notifyUserOfPaymentStatusChange(userId: String) {
+        logger.debug("Notifying the user of payment changes")
         notifyUser(messagingTokenRepository.readAllById(userId))
     }
 

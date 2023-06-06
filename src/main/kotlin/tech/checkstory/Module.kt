@@ -10,6 +10,7 @@ import tech.checkstory.notification.configureNotification
 import tech.checkstory.payment.configurePayment
 import tech.checkstory.payment.playbilling.configurePlayBillingPubSub
 import tech.checkstory.plugins.*
+import tech.checkstory.sync.configureSynchronization
 import tech.checkstory.template.configureTemplate
 
 context(DI)
@@ -24,7 +25,9 @@ fun Application.module() {
     configureNotification()
     configureTemplate()
     configureChecklist()
+    configureSynchronization()
     configurePlayBillingPubSub()
     configureRouting()
     cors()
 }
+
