@@ -9,6 +9,8 @@ import tech.checkstory.domain.command.DomainCommand
 import tech.checkstory.domain.command.DtoUUID
 import tech.checkstory.template.domain.aggregate.Interval
 import tech.checkstory.template.domain.aggregate.Reminder
+import tech.checkstory.template.domain.aggregate.TemplateTask
+import java.util.*
 
 @Serializable
 sealed interface TemplateCommand : DomainCommand {
@@ -20,7 +22,8 @@ sealed interface TemplateCommand : DomainCommand {
     data class CreateTemplateCommand(
         override val templateId: DtoUUID,
         override val commandId: DtoUUID,
-        override val timestamp: Instant
+        override val timestamp: Instant,
+        val existingTemplateData: ExistingTemplateDataDto?
     ) : TemplateCommand
 
     @Serializable
@@ -143,6 +146,14 @@ fun Reminder.toReminderDto(): ReminderDto {
 }
 
 @Serializable
+data class ExistingTemplateDataDto(
+    val title: String,
+    val description: String,
+    val tasks: List<ExistingTemplateTaskDto>,
+    val reminders: List<ReminderDto>,
+)
+
+@Serializable
 sealed interface ReminderDto {
 
     val id: DtoUUID
@@ -211,4 +222,24 @@ sealed interface IntervalDto {
     @Serializable
     @SerialName("yearly")
     data class YearlyDto(val dayOfYear: Int) : IntervalDto
+}
+
+@Serializable
+data class ExistingTemplateTaskDto(
+    val id: DtoUUID,
+    val parentId: DtoUUID?,
+    val title: String,
+    val children: List<ExistingTemplateTaskDto>,
+    val sortPosition: Long,
+) {
+
+    fun toTemplateTask(templateId: UUID): TemplateTask {
+        return TemplateTask(
+            id = id,
+            templateId = templateId,
+            title = title,
+            sortPosition = sortPosition,
+            children = children.map { it.toTemplateTask(templateId) }
+        )
+    }
 }

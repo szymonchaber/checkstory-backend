@@ -44,8 +44,13 @@ class TemplateAggregate(val id: UUID) {
                         templateState = TemplateState.Existing(
                             userId = templateEvent.userId,
                             id = id,
-                            name = "",
-                            description = "",
+                            name = templateEvent.existingTemplateData?.title ?: "",
+                            description = templateEvent.existingTemplateData?.description ?: "",
+                            tasks = templateEvent.existingTemplateData?.tasks?.map {
+                                it.toTemplateTask(id)
+                            } ?: listOf(),
+                            reminders = templateEvent.existingTemplateData?.reminders?.map { it.toReminder() }
+                                ?: listOf(),
                             createdAt = templateEvent.timestamp
                         )
                     }
@@ -80,7 +85,9 @@ class TemplateAggregate(val id: UUID) {
             is TemplateEvent.AddTemplateTaskEvent -> {
                 val newItem =
                     TemplateTask(
-                        templateEvent.taskId, id, "",
+                        templateEvent.taskId,
+                        id,
+                        "",
                         state.tasks.size.toLong()
                     )
                 val items = if (templateEvent.parentTaskId == null) {
@@ -178,6 +185,7 @@ class TemplateAggregate(val id: UUID) {
                     commandId,
                     timestamp,
                     userId,
+                    existingTemplateData
                 )
             }
 

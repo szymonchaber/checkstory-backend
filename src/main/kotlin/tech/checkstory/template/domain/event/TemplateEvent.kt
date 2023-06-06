@@ -8,6 +8,7 @@ import tech.checkstory.domain.event.CreationEvent
 import tech.checkstory.domain.event.DomainEvent
 import tech.checkstory.domain.event.MutationEvent
 import tech.checkstory.template.domain.aggregate.TemplateTask
+import tech.checkstory.template.domain.command.ExistingTemplateDataDto
 import tech.checkstory.template.domain.command.ReminderDto
 
 @Serializable
@@ -18,7 +19,8 @@ sealed interface TemplateEvent : DomainEvent {
     data class CreateTemplateEvent(
         override val eventId: DtoUUID,
         override val timestamp: Instant,
-        val userId: String
+        val userId: String,
+        val existingTemplateData: ExistingTemplateDataDto?
     ) : TemplateEvent, CreationEvent {
 
         override val eventType: String = "createTemplate"

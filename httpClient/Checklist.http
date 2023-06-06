@@ -19,7 +19,7 @@ Content-Type: application/json
 Authorization: Bearer {{auth_token_1}}
 
 
-### Send all commands as user 1
+### Send checklist commands as user 1
 < {%
     function generateUUID() {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
