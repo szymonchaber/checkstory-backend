@@ -49,7 +49,7 @@ abstract class EventMapper<T : DomainEvent>(
 
     @OptIn(ExperimentalSerializationApi::class)
     fun encodeMetadata(metadata: EventMetadata, outputStream: ByteArrayOutputStream) {
-        Json.encodeToStream(metadata, outputStream)
+        json.encodeToStream(metadata, outputStream)
     }
 
     @OptIn(ExperimentalSerializationApi::class)

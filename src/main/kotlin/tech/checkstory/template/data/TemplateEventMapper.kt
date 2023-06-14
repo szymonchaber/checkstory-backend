@@ -7,6 +7,7 @@ import tech.checkstory.template.domain.event.TemplateEvent
 class TemplateEventMapper : EventMapper<TemplateEvent>(
     Json {
         ignoreUnknownKeys = true
+        explicitNulls = false
     }
 ) {
 

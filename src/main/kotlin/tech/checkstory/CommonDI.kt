@@ -12,6 +12,7 @@ import tech.checkstory.auth.user.UserService
 import tech.checkstory.checklist.data.ChecklistEventMapper
 import tech.checkstory.checklist.data.ChecklistEventRepositoryImpl
 import tech.checkstory.checklist.domain.event.ChecklistEvent
+import tech.checkstory.data.EventMapper
 import tech.checkstory.data.EventRepository
 import tech.checkstory.eventbus.EventBus
 import tech.checkstory.notification.data.FirebaseMessagingTokenRepository
@@ -64,6 +65,14 @@ val Application.commonDI
         }
         bindSingleton {
             TemplateEventMapper()
+        }
+        bindSet<EventMapper<*>> {
+            add {
+                singleton { instance<ChecklistEventMapper>() }
+            }
+            add {
+                singleton { instance<TemplateEventMapper>() }
+            }
         }
         bind<EventRepository<TemplateEvent>>() with singleton {
             TemplateEventRepositoryImpl(instance(), instance())

@@ -7,6 +7,7 @@ import tech.checkstory.data.EventMapper
 class ChecklistEventMapper : EventMapper<ChecklistEvent>(
     Json {
         ignoreUnknownKeys = true
+        explicitNulls = false
     }
 ) {
 
