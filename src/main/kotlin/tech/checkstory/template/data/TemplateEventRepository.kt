@@ -5,25 +5,9 @@ import tech.checkstory.data.EventStoreEventRepository
 import tech.checkstory.data.InMemoryEventRepository
 import tech.checkstory.template.domain.event.TemplateEvent
 
-class TemplateEventRepositoryImpl(client: EventStoreDBClient) : EventStoreEventRepository<TemplateEvent>(client) {
-
-    override val streamNamePrefix = "checklist-template"
-
-    override val knownEventTypes = setOf(
-        "createTemplate",
-        "editTemplateTitle",
-        "editTemplateDescription",
-        "addTemplateTask",
-        "renameTemplateTask",
-        "deleteTemplateTask",
-        "updateTemplateTasksPositions",
-        "moveTemplateTask",
-        "addOrUpdateTemplateReminder",
-        "deleteTemplateReminder",
-        "deleteTemplate"
-    )
-
-    override fun getSerializer() = TemplateEvent.serializer()
-}
+class TemplateEventRepositoryImpl(
+    client: EventStoreDBClient,
+    mapper: TemplateEventMapper
+) : EventStoreEventRepository<TemplateEvent>(client, mapper)
 
 class InMemoryTemplateEventRepository : InMemoryEventRepository<TemplateEvent>()

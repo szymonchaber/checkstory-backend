@@ -9,6 +9,7 @@ import kotlinx.serialization.json.Json
 import org.jetbrains.exposed.sql.Database
 import org.kodein.di.*
 import tech.checkstory.auth.user.UserService
+import tech.checkstory.checklist.data.ChecklistEventMapper
 import tech.checkstory.checklist.data.ChecklistEventRepositoryImpl
 import tech.checkstory.checklist.domain.event.ChecklistEvent
 import tech.checkstory.data.EventRepository
@@ -20,6 +21,7 @@ import tech.checkstory.payment.data.google_play.SubscriptionsGoogleApi
 import tech.checkstory.payment.domain.GetPaymentStateUseCase
 import tech.checkstory.plugins.connectToPostgres
 import tech.checkstory.template.data.EventSourcedTemplateRepository
+import tech.checkstory.template.data.TemplateEventMapper
 import tech.checkstory.template.data.TemplateEventRepositoryImpl
 import tech.checkstory.template.domain.event.TemplateEvent
 
@@ -57,11 +59,17 @@ val Application.commonDI
         bindSingleton {
             PurchaseRepository(instance())
         }
+        bindSingleton {
+            ChecklistEventMapper()
+        }
+        bindSingleton {
+            TemplateEventMapper()
+        }
         bind<EventRepository<TemplateEvent>>() with singleton {
-            TemplateEventRepositoryImpl(instance())
+            TemplateEventRepositoryImpl(instance(), instance())
         }
         bind<EventRepository<ChecklistEvent>>() with singleton {
-            ChecklistEventRepositoryImpl(instance())
+            ChecklistEventRepositoryImpl(instance(), instance())
         }
         bindSingleton {
             EventSourcedTemplateRepository(instance())
