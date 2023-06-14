@@ -10,6 +10,7 @@ import tech.checkstory.notification.configureNotification
 import tech.checkstory.payment.configurePayment
 import tech.checkstory.payment.playbilling.configurePlayBillingPubSub
 import tech.checkstory.plugins.*
+import tech.checkstory.read.configureReadSide
 import tech.checkstory.sync.configureSynchronization
 import tech.checkstory.template.configureTemplate
 
@@ -28,6 +29,6 @@ fun Application.module() {
     configureSynchronization()
     configurePlayBillingPubSub()
     configureRouting()
+    configureReadSide()
     cors()
 }
-

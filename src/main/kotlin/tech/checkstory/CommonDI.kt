@@ -12,6 +12,7 @@ import tech.checkstory.auth.user.UserService
 import tech.checkstory.checklist.data.ChecklistEventRepositoryImpl
 import tech.checkstory.checklist.domain.event.ChecklistEvent
 import tech.checkstory.data.EventRepository
+import tech.checkstory.eventbus.EventBus
 import tech.checkstory.notification.data.FirebaseMessagingTokenRepository
 import tech.checkstory.notification.firebase.UserDataChangeNotifier
 import tech.checkstory.payment.data.PurchaseRepository
@@ -38,6 +39,9 @@ val Application.commonDI
                 explicitNulls = false
                 prettyPrint = true
             }
+        }
+        bindSingleton {
+            EventBus()
         }
         bind<EventStoreDBClient>() with singleton {
             val connectionString = instance<Config>().getString("eventStore.connectionString")!!
