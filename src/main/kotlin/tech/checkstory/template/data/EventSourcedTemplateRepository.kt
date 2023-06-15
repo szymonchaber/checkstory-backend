@@ -2,8 +2,8 @@ package tech.checkstory.template.data
 
 import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.data.EventRepository
+import tech.checkstory.template.domain.Template
 import tech.checkstory.template.domain.TemplateRepository
-import tech.checkstory.template.domain.aggregate.Template
 import tech.checkstory.template.domain.event.TemplateEvent
 import java.util.*
 

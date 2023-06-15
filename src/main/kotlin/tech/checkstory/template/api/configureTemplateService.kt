@@ -9,26 +9,17 @@ import tech.checkstory.auth.firebase.FIREBASE_AUTH
 import tech.checkstory.auth.withPrincipal
 import tech.checkstory.template.data.EventSourcedTemplateRepository
 import tech.checkstory.template.data.RelationalTemplateRepository
-import tech.checkstory.template.domain.aggregate.Template
 import java.util.*
 
 fun Application.configureTemplateService(
-    templateService: RelationalTemplateRepository,
-    eventSourcedTemplateRepository: EventSourcedTemplateRepository
+    relationalTemplateRepository: RelationalTemplateRepository,
+    eventSourcedTemplateRepository: EventSourcedTemplateRepository,
 ) {
     routing {
         authenticate(FIREBASE_AUTH) {
-
-            post<Template>("/templates") {
-                withPrincipal {
-                    val id = templateService.create(it)
-                    call.respond(HttpStatusCode.Created, id)
-                }
-            }
-
             get("/templates") {
                 withPrincipal {
-                    val templates = eventSourcedTemplateRepository.readAll()
+                    val templates = relationalTemplateRepository.readAll()
                     call.respond(HttpStatusCode.OK, templates)
                 }
             }
@@ -46,24 +37,6 @@ fun Application.configureTemplateService(
                     }
                 }
             }
-
-
-//            put("/templates/{id}") {
-//                withFirebasePrincipal {
-//                    val user = call.receive<Template>()
-//                    templateService.update(it.userId, user)
-//                    call.respond(HttpStatusCode.OK)
-//                }
-//            }
-
-            delete("/templates/{id}") {
-                withPrincipal {
-                    val id = call.parameters["id"] ?: throw IllegalArgumentException("Invalid ID")
-                    templateService.delete(UUID.fromString(id))
-                    call.respond(HttpStatusCode.OK)
-                }
-            }
-
         }
     }
 }

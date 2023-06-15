@@ -2,8 +2,8 @@ package tech.checkstory.template.data
 
 import kotlinx.datetime.Instant
 import tech.checkstory.domain.command.DtoUUID
+import tech.checkstory.template.domain.Template
 import tech.checkstory.template.domain.aggregate.Reminder
-import tech.checkstory.template.domain.aggregate.Template
 import tech.checkstory.template.domain.aggregate.TemplateTask
 
 sealed interface TemplateState {

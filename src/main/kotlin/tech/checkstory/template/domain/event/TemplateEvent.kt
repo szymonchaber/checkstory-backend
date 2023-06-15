@@ -17,6 +17,7 @@ sealed interface TemplateEvent : DomainEvent {
     @Serializable
     @SerialName("createTemplate")
     data class CreateTemplateEvent(
+        override val aggregateId: DtoUUID,
         override val eventId: DtoUUID,
         override val timestamp: Instant,
         val userId: String,
@@ -30,6 +31,7 @@ sealed interface TemplateEvent : DomainEvent {
     @SerialName("editTemplateTitle")
     data class EditTemplateTitleEvent(
         val newTitle: String,
+        override val aggregateId: DtoUUID,
         override val eventId: DtoUUID,
         override val timestamp: Instant
     ) : TemplateEvent, MutationEvent {
@@ -41,6 +43,7 @@ sealed interface TemplateEvent : DomainEvent {
     @SerialName("editTemplateDescription")
     data class EditTemplateDescriptionEvent(
         val newDescription: String,
+        override val aggregateId: DtoUUID,
         override val eventId: DtoUUID,
         override val timestamp: Instant
     ) : TemplateEvent, MutationEvent {
@@ -53,6 +56,7 @@ sealed interface TemplateEvent : DomainEvent {
     data class AddTemplateTaskEvent(
         val taskId: DtoUUID,
         val parentTaskId: DtoUUID?,
+        override val aggregateId: DtoUUID,
         override val eventId: DtoUUID,
         override val timestamp: Instant
     ) : TemplateEvent, MutationEvent {
@@ -65,6 +69,7 @@ sealed interface TemplateEvent : DomainEvent {
     data class RenameTemplateTaskEvent(
         val taskId: DtoUUID,
         val newTitle: String,
+        override val aggregateId: DtoUUID,
         override val eventId: DtoUUID,
         override val timestamp: Instant
     ) : TemplateEvent, MutationEvent {
@@ -76,6 +81,7 @@ sealed interface TemplateEvent : DomainEvent {
     @SerialName("deleteTemplateTask")
     data class DeleteTemplateTaskEvent(
         val taskId: DtoUUID,
+        override val aggregateId: DtoUUID,
         override val eventId: DtoUUID,
         override val timestamp: Instant
     ) : TemplateEvent, MutationEvent {
@@ -87,6 +93,7 @@ sealed interface TemplateEvent : DomainEvent {
     @SerialName("updateTemplateTasksPositions")
     data class UpdateTasksPositionsEvent(
         val taskIdToLocalPosition: Map<DtoUUID, Long>,
+        override val aggregateId: DtoUUID,
         override val eventId: DtoUUID,
         override val timestamp: Instant
     ) : TemplateEvent, MutationEvent {
@@ -99,6 +106,7 @@ sealed interface TemplateEvent : DomainEvent {
     data class MoveTemplateTaskEvent(
         val taskId: DtoUUID,
         val newParentTaskId: DtoUUID?,
+        override val aggregateId: DtoUUID,
         override val eventId: DtoUUID,
         override val timestamp: Instant
     ) : TemplateEvent, MutationEvent {
@@ -110,6 +118,7 @@ sealed interface TemplateEvent : DomainEvent {
     @SerialName("addOrUpdateTemplateReminder")
     data class AddOrUpdateReminderEvent(
         val reminder: ReminderDto,
+        override val aggregateId: DtoUUID,
         override val eventId: DtoUUID,
         override val timestamp: Instant
     ) : TemplateEvent, MutationEvent {
@@ -121,6 +130,7 @@ sealed interface TemplateEvent : DomainEvent {
     @SerialName("deleteTemplateReminder")
     data class DeleteReminderEvent(
         val reminderId: DtoUUID,
+        override val aggregateId: DtoUUID,
         override val eventId: DtoUUID,
         override val timestamp: Instant
     ) : TemplateEvent, MutationEvent {
@@ -131,6 +141,7 @@ sealed interface TemplateEvent : DomainEvent {
     @Serializable
     @SerialName("deleteTemplate")
     data class DeleteTemplateEvent(
+        override val aggregateId: DtoUUID,
         override val eventId: DtoUUID,
         override val timestamp: Instant
     ) : TemplateEvent, MutationEvent {

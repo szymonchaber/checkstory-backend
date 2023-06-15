@@ -21,7 +21,9 @@ import tech.checkstory.payment.data.PurchaseRepository
 import tech.checkstory.payment.data.google_play.SubscriptionsGoogleApi
 import tech.checkstory.payment.domain.GetPaymentStateUseCase
 import tech.checkstory.plugins.connectToPostgres
+import tech.checkstory.read.TemplateProjection
 import tech.checkstory.template.data.EventSourcedTemplateRepository
+import tech.checkstory.template.data.RelationalTemplateRepository
 import tech.checkstory.template.data.TemplateEventMapper
 import tech.checkstory.template.data.TemplateEventRepositoryImpl
 import tech.checkstory.template.domain.event.TemplateEvent
@@ -52,6 +54,9 @@ val Application.commonDI
             EventStoreDBClient.create(settings)
         }
         bindSingleton {
+            RelationalTemplateRepository(instance())
+        }
+        bindSingleton {
             UserService(instance())
         }
         bindSingleton {
@@ -73,6 +78,9 @@ val Application.commonDI
             add {
                 singleton { instance<TemplateEventMapper>() }
             }
+        }
+        bindSingleton {
+            TemplateProjection(instance(), instance())
         }
         bind<EventRepository<TemplateEvent>>() with singleton {
             TemplateEventRepositoryImpl(instance(), instance())

@@ -4,7 +4,7 @@ import tech.checkstory.auth.user.User
 import tech.checkstory.domain.command.DtoUUID
 import tech.checkstory.domain.event.CreationEvent
 import tech.checkstory.domain.event.MutationEvent
-import tech.checkstory.template.domain.aggregate.Template
+import tech.checkstory.template.domain.Template
 import tech.checkstory.template.domain.aggregate.TemplateTask
 import tech.checkstory.template.domain.command.TemplateCommand
 import tech.checkstory.template.domain.event.TemplateEvent
@@ -182,6 +182,7 @@ class TemplateAggregate(val id: UUID) {
         return when (this) {
             is TemplateCommand.CreateTemplateCommand -> {
                 TemplateEvent.CreateTemplateEvent(
+                    templateId,
                     commandId,
                     timestamp,
                     userId,
@@ -192,6 +193,7 @@ class TemplateAggregate(val id: UUID) {
             is TemplateCommand.EditTemplateTitleCommand -> {
                 TemplateEvent.EditTemplateTitleEvent(
                     newTitle,
+                    templateId,
                     commandId,
                     timestamp,
                 )
@@ -200,6 +202,7 @@ class TemplateAggregate(val id: UUID) {
             is TemplateCommand.EditTemplateDescriptionCommand -> {
                 TemplateEvent.EditTemplateDescriptionEvent(
                     newDescription,
+                    templateId,
                     commandId,
                     timestamp,
                 )
@@ -209,6 +212,7 @@ class TemplateAggregate(val id: UUID) {
                 TemplateEvent.AddTemplateTaskEvent(
                     taskId,
                     parentTaskId,
+                    templateId,
                     commandId,
                     timestamp,
                 )
@@ -218,6 +222,7 @@ class TemplateAggregate(val id: UUID) {
                 TemplateEvent.RenameTemplateTaskEvent(
                     taskId,
                     newTitle,
+                    templateId,
                     commandId,
                     timestamp,
                 )
@@ -226,6 +231,7 @@ class TemplateAggregate(val id: UUID) {
             is TemplateCommand.DeleteTemplateTaskCommand -> {
                 TemplateEvent.DeleteTemplateTaskEvent(
                     taskId,
+                    templateId,
                     commandId,
                     timestamp,
                 )
@@ -234,6 +240,7 @@ class TemplateAggregate(val id: UUID) {
             is TemplateCommand.UpdateTasksPositionsCommandDto -> {
                 TemplateEvent.UpdateTasksPositionsEvent(
                     taskIdToLocalPosition,
+                    templateId,
                     commandId,
                     timestamp,
                 )
@@ -243,6 +250,7 @@ class TemplateAggregate(val id: UUID) {
                 TemplateEvent.MoveTemplateTaskEvent(
                     taskId,
                     newParentTaskId,
+                    templateId,
                     commandId,
                     timestamp,
                 )
@@ -251,6 +259,7 @@ class TemplateAggregate(val id: UUID) {
             is TemplateCommand.AddOrUpdateTemplateReminderCommandDto -> {
                 TemplateEvent.AddOrUpdateReminderEvent(
                     reminder,
+                    templateId,
                     commandId,
                     timestamp,
                 )
@@ -259,6 +268,7 @@ class TemplateAggregate(val id: UUID) {
             is TemplateCommand.DeleteTemplateReminderCommandDto -> {
                 TemplateEvent.DeleteReminderEvent(
                     reminderId,
+                    templateId,
                     commandId,
                     timestamp,
                 )
@@ -266,6 +276,7 @@ class TemplateAggregate(val id: UUID) {
 
             is TemplateCommand.DeleteTemplateCommandDto -> {
                 TemplateEvent.DeleteTemplateEvent(
+                    templateId,
                     commandId,
                     timestamp,
                 )

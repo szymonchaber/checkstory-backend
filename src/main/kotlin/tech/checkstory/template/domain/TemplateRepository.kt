@@ -1,7 +1,6 @@
 package tech.checkstory.template.domain
 
 import tech.checkstory.auth.user.AuthenticatedScope
-import tech.checkstory.template.domain.aggregate.Template
 import java.util.*
 
 interface TemplateRepository {

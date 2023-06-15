@@ -1,8 +1,10 @@
-package tech.checkstory.template.domain.aggregate
+package tech.checkstory.template.domain
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
 import tech.checkstory.domain.command.DtoUUID
+import tech.checkstory.template.domain.aggregate.Reminder
+import tech.checkstory.template.domain.aggregate.TemplateTask
 
 @Serializable
 data class Template(

@@ -8,6 +8,7 @@ interface DomainEvent {
 
     @Transient
     val eventType: String
+    val aggregateId: DtoUUID
     val eventId: DtoUUID
     val timestamp: Instant
 }

@@ -1,18 +1,19 @@
 package tech.checkstory.read
 
-import com.eventstore.dbclient.*
+import com.eventstore.dbclient.EventStoreDBClient
 import io.ktor.server.application.*
 import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.future.await
 import org.kodein.di.DI
 import org.kodein.di.instance
-import org.slf4j.LoggerFactory
 import tech.checkstory.data.EventMapper
 import tech.checkstory.eventbus.EventBus
+import tech.checkstory.read.subscription.EventStoreDBSubscriptionToAll
+import tech.checkstory.template.data.RelationalTemplateRepository
+import tech.checkstory.template.domain.Template
+import tech.checkstory.template.domain.event.TemplateEvent
 
 context(DI)
 fun Application.configureReadSide() {
@@ -20,14 +21,10 @@ fun Application.configureReadSide() {
     val client by instance<EventStoreDBClient>()
     val mappers by instance<Set<EventMapper<*>>>()
     val subscription = EventStoreDBSubscriptionToAll(client, eventBus, mappers)
-    repeat(10) { index ->
-        CoroutineScope(Job()).launch {
-            withContext(Dispatchers.Default) {
-                eventBus.events
-                    .collect {
-                        log.debug("Consumer $index: a new event consumed!: ${it.eventType}")
-                    }
-            }
+    val templateProjection by instance<TemplateProjection>()
+    CoroutineScope(Job()).launch {
+        withContext(Dispatchers.Default) {
+            templateProjection.run()
         }
     }
     CoroutineScope(Job()).launch {
@@ -37,105 +34,81 @@ fun Application.configureReadSide() {
     }
 }
 
-class EventStoreDBSubscriptionToAll(
-    private val eventStoreClient: EventStoreDBClient,
-//    private val checkpointRepository: SubscriptionCheckpointRepository,
+class TemplateProjection(
     private val eventBus: EventBus,
-    private val mappers: Set<EventMapper<*>>
+    private val templateRepository: RelationalTemplateRepository
 ) {
-    private val logger = LoggerFactory.getLogger(EventStoreDBSubscriptionToAll::class.java)
 
-    suspend fun subscribeToAll() {
-        subscribeToAll(EventStoreDBSubscriptionToAllOptions.default)
-    }
-
-    private suspend fun subscribeToAll(subscriptionOptions: EventStoreDBSubscriptionToAllOptions) {
-        callbackFlow {
-            try {
-//            val checkpoint = checkpointRepository.load(subscriptionOptions.subscriptionId)
-                val checkpoint: Long? = null
-                if (checkpoint != null) {
-                    subscriptionOptions.subscribeToAllOptions
-                        .fromPosition(Position(checkpoint, checkpoint))
-                } else {
-                    subscriptionOptions.subscribeToAllOptions.fromStart()
-                }
-                logger.info("Subscribing to all ${subscriptionOptions.subscriptionId}")
-                val subscription = eventStoreClient.subscribeToAll(
-                    object : SubscriptionListener() {
-
-                        override fun onEvent(subscription: Subscription, event: ResolvedEvent) {
-                            try {
-                                trySend(event)
-                            } catch (throwable: Throwable) {
-                                logger.error("Error while handling event", throwable)
-                                throw RuntimeException(throwable)
-                            }
+    suspend fun run() {
+        withContext(Dispatchers.Default) {
+            eventBus
+                .events
+                .filterIsInstance<TemplateEvent>()
+                .onEach {
+                    when (it) {
+                        is TemplateEvent.CreateTemplateEvent -> {
+                            println("Encountered CreateTemplateEvent")
+                            createTemplate(it)
                         }
 
-                        override fun onError(subscription: Subscription, throwable: Throwable) {
-                            logger.error("Subscription was dropped", throwable)
-                            throw RuntimeException(throwable)
+                        is TemplateEvent.AddOrUpdateReminderEvent -> {
+                            println("Encountered AddOrUpdateReminderEvent")
                         }
-                    },
-                    subscriptionOptions.subscribeToAllOptions
-                ).await()
 
-                awaitClose {
-                    subscription.stop()
+                        is TemplateEvent.AddTemplateTaskEvent -> {
+                            println("Encountered AddTemplateTaskEvent")
+                        }
+
+                        is TemplateEvent.DeleteReminderEvent -> {
+                            println("Encountered DeleteReminderEvent")
+                        }
+
+                        is TemplateEvent.DeleteTemplateEvent -> {
+                            println("Encountered DeleteTemplateEvent")
+                        }
+
+                        is TemplateEvent.DeleteTemplateTaskEvent -> {
+                            println("Encountered DeleteTemplateTaskEvent")
+                        }
+
+                        is TemplateEvent.EditTemplateDescriptionEvent -> {
+                            println("Encountered EditTemplateDescriptionEvent")
+                        }
+
+                        is TemplateEvent.EditTemplateTitleEvent -> {
+                            println("Encountered EditTemplateTitleEvent")
+                        }
+
+                        is TemplateEvent.MoveTemplateTaskEvent -> {
+                            println("Encountered MoveTemplateTaskEvent")
+                        }
+
+                        is TemplateEvent.RenameTemplateTaskEvent -> {
+                            println("Encountered RenameTemplateTaskEvent")
+                        }
+
+                        is TemplateEvent.UpdateTasksPositionsEvent -> {
+                            println("Encountered UpdateTasksPositionsEvent")
+                        }
+                    }
                 }
-            } catch (e: Throwable) {
-                logger.error("Error while starting subscription", e)
-                throw RuntimeException(e)
-            }
+                .collect()
         }
-            .onEach {
-                handleEvent(it, subscriptionOptions.subscriptionId)
-            }
-            .collect()
     }
 
-    private suspend fun handleEvent(resolvedEvent: ResolvedEvent, subscriptionId: String) {
-        mappers
-            .firstNotNullOf {
-                if (it.knownEventTypes.contains(resolvedEvent.event.eventType)) {
-                    it.deserializeEvent(resolvedEvent)
-                } else {
-                    null
-                }
-            }.let {
-                eventBus.publish(it)
-                logger.debug("Setting checkpoint at ${resolvedEvent.event.position.commitUnsigned}")
-//                checkpointRepository.store(
-//                     subscriptionId,
-//                    resolvedEvent.event.position.commitUnsigned
-//                )
-            }
-    }
-}
-
-interface SubscriptionCheckpointRepository {
-
-    suspend fun load(subscriptionId: String): Long?
-
-    suspend fun store(subscriptionId: String, position: Long)
-}
-
-
-data class EventStoreDBSubscriptionToAllOptions(
-    val subscriptionId: String,
-    val subscribeToAllOptions: SubscribeToAllOptions
-) {
-    companion object {
-        val default: EventStoreDBSubscriptionToAllOptions
-            get() {
-                val filterOutSystemEvents = SubscriptionFilter.newBuilder()
-                    .withEventTypeRegularExpression("^[^\\$].*")
-                    .build()
-                val options = SubscribeToAllOptions.get()
-                    .fromStart()
-                    .filter(filterOutSystemEvents)
-                return EventStoreDBSubscriptionToAllOptions("default", options)
-            }
+    private suspend fun createTemplate(createTemplate: TemplateEvent.CreateTemplateEvent) {
+        with(createTemplate) {
+            templateRepository.create(
+                Template(
+                    id = aggregateId,
+                    userId = userId,
+                    name = existingTemplateData?.title.orEmpty(),
+                    description = existingTemplateData?.description.orEmpty(),
+                    tasks = existingTemplateData?.tasks?.map { it.toTemplateTask(aggregateId) }.orEmpty(),
+                    reminders = existingTemplateData?.reminders?.map { it.toReminder() }.orEmpty(),
+                    createdAt = timestamp
+                )
+            )
+        }
     }
 }

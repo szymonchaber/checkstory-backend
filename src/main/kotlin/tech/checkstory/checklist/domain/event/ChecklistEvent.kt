@@ -19,6 +19,7 @@ sealed interface ChecklistEvent : DomainEvent {
         val tasks: List<Task>,
         val userId: String,
         val notes: String?,
+        override val aggregateId: DtoUUID,
         override val eventId: DtoUUID,
         override val timestamp: Instant,
     ) : ChecklistEvent {
@@ -30,6 +31,7 @@ sealed interface ChecklistEvent : DomainEvent {
     @SerialName("editChecklistNotes")
     data class EditChecklistNotesEvent(
         val newNotes: String,
+        override val aggregateId: DtoUUID,
         override val eventId: DtoUUID,
         override val timestamp: Instant,
     ) : ChecklistEvent {
@@ -42,6 +44,7 @@ sealed interface ChecklistEvent : DomainEvent {
     data class ChangeTaskCheckedEvent(
         val taskId: DtoUUID,
         val isChecked: Boolean,
+        override val aggregateId: DtoUUID,
         override val eventId: DtoUUID,
         override val timestamp: Instant,
     ) : ChecklistEvent {
@@ -52,6 +55,7 @@ sealed interface ChecklistEvent : DomainEvent {
     @Serializable
     @SerialName("deleteChecklist")
     data class DeleteChecklistEvent(
+        override val aggregateId: DtoUUID,
         override val eventId: DtoUUID,
         override val timestamp: Instant,
     ) : ChecklistEvent {
