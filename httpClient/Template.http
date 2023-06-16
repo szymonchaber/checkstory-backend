@@ -77,11 +77,6 @@ GET {{endpoint}}/auth/login
 Content-Type: application/json
 Authorization: Bearer {{auth_token_1}}
 
-### 404
-GET {{endpoint}}/
-Content-Type: application/json
-
-
 ### Get all templates of user 1
 GET {{endpoint}}/templates
 Content-Type: application/json

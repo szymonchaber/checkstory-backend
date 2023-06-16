@@ -23,14 +23,6 @@ application {
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
 
-ktor {
-    docker {
-        jreVersion.set(io.ktor.plugin.features.JreVersion.JRE_17)
-        localImageName.set("checkstory-docker-image")
-        imageTag.set("0.0.1-preview")
-    }
-}
-
 repositories {
     mavenCentral()
 }
@@ -49,6 +41,8 @@ dependencies {
     implementation("com.h2database:h2:$h2_version")
     implementation("org.jetbrains.exposed:exposed-core:$exposed_version")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposed_version")
+    implementation("org.jetbrains.exposed:exposed-kotlin-datetime:$exposed_version")
+    implementation("org.jetbrains.exposed:exposed-dao:$exposed_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
 
     implementation("com.eventstore:db-client-java:4.1.1")
