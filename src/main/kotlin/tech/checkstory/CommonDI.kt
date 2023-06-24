@@ -21,7 +21,7 @@ import tech.checkstory.payment.data.PurchaseRepository
 import tech.checkstory.payment.data.google_play.SubscriptionsGoogleApi
 import tech.checkstory.payment.domain.GetPaymentStateUseCase
 import tech.checkstory.plugins.connectToPostgres
-import tech.checkstory.read.TemplateProjection
+import tech.checkstory.read.template.TemplateProjection
 import tech.checkstory.template.data.EventSourcedTemplateRepository
 import tech.checkstory.template.data.RelationalTemplateRepository
 import tech.checkstory.template.data.TemplateEventMapper
