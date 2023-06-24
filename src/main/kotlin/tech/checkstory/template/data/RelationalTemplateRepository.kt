@@ -2,30 +2,23 @@ package tech.checkstory.template.data
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
-import org.jetbrains.exposed.dao.UUIDEntity
-import org.jetbrains.exposed.dao.UUIDEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
-import org.jetbrains.exposed.dao.id.UUIDTable
-import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.kotlin.datetime.datetime
+import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 import tech.checkstory.auth.user.AuthenticatedScope
+import tech.checkstory.template.data.entity.TemplateEntity
+import tech.checkstory.template.data.entity.TemplateTaskEntity
+import tech.checkstory.template.data.table.TemplateTaskTable
+import tech.checkstory.template.data.table.Templates
 import tech.checkstory.template.domain.Template
 import tech.checkstory.template.domain.aggregate.TemplateTask
 import java.util.*
 
 class RelationalTemplateRepository(private val database: Database) {
-
-    object Templates : UUIDTable() {
-        val userId = varchar("userId", length = 255)
-        val name = varchar("name", length = 255)
-        val description = varchar("description", length = 255)
-        val createdAt = datetime("createdAt")
-    }
 
     init {
         transaction(database) {
@@ -34,18 +27,13 @@ class RelationalTemplateRepository(private val database: Database) {
         }
     }
 
-    suspend fun <T> dbQuery(block: suspend () -> T): T {
-        return newSuspendedTransaction(Dispatchers.IO) { block() }
-    }
-
     suspend fun create(template: Template) {
         dbQuery {
-            Templates.insertIgnore {
-                it[id] = template.id
-                it[userId] = template.userId
-                it[name] = template.name
-                it[description] = template.description
-                it[createdAt] = template.createdAt.toLocalDateTime(TimeZone.UTC)
+            TemplateEntity.new(template.id) {
+                userId = template.userId
+                name = template.name
+                description = template.description
+                createdAt = template.createdAt.toLocalDateTime(TimeZone.UTC)
             }
             template.tasks.forEach {
                 insertTask(it, null)
@@ -53,31 +41,37 @@ class RelationalTemplateRepository(private val database: Database) {
         }
     }
 
-    fun insertTask(templateTask: TemplateTask, parent: TemplateTaskEntity?) {
+    private fun insertTask(templateTask: TemplateTask, parentId: EntityID<UUID>?) {
         val entity = TemplateTaskEntity.new(templateTask.id) {
             title = templateTask.title
-            this.parent = parent?.id
-            this.template = EntityID(templateTask.templateId, Templates)
+            parent = parentId
+            template = EntityID(templateTask.templateId, Templates)
         }
         templateTask.children.forEach {
-            insertTask(it, entity)
+            insertTask(it, entity.id)
         }
     }
 
     context(AuthenticatedScope)
     suspend fun read(id: UUID): Template? {
         return dbQuery {
-            Templates.select { Templates.id eq id and (Templates.userId eq principal.userId) }
-                .map(::toTemplate)
+            TemplateEntity
+                .find {
+                    Templates.id eq id and (Templates.userId eq principal.userId)
+                }
                 .singleOrNull()
+                ?.toTemplate()
         }
     }
 
     context(AuthenticatedScope)
     suspend fun readAll(): List<Template> {
         return dbQuery {
-            Templates.select { Templates.userId eq principal.userId }
-                .map(::toTemplate)
+            TemplateEntity
+                .find {
+                    Templates.userId eq principal.userId
+                }
+                .map(TemplateEntity::toTemplate)
         }
     }
 
@@ -87,50 +81,17 @@ class RelationalTemplateRepository(private val database: Database) {
             TemplateTaskEntity.find {
                 TemplateTaskTable.parent eq null
             }
-                .map {
-                    toTemplateTask(it)
-                }
+                .map(TemplateTaskEntity::toTemplateTask)
         }
     }
-
-    private fun toTemplateTask(entity: TemplateTaskEntity): TemplateTask {
-        return TemplateTask(
-            entity.id.value,
-            entity.template.value,
-            entity.title,
-            0,
-            entity.children.map(::toTemplateTask)
-        )
-    }
-
-    private fun toTemplate(it: ResultRow) = Template(
-        id = it[Templates.id].value,
-        userId = it[Templates.userId],
-        name = it[Templates.name],
-        description = it[Templates.description],
-        createdAt = it[Templates.createdAt].toInstant(TimeZone.UTC),
-    )
 
     suspend fun delete(id: UUID) {
         dbQuery {
-            Templates.deleteWhere { Templates.id eq id }
+            TemplateEntity.findById(id)?.delete()
         }
     }
-}
 
-object TemplateTaskTable : UUIDTable() {
-
-    val title = varchar("title", 255)
-    val template = reference("templateId", RelationalTemplateRepository.Templates, ReferenceOption.CASCADE)
-    val parent = optReference("parent_id", TemplateTaskTable, ReferenceOption.SET_NULL)
-}
-
-class TemplateTaskEntity(id: EntityID<UUID>) : UUIDEntity(id) {
-
-    companion object : UUIDEntityClass<TemplateTaskEntity>(TemplateTaskTable)
-
-    var title by TemplateTaskTable.title
-    var template by TemplateTaskTable.template
-    var parent by TemplateTaskTable.parent
-    val children: SizedIterable<TemplateTaskEntity> by TemplateTaskEntity optionalReferrersOn TemplateTaskTable.parent
+    private suspend fun <T> dbQuery(block: suspend () -> T): T {
+        return newSuspendedTransaction(Dispatchers.IO) { block() }
+    }
 }
