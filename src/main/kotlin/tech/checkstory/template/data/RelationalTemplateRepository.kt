@@ -4,6 +4,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
+import org.jetbrains.exposed.dao.UUIDEntity
+import org.jetbrains.exposed.dao.UUIDEntityClass
+import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
@@ -12,6 +15,7 @@ import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransacti
 import org.jetbrains.exposed.sql.transactions.transaction
 import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.template.domain.Template
+import tech.checkstory.template.domain.aggregate.TemplateTask
 import java.util.*
 
 class RelationalTemplateRepository(private val database: Database) {
@@ -26,6 +30,7 @@ class RelationalTemplateRepository(private val database: Database) {
     init {
         transaction(database) {
             SchemaUtils.create(Templates)
+            SchemaUtils.create(TemplateTaskTable)
         }
     }
 
@@ -42,6 +47,20 @@ class RelationalTemplateRepository(private val database: Database) {
                 it[description] = template.description
                 it[createdAt] = template.createdAt.toLocalDateTime(TimeZone.UTC)
             }
+            template.tasks.forEach {
+                insertTask(it, null)
+            }
+        }
+    }
+
+    fun insertTask(templateTask: TemplateTask, parent: TemplateTaskEntity?) {
+        val entity = TemplateTaskEntity.new(templateTask.id) {
+            title = templateTask.title
+            this.parent = parent?.id
+            this.template = EntityID(templateTask.templateId, Templates)
+        }
+        templateTask.children.forEach {
+            insertTask(it, entity)
         }
     }
 
@@ -62,6 +81,28 @@ class RelationalTemplateRepository(private val database: Database) {
         }
     }
 
+    context(AuthenticatedScope)
+    suspend fun readTasks(): List<TemplateTask> {
+        return dbQuery {
+            TemplateTaskEntity.find {
+                TemplateTaskTable.parent eq null
+            }
+                .map {
+                    toTemplateTask(it)
+                }
+        }
+    }
+
+    private fun toTemplateTask(entity: TemplateTaskEntity): TemplateTask {
+        return TemplateTask(
+            entity.id.value,
+            entity.template.value,
+            entity.title,
+            0,
+            entity.children.map(::toTemplateTask)
+        )
+    }
+
     private fun toTemplate(it: ResultRow) = Template(
         id = it[Templates.id].value,
         userId = it[Templates.userId],
@@ -75,4 +116,21 @@ class RelationalTemplateRepository(private val database: Database) {
             Templates.deleteWhere { Templates.id eq id }
         }
     }
+}
+
+object TemplateTaskTable : UUIDTable() {
+
+    val title = varchar("title", 255)
+    val template = reference("templateId", RelationalTemplateRepository.Templates, ReferenceOption.CASCADE)
+    val parent = optReference("parent_id", TemplateTaskTable, ReferenceOption.SET_NULL)
+}
+
+class TemplateTaskEntity(id: EntityID<UUID>) : UUIDEntity(id) {
+
+    companion object : UUIDEntityClass<TemplateTaskEntity>(TemplateTaskTable)
+
+    var title by TemplateTaskTable.title
+    var template by TemplateTaskTable.template
+    var parent by TemplateTaskTable.parent
+    val children: SizedIterable<TemplateTaskEntity> by TemplateTaskEntity optionalReferrersOn TemplateTaskTable.parent
 }

@@ -31,7 +31,7 @@ import tech.checkstory.template.domain.event.TemplateEvent
 val Application.commonDI
     get() = DI.Module("common") {
         bind<Config>() with singleton { ConfigFactory.load() }
-        bindSingleton {
+        bindSingleton<Database> {
             Database.connect(
                 getNewConnection = {
                     connectToPostgres(false, instance())

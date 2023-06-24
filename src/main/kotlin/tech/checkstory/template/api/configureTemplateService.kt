@@ -23,6 +23,12 @@ fun Application.configureTemplateService(
                     call.respond(HttpStatusCode.OK, templates)
                 }
             }
+            get("/tasks") {
+                withPrincipal {
+                    val templates = relationalTemplateRepository.readTasks()
+                    call.respond(HttpStatusCode.OK, templates)
+                }
+            }
 
             get("/templates/{id}") {
                 withPrincipal {

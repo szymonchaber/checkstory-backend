@@ -31,10 +31,10 @@ import java.sql.*
  * @return [Connection] that represent connection to the database. Please, don't forget to close this connection when
  * your application shuts down by calling [Connection.close]
  * */
-fun Application.connectToPostgres(embedded: Boolean, config: Config): Connection {
+fun connectToPostgres(embedded: Boolean, config: Config): Connection {
     Class.forName("org.postgresql.Driver")
     return if (embedded) {
-        DriverManager.getConnection("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", "root", "")
+        DriverManager.getConnection("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;MODE=MYSQL", "root", "")
     } else {
         val url = config.getString("postgres.url")!!
         val user = config.getString("postgres.user")!!

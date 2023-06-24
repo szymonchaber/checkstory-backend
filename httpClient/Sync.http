@@ -633,21 +633,23 @@ Authorization: Bearer {{auth_token_1}}
 < {%
     client.global.set("template_id", "33409752-5214-4c1d-ac31-3f25f2a31016");
 %}
-POST {{endpoint}}/commands
+POST {{endpoint}}/sync/commands
 Content-Type: application/json
 Authorization: Bearer {{auth_token_1}}
 
-[
-  {
-    "type": "createTemplate",
-    "templateId": "33409752-5214-4c1d-ac31-3f25f2a31016",
-    "commandId": "43fa18af-9e9b-4151-8d2b-0737cdf9a566",
-    "timestamp": "2023-06-05T20:17:33.954Z",
-    "existingTemplateData": {
-      "title": "This firebase token might simply be correct XD",
-      "description": "Description",
-      "tasks": [
-        {
+{
+  "checklistCommands": [],
+  "templateCommands": [
+    {
+      "type": "createTemplate",
+      "templateId": "33409752-5214-4c1d-ac31-3f25f2a31016",
+      "commandId": "43fa18af-9e9b-4151-8d2b-0737cdf9a566",
+      "timestamp": "2023-06-05T20:17:33.954Z",
+      "existingTemplateData": {
+        "title": "This firebase token might simply be correct XD",
+        "description": "Description",
+        "tasks": [
+          {
           "id": "3cb214f7-6a3f-404c-9fb5-f38e9090cb9c",
           "parentId": null,
           "title": "Task 2",
@@ -719,6 +721,7 @@ Authorization: Bearer {{auth_token_1}}
           }
         }
       ]
+      }
     }
-  }
-]
+  ]
+}
