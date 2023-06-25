@@ -4,6 +4,7 @@ import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.UUIDEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.sql.SizedIterable
+import org.jetbrains.exposed.sql.SortOrder
 import tech.checkstory.template.data.table.TemplateTaskTable
 import tech.checkstory.template.domain.aggregate.TemplateTask
 import java.util.*
@@ -15,6 +16,7 @@ class TemplateTaskEntity(id: EntityID<UUID>) : UUIDEntity(id) {
     var title by TemplateTaskTable.title
     var template by TemplateTaskTable.template
     var parent by TemplateTaskTable.parent
+    var sortPosition by TemplateTaskTable.sortPosition
     val children: SizedIterable<TemplateTaskEntity> by TemplateTaskEntity optionalReferrersOn TemplateTaskTable.parent
 
     fun toTemplateTask(): TemplateTask {
@@ -22,10 +24,10 @@ class TemplateTaskEntity(id: EntityID<UUID>) : UUIDEntity(id) {
             id.value,
             template.value,
             title,
-            0,
-            children.map {
-                it.toTemplateTask()
-            }
+            sortPosition,
+            children
+                .orderBy(TemplateTaskTable.sortPosition to SortOrder.ASC)
+                .map(TemplateTaskEntity::toTemplateTask)
         )
     }
 }

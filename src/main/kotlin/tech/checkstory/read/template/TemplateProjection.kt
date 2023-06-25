@@ -31,32 +31,32 @@ class TemplateProjection(
                 createTemplate(event)
             }
 
-            is TemplateEvent.EditTemplateDescriptionEvent -> {
-                println("Encountered EditTemplateDescriptionEvent")
+            is TemplateEvent.EditTemplateTitleEvent -> {
+                editTitle(event)
             }
 
-            is TemplateEvent.EditTemplateTitleEvent -> {
-                println("Encountered EditTemplateTitleEvent")
+            is TemplateEvent.EditTemplateDescriptionEvent -> {
+                editDescription(event)
             }
 
             is TemplateEvent.AddTemplateTaskEvent -> {
-                println("Encountered AddTemplateTaskEvent")
-            }
-
-            is TemplateEvent.MoveTemplateTaskEvent -> {
-                println("Encountered MoveTemplateTaskEvent")
+                addTemplateTask(event)
             }
 
             is TemplateEvent.RenameTemplateTaskEvent -> {
-                println("Encountered RenameTemplateTaskEvent")
+                renameTemplateTask(event)
+            }
+
+            is TemplateEvent.MoveTemplateTaskEvent -> {
+                moveTemplateTask(event)
             }
 
             is TemplateEvent.UpdateTasksPositionsEvent -> {
-                println("Encountered UpdateTasksPositionsEvent")
+                updatePositions(event)
             }
 
             is TemplateEvent.DeleteTemplateTaskEvent -> {
-                println("Encountered DeleteTemplateTaskEvent")
+                deleteTemplateTask(event)
             }
 
             is TemplateEvent.AddOrUpdateReminderEvent -> {
@@ -68,7 +68,7 @@ class TemplateProjection(
             }
 
             is TemplateEvent.DeleteTemplateEvent -> {
-                println("Encountered DeleteTemplateEvent")
+                deleteTemplate(event)
             }
         }
     }
@@ -87,5 +87,39 @@ class TemplateProjection(
                 )
             )
         }
+    }
+
+    private suspend fun editTitle(event: TemplateEvent.EditTemplateTitleEvent) {
+        templateRepository.updateTitle(event.aggregateId, event.newTitle)
+    }
+
+    private suspend fun editDescription(event: TemplateEvent.EditTemplateDescriptionEvent) {
+        templateRepository.updateDescription(event.aggregateId, event.newDescription)
+    }
+
+    private suspend fun renameTemplateTask(event: TemplateEvent.RenameTemplateTaskEvent) {
+        templateRepository.renameTask(event.taskId, event.newTitle)
+    }
+
+    private suspend fun addTemplateTask(event: TemplateEvent.AddTemplateTaskEvent) {
+        with(event) {
+            templateRepository.addTask(aggregateId, taskId, parentTaskId)
+        }
+    }
+
+    private suspend fun moveTemplateTask(event: TemplateEvent.MoveTemplateTaskEvent) {
+        templateRepository.moveTask(event.taskId, event.newParentTaskId)
+    }
+
+    private suspend fun updatePositions(event: TemplateEvent.UpdateTasksPositionsEvent) {
+        templateRepository.updateLocalPositions(event.taskIdToLocalPosition)
+    }
+
+    private suspend fun deleteTemplateTask(event: TemplateEvent.DeleteTemplateTaskEvent) {
+        templateRepository.deleteTask(event.taskId)
+    }
+
+    private suspend fun deleteTemplate(event: TemplateEvent.DeleteTemplateEvent) {
+        templateRepository.delete(event.aggregateId)
     }
 }

@@ -4,13 +4,10 @@ import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import org.jetbrains.exposed.sql.Database
-import org.kodein.di.*
-import tech.checkstory.checklist.data.InMemoryChecklistEventRepository
-import tech.checkstory.checklist.domain.event.ChecklistEvent
-import tech.checkstory.data.EventRepository
+import org.kodein.di.DI
+import org.kodein.di.bindSingleton
+import org.kodein.di.instance
 import tech.checkstory.plugins.connectToPostgres
-import tech.checkstory.template.data.InMemoryTemplateEventRepository
-import tech.checkstory.template.domain.event.TemplateEvent
 import java.util.*
 
 fun main() {
@@ -28,12 +25,12 @@ fun Application.mockModule() {
                 }
             )
         }
-        bind<EventRepository<TemplateEvent>>(overrides = true) with singleton {
-            InMemoryTemplateEventRepository()
-        }
-        bind<EventRepository<ChecklistEvent>>(overrides = true) with singleton {
-            InMemoryChecklistEventRepository()
-        }
+//        bind<EventRepository<TemplateEvent>>(overrides = true) with singleton {
+//            InMemoryTemplateEventRepository()
+//        }
+//        bind<EventRepository<ChecklistEvent>>(overrides = true) with singleton {
+//            InMemoryChecklistEventRepository()
+//        }
     }.apply {
         module()
     }

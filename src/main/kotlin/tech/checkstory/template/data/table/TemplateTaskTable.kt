@@ -6,6 +6,7 @@ import org.jetbrains.exposed.sql.ReferenceOption
 object TemplateTaskTable : UUIDTable() {
 
     val title = varchar("title", 255)
+    val sortPosition = long("sortPosition").default(0)
     val template = reference("templateId", Templates, ReferenceOption.CASCADE)
-    val parent = optReference("parent_id", TemplateTaskTable, ReferenceOption.SET_NULL)
+    val parent = optReference("parent_id", TemplateTaskTable, ReferenceOption.CASCADE)
 }

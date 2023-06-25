@@ -1,0 +1,78 @@
+### Register user 1 in Firebase
+POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={{firebase_api_key}}
+Content-Type: application/json
+
+{
+  "email": "{{login_1}}",
+  "password": "{{password_1}}",
+  "returnSecureToken": true
+}
+
+> {%
+    client.global.set("auth_token_1", response.body.idToken);
+    client.global.set("user_id_1", response.body.localId);
+%}
+
+### Register user 2 in Firebase
+POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={{firebase_api_key}}
+Content-Type: application/json
+
+{
+  "email": "{{login_2}}",
+  "password": "{{password_2}}",
+  "returnSecureToken": true
+}
+
+> {%
+    client.global.set("auth_token_2", response.body.idToken);
+    client.global.set("user_id_2", response.body.localId);
+%}
+
+
+### Register user 1 in the backend
+POST {{endpoint}}/auth/register
+Content-Type: application/json
+Authorization: Bearer {{auth_token_1}}
+
+{}
+
+### Register user 2 in the backend
+POST {{endpoint}}/auth/register
+Content-Type: application/json
+Authorization: Bearer {{auth_token_2}}
+
+{}
+
+### Post a purchase token for the user 1
+POST {{endpoint}}/payment/google-play-token
+Content-Type: application/json
+Authorization: Bearer {{auth_token_1}}
+
+{
+  "token": "{{active_purchase_token}}"
+}
+
+### Post the same purchase token for the user 2 - expect 409
+POST {{endpoint}}/payment/google-play-token
+Content-Type: application/json
+Authorization: Bearer {{auth_token_2}}
+
+{
+  "token": "{{active_purchase_token}}"
+}
+
+### Post Firebase messaging token
+POST {{endpoint}}/notification/firebase-token
+Content-Type: application/json
+Authorization: Bearer {{auth_token_1}}
+
+{
+  "token": "{{active_messaging_token}}"
+}
+
+### Login
+GET {{endpoint}}/auth/login
+Content-Type: application/json
+Authorization: Bearer {{auth_token_1}}
+
+{}

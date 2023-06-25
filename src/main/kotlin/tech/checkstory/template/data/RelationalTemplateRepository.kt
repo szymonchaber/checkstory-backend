@@ -10,6 +10,7 @@ import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 import tech.checkstory.auth.user.AuthenticatedScope
+import tech.checkstory.domain.command.DtoUUID
 import tech.checkstory.template.data.entity.TemplateEntity
 import tech.checkstory.template.data.entity.TemplateTaskEntity
 import tech.checkstory.template.data.table.TemplateTaskTable
@@ -31,7 +32,7 @@ class RelationalTemplateRepository(private val database: Database) {
         dbQuery {
             TemplateEntity.new(template.id) {
                 userId = template.userId
-                name = template.name
+                title = template.name
                 description = template.description
                 createdAt = template.createdAt.toLocalDateTime(TimeZone.UTC)
             }
@@ -41,11 +42,60 @@ class RelationalTemplateRepository(private val database: Database) {
         }
     }
 
+    suspend fun updateTitle(templateId: DtoUUID, newTitle: String) {
+        dbQuery {
+            TemplateEntity.findById(templateId)?.title = newTitle
+        }
+    }
+
+    suspend fun updateDescription(templateId: DtoUUID, newDescription: String) {
+        dbQuery {
+            TemplateEntity.findById(templateId)?.description = newDescription
+        }
+    }
+
+    suspend fun addTask(aggregateId: DtoUUID, taskId: DtoUUID, parentTaskId: DtoUUID?) {
+        dbQuery {
+            TemplateTaskEntity.new(taskId) {
+                title = ""
+                parent = parentTaskId?.let { EntityID(it, TemplateTaskTable) }
+                template = EntityID(aggregateId, Templates)
+            }
+        }
+    }
+
+    suspend fun renameTask(taskId: DtoUUID, newTitle: String) {
+        dbQuery {
+            TemplateTaskEntity.findById(taskId)?.title = newTitle
+        }
+    }
+
+    suspend fun moveTask(taskId: DtoUUID, newParentTaskId: DtoUUID?) {
+        dbQuery {
+            TemplateTaskEntity.findById(taskId)?.parent = newParentTaskId?.let { EntityID(it, TemplateTaskTable) }
+        }
+    }
+
+    suspend fun updateLocalPositions(taskIdToLocalPosition: Map<DtoUUID, Long>) {
+        dbQuery {
+            taskIdToLocalPosition.forEach { (id, position) ->
+                TemplateTaskEntity.findById(id)?.sortPosition = position
+            }
+        }
+    }
+
+    suspend fun deleteTask(taskId: DtoUUID) {
+        dbQuery {
+            TemplateTaskEntity.findById(taskId)?.delete()
+        }
+    }
+
     private fun insertTask(templateTask: TemplateTask, parentId: EntityID<UUID>?) {
         val entity = TemplateTaskEntity.new(templateTask.id) {
             title = templateTask.title
             parent = parentId
             template = EntityID(templateTask.templateId, Templates)
+            sortPosition = templateTask.sortPosition
         }
         templateTask.children.forEach {
             insertTask(it, entity.id)
@@ -72,16 +122,6 @@ class RelationalTemplateRepository(private val database: Database) {
                     Templates.userId eq principal.userId
                 }
                 .map(TemplateEntity::toTemplate)
-        }
-    }
-
-    context(AuthenticatedScope)
-    suspend fun readTasks(): List<TemplateTask> {
-        return dbQuery {
-            TemplateTaskEntity.find {
-                TemplateTaskTable.parent eq null
-            }
-                .map(TemplateTaskEntity::toTemplateTask)
         }
     }
 
