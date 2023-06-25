@@ -20,54 +20,56 @@ class TemplateProjection(
             eventBus
                 .events
                 .filterIsInstance<TemplateEvent>()
-                .onEach {
-                    when (it) {
-                        is TemplateEvent.CreateTemplateEvent -> {
-                            createTemplate(it)
-                        }
-
-                        is TemplateEvent.AddOrUpdateReminderEvent -> {
-                            println("Encountered AddOrUpdateReminderEvent")
-                        }
-
-                        is TemplateEvent.AddTemplateTaskEvent -> {
-                            println("Encountered AddTemplateTaskEvent")
-                        }
-
-                        is TemplateEvent.DeleteReminderEvent -> {
-                            println("Encountered DeleteReminderEvent")
-                        }
-
-                        is TemplateEvent.DeleteTemplateEvent -> {
-                            println("Encountered DeleteTemplateEvent")
-                        }
-
-                        is TemplateEvent.DeleteTemplateTaskEvent -> {
-                            println("Encountered DeleteTemplateTaskEvent")
-                        }
-
-                        is TemplateEvent.EditTemplateDescriptionEvent -> {
-                            println("Encountered EditTemplateDescriptionEvent")
-                        }
-
-                        is TemplateEvent.EditTemplateTitleEvent -> {
-                            println("Encountered EditTemplateTitleEvent")
-                        }
-
-                        is TemplateEvent.MoveTemplateTaskEvent -> {
-                            println("Encountered MoveTemplateTaskEvent")
-                        }
-
-                        is TemplateEvent.RenameTemplateTaskEvent -> {
-                            println("Encountered RenameTemplateTaskEvent")
-                        }
-
-                        is TemplateEvent.UpdateTasksPositionsEvent -> {
-                            println("Encountered UpdateTasksPositionsEvent")
-                        }
-                    }
-                }
+                .onEach(::handleEvent)
                 .collect()
+        }
+    }
+
+    private suspend fun handleEvent(event: TemplateEvent) {
+        when (event) {
+            is TemplateEvent.CreateTemplateEvent -> {
+                createTemplate(event)
+            }
+
+            is TemplateEvent.EditTemplateDescriptionEvent -> {
+                println("Encountered EditTemplateDescriptionEvent")
+            }
+
+            is TemplateEvent.EditTemplateTitleEvent -> {
+                println("Encountered EditTemplateTitleEvent")
+            }
+
+            is TemplateEvent.AddTemplateTaskEvent -> {
+                println("Encountered AddTemplateTaskEvent")
+            }
+
+            is TemplateEvent.MoveTemplateTaskEvent -> {
+                println("Encountered MoveTemplateTaskEvent")
+            }
+
+            is TemplateEvent.RenameTemplateTaskEvent -> {
+                println("Encountered RenameTemplateTaskEvent")
+            }
+
+            is TemplateEvent.UpdateTasksPositionsEvent -> {
+                println("Encountered UpdateTasksPositionsEvent")
+            }
+
+            is TemplateEvent.DeleteTemplateTaskEvent -> {
+                println("Encountered DeleteTemplateTaskEvent")
+            }
+
+            is TemplateEvent.AddOrUpdateReminderEvent -> {
+                println("Encountered AddOrUpdateReminderEvent")
+            }
+
+            is TemplateEvent.DeleteReminderEvent -> {
+                println("Encountered DeleteReminderEvent")
+            }
+
+            is TemplateEvent.DeleteTemplateEvent -> {
+                println("Encountered DeleteTemplateEvent")
+            }
         }
     }
 
