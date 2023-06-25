@@ -27,9 +27,7 @@ fun Application.configureTemplateService(
             get("/templates/{id}") {
                 withPrincipal {
                     val id = call.parameters["id"] ?: throw IllegalArgumentException("Invalid ID")
-                    val template = eventSourcedTemplateRepository.read(UUID.fromString(id))?.let {
-                        it.copy(name = "Event sourced " + it.name)
-                    }
+                    val template = eventSourcedTemplateRepository.read(UUID.fromString(id))
                     if (template != null) {
                         call.respond(HttpStatusCode.OK, template)
                     } else {

@@ -7,20 +7,22 @@ import org.jetbrains.exposed.dao.UUIDEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.sql.SizedIterable
 import org.jetbrains.exposed.sql.SortOrder
+import tech.checkstory.template.data.table.ReminderTable
+import tech.checkstory.template.data.table.TemplateTable
 import tech.checkstory.template.data.table.TemplateTaskTable
-import tech.checkstory.template.data.table.Templates
 import tech.checkstory.template.domain.Template
 import java.util.*
 
 class TemplateEntity(id: EntityID<UUID>) : UUIDEntity(id) {
 
-    companion object : UUIDEntityClass<TemplateEntity>(Templates)
+    companion object : UUIDEntityClass<TemplateEntity>(TemplateTable)
 
-    var title by Templates.title
-    var description by Templates.description
-    var userId by Templates.userId
-    var createdAt by Templates.createdAt
+    var title by TemplateTable.title
+    var description by TemplateTable.description
+    var userId by TemplateTable.userId
+    var createdAt by TemplateTable.createdAt
     val tasks: SizedIterable<TemplateTaskEntity> by TemplateTaskEntity referrersOn TemplateTaskTable.template
+    val reminders: SizedIterable<ReminderEntity> by ReminderEntity referrersOn ReminderTable.template
 
     fun toTemplate(): Template {
         return Template(
@@ -34,7 +36,8 @@ class TemplateEntity(id: EntityID<UUID>) : UUIDEntity(id) {
                 .filter {
                     it.parent == null
                 }
-                .map(TemplateTaskEntity::toTemplateTask)
+                .map(TemplateTaskEntity::toTemplateTask),
+            reminders = reminders.map(ReminderEntity::toDomainReminder)
         )
     }
 }

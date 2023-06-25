@@ -11,11 +11,14 @@ import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransacti
 import org.jetbrains.exposed.sql.transactions.transaction
 import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.domain.command.DtoUUID
+import tech.checkstory.template.data.entity.ReminderEntity
 import tech.checkstory.template.data.entity.TemplateEntity
 import tech.checkstory.template.data.entity.TemplateTaskEntity
+import tech.checkstory.template.data.table.ReminderTable
+import tech.checkstory.template.data.table.TemplateTable
 import tech.checkstory.template.data.table.TemplateTaskTable
-import tech.checkstory.template.data.table.Templates
 import tech.checkstory.template.domain.Template
+import tech.checkstory.template.domain.aggregate.Reminder
 import tech.checkstory.template.domain.aggregate.TemplateTask
 import java.util.*
 
@@ -23,8 +26,9 @@ class RelationalTemplateRepository(private val database: Database) {
 
     init {
         transaction(database) {
-            SchemaUtils.create(Templates)
+            SchemaUtils.create(TemplateTable)
             SchemaUtils.create(TemplateTaskTable)
+            SchemaUtils.create(ReminderTable)
         }
     }
 
@@ -38,6 +42,9 @@ class RelationalTemplateRepository(private val database: Database) {
             }
             template.tasks.forEach {
                 insertTask(it, null)
+            }
+            template.reminders.forEach {
+                ReminderEntity.fromDomainReminder(it)
             }
         }
     }
@@ -59,7 +66,7 @@ class RelationalTemplateRepository(private val database: Database) {
             TemplateTaskEntity.new(taskId) {
                 title = ""
                 parent = parentTaskId?.let { EntityID(it, TemplateTaskTable) }
-                template = EntityID(aggregateId, Templates)
+                template = EntityID(aggregateId, TemplateTable)
             }
         }
     }
@@ -94,11 +101,23 @@ class RelationalTemplateRepository(private val database: Database) {
         val entity = TemplateTaskEntity.new(templateTask.id) {
             title = templateTask.title
             parent = parentId
-            template = EntityID(templateTask.templateId, Templates)
+            template = EntityID(templateTask.templateId, TemplateTable)
             sortPosition = templateTask.sortPosition
         }
         templateTask.children.forEach {
             insertTask(it, entity.id)
+        }
+    }
+
+    suspend fun addReminder(reminder: Reminder) {
+        dbQuery {
+            ReminderEntity.fromDomainReminder(reminder)
+        }
+    }
+
+    suspend fun deleteReminder(reminderId: DtoUUID) {
+        dbQuery {
+            ReminderEntity.findById(reminderId)?.delete()
         }
     }
 
@@ -107,7 +126,7 @@ class RelationalTemplateRepository(private val database: Database) {
         return dbQuery {
             TemplateEntity
                 .find {
-                    Templates.id eq id and (Templates.userId eq principal.userId)
+                    TemplateTable.id eq id and (TemplateTable.userId eq principal.userId)
                 }
                 .singleOrNull()
                 ?.toTemplate()
@@ -119,7 +138,7 @@ class RelationalTemplateRepository(private val database: Database) {
         return dbQuery {
             TemplateEntity
                 .find {
-                    Templates.userId eq principal.userId
+                    TemplateTable.userId eq principal.userId
                 }
                 .map(TemplateEntity::toTemplate)
         }

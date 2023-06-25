@@ -1,5 +1,6 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.net.URI
 
 val ktor_version: String by project
 val kotlin_version: String by project
@@ -25,6 +26,10 @@ application {
 
 repositories {
     mavenCentral()
+    mavenCentral()
+    maven {
+        this.url = URI("https://jitpack.io")
+    }
 }
 tasks.named("compileKotlin", org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask::class.java) {
     compilerOptions {
@@ -73,6 +78,7 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:2.3.1")
     implementation("io.ktor:ktor-server-netty-jvm:2.3.1")
     implementation("org.kodein.di:kodein-di-jvm:7.20.1")
+    implementation("com.github.PhilJay:RRule:1.0.3")
 
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")

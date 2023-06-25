@@ -60,11 +60,11 @@ class TemplateProjection(
             }
 
             is TemplateEvent.AddOrUpdateReminderEvent -> {
-                println("Encountered AddOrUpdateReminderEvent")
+                addOrUpdateReminder(event)
             }
 
             is TemplateEvent.DeleteReminderEvent -> {
-                println("Encountered DeleteReminderEvent")
+                deleteReminder(event)
             }
 
             is TemplateEvent.DeleteTemplateEvent -> {
@@ -117,6 +117,14 @@ class TemplateProjection(
 
     private suspend fun deleteTemplateTask(event: TemplateEvent.DeleteTemplateTaskEvent) {
         templateRepository.deleteTask(event.taskId)
+    }
+
+    private suspend fun addOrUpdateReminder(event: TemplateEvent.AddOrUpdateReminderEvent) {
+        templateRepository.addReminder(event.reminder.toReminder())
+    }
+
+    private suspend fun deleteReminder(event: TemplateEvent.DeleteReminderEvent) {
+        templateRepository.deleteReminder(event.reminderId)
     }
 
     private suspend fun deleteTemplate(event: TemplateEvent.DeleteTemplateEvent) {
