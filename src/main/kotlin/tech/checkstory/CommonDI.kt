@@ -24,6 +24,7 @@ import tech.checkstory.payment.domain.GetPaymentStateUseCase
 import tech.checkstory.plugins.connectToPostgres
 import tech.checkstory.read.checklist.ChecklistProjection
 import tech.checkstory.read.template.TemplateProjection
+import tech.checkstory.sync.NotificationSubscription
 import tech.checkstory.template.data.EventSourcedTemplateRepository
 import tech.checkstory.template.data.RelationalTemplateRepository
 import tech.checkstory.template.data.TemplateEventMapper
@@ -107,6 +108,9 @@ val Application.commonDI
         }
         bindSingleton {
             UserDataChangeNotifier(instance(), instance())
+        }
+        bindSingleton {
+            NotificationSubscription(instance(), instance())
         }
         bindSingleton {
             GetPaymentStateUseCase(instance())

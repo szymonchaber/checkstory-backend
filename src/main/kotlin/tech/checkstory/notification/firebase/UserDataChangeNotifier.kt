@@ -2,7 +2,6 @@ package tech.checkstory.notification.firebase
 
 import com.google.firebase.messaging.*
 import io.ktor.util.logging.*
-import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.notification.data.FirebaseMessagingTokenRepository
 import tech.checkstory.notification.domain.FirebaseMessagingToken
 
@@ -15,10 +14,9 @@ class UserDataChangeNotifier(
         FirebaseMessaging.getInstance()
     }
 
-    context(AuthenticatedScope)
-    suspend fun notifyUserOfDataChange() {
+    suspend fun notifyUserOfDataChange(userId: String) {
         logger.debug("Notifying the user of data changes")
-        notifyUser(messagingTokenRepository.readAll())
+        notifyUser(messagingTokenRepository.readAllById(userId))
     }
 
     suspend fun notifyUserOfPaymentStatusChange(userId: String) {

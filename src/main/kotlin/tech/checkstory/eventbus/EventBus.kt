@@ -2,15 +2,15 @@ package tech.checkstory.eventbus
 
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
-import tech.checkstory.domain.event.DomainEvent
+import tech.checkstory.read.subscription.EnrichedEvent
 
 class EventBus {
 
-    private val _events = MutableSharedFlow<DomainEvent>()
-    val events: SharedFlow<DomainEvent>
+    private val _events = MutableSharedFlow<EnrichedEvent>()
+    val events: SharedFlow<EnrichedEvent>
         get() = _events
 
-    suspend fun publish(domainEvent: DomainEvent) {
+    suspend fun publish(domainEvent: EnrichedEvent) {
         _events.emit(domainEvent)
     }
 }

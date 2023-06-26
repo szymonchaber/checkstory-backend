@@ -47,9 +47,24 @@ abstract class EventMapper<T : DomainEvent>(
         }
     }
 
+    fun deserializeEventWithMetadata(event: ResolvedEvent): Pair<T, EventMetadata>? {
+        val eventType = event.event.eventType
+        val eventData = event.event.eventData
+        return if (eventType in knownEventTypes) {
+            decode(eventData) to decodeMetadata(event.event.userMetadata)
+        } else {
+            null
+        }
+    }
+
     @OptIn(ExperimentalSerializationApi::class)
     fun encodeMetadata(metadata: EventMetadata, outputStream: ByteArrayOutputStream) {
         json.encodeToStream(metadata, outputStream)
+    }
+
+    @OptIn(ExperimentalSerializationApi::class)
+    fun decodeMetadata(metadata: ByteArray): EventMetadata {
+        return json.decodeFromStream(EventMetadata.serializer(), metadata.inputStream())
     }
 
     @OptIn(ExperimentalSerializationApi::class)

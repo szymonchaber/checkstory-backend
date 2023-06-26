@@ -16,8 +16,6 @@ import tech.checkstory.checklist.api.handleChecklistCommands
 import tech.checkstory.checklist.data.EventBasedChecklistRepository
 import tech.checkstory.checklist.domain.event.ChecklistEvent
 import tech.checkstory.data.EventRepository
-import tech.checkstory.notification.data.FirebaseMessagingTokenRepository
-import tech.checkstory.notification.firebase.UserDataChangeNotifier
 import tech.checkstory.template.data.EventSourcedTemplateRepository
 import tech.checkstory.template.domain.event.TemplateEvent
 import tech.checkstory.template.handleTemplateCommands
@@ -25,8 +23,6 @@ import tech.checkstory.template.handleTemplateCommands
 context(DI)
 fun Application.configureSynchronization() {
     val templateEventRepository by instance<EventRepository<TemplateEvent>>()
-    val messagingTokenRepository by instance<FirebaseMessagingTokenRepository>()
-    val userDataChangeNotifier = UserDataChangeNotifier(messagingTokenRepository, log)
     val eventSourcedTemplateRepository by instance<EventSourcedTemplateRepository>()
     val templateRepository by instance<EventSourcedTemplateRepository>()
     val checklistEventRepository by instance<EventRepository<ChecklistEvent>>()
@@ -44,7 +40,6 @@ fun Application.configureSynchronization() {
                         )
                         handleChecklistCommands(checklistCommands, checklistRepository, checklistEventRepository)
                     }
-                    userDataChangeNotifier.notifyUserOfDataChange()
                     call.respond<HttpStatusCode>(HttpStatusCode.NoContent)
                 }
             }

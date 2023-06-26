@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.future.await
 import org.slf4j.LoggerFactory
 import tech.checkstory.data.EventMapper
+import tech.checkstory.data.EventMetadata
+import tech.checkstory.domain.event.DomainEvent
 import tech.checkstory.eventbus.EventBus
 
 class EventStoreDBSubscriptionToAll(
@@ -72,7 +74,9 @@ class EventStoreDBSubscriptionToAll(
         mappers
             .firstNotNullOf {
                 if (it.knownEventTypes.contains(resolvedEvent.event.eventType)) {
-                    it.deserializeEvent(resolvedEvent)
+                    it.deserializeEventWithMetadata(resolvedEvent)?.let { (event, metadata) ->
+                        EnrichedEvent(event, metadata)
+                    }
                 } else {
                     null
                 }
@@ -86,3 +90,5 @@ class EventStoreDBSubscriptionToAll(
             }
     }
 }
+
+data class EnrichedEvent(val event: DomainEvent, val metadata: EventMetadata) : DomainEvent by event
