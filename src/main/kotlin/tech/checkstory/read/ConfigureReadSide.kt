@@ -7,6 +7,7 @@ import org.kodein.di.DI
 import org.kodein.di.instance
 import tech.checkstory.data.EventMapper
 import tech.checkstory.eventbus.EventBus
+import tech.checkstory.read.checklist.ChecklistProjection
 import tech.checkstory.read.subscription.EventStoreDBSubscriptionToAll
 import tech.checkstory.read.template.TemplateProjection
 
@@ -17,9 +18,15 @@ fun Application.configureReadSide() {
     val mappers by instance<Set<EventMapper<*>>>()
     val subscription = EventStoreDBSubscriptionToAll(client, eventBus, mappers)
     val templateProjection by instance<TemplateProjection>()
+    val checklistProjection by instance<ChecklistProjection>()
     CoroutineScope(Job()).launch {
         withContext(Dispatchers.Default) {
             templateProjection.run()
+        }
+    }
+    CoroutineScope(Job()).launch {
+        withContext(Dispatchers.Default) {
+            checklistProjection.run()
         }
     }
     CoroutineScope(Job()).launch {

@@ -22,6 +22,7 @@ import tech.checkstory.payment.data.PurchaseRepository
 import tech.checkstory.payment.data.google_play.SubscriptionsGoogleApi
 import tech.checkstory.payment.domain.GetPaymentStateUseCase
 import tech.checkstory.plugins.connectToPostgres
+import tech.checkstory.read.checklist.ChecklistProjection
 import tech.checkstory.read.template.TemplateProjection
 import tech.checkstory.template.data.EventSourcedTemplateRepository
 import tech.checkstory.template.data.RelationalTemplateRepository
@@ -82,6 +83,9 @@ val Application.commonDI
         }
         bindSingleton {
             TemplateProjection(instance(), instance())
+        }
+        bindSingleton {
+            ChecklistProjection(instance(), instance())
         }
         bind<EventRepository<TemplateEvent>>() with singleton {
             TemplateEventRepositoryImpl(instance(), instance())
