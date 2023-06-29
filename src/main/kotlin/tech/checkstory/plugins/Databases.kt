@@ -34,7 +34,7 @@ import java.sql.*
 fun connectToPostgres(embedded: Boolean, config: Config): Connection {
     Class.forName("org.postgresql.Driver")
     return if (embedded) {
-        DriverManager.getConnection("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;MODE=MYSQL", "root", "")
+        DriverManager.getConnection("jdbc:h2:~/h2db;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1;MODE=MYSQL", "root", "")
     } else {
         val url = config.getString("postgres.url")!!
         val user = config.getString("postgres.user")!!

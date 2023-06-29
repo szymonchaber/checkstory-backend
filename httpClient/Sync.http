@@ -740,3 +740,22 @@ Authorization: Bearer {{auth_token_1}}
     }
   ]
 }
+
+
+### Send correctional command
+POST {{endpoint}}/sync/commands
+Content-Type: application/json
+Authorization: Bearer {{auth_token_1}}
+
+{
+"templateCommands": [
+  {
+    "type": "deleteTemplateReminder",
+    "templateId": "{{template_id}}",
+    "reminderId": "{{reminderId}}",
+    "commandId": "{{$uuid}}",
+    "timestamp": "{{$isoTimestamp}}"
+  }
+],
+"checklistCommands":[]
+}

@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import tech.checkstory.eventbus.EventBus
 import tech.checkstory.notification.firebase.UserDataChangeNotifier
-import tech.checkstory.read.subscription.EnrichedEvent
+import tech.checkstory.read.subscription.EventEnvelope
 import java.util.concurrent.ConcurrentHashMap
 
 class NotificationSubscription(
@@ -25,8 +25,8 @@ class NotificationSubscription(
         }
     }
 
-    private suspend fun handleEvent(enrichedEvent: EnrichedEvent) {
-        val userId = enrichedEvent.metadata.userId
+    private suspend fun handleEvent(eventEnvelope: EventEnvelope) {
+        val userId = eventEnvelope.metadata.userId
         val job = userIdToNotificationJob[userId]
         if (job != null) {
             println("Cancelling user data change notification to debounce the event")

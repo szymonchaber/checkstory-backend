@@ -16,6 +16,7 @@ import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.checklist.domain.aggregate.Checklist
 import tech.checkstory.checklist.domain.aggregate.Task
 import tech.checkstory.domain.command.DtoUUID
+import tech.checkstory.template.data.commonRetry
 import tech.checkstory.template.data.entity.TemplateEntity
 import tech.checkstory.template.data.table.TemplateTable
 import java.util.*
@@ -42,11 +43,13 @@ class RelationalChecklistRepository(
 
     suspend fun create(checklist: Checklist) {
         dbQuery {
-            ChecklistEntity.new(checklist.id) {
-                userId = checklist.userId
-                templateId = EntityID(checklist.templateId, TemplateTable)
-                notes = checklist.notes
-                createdAt = checklist.createdAt.toLocalDateTime(TimeZone.UTC)
+            commonRetry {
+                ChecklistEntity.new(checklist.id) {
+                    userId = checklist.userId
+                    templateId = EntityID(checklist.templateId, TemplateTable)
+                    notes = checklist.notes
+                    createdAt = checklist.createdAt.toLocalDateTime(TimeZone.UTC)
+                }
             }
             checklist.tasks.forEach {
                 insertTask(it, null)
@@ -54,13 +57,15 @@ class RelationalChecklistRepository(
         }
     }
 
-    private fun insertTask(task: Task, parentId: EntityID<UUID>?) {
-        val parent = TaskEntity.new(task.id) {
-            title = task.title
-            checklistId = EntityID(task.checklistId, ChecklistTable)
-            parent = parentId
-            sortPosition = task.sortPosition
-            isChecked = task.isChecked
+    private suspend fun insertTask(task: Task, parentId: EntityID<UUID>?) {
+        val parent = commonRetry {
+            TaskEntity.new(task.id) {
+                title = task.title
+                checklistId = EntityID(task.checklistId, ChecklistTable)
+                parent = parentId
+                sortPosition = task.sortPosition
+                isChecked = task.isChecked
+            }
         }
         task.children.forEach { child ->
             insertTask(child, parent.id)

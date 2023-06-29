@@ -44,7 +44,9 @@ class RelationalTemplateRepository(private val database: Database) {
                 insertTask(it, null)
             }
             template.reminders.forEach {
-                ReminderEntity.fromDomainReminder(it)
+                commonRetry {
+                    ReminderEntity.fromDomainReminder(it)
+                }
             }
         }
     }
@@ -63,10 +65,12 @@ class RelationalTemplateRepository(private val database: Database) {
 
     suspend fun addTask(aggregateId: DtoUUID, taskId: DtoUUID, parentTaskId: DtoUUID?) {
         dbQuery {
-            TemplateTaskEntity.new(taskId) {
-                title = ""
-                parent = parentTaskId?.let { EntityID(it, TemplateTaskTable) }
-                template = EntityID(aggregateId, TemplateTable)
+            commonRetry {
+                TemplateTaskEntity.new(taskId) {
+                    title = ""
+                    parent = parentTaskId?.let { EntityID(it, TemplateTaskTable) }
+                    template = EntityID(aggregateId, TemplateTable)
+                }
             }
         }
     }
@@ -97,12 +101,14 @@ class RelationalTemplateRepository(private val database: Database) {
         }
     }
 
-    private fun insertTask(templateTask: TemplateTask, parentId: EntityID<UUID>?) {
-        val entity = TemplateTaskEntity.new(templateTask.id) {
-            title = templateTask.title
-            parent = parentId
-            template = EntityID(templateTask.templateId, TemplateTable)
-            sortPosition = templateTask.sortPosition
+    private suspend fun insertTask(templateTask: TemplateTask, parentId: EntityID<UUID>?) {
+        val entity = commonRetry {
+            TemplateTaskEntity.new(templateTask.id) {
+                title = templateTask.title
+                parent = parentId
+                template = EntityID(templateTask.templateId, TemplateTable)
+                sortPosition = templateTask.sortPosition
+            }
         }
         templateTask.children.forEach {
             insertTask(it, entity.id)
@@ -111,7 +117,9 @@ class RelationalTemplateRepository(private val database: Database) {
 
     suspend fun addReminder(reminder: Reminder) {
         dbQuery {
-            ReminderEntity.fromDomainReminder(reminder)
+            commonRetry {
+                ReminderEntity.fromDomainReminder(reminder)
+            }
         }
     }
 

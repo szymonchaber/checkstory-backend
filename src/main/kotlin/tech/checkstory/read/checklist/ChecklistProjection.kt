@@ -3,6 +3,7 @@ package tech.checkstory.read.checklist
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.withContext
 import tech.checkstory.checklist.domain.RelationalChecklistRepository
@@ -19,6 +20,9 @@ class ChecklistProjection(
         withContext(Dispatchers.Default) {
             eventBus
                 .events
+                .map {
+                    it.event
+                }
                 .filterIsInstance<ChecklistEvent>()
                 .onEach(::handleEvent)
                 .collect()

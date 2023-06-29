@@ -3,6 +3,7 @@ package tech.checkstory.read.template
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.withContext
 import tech.checkstory.eventbus.EventBus
@@ -19,6 +20,7 @@ class TemplateProjection(
         withContext(Dispatchers.Default) {
             eventBus
                 .events
+                .map { it.event }
                 .filterIsInstance<TemplateEvent>()
                 .onEach(::handleEvent)
                 .collect()

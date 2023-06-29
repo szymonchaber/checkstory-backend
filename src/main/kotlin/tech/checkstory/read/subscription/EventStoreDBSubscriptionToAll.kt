@@ -75,7 +75,7 @@ class EventStoreDBSubscriptionToAll(
             .firstNotNullOf {
                 if (it.knownEventTypes.contains(resolvedEvent.event.eventType)) {
                     it.deserializeEventWithMetadata(resolvedEvent)?.let { (event, metadata) ->
-                        EnrichedEvent(event, metadata)
+                        EventEnvelope(event, metadata)
                     }
                 } else {
                     null
@@ -91,4 +91,4 @@ class EventStoreDBSubscriptionToAll(
     }
 }
 
-data class EnrichedEvent(val event: DomainEvent, val metadata: EventMetadata) : DomainEvent by event
+data class EventEnvelope(val event: DomainEvent, val metadata: EventMetadata)
