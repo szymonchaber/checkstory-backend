@@ -43,13 +43,11 @@ class RelationalChecklistRepository(
 
     suspend fun create(checklist: Checklist) {
         dbQuery {
-            commonRetry {
-                ChecklistEntity.new(checklist.id) {
-                    userId = checklist.userId
-                    templateId = EntityID(checklist.templateId, TemplateTable)
-                    notes = checklist.notes
-                    createdAt = checklist.createdAt.toLocalDateTime(TimeZone.UTC)
-                }
+            ChecklistEntity.new(checklist.id) {
+                userId = checklist.userId
+                templateId = EntityID(checklist.templateId, TemplateTable)
+                notes = checklist.notes
+                createdAt = checklist.createdAt.toLocalDateTime(TimeZone.UTC)
             }
             checklist.tasks.forEach {
                 insertTask(it, null)
@@ -57,15 +55,13 @@ class RelationalChecklistRepository(
         }
     }
 
-    private suspend fun insertTask(task: Task, parentId: EntityID<UUID>?) {
-        val parent = commonRetry {
-            TaskEntity.new(task.id) {
-                title = task.title
-                checklistId = EntityID(task.checklistId, ChecklistTable)
-                parent = parentId
-                sortPosition = task.sortPosition
-                isChecked = task.isChecked
-            }
+    private fun insertTask(task: Task, parentId: EntityID<UUID>?) {
+        val parent = TaskEntity.new(task.id) {
+            title = task.title
+            checklistId = EntityID(task.checklistId, ChecklistTable)
+            parent = parentId
+            sortPosition = task.sortPosition
+            isChecked = task.isChecked
         }
         task.children.forEach { child ->
             insertTask(child, parent.id)
@@ -83,10 +79,6 @@ class RelationalChecklistRepository(
         }
     }
 
-    private suspend fun <T> dbQuery(block: suspend () -> T): T {
-        return newSuspendedTransaction(Dispatchers.IO) { block() }
-    }
-
     suspend fun changeTaskChecked(taskId: DtoUUID, isChecked: Boolean) {
         dbQuery {
             TaskEntity.findById(taskId)?.isChecked = isChecked
@@ -102,6 +94,14 @@ class RelationalChecklistRepository(
     suspend fun delete(checklistId: DtoUUID) {
         dbQuery {
             ChecklistEntity.findById(checklistId)?.delete()
+        }
+    }
+
+    private suspend fun <T> dbQuery(block: suspend () -> T): T {
+        return newSuspendedTransaction(Dispatchers.IO) {
+            commonRetry {
+                block()
+            }
         }
     }
 }
