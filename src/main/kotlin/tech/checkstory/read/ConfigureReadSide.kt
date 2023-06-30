@@ -1,11 +1,11 @@
 package tech.checkstory.read
 
-import com.eventstore.dbclient.EventStoreDBClient
 import io.ktor.server.application.*
 import kotlinx.coroutines.*
 import org.kodein.di.DI
 import org.kodein.di.instance
 import tech.checkstory.data.EventMapper
+import tech.checkstory.data.EventStoreConnectionManager
 import tech.checkstory.eventbus.EventBus
 import tech.checkstory.read.checklist.ChecklistProjection
 import tech.checkstory.read.subscription.EventStoreDBSubscriptionToAll
@@ -15,9 +15,9 @@ import tech.checkstory.sync.NotificationSubscription
 context(DI)
 fun Application.configureReadSide() {
     val eventBus by instance<EventBus>()
-    val client by instance<EventStoreDBClient>()
+    val connectionManager by instance<EventStoreConnectionManager>()
     val mappers by instance<Set<EventMapper<*>>>()
-    val subscription = EventStoreDBSubscriptionToAll(client, eventBus, mappers)
+    val subscription = EventStoreDBSubscriptionToAll(connectionManager, eventBus, mappers)
     val templateProjection by instance<TemplateProjection>()
     val checklistProjection by instance<ChecklistProjection>()
     val notificationSubscription by instance<NotificationSubscription>()

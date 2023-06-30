@@ -1,7 +1,5 @@
 package tech.checkstory
 
-import com.eventstore.dbclient.EventStoreDBClient
-import com.eventstore.dbclient.EventStoreDBConnectionString
 import com.typesafe.config.Config
 import com.typesafe.config.ConfigFactory
 import io.ktor.server.application.*
@@ -15,6 +13,7 @@ import tech.checkstory.checklist.domain.RelationalChecklistRepository
 import tech.checkstory.checklist.domain.event.ChecklistEvent
 import tech.checkstory.data.EventMapper
 import tech.checkstory.data.EventRepository
+import tech.checkstory.data.EventStoreConnectionManager
 import tech.checkstory.eventbus.EventBus
 import tech.checkstory.notification.data.FirebaseMessagingTokenRepository
 import tech.checkstory.notification.firebase.UserDataChangeNotifier
@@ -51,10 +50,9 @@ val Application.commonDI
         bindSingleton {
             EventBus()
         }
-        bind<EventStoreDBClient>() with singleton {
+        bindSingleton<EventStoreConnectionManager> {
             val connectionString = instance<Config>().getString("eventStore.connectionString")!!
-            val settings = EventStoreDBConnectionString.parse(connectionString)
-            EventStoreDBClient.create(settings)
+            EventStoreConnectionManager(connectionString)
         }
         bindSingleton {
             RelationalTemplateRepository(instance())

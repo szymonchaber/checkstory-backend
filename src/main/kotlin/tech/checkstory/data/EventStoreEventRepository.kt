@@ -11,13 +11,13 @@ import tech.checkstory.domain.event.DomainEvent
 import java.util.*
 
 abstract class EventStoreEventRepository<T : DomainEvent>(
-    private val client: EventStoreDBClient,
+    private val connectionManager: EventStoreConnectionManager,
     private val eventMapper: EventMapper<T>,
 ) : EventRepository<T> {
 
     override suspend fun getAllGrouped(): Map<DtoUUID, List<T>> {
         val result = withContext(Dispatchers.IO) {
-            client.readAll(ReadAllOptions.get().fromStart().forwards()).await()
+            connectionManager.getClient().readAll(ReadAllOptions.get().fromStart().forwards()).await()
         }
         return result.events
             .mapNotNull(eventMapper::deserializeEventWithAggregateId)
@@ -27,7 +27,8 @@ abstract class EventStoreEventRepository<T : DomainEvent>(
     override suspend fun getEventsForAggregate(id: UUID): List<T> {
         val result = withContext(Dispatchers.IO) {
             try {
-                client.readStream("${eventMapper.fullStreamNamePrefix}$id", readStreamOptions()).await().events
+                connectionManager.getClient().readStream("${eventMapper.fullStreamNamePrefix}$id", readStreamOptions())
+                    .await().events
             } catch (exception: StreamNotFoundException) {
                 listOf()
             }
@@ -44,7 +45,9 @@ abstract class EventStoreEventRepository<T : DomainEvent>(
     context(AuthenticatedScope)
     override suspend fun save(event: T, aggregateId: DtoUUID) {
         val eventData = eventMapper.toEventData(event, principal)
-        client.appendToStream("${eventMapper.fullStreamNamePrefix}$aggregateId", eventData).await()
+        connectionManager.getClient()
+            .appendToStream("${eventMapper.fullStreamNamePrefix}$aggregateId", eventData)
+            .await()
     }
 
     context(AuthenticatedScope)
@@ -52,7 +55,9 @@ abstract class EventStoreEventRepository<T : DomainEvent>(
         val eventDataList = events.map {
             eventMapper.toEventData(it, principal)
         }
-        client.appendToStream("${eventMapper.fullStreamNamePrefix}$aggregateId", eventDataList.listIterator()).await()
+        connectionManager.getClient()
+            .appendToStream("${eventMapper.fullStreamNamePrefix}$aggregateId", eventDataList.listIterator())
+            .await()
     }
 }
 

@@ -1,19 +1,24 @@
 package tech.checkstory.read.subscription
 
-import com.eventstore.dbclient.*
+import com.eventstore.dbclient.Position
+import com.eventstore.dbclient.ResolvedEvent
+import com.eventstore.dbclient.Subscription
+import com.eventstore.dbclient.SubscriptionListener
 import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.future.await
 import org.slf4j.LoggerFactory
 import tech.checkstory.data.EventMapper
 import tech.checkstory.data.EventMetadata
+import tech.checkstory.data.EventStoreConnectionManager
 import tech.checkstory.domain.event.DomainEvent
 import tech.checkstory.eventbus.EventBus
+import kotlin.math.min
+import kotlin.math.pow
 
 class EventStoreDBSubscriptionToAll(
-    private val eventStoreClient: EventStoreDBClient,
+    private val connectionManager: EventStoreConnectionManager,
 //    private val checkpointRepository: SubscriptionCheckpointRepository,
     private val eventBus: EventBus,
     private val mappers: Set<EventMapper<*>>
@@ -26,7 +31,9 @@ class EventStoreDBSubscriptionToAll(
 
     private suspend fun subscribeToAll(subscriptionOptions: EventStoreDBSubscriptionToAllOptions) {
         callbackFlow {
+            var subscription: Subscription? = null
             try {
+                logger.info("Starting / restarting subscription")
 //            val checkpoint = checkpointRepository.load(subscriptionOptions.subscriptionId)
                 val checkpoint: Long? = null
                 if (checkpoint != null) {
@@ -36,7 +43,7 @@ class EventStoreDBSubscriptionToAll(
                     subscriptionOptions.subscribeToAllOptions.fromStart()
                 }
                 logger.info("Subscribing to all ${subscriptionOptions.subscriptionId}")
-                val subscription = eventStoreClient.subscribeToAll(
+                subscription = connectionManager.getClient().subscribeToAll(
                     object : SubscriptionListener() {
 
                         override fun onEvent(subscription: Subscription, event: ResolvedEvent) {
@@ -44,26 +51,29 @@ class EventStoreDBSubscriptionToAll(
                                 trySend(event)
                             } catch (throwable: Throwable) {
                                 logger.error("Error while handling event", throwable)
-                                throw RuntimeException(throwable)
+                                close(throwable)
                             }
                         }
 
                         override fun onError(subscription: Subscription, throwable: Throwable) {
                             logger.error("Subscription was dropped", throwable)
-                            throw RuntimeException(throwable)
+                            close(throwable)
                         }
                     },
                     subscriptionOptions.subscribeToAllOptions
                 ).await()
-
-                awaitClose {
-                    subscription.stop()
-                }
-            } catch (e: Throwable) {
-                logger.error("Error while starting subscription", e)
-                throw RuntimeException(e)
+            } catch (throwable: Throwable) {
+                logger.error("Error while starting subscription", throwable)
+                close(throwable)
+            }
+            awaitClose {
+                subscription?.stop()
             }
         }
+            .retryExponential(
+                initialDelay = 100L,
+                maxDelay = 5000L
+            )
             .onEach {
                 handleEvent(it, subscriptionOptions.subscriptionId)
             }
@@ -92,3 +102,14 @@ class EventStoreDBSubscriptionToAll(
 }
 
 data class EventEnvelope(val event: DomainEvent, val metadata: EventMetadata)
+
+fun <T> Flow<T>.retryExponential(
+    initialDelay: Long,
+    maxDelay: Long
+): Flow<T> {
+    return retryWhen { _, attempt ->
+        val interval = (initialDelay * 2.toDouble().pow(attempt.toDouble())).toLong()
+        delay(min(maxDelay, interval))
+        return@retryWhen true
+    }
+}
