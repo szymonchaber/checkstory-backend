@@ -3,10 +3,10 @@ package tech.checkstory.template.data.entity
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import org.jetbrains.exposed.dao.UUIDEntity
-import org.jetbrains.exposed.dao.UUIDEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.sql.SizedIterable
 import org.jetbrains.exposed.sql.SortOrder
+import tech.checkstory.data.UpsertableUUIDEntityClass
 import tech.checkstory.template.data.table.ReminderTable
 import tech.checkstory.template.data.table.TemplateTable
 import tech.checkstory.template.data.table.TemplateTaskTable
@@ -15,7 +15,7 @@ import java.util.*
 
 class TemplateEntity(id: EntityID<UUID>) : UUIDEntity(id) {
 
-    companion object : UUIDEntityClass<TemplateEntity>(TemplateTable)
+    companion object : UpsertableUUIDEntityClass<TemplateEntity>(TemplateTable)
 
     var title by TemplateTable.title
     var description by TemplateTable.description

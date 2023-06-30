@@ -5,7 +5,6 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.exposed.dao.UUIDEntity
-import org.jetbrains.exposed.dao.UUIDEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.sql.*
@@ -15,6 +14,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.checklist.domain.aggregate.Checklist
 import tech.checkstory.checklist.domain.aggregate.Task
+import tech.checkstory.data.UpsertableUUIDEntityClass
 import tech.checkstory.domain.command.DtoUUID
 import tech.checkstory.template.data.commonRetry
 import tech.checkstory.template.data.entity.TemplateEntity
@@ -116,7 +116,7 @@ object ChecklistTable : UUIDTable() {
 
 class ChecklistEntity(id: EntityID<UUID>) : UUIDEntity(id) {
 
-    companion object : UUIDEntityClass<ChecklistEntity>(ChecklistTable)
+    companion object : UpsertableUUIDEntityClass<ChecklistEntity>(ChecklistTable)
 
     var notes by ChecklistTable.notes
     var userId by ChecklistTable.userId
@@ -156,7 +156,7 @@ object TaskTable : UUIDTable() {
 
 class TaskEntity(id: EntityID<UUID>) : UUIDEntity(id) {
 
-    companion object : UUIDEntityClass<TaskEntity>(TaskTable)
+    companion object : UpsertableUUIDEntityClass<TaskEntity>(TaskTable)
 
     var title by TaskTable.title
     var checklistId by TaskTable.checklist

@@ -6,8 +6,8 @@ import com.philjay.Weekday
 import com.philjay.WeekdayNum
 import kotlinx.datetime.DayOfWeek
 import org.jetbrains.exposed.dao.UUIDEntity
-import org.jetbrains.exposed.dao.UUIDEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
+import tech.checkstory.data.UpsertableUUIDEntityClass
 import tech.checkstory.template.data.table.ReminderTable
 import tech.checkstory.template.data.table.TemplateTable
 import tech.checkstory.template.domain.aggregate.Interval
@@ -60,7 +60,7 @@ class ReminderEntity(id: EntityID<UUID>) : UUIDEntity(id) {
         }
     }
 
-    companion object : UUIDEntityClass<ReminderEntity>(ReminderTable) {
+    companion object : UpsertableUUIDEntityClass<ReminderEntity>(ReminderTable) {
 
         fun fromDomainReminder(reminder: Reminder): ReminderEntity {
             return when (reminder) {
