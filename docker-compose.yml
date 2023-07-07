@@ -42,6 +42,7 @@ services:
       - EVENTSTORE_INSECURE=true
       - EVENTSTORE_ENABLE_EXTERNAL_TCP=true
       - EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP=true
+    restart: always
     networks:
       - services
     ports:
@@ -51,7 +52,10 @@ services:
       - eventstore_data:/var/lib/eventstore
       - eventstore_logs:/var/log/eventstore
   nginx:
-    image: us-central1-docker.pkg.dev/checkstory-940fc/checkstory-nginx/checkstory-nginx:latest
+    image: nginx
+    restart: always
+    volumes:
+      - nginx_conf:/etc/nginx:ro
     networks:
       - services
     ports:
@@ -67,3 +71,4 @@ volumes:
   postgres_data:
   eventstore_data:
   eventstore_logs:
+  nginx_conf:
