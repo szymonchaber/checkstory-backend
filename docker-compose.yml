@@ -3,6 +3,7 @@ version: '3'
 services:
   backend:
     image: us-central1-docker.pkg.dev/checkstory-940fc/checkstory-images/checkstory-backend
+    restart: always
     ports:
       - "8080:8080"
     networks:
@@ -19,6 +20,7 @@ services:
         condition: service_healthy
   postgresql:
     image: postgres:latest
+    restart: always
     networks:
       - services
     ports:
@@ -51,11 +53,19 @@ services:
     volumes:
       - eventstore_data:/var/lib/eventstore
       - eventstore_logs:/var/log/eventstore
+  certbot:
+    image: certbot/certbot
+    restart: always
+    volumes:
+      - certbot_conf:/etc/letsencrypt
+      - certbot_www:/var/www/certbot
   nginx:
     image: nginx
     restart: always
     volumes:
       - nginx_conf:/etc/nginx:ro
+      - certbot_conf:/etc/letsencrypt:ro
+      - certbot_www:/var/www/certbot:ro
     networks:
       - services
     ports:
@@ -72,3 +82,5 @@ volumes:
   eventstore_data:
   eventstore_logs:
   nginx_conf:
+  certbot_conf:
+  certbot_www:
