@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   backend:
@@ -33,8 +33,8 @@ services:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 1s
   esdb-node:
-    image: eventstore/eventstore:22.10.1-alpha-arm64v8
-    #    image: eventstore/eventstore:latest
+    #    image: eventstore/eventstore:22.10.1-alpha-arm64v8
+    image: eventstore/eventstore:latest
     environment:
       - EVENTSTORE_CLUSTER_SIZE=1
       - EVENTSTORE_RUN_PROJECTIONS=All
@@ -54,11 +54,12 @@ services:
       - eventstore_data:/var/lib/eventstore
       - eventstore_logs:/var/log/eventstore
   certbot:
-    image: certbot/certbot
-    restart: always
+    image: certbot/certbot:latest
+    networks:
+      - services
     volumes:
-      - certbot_conf:/etc/letsencrypt
-      - certbot_www:/var/www/certbot
+      - certbot_conf:/etc/letsencrypt:rw
+      - certbot_www:/var/www/certbot:rw
   nginx:
     image: nginx
     restart: always
@@ -70,6 +71,7 @@ services:
       - services
     ports:
       - "80:80"
+      - "443:443"
     depends_on:
       backend:
         condition: service_started
