@@ -2,7 +2,7 @@ version: '3'
 
 services:
   backend:
-    build: .
+    image: us-central1-docker.pkg.dev/checkstory-940fc/checkstory-images/checkstory-backend
     ports:
       - "8080:8080"
     networks:
@@ -51,7 +51,7 @@ services:
       - eventstore_data:/var/lib/eventstore
       - eventstore_logs:/var/log/eventstore
   nginx:
-    build: nginx
+    image: us-central1-docker.pkg.dev/checkstory-940fc/checkstory-nginx/checkstory-nginx:latest
     networks:
       - services
     ports:
