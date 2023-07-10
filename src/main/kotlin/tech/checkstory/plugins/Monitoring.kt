@@ -1,14 +1,16 @@
 package tech.checkstory.plugins
 
 import io.ktor.server.application.*
+import io.ktor.server.plugins.*
 import io.ktor.server.plugins.callloging.*
 import io.ktor.server.request.*
-import org.slf4j.event.Level
 
 fun Application.configureMonitoring() {
     install(CallLogging) {
-        level = Level.INFO // TODO back to info maybe
-        filter { call -> call.request.path().startsWith("/") }
+        filter { call ->
+            call.request.path().startsWith("/")
+        }
+//        configureCustomFormat()
     }
 //    install(DropwizardMetrics) {
 //        Slf4jReporter.forRegistry(registry)
@@ -18,4 +20,18 @@ fun Application.configureMonitoring() {
 //            .build()
 //            .start(10, TimeUnit.SECONDS)
 //    }
+}
+
+private fun CallLoggingConfig.configureCustomFormat() {
+    format { call ->
+        StringBuilder().apply {
+            appendLine("Received request:")
+            val requestURI = call.request.origin.uri
+            appendLine(call.request.origin.run { "${method.value} $scheme://$localHost:$localPort$requestURI $version" })
+
+            call.request.headers.forEach { header, values ->
+                appendLine("$header: ${values.firstOrNull()}")
+            }
+        }.toString()
+    }
 }
