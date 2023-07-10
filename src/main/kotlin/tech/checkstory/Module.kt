@@ -1,6 +1,7 @@
 package tech.checkstory
 
 import io.ktor.server.application.*
+import io.ktor.server.plugins.forwardedheaders.*
 import org.kodein.di.DI
 import tech.checkstory.auth.firebase.Firebase
 import tech.checkstory.auth.user.configureUserService
@@ -17,6 +18,10 @@ import tech.checkstory.template.configureTemplate
 context(DI)
 fun Application.module() {
     Firebase.init()
+    install(ForwardedHeaders)
+    install(XForwardedHeaders) {
+        useFirstProxy()
+    }
     configureSecurity()
     configurePayment()
     configureHTTP()

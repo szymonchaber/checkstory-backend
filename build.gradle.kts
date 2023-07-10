@@ -70,6 +70,7 @@ dependencies {
     implementation("io.ktor:ktor-server-default-headers-jvm:2.3.1")
     implementation("io.ktor:ktor-server-http-redirect-jvm:2.3.1")
     implementation("io.ktor:ktor-server-cors-jvm:2.3.1")
+    implementation("io.ktor:ktor-server-forwarded-header:2.3.1")
     implementation("io.ktor:ktor-server-openapi:2.3.1")
     implementation("io.ktor:ktor-server-swagger:2.3.1")
     implementation("io.ktor:ktor-server-call-logging-jvm:2.3.1")
