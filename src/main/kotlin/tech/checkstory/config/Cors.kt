@@ -13,9 +13,16 @@ fun Application.cors() {
         allowHeader(HttpHeaders.Authorization)
         allowHeader(HttpHeaders.AccessControlAllowOrigin)
         allowHeader(HttpHeaders.ContentType)
+        allowHeader(HttpHeaders.AcceptEncoding)
+        allowHeader(HttpHeaders.UserAgent)
+        allowHeader(HttpHeaders.Connection)
+        allowHeader(HttpHeaders.Host)
+        allowHeader("X-Real-IP")
+        allowHeader(HttpHeaders.XForwardedFor)
+        allowHeader(HttpHeaders.XForwardedProto)
         allowNonSimpleContentTypes = true
         allowCredentials = true
         allowSameOrigin = true
-        allowHost("*", listOf("http", "https")) // TODO frontendHost might be "*" but should not be
+        anyHost()
     }
 }
