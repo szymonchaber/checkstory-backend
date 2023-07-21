@@ -1,4 +1,4 @@
-Building & deploying
+### Building & deploying
 
 Build Docker image for the backend service & push to the artifact store:
 
@@ -15,3 +15,8 @@ There, run
 ```
 docker compose up -d
 ```
+
+### Deploying from scratch
+
+https://mindsers.blog/post/https-using-nginx-certbot-docker/
+(remember to comment out half of nginx/nginx.conf, then request a certificate, then restart with full nginx config)
