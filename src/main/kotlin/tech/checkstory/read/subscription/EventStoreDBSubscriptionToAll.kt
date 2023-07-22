@@ -19,7 +19,7 @@ import kotlin.math.pow
 
 class EventStoreDBSubscriptionToAll(
     private val connectionManager: EventStoreConnectionManager,
-//    private val checkpointRepository: SubscriptionCheckpointRepository,
+    private val checkpointRepository: SubscriptionCheckpointRepository,
     private val eventBus: EventBus,
     private val mappers: Set<EventMapper<*>>
 ) {
@@ -34,8 +34,7 @@ class EventStoreDBSubscriptionToAll(
             var subscription: Subscription? = null
             try {
                 logger.info("Starting / restarting subscription")
-//            val checkpoint = checkpointRepository.load(subscriptionOptions.subscriptionId)
-                val checkpoint: Long? = null
+                val checkpoint = checkpointRepository.load(subscriptionOptions.subscriptionId)
                 if (checkpoint != null) {
                     subscriptionOptions.subscribeToAllOptions
                         .fromPosition(Position(checkpoint, checkpoint))
@@ -58,6 +57,10 @@ class EventStoreDBSubscriptionToAll(
                         override fun onError(subscription: Subscription, throwable: Throwable) {
                             logger.error("Subscription was dropped", throwable)
                             close(throwable)
+                        }
+
+                        override fun onCancelled(subscription: Subscription?) {
+                            close()
                         }
                     },
                     subscriptionOptions.subscribeToAllOptions
@@ -82,7 +85,7 @@ class EventStoreDBSubscriptionToAll(
 
     private suspend fun handleEvent(resolvedEvent: ResolvedEvent, subscriptionId: String) {
         mappers
-            .firstNotNullOf {
+            .firstNotNullOfOrNull {
                 if (it.knownEventTypes.contains(resolvedEvent.event.eventType)) {
                     it.deserializeEventWithMetadata(resolvedEvent)?.let { (event, metadata) ->
                         EventEnvelope(event, metadata)
@@ -90,13 +93,13 @@ class EventStoreDBSubscriptionToAll(
                 } else {
                     null
                 }
-            }.let {
+            }?.let {
                 eventBus.publish(it)
                 logger.debug("Setting checkpoint at ${resolvedEvent.event.position.commitUnsigned}")
-//                checkpointRepository.store(
-//                     subscriptionId,
-//                    resolvedEvent.event.position.commitUnsigned
-//                )
+                checkpointRepository.store(
+                    subscriptionId,
+                    resolvedEvent.event.position.commitUnsigned
+                )
             }
     }
 }

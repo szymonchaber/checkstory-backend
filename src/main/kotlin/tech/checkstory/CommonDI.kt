@@ -22,6 +22,7 @@ import tech.checkstory.payment.data.google_play.SubscriptionsGoogleApi
 import tech.checkstory.payment.domain.GetPaymentStateUseCase
 import tech.checkstory.plugins.connectToPostgres
 import tech.checkstory.read.checklist.ChecklistProjection
+import tech.checkstory.read.subscription.SubscriptionCheckpointRepository
 import tech.checkstory.read.template.TemplateProjection
 import tech.checkstory.sync.NotificationSubscription
 import tech.checkstory.template.data.EventSourcedTemplateRepository
@@ -53,6 +54,9 @@ val Application.commonDI
         bindSingleton<EventStoreConnectionManager> {
             val connectionString = instance<Config>().getString("eventStore.connectionString")!!
             EventStoreConnectionManager(connectionString)
+        }
+        bindSingleton {
+            SubscriptionCheckpointRepository(instance())
         }
         bindSingleton {
             RelationalTemplateRepository(instance())

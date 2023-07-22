@@ -9,6 +9,7 @@ import tech.checkstory.data.EventStoreConnectionManager
 import tech.checkstory.eventbus.EventBus
 import tech.checkstory.read.checklist.ChecklistProjection
 import tech.checkstory.read.subscription.EventStoreDBSubscriptionToAll
+import tech.checkstory.read.subscription.SubscriptionCheckpointRepository
 import tech.checkstory.read.template.TemplateProjection
 import tech.checkstory.sync.NotificationSubscription
 
@@ -17,7 +18,9 @@ fun Application.configureReadSide() {
     val eventBus by instance<EventBus>()
     val connectionManager by instance<EventStoreConnectionManager>()
     val mappers by instance<Set<EventMapper<*>>>()
-    val subscription = EventStoreDBSubscriptionToAll(connectionManager, eventBus, mappers)
+    val subscriptionCheckpointRepository by instance<SubscriptionCheckpointRepository>()
+    val subscription =
+        EventStoreDBSubscriptionToAll(connectionManager, subscriptionCheckpointRepository, eventBus, mappers)
     val templateProjection by instance<TemplateProjection>()
     val checklistProjection by instance<ChecklistProjection>()
     val notificationSubscription by instance<NotificationSubscription>()
