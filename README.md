@@ -20,3 +20,6 @@ docker compose up -d
 
 https://mindsers.blog/post/https-using-nginx-certbot-docker/
 (remember to comment out half of nginx/nginx.conf, then request a certificate, then restart with full nginx config)
+
+The Postgres password cannot contain $ signs because
+this https://stackoverflow.com/questions/40619582/how-can-i-escape-a-dollar-sign-in-a-docker-compose-file

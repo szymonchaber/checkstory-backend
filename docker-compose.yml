@@ -12,7 +12,7 @@ services:
       ESDB_CONNECTION_STRING: 'esdb://esdb-node:2113?tls=false&keepAliveTimeout=10000&keepAliveInterval=10000'
       POSTGRES_URL: 'jdbc:postgresql://postgresql:5432/postgres'
       POSTGRES_USER: 'postgres'
-      POSTGRES_PASSWORD: 'replace'
+      POSTGRES_PASSWORD: "replace"
     depends_on:
       postgresql:
         condition: service_healthy
@@ -28,7 +28,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      POSTGRES_PASSWORD: 'replace'
+      POSTGRES_PASSWORD: "replace"
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 1s
