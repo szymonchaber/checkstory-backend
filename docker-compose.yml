@@ -1,5 +1,7 @@
 version: '3.8'
 
+name: checkstory-backend
+
 services:
   backend:
     image: us-central1-docker.pkg.dev/checkstory-940fc/checkstory-images/checkstory-backend
