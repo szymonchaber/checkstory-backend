@@ -58,4 +58,10 @@ jobs:
         SSH_KEY: ${{ secrets.PRODUCTION_SSH_KEY }}
         SSH_HOST: ${{ secrets.PRODUCTION_HOST }}
     - name: Test ssh access
-      run: ssh production 'mkdir worker_did_this'
+      run: |
+        ssh production << END
+          echo $GH_CONTAINER_REGISTRY_TOKEN | docker login ghcr.io -u szymonchaber --password-stdin
+          docker pull ghcr.io/szymonchaber/checkstory-backend:master
+        END
+      env:
+        GH_CONTAINER_REGISTRY_TOKEN: ${{ SECRETS.GH_CONTAINER_REGISTRY_TOKEN }}
