@@ -71,4 +71,4 @@ jobs:
             docker pull ghcr.io/szymonchaber/checkstory-backend:master
           END
         env:
-          GH_CONTAINER_REGISTRY_TOKEN: ${{ SECRETS.GH_CONTAINER_REGISTRY_TOKEN }}
+          GH_CONTAINER_REGISTRY_TOKEN: ${{ secrets.GH_CONTAINER_REGISTRY_TOKEN }}

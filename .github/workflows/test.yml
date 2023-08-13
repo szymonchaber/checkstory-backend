@@ -1,0 +1,21 @@
+name: Test base 64 recreation
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Copy secret files
+        run: |
+          echo '$GOOGLE_SERVICE_ACCOUNT' | base64 --decode | jq > src/main/resources/google-service-account.json
+          echo '$FIREBASE_SERVICE_CREDENTIALS' | base64 --decode | jq > src/main/resources/firebase-service-credentials.json
+        env:
+          GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON_BASE_64 }}
+          FIREBASE_SERVICE_CREDENTIALS: ${{ secrets.FIREBASE_SERVICE_CREDENTIALS_JSON_BASE_64 }}
