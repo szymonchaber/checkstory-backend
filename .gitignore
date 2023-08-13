@@ -36,6 +36,6 @@ out/
 .vscode/
 
 /src/main/resources/firebase-service-credentials.json
-src/main/resources/checkstory-940fc-6593b2b68c13.json
+/src/main/resources/google-service-account.json
 
 /httpClient/http-client.private.env.json

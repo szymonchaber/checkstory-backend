@@ -14,7 +14,7 @@ class SubscriptionsGoogleApi {
     private val jsonFactory = JacksonFactory.getDefaultInstance()
 
     private val serviceAccount: InputStream =
-        this::class.java.classLoader.getResourceAsStream("checkstory-940fc-6593b2b68c13.json")!!
+        this::class.java.classLoader.getResourceAsStream("google-service-account.json")!!
     private val credentials = ServiceAccountCredentials.fromStream(serviceAccount)
     private val credentialAdapter = HttpCredentialsAdapter(credentials)
 
