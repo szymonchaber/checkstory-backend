@@ -41,3 +41,21 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
+    - name: Configure SSH
+      run: |
+        mkdir -p ~/.ssh/
+        echo "$SSH_KEY" > ~/.ssh/production.key
+        chmod 600 ~/.ssh/production.key
+        cat >>~/.ssh/config <<END
+        Host production
+          HostName $SSH_HOST
+          User $SSH_USER
+          IdentityFile ~/.ssh/production.key
+          StrictHostKeyChecking no
+        END
+      env:
+        SSH_USER: ${{ secrets.PRODUCTION_USER }}
+        SSH_KEY: ${{ secrets.PRODUCTION_SSH_KEY }}
+        SSH_HOST: ${{ secrets.PRODUCTION_HOST }}
+    - name: Test ssh access
+      run: ssh production 'mkdir worker_did_this'
