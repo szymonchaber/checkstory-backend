@@ -71,7 +71,7 @@ jobs:
             echo $GH_CONTAINER_REGISTRY_TOKEN | docker login ghcr.io -u szymonchaber --password-stdin
             docker compose down
             docker compose pull
-            docker compose up -d
+            POSTGRES_PASSWORD="$POSTGRES_PASSWORD" docker compose up -d
           END
         env:
           GH_CONTAINER_REGISTRY_TOKEN: ${{ secrets.GH_CONTAINER_REGISTRY_TOKEN }}
