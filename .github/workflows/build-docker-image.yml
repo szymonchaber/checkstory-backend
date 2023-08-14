@@ -64,11 +64,14 @@ jobs:
           SSH_USER: ${{ secrets.PRODUCTION_USER }}
           SSH_KEY: ${{ secrets.PRODUCTION_SSH_KEY }}
           SSH_HOST: ${{ secrets.PRODUCTION_HOST }}
-      - name: Test ssh access
+      - name: Deploy the new service
         run: |
+          scp docker-compose.yml production:~/docker-compose.yml
           ssh production << END
             echo $GH_CONTAINER_REGISTRY_TOKEN | docker login ghcr.io -u szymonchaber --password-stdin
-            docker pull ghcr.io/szymonchaber/checkstory-backend:master
+            docker compose down
+            docker compose pull
+            docker compose up -d
           END
         env:
           GH_CONTAINER_REGISTRY_TOKEN: ${{ secrets.GH_CONTAINER_REGISTRY_TOKEN }}
