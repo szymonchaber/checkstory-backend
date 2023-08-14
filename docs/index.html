@@ -3984,37 +3984,27 @@
                 escape: /^\\([\\`*{}\[\]()#+\-.!_>])/,
                 autolink: /^<([^ >]+(@|:\/)[^ >]+)>/,
                 url: noop,
-                tag: /^<!--[\s\S]*?--> | ^ <\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/,
-                link
+                tag: /^<!--[\s\S]*?--> | ^ <\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/, link
         :
-            /^!?\[(inside)\]\(href\)/,
-                reflink
+            /^!?\[(inside)\]\(href\)/, reflink
         :
-            /^!?\[(inside)\]\s*\[([^\]]*)\]/,
-                nolink
+            /^!?\[(inside)\]\s*\[([^\]]*)\]/, nolink
         :
-            /^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/,
-                strong
+            /^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/, strong
         :
-            /^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,
-                em
+            /^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/, em
         :
-            /^\b_((?:[^_]|__)+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,
-                code
+            /^\b_((?:[^_]|__)+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/, code
         :
-            /^(`+)\s*([\s\S]*?[^`])\s*\1(?!`)/,
-                br
+            /^(`+)\s*([\s\S]*?[^`])\s*\1(?!`)/, br
         :
-            /^ {2,}\n(?!\s*$)/,
-                del
+            /^ {2,}\n(?!\s*$)/, del
         :
-            noop,
-                text
+            noop, text
         :
             /^[\s\S]+?(?=[\\<!\[_*`]| {2,}\n|$)/
         }
-            ;
-            inline._inside = /(?:\[[^\]]*\]|[^\[\]]|\](?=[^\[]*\]))*/;
+            ;inline._inside = /(?:\[[^\]]*\]|[^\[\]]|\](?=[^\[]*\]))*/;
             inline._href = /\s*<?([\s\S]*?)>?(?:\s+['"]([\s\S]*?)['"])?\s*/;
             inline.link = replace(inline.link)("inside", inline._inside)("href", inline._href)();
             inline.reflink = replace(inline.reflink)("inside", inline._inside)();
@@ -12346,8 +12336,8 @@ except ApiException as e:
                     </div>
                     <hr>
                     <div id="api-Default-jsonKotlinxSerializationGet">
-                        <article data-group="User" data-name="jsonKotlinxSerializationGet" data-version="0"
-                                 id="api-Default-jsonKotlinxSerializationGet-0">
+                        <article data-group="User" data-name="jsonKotlinxSerializationGet"
+                                 data-version="0" id="api-Default-jsonKotlinxSerializationGet-0">
                             <div class="pull-left">
                                 <h1>jsonKotlinxSerializationGet</h1>
                                 <p></p>
