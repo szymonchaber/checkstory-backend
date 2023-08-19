@@ -32,12 +32,6 @@ class UserDataChangeNotifier(
             try {
                 Message.builder()
                     .setToken(token.token)
-                    .setNotification(
-                        Notification.builder()
-                            .setTitle("I might just have sent this to 400 people")
-                            .setBody("But maybe just 1")
-                            .build()
-                    )
                     .build() to token
             } catch (illegalArgumentException: IllegalArgumentException) {
                 null
