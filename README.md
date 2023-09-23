@@ -37,3 +37,12 @@ We should consider buying a remote server to backup to
 ```shell
 ./scripts/restore_backup.sh
 ```
+
+### Rebuilding a projection:
+
+1. Re-configure nginx to serve the maintenance page, redirecting the traffic from the server
+2. We should kill the backend entirely
+3. Drop tables relevant to the projection on Postgres
+4. Set the checkpoint stream to nothing in EventStore
+5. Fire up the backend again - it should start rebuilding the projection automatically
+6. When it's done (how do we tell?), then we can re-configure nginx back 
