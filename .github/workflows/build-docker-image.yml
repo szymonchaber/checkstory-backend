@@ -67,7 +67,7 @@ jobs:
       - name: Deploy the new service
         run: |
           scp docker-compose.yml production:~/docker-compose.yml
-          scp nginx/nginx.conf production:~/nginx.conf
+          scp -r nginx production:~/nginx
           ssh production << END
             echo $GH_CONTAINER_REGISTRY_TOKEN | docker login ghcr.io -u szymonchaber --password-stdin
             docker compose down
