@@ -66,7 +66,7 @@ services:
     image: nginx
     restart: always
     volumes:
-      - ~/nginx:/etc/nginx/nginx:ro
+      - ~/nginx:/etc/nginx:ro
       - certbot_conf:/etc/letsencrypt:ro
       - certbot_www:/var/www/certbot:ro
     networks:
