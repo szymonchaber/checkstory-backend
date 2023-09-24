@@ -50,7 +50,7 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-dao:$exposed_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
 
-    implementation("com.eventstore:db-client-java:4.1.1")
+    implementation("com.eventstore:db-client-java:4.3.0")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
 
     implementation("com.google.firebase:firebase-admin:9.1.1")

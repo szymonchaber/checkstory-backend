@@ -8,6 +8,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.future.await
+import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import tech.checkstory.data.EventMapper
 import tech.checkstory.data.EventMetadata
@@ -75,7 +76,8 @@ class EventStoreDBSubscriptionToAll(
         }
             .retryExponential(
                 initialDelay = 100L,
-                maxDelay = 5000L
+                maxDelay = 5000L,
+                logger
             )
             .onEach {
                 handleEvent(it, subscriptionOptions.subscriptionId)
@@ -109,11 +111,13 @@ data class EventEnvelope(val event: DomainEvent, val metadata: EventMetadata)
 
 fun <T> Flow<T>.retryExponential(
     initialDelay: Long,
-    maxDelay: Long
+    maxDelay: Long,
+    logger: Logger
 ): Flow<T> {
-    return retryWhen { _, attempt ->
+    return retryWhen { cause, attempt ->
         val interval = (initialDelay * 2.toDouble().pow(attempt.toDouble())).toLong()
         delay(min(maxDelay, interval))
+        logger.error("Flow failed", cause)
         return@retryWhen true
     }
 }
