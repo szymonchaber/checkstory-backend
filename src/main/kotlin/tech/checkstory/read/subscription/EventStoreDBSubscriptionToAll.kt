@@ -4,6 +4,7 @@ import com.eventstore.dbclient.Position
 import com.eventstore.dbclient.ResolvedEvent
 import com.eventstore.dbclient.Subscription
 import com.eventstore.dbclient.SubscriptionListener
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
@@ -74,6 +75,7 @@ class EventStoreDBSubscriptionToAll(
                 subscription?.stop()
             }
         }
+            .buffer(capacity = Channel.Factory.UNLIMITED)
             .retryExponential(
                 initialDelay = 100L,
                 maxDelay = 5000L,

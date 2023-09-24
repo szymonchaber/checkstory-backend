@@ -5,8 +5,7 @@ import kotlinx.coroutines.flow.SharedFlow
 import tech.checkstory.read.subscription.EventEnvelope
 
 class EventBus {
-
-    private val _events = MutableSharedFlow<EventEnvelope>()
+    private val _events = MutableSharedFlow<EventEnvelope>(extraBufferCapacity = Int.MAX_VALUE)
     val events: SharedFlow<EventEnvelope>
         get() = _events
 
