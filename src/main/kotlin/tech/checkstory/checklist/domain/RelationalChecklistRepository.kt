@@ -11,6 +11,7 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.kotlin.datetime.datetime
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.slf4j.LoggerFactory
 import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.checklist.domain.aggregate.Checklist
 import tech.checkstory.checklist.domain.aggregate.Task
@@ -24,6 +25,8 @@ import java.util.*
 class RelationalChecklistRepository(
     private val database: Database
 ) : ChecklistRepository {
+
+    private val logger = LoggerFactory.getLogger(RelationalChecklistRepository::class.java)
 
     init {
         transaction(database) {
@@ -93,7 +96,10 @@ class RelationalChecklistRepository(
 
     suspend fun delete(checklistId: DtoUUID) {
         dbQuery {
-            ChecklistEntity.findById(checklistId)?.delete()
+            ChecklistEntity.findById(checklistId)?.run {
+                delete()
+            }
+                ?: run { logger.warn("Attempted to delete checklist id=$checklistId which didn't exist in the first place") }
         }
     }
 
