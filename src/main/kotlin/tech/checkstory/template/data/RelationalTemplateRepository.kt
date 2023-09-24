@@ -5,6 +5,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.Op
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
@@ -39,6 +40,7 @@ class RelationalTemplateRepository(private val database: Database) {
                 title = template.name
                 description = template.description
                 createdAt = template.createdAt.toLocalDateTime(TimeZone.UTC)
+                isDeleted = template.isDeleted
             }
             template.tasks.forEach {
                 insertTask(it, null)
@@ -138,15 +140,15 @@ class RelationalTemplateRepository(private val database: Database) {
         return dbQuery {
             TemplateEntity
                 .find {
-                    TemplateTable.userId eq principal.userId
+                    TemplateTable.userId eq principal.userId and TemplateTable.isDeleted eq Op.FALSE
                 }
                 .map(TemplateEntity::toTemplate)
         }
     }
 
-    suspend fun delete(id: UUID) {
+    suspend fun markAsDeleted(id: UUID) {
         dbQuery {
-            TemplateEntity.findById(id)?.delete()
+            TemplateEntity.findById(id)?.isDeleted = true
         }
     }
 

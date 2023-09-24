@@ -21,6 +21,7 @@ class TemplateEntity(id: EntityID<UUID>) : UUIDEntity(id) {
     var description by TemplateTable.description
     var userId by TemplateTable.userId
     var createdAt by TemplateTable.createdAt
+    var isDeleted by TemplateTable.isDeleted
     val tasks: SizedIterable<TemplateTaskEntity> by TemplateTaskEntity referrersOn TemplateTaskTable.template
     val reminders: SizedIterable<ReminderEntity> by ReminderEntity referrersOn ReminderTable.template
 
@@ -37,7 +38,8 @@ class TemplateEntity(id: EntityID<UUID>) : UUIDEntity(id) {
                     it.parent == null
                 }
                 .map(TemplateTaskEntity::toTemplateTask),
-            reminders = reminders.map(ReminderEntity::toDomainReminder)
+            reminders = reminders.map(ReminderEntity::toDomainReminder),
+            isDeleted = isDeleted
         )
     }
 }

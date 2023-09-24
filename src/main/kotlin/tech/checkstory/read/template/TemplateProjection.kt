@@ -130,6 +130,6 @@ class TemplateProjection(
     }
 
     private suspend fun deleteTemplate(event: TemplateEvent.DeleteTemplateEvent) {
-        templateRepository.delete(event.aggregateId)
+        templateRepository.markAsDeleted(event.aggregateId)
     }
 }
