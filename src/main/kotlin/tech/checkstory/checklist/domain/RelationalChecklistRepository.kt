@@ -103,9 +103,9 @@ class RelationalChecklistRepository(
         }
     }
 
-    private suspend fun <T> dbQuery(block: suspend () -> T): T {
+    private suspend fun <T> dbQuery(tag: Any? = null, block: suspend () -> T): T {
         return newSuspendedTransaction(Dispatchers.IO) {
-            commonRetry {
+            commonRetry(tag) {
                 block()
             }
         }
