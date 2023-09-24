@@ -182,103 +182,103 @@ class TemplateAggregate(val id: UUID) {
         return when (this) {
             is TemplateCommand.CreateTemplateCommand -> {
                 TemplateEvent.CreateTemplateEvent(
-                    templateId,
-                    commandId,
-                    timestamp,
-                    userId,
-                    existingTemplateData
+                    aggregateId = templateId,
+                    eventId = commandId,
+                    timestamp = timestamp,
+                    userId = userId,
+                    existingTemplateData = existingTemplateData
                 )
             }
 
             is TemplateCommand.EditTemplateTitleCommand -> {
                 TemplateEvent.EditTemplateTitleEvent(
-                    newTitle,
-                    templateId,
-                    commandId,
-                    timestamp,
+                    newTitle = newTitle,
+                    aggregateId = templateId,
+                    eventId = commandId,
+                    timestamp = timestamp,
                 )
             }
 
             is TemplateCommand.EditTemplateDescriptionCommand -> {
                 TemplateEvent.EditTemplateDescriptionEvent(
-                    newDescription,
-                    templateId,
-                    commandId,
-                    timestamp,
+                    newDescription = newDescription,
+                    aggregateId = templateId,
+                    eventId = commandId,
+                    timestamp = timestamp,
                 )
             }
 
             is TemplateCommand.AddTemplateTaskCommand -> {
                 TemplateEvent.AddTemplateTaskEvent(
-                    taskId,
-                    parentTaskId,
-                    templateId,
-                    commandId,
-                    timestamp,
+                    taskId = taskId,
+                    parentTaskId = parentTaskId,
+                    aggregateId = templateId,
+                    eventId = commandId,
+                    timestamp = timestamp,
                 )
             }
 
             is TemplateCommand.RenameTemplateTaskCommand -> {
                 TemplateEvent.RenameTemplateTaskEvent(
-                    taskId,
-                    newTitle,
-                    templateId,
-                    commandId,
-                    timestamp,
+                    taskId = taskId,
+                    newTitle = newTitle,
+                    aggregateId = templateId,
+                    eventId = commandId,
+                    timestamp = timestamp,
                 )
             }
 
             is TemplateCommand.DeleteTemplateTaskCommand -> {
                 TemplateEvent.DeleteTemplateTaskEvent(
-                    taskId,
-                    templateId,
-                    commandId,
-                    timestamp,
+                    taskId = taskId,
+                    aggregateId = templateId,
+                    eventId = commandId,
+                    timestamp = timestamp,
                 )
             }
 
             is TemplateCommand.UpdateTasksPositionsCommandDto -> {
                 TemplateEvent.UpdateTasksPositionsEvent(
-                    taskIdToLocalPosition,
-                    templateId,
-                    commandId,
-                    timestamp,
+                    taskIdToLocalPosition = taskIdToLocalPosition,
+                    aggregateId = templateId,
+                    eventId = commandId,
+                    timestamp = timestamp,
                 )
             }
 
             is TemplateCommand.MoveTemplateTaskCommandDto -> {
                 TemplateEvent.MoveTemplateTaskEvent(
-                    taskId,
-                    newParentTaskId,
-                    templateId,
-                    commandId,
-                    timestamp,
+                    taskId = taskId,
+                    newParentTaskId = newParentTaskId,
+                    aggregateId = templateId,
+                    eventId = commandId,
+                    timestamp = timestamp,
                 )
             }
 
             is TemplateCommand.AddOrUpdateTemplateReminderCommandDto -> {
                 TemplateEvent.AddOrUpdateReminderEvent(
-                    reminder,
-                    templateId,
-                    commandId,
-                    timestamp,
+                    reminder = reminder,
+                    aggregateId = templateId,
+                    eventId = commandId,
+                    timestamp = timestamp,
                 )
             }
 
             is TemplateCommand.DeleteTemplateReminderCommandDto -> {
                 TemplateEvent.DeleteReminderEvent(
-                    reminderId,
-                    templateId,
-                    commandId,
-                    timestamp,
+                    reminderId = reminderId,
+                    aggregateId = templateId,
+                    eventId = commandId,
+                    timestamp = timestamp,
                 )
             }
 
             is TemplateCommand.DeleteTemplateCommandDto -> {
                 TemplateEvent.DeleteTemplateEvent(
-                    templateId,
-                    commandId,
-                    timestamp,
+                    aggregateId = templateId,
+                    eventId = commandId,
+                    timestamp = timestamp,
                 )
             }
         }

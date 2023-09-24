@@ -35,28 +35,28 @@ class ChecklistAggregate(val id: UUID) {
 
             is ChecklistCommand.EditChecklistNotesCommand -> {
                 ChecklistEvent.EditChecklistNotesEvent(
-                    checklistCommand.newNotes,
-                    checklistCommand.checklistId,
-                    checklistCommand.commandId,
-                    checklistCommand.timestamp,
+                    newNotes = checklistCommand.newNotes,
+                    aggregateId = checklistCommand.checklistId,
+                    eventId = checklistCommand.commandId,
+                    timestamp = checklistCommand.timestamp,
                 )
             }
 
             is ChecklistCommand.ChangeTaskCheckedCommand -> {
                 ChecklistEvent.ChangeTaskCheckedEvent(
-                    checklistCommand.taskId,
-                    checklistCommand.isChecked,
-                    checklistCommand.checklistId,
-                    checklistCommand.commandId,
-                    checklistCommand.timestamp
+                    taskId = checklistCommand.taskId,
+                    isChecked = checklistCommand.isChecked,
+                    aggregateId = checklistCommand.checklistId,
+                    eventId = checklistCommand.commandId,
+                    timestamp = checklistCommand.timestamp
                 )
             }
 
             is ChecklistCommand.DeleteChecklistCommand -> {
                 ChecklistEvent.DeleteChecklistEvent(
-                    checklistCommand.commandId,
-                    checklistCommand.checklistId,
-                    checklistCommand.timestamp
+                    aggregateId = checklistCommand.checklistId,
+                    eventId = checklistCommand.commandId,
+                    timestamp = checklistCommand.timestamp
                 )
             }
         }

@@ -94,6 +94,7 @@ class EventStoreDBSubscriptionToAll(
                     null
                 }
             }?.let {
+                logger.debug("Publishing event with id ${resolvedEvent.event.eventId}")
                 eventBus.publish(it)
                 logger.debug("Setting checkpoint at ${resolvedEvent.event.position.commitUnsigned}")
                 checkpointRepository.store(
