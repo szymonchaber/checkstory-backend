@@ -40,7 +40,11 @@ class RelationalChecklistRepository(
         return dbQuery {
             ChecklistEntity.find {
                 ChecklistTable.userId eq principal.userId and ChecklistTable.isDeleted eq Op.FALSE
-            }.map(ChecklistEntity::toChecklist)
+            }
+                .filterNot {
+                    it.template.isDeleted // TODO can we filter on some kind of join above?
+                }
+                .map(ChecklistEntity::toChecklist)
         }
     }
 
