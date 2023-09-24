@@ -10,6 +10,7 @@ import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.slf4j.LoggerFactory
 import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.domain.command.DtoUUID
 import tech.checkstory.template.data.entity.ReminderEntity
@@ -24,6 +25,8 @@ import tech.checkstory.template.domain.aggregate.TemplateTask
 import java.util.*
 
 class RelationalTemplateRepository(private val database: Database) {
+
+    private val logger = LoggerFactory.getLogger(RelationalTemplateRepository::class.java)
 
     init {
         transaction(database) {
@@ -154,7 +157,7 @@ class RelationalTemplateRepository(private val database: Database) {
 
     private suspend fun <T> dbQuery(block: suspend () -> T): T {
         return newSuspendedTransaction(Dispatchers.IO) {
-            commonRetry {
+            commonRetry(logger) {
                 block()
             }
         }
