@@ -64,6 +64,6 @@ class ChecklistProjection(
     }
 
     private suspend fun deleteChecklist(event: ChecklistEvent.DeleteChecklistEvent) {
-        checklistRepository.delete(event.aggregateId)
+//        checklistRepository.delete(event.aggregateId)
     }
 }
