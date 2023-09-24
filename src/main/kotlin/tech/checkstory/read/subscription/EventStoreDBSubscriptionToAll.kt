@@ -41,7 +41,7 @@ class EventStoreDBSubscriptionToAll(
                 } else {
                     subscriptionOptions.subscribeToAllOptions.fromStart()
                 }
-                logger.info("Subscribing to all ${subscriptionOptions.subscriptionId}")
+                logger.info("Subscribing to all ${subscriptionOptions.subscriptionId} from position $checkpoint")
                 subscription = connectionManager.getClient().subscribeToAll(
                     object : SubscriptionListener() {
 
