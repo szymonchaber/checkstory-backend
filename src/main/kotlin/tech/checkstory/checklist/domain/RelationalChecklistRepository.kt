@@ -39,7 +39,7 @@ class RelationalChecklistRepository(
     override suspend fun readAll(): List<Checklist> {
         return dbQuery {
             ChecklistEntity.find {
-                ChecklistTable.userId eq principal.userId
+                ChecklistTable.userId eq principal.userId and ChecklistTable.isDeleted eq Op.FALSE
             }.map(ChecklistEntity::toChecklist)
         }
     }
@@ -51,6 +51,7 @@ class RelationalChecklistRepository(
                 templateId = EntityID(checklist.templateId, TemplateTable)
                 notes = checklist.notes
                 createdAt = checklist.createdAt.toLocalDateTime(TimeZone.UTC)
+                isDeleted = checklist.isDeleted
             }
             checklist.tasks.forEach {
                 insertTask(it, null)
@@ -75,8 +76,11 @@ class RelationalChecklistRepository(
     override suspend fun read(id: UUID): Checklist? {
         return dbQuery {
             ChecklistEntity.find {
-                ChecklistTable.id eq id and (ChecklistTable.userId eq principal.userId)
+                ChecklistTable.id eq id and (ChecklistTable.userId eq principal.userId) and ChecklistTable.isDeleted eq Op.FALSE
             }
+                .filterNot {
+                    it.template.isDeleted // TODO can we filter on some kind of join above?
+                }
                 .map(ChecklistEntity::toChecklist)
                 .firstOrNull()
         }
@@ -96,10 +100,11 @@ class RelationalChecklistRepository(
 
     suspend fun delete(checklistId: DtoUUID) {
         dbQuery {
-            ChecklistEntity.findById(checklistId)?.run {
-                delete()
+            ChecklistEntity.findById(checklistId)?.let {
+                it.isDeleted = true
             }
                 ?: run { logger.warn("Attempted to delete checklist id=$checklistId which didn't exist in the first place") }
+
         }
     }
 
@@ -118,6 +123,7 @@ object ChecklistTable : UUIDTable() {
     val userId = varchar("userId", length = 255)
     val notes = varchar("notes", length = 255)
     val createdAt = datetime("createdAt")
+    val isDeleted = bool("isDeleted")
 }
 
 class ChecklistEntity(id: EntityID<UUID>) : UUIDEntity(id) {
@@ -128,6 +134,7 @@ class ChecklistEntity(id: EntityID<UUID>) : UUIDEntity(id) {
     var userId by ChecklistTable.userId
     var createdAt by ChecklistTable.createdAt
     var templateId by ChecklistTable.template
+    var isDeleted by ChecklistTable.isDeleted
     val tasks: SizedIterable<TaskEntity> by TaskEntity referrersOn TaskTable.checklist
     val template by TemplateEntity referencedOn ChecklistTable.template
 
@@ -146,6 +153,7 @@ class ChecklistEntity(id: EntityID<UUID>) : UUIDEntity(id) {
                     it.parent == null
                 }
                 .map(TaskEntity::toTask),
+            isDeleted = isDeleted
         )
     }
 }
