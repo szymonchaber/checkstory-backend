@@ -10,9 +10,9 @@ import tech.checkstory.notification.domain.FirebaseMessagingToken
 
 class FirebaseMessagingTokenRepository(private val database: Database) {
 
-    private object FirebaseMessagingTokenToUser : Table() {
-        val token = varchar("firebaseMessagingToken", length = 255)
-        val userId = varchar("userId", length = 255)
+    private object FirebaseMessagingTokenToUser : Table("firebase_messaging_token_to_user") {
+        val token = varchar("firebase_messaging_token", length = 255)
+        val userId = varchar("user_id", length = 255)
 
         override val primaryKey = PrimaryKey(token)
     }

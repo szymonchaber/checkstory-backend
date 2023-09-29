@@ -11,11 +11,11 @@ import tech.checkstory.payment.domain.StoreTokenResult
 
 class PurchaseRepository(database: Database) {
 
-    private object GooglePlayBillingPurchases : Table() {
+    private object GooglePlayBillingPurchases : Table("google_play_billing_purchase") {
 
-        val token = varchar("googlePlayToken", length = 255)
-        val userId = varchar("userId", length = 255)
-        val expirationDate = long("expirationDate")
+        val token = varchar("google_play_token", length = 255)
+        val userId = varchar("user_id", length = 255)
+        val expirationDate = long("expiration_date")
 
         override val primaryKey = PrimaryKey(token)
     }

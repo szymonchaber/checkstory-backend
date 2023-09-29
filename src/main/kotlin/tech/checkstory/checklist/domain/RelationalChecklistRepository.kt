@@ -124,10 +124,10 @@ class RelationalChecklistRepository(
 object ChecklistTable : UUIDTable() {
 
     val template = reference("template_id", TemplateTable, ReferenceOption.CASCADE)
-    val userId = varchar("userId", length = 255)
+    val userId = varchar("user_id", length = 255)
     val notes = varchar("notes", length = 255)
-    val createdAt = datetime("createdAt")
-    val isDeleted = bool("isDeleted")
+    val createdAt = datetime("created_at")
+    val isDeleted = bool("is_deleted")
 }
 
 class ChecklistEntity(id: EntityID<UUID>) : UUIDEntity(id) {
@@ -163,7 +163,7 @@ class ChecklistEntity(id: EntityID<UUID>) : UUIDEntity(id) {
 }
 
 
-object TaskTable : UUIDTable() {
+object TaskTable : UUIDTable("task") {
 
     val title = varchar("title", 255)
     val checklist = reference("checklist_id", ChecklistTable, ReferenceOption.CASCADE)

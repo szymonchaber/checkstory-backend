@@ -11,9 +11,9 @@ import tech.checkstory.auth.user.AuthenticatedScope
 
 class GiftedSubscriptionRepository(database: Database) {
 
-    private object GiftedSubscriptions : Table() {
+    private object GiftedSubscription : Table("gifted_subscription") {
 
-        val userId = varchar("userId", length = 255)
+        val userId = varchar("user_id", length = 255)
 
         @Suppress("unused")
         val reason = varchar("reason", length = 255)
@@ -23,7 +23,7 @@ class GiftedSubscriptionRepository(database: Database) {
 
     init {
         transaction(database) {
-            SchemaUtils.create(GiftedSubscriptions)
+            SchemaUtils.create(GiftedSubscription)
         }
     }
 
@@ -34,8 +34,8 @@ class GiftedSubscriptionRepository(database: Database) {
 
     suspend fun hasSubscriptionGift(userId: String): Boolean {
         return dbQuery {
-            GiftedSubscriptions
-                .select { GiftedSubscriptions.userId eq userId }
+            GiftedSubscription
+                .select { GiftedSubscription.userId eq userId }
                 .firstOrNull() != null
         }
     }

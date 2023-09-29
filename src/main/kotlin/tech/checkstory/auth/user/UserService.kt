@@ -5,18 +5,18 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
-import tech.checkstory.auth.user.UserService.Users.firebaseId
+import tech.checkstory.auth.user.UserService.UserTable.firebaseId
 
 class UserService(private val database: Database) {
 
-    object Users : Table() {
-        val firebaseId = varchar("firebaseId", length = 255)
+    private object UserTable : Table("user") {
+        val firebaseId = varchar("firebase_id", length = 255)
         override val primaryKey = PrimaryKey(firebaseId)
     }
 
     init {
         transaction(database) {
-            SchemaUtils.create(Users)
+            SchemaUtils.create(UserTable)
         }
     }
 
@@ -26,7 +26,7 @@ class UserService(private val database: Database) {
 
     suspend fun create(user: CreateUserPayload, userID: String): String {
         return dbQuery {
-            Users.insert {
+            UserTable.insert {
                 it[firebaseId] = userID
             }[firebaseId]
         }
@@ -39,10 +39,10 @@ class UserService(private val database: Database) {
 
     suspend fun readById(userId: String): User? {
         return dbQuery {
-            Users.select { firebaseId eq userId }
+            UserTable.select { firebaseId eq userId }
                 .map {
                     User(
-                        userId = it[Users.firebaseId],
+                        userId = it[firebaseId],
                     )
                 }
                 .singleOrNull()
@@ -52,7 +52,7 @@ class UserService(private val database: Database) {
     context(AuthenticatedScope)
     suspend fun delete() {
         dbQuery {
-            Users.deleteWhere { firebaseId eq principal.userId }
+            UserTable.deleteWhere { firebaseId eq principal.userId }
         }
     }
 }

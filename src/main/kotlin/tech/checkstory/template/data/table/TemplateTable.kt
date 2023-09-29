@@ -3,11 +3,11 @@ package tech.checkstory.template.data.table
 import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.sql.kotlin.datetime.datetime
 
-object TemplateTable : UUIDTable() {
+object TemplateTable : UUIDTable("template") {
 
-    val userId = varchar("userId", length = 255)
+    val userId = varchar("user_id", length = 255)
     val title = varchar("title", length = 255)
     val description = varchar("description", length = 255)
-    val createdAt = datetime("createdAt")
-    val isDeleted = bool("isDeleted")
+    val createdAt = datetime("created_at")
+    val isDeleted = bool("is_deleted")
 }
