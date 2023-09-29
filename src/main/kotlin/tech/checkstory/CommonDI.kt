@@ -17,6 +17,7 @@ import tech.checkstory.data.EventStoreConnectionManager
 import tech.checkstory.eventbus.EventBus
 import tech.checkstory.notification.data.FirebaseMessagingTokenRepository
 import tech.checkstory.notification.firebase.UserDataChangeNotifier
+import tech.checkstory.payment.data.GiftedSubscriptionRepository
 import tech.checkstory.payment.data.PurchaseRepository
 import tech.checkstory.payment.data.google_play.SubscriptionsGoogleApi
 import tech.checkstory.payment.domain.GetPaymentStateUseCase
@@ -71,6 +72,9 @@ val Application.commonDI
             PurchaseRepository(instance())
         }
         bindSingleton {
+            GiftedSubscriptionRepository(instance())
+        }
+        bindSingleton {
             ChecklistEventMapper()
         }
         bindSingleton {
@@ -115,6 +119,6 @@ val Application.commonDI
             NotificationSubscription(instance(), instance())
         }
         bindSingleton {
-            GetPaymentStateUseCase(instance())
+            GetPaymentStateUseCase(instance(), instance())
         }
     }

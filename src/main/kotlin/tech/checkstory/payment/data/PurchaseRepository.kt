@@ -9,7 +9,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.payment.domain.StoreTokenResult
 
-class PurchaseRepository(private val database: Database) {
+class PurchaseRepository(database: Database) {
 
     private object GooglePlayBillingPurchases : Table() {
 
@@ -24,10 +24,6 @@ class PurchaseRepository(private val database: Database) {
         transaction(database) {
             SchemaUtils.create(GooglePlayBillingPurchases)
         }
-    }
-
-    suspend fun <T> dbQuery(block: suspend () -> T): T {
-        return newSuspendedTransaction(Dispatchers.IO) { block() }
     }
 
     suspend fun updatePurchase(purchaseToken: String, rawValue: SubscriptionPurchaseV2) {
@@ -100,6 +96,10 @@ class PurchaseRepository(private val database: Database) {
             }
                 .firstOrNull()
         }
+    }
+
+    private suspend fun <T> dbQuery(block: suspend () -> T): T {
+        return newSuspendedTransaction(Dispatchers.IO) { block() }
     }
 }
 
