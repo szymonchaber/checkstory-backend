@@ -11,15 +11,12 @@ services:
     networks:
       - services
     environment:
-      #      ESDB_CONNECTION_STRING: 'esdb://esdb-node-1:2113,esdb-node-2:2113,esdb-node-3:2113?keepAliveTimeout=10000&keepAliveInterval=10000'
       ESDB_CONNECTION_STRING: 'esdb://admin:changeit@esdb-node-1:2113,esdb-node-2:2113,esdb-node-3:2113?tls=true&keepAliveTimeout=10000&keepAliveInterval=10000&tlsVerifyCert=false'
       POSTGRES_URL: 'jdbc:postgresql://postgresql:5432/postgres'
       POSTGRES_USER: 'postgres'
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     depends_on:
       postgresql:
-        condition: service_healthy
-      esdb-node:
         condition: service_healthy
       esdb-node-1:
         condition: service_healthy
@@ -174,29 +171,6 @@ services:
       - cert-gen
   #endregion
 
-  # region esdb-legacy
-  esdb-node:
-    image: eventstore/eventstore:latest
-    environment:
-      - EVENTSTORE_CLUSTER_SIZE=1
-      - EVENTSTORE_RUN_PROJECTIONS=All
-      - EVENTSTORE_START_STANDARD_PROJECTIONS=true
-      - EVENTSTORE_EXT_TCP_PORT=1113
-      - EVENTSTORE_HTTP_PORT=2113
-      - EVENTSTORE_INSECURE=true
-      - EVENTSTORE_ENABLE_EXTERNAL_TCP=true
-      - EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP=true
-    restart: always
-    networks:
-      - services
-    ports:
-      - "1114:1113"
-      - "2114:2113"
-    volumes:
-      - eventstore_data:/var/lib/eventstore
-      - eventstore_logs:/var/log/eventstore
-  # endregion
-
   certbot:
     image: certbot/certbot:latest
     networks:
@@ -230,8 +204,6 @@ networks:
 
 volumes:
   postgres_data:
-  eventstore_data:
-  eventstore_logs:
   eventstore_data_1:
   eventstore_logs_1:
   eventstore_data_2:
