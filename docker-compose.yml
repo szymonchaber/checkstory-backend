@@ -156,7 +156,7 @@ services:
     networks:
       - services
     ports:
-      - "1113:1113"
+      - "1114:1113"
       - "2114:2113"
     volumes:
       - eventstore_data:/var/lib/eventstore
