@@ -21,6 +21,7 @@ import tech.checkstory.payment.data.GiftedSubscriptionRepository
 import tech.checkstory.payment.data.PurchaseRepository
 import tech.checkstory.payment.data.google_play.SubscriptionsGoogleApi
 import tech.checkstory.payment.domain.GetPaymentStateUseCase
+import tech.checkstory.payment.domain.StoreGooglePlayTokenUseCase
 import tech.checkstory.plugins.connectToPostgres
 import tech.checkstory.read.checklist.ChecklistProjection
 import tech.checkstory.read.subscription.SubscriptionCheckpointRepository
@@ -119,6 +120,9 @@ val Application.commonDI
             NotificationSubscription(instance(), instance())
         }
         bindSingleton {
-            GetPaymentStateUseCase(instance(), instance())
+            StoreGooglePlayTokenUseCase(instance(), instance())
+        }
+        bindSingleton {
+            GetPaymentStateUseCase(instance(), instance(), instance())
         }
     }

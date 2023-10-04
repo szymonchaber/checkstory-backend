@@ -6,7 +6,7 @@ import kotlinx.datetime.Instant
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
-import tech.checkstory.auth.user.AuthenticatedScope
+import tech.checkstory.payment.domain.GooglePlayPaymentToken
 import tech.checkstory.payment.domain.StoreTokenResult
 
 class PurchaseRepository(database: Database) {
@@ -44,8 +44,11 @@ class PurchaseRepository(database: Database) {
         }
     }
 
-    context(AuthenticatedScope)
-    suspend fun storePurchase(purchaseToken: String, rawValue: SubscriptionPurchaseV2): StoreTokenResult {
+    suspend fun storePurchase(
+        userId: String,
+        purchaseToken: String,
+        rawValue: SubscriptionPurchaseV2
+    ): StoreTokenResult {
         return dbQuery {
             val existing =
                 GooglePlayBillingPurchases
@@ -55,12 +58,12 @@ class PurchaseRepository(database: Database) {
                 GooglePlayBillingPurchases.insert {
                     it[token] = purchaseToken
                     it[expirationDate] = Instant.parse(rawValue.lineItems.first().expiryTime).epochSeconds
-                    it[userId] = principal.userId
+                    it[GooglePlayBillingPurchases.userId] = userId
                 }
                 StoreTokenResult.Success
             } else {
                 val currentTokenUser = existing[GooglePlayBillingPurchases.userId]
-                if (currentTokenUser == principal.userId) {
+                if (currentTokenUser == userId) {
                     GooglePlayBillingPurchases.update {
                         it[token] = purchaseToken
                         it[expirationDate] = Instant.parse(rawValue.lineItems.first().expiryTime).epochSeconds
@@ -73,16 +76,14 @@ class PurchaseRepository(database: Database) {
         }
     }
 
-    context (AuthenticatedScope)
-    suspend fun read(): List<Purchase> {
-        return getByUserId(principal.userId)
-    }
-
     suspend fun getByUserId(userId: String): List<Purchase> {
         return dbQuery {
             GooglePlayBillingPurchases.select { GooglePlayBillingPurchases.userId eq userId }
                 .map {
-                    Purchase(Instant.fromEpochSeconds(it[GooglePlayBillingPurchases.expirationDate]))
+                    Purchase(
+                        Instant.fromEpochSeconds(it[GooglePlayBillingPurchases.expirationDate]),
+                        GooglePlayPaymentToken(it[GooglePlayBillingPurchases.token])
+                    )
                 }
         }
     }
@@ -103,4 +104,4 @@ class PurchaseRepository(database: Database) {
     }
 }
 
-data class Purchase(val expirationDate: Instant)
+data class Purchase(val expirationDate: Instant, val googlePaymentToken: GooglePlayPaymentToken)

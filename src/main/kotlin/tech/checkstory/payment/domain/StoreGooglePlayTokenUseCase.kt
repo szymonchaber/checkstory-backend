@@ -1,6 +1,5 @@
 package tech.checkstory.payment.domain
 
-import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.payment.data.PurchaseRepository
 import tech.checkstory.payment.data.google_play.SubscriptionsGoogleApi
 
@@ -9,10 +8,9 @@ class StoreGooglePlayTokenUseCase(
     private val subscriptionsGoogleApi: SubscriptionsGoogleApi
 ) {
 
-    context(AuthenticatedScope)
-    suspend fun storePaymentToken(token: GooglePlayPaymentToken): StoreTokenResult {
+    suspend fun storePaymentToken(userId: String, token: GooglePlayPaymentToken): StoreTokenResult {
         val subscription = subscriptionsGoogleApi.getSubscription(token.purchaseToken)
-        return purchaseRepository.storePurchase(token.purchaseToken, subscription.rawValue)
+        return purchaseRepository.storePurchase(userId, token.purchaseToken, subscription.rawValue)
     }
 }
 
