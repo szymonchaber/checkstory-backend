@@ -58,9 +58,9 @@ services:
     command: >
       -c "mkdir -p ./certs && cd /certs
       && es-gencert-cli create-ca
-      && es-gencert-cli create-node -out ./node-1 -dns-names localhost
-      && es-gencert-cli create-node -out ./node-2 -dns-names localhost
-      && es-gencert-cli create-node -out ./node-3 -dns-names localhost
+      && es-gencert-cli create-node -out ./node-1 -dns-names localhost,esdb-node-1
+      && es-gencert-cli create-node -out ./node-2 -dns-names localhost,esdb-node-2
+      && es-gencert-cli create-node -out ./node-3 -dns-names localhost,esdb-node-3
       && find . -type f -print0 | xargs -0 chmod 666"
     volumes:
       - eventstore_certs:/certs
