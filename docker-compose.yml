@@ -11,7 +11,8 @@ services:
     networks:
       - services
     environment:
-      ESDB_CONNECTION_STRING: 'esdb://esdb-node-1:2113,esdb-node-2:2113,esdb-node-3:2113?keepAliveTimeout=10000&keepAliveInterval=10000'
+      #      ESDB_CONNECTION_STRING: 'esdb://esdb-node-1:2113,esdb-node-2:2113,esdb-node-3:2113?keepAliveTimeout=10000&keepAliveInterval=10000'
+      ESDB_CONNECTION_STRING: 'esdb://172.30.240.11:2111,172.30.240.12:2112,172.30.240.13:2113?keepAliveTimeout=10000&keepAliveInterval=10000'
       POSTGRES_URL: 'jdbc:postgresql://postgresql:5432/postgres'
       POSTGRES_USER: 'postgres'
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -58,9 +59,9 @@ services:
     command: >
       -c "mkdir -p ./certs && cd /certs
       && es-gencert-cli create-ca
-      && es-gencert-cli create-node -out ./node-1 -dns-names localhost,esdb-node-1
-      && es-gencert-cli create-node -out ./node-2 -dns-names localhost,esdb-node-2
-      && es-gencert-cli create-node -out ./node-3 -dns-names localhost,esdb-node-3
+      && es-gencert-cli create-node -out ./node-1 -ip-addresses 127.0.0.1,172.30.240.11 -dns-names localhost
+      && es-gencert-cli create-node -out ./node-2 -ip-addresses 127.0.0.1,172.30.240.12 -dns-names localhost
+      && es-gencert-cli create-node -out ./node-3 -ip-addresses 127.0.0.1,172.30.240.13 -dns-names localhost
       && find . -type f -print0 | xargs -0 chmod 666"
     volumes:
       - eventstore_certs:/certs
@@ -72,22 +73,24 @@ services:
     env_file:
       - event_store_shared.env
     environment:
-      - EVENTSTORE_GOSSIP_SEED=esdb-node-2:2113,esdb-node-3:2113
+      - EVENTSTORE_GOSSIP_SEED=172.30.240.12:2113,172.30.240.13:2113
+      - EVENTSTORE_INT_IP=172.30.240.11
       - EVENTSTORE_CERTIFICATE_FILE=/etc/eventstore/certs/node-1/node.crt
-      - EVENTSTORE_CERTIFICATE_PRIVATE_KEY_FILE=/etc/eventstore/certs/node-1/node.key
-      - EVENTSTORE_ADVERTISE_HOST_TO_CLIENT_AS=esdb-node-3
+      - EVENTSTORE_CERTIFICATE_PRIVATE_KEY_FILE=/etc/eventstore/certs/node1/node.key
+      - EVENTSTORE_ADVERTISE_HOST_TO_CLIENT_AS=127.0.0.1
       - EVENTSTORE_ADVERTISE_HTTP_PORT_TO_CLIENT_AS=2111
       - EVENTSTORE_ADVERTISE_TCP_PORT_TO_CLIENT_AS=1111
     ports:
-      - "1111:1113"
-      - "2111:2113"
+      - 1111:1113
+      - 2111:2113
+    networks:
+      services:
+        ipv4_address: 172.30.240.11
     volumes:
       - eventstore_certs:/etc/eventstore/certs
       - eventstore_data_1:/var/lib/eventstore
       - eventstore_logs_1:/var/log/eventstore
     restart: unless-stopped
-    networks:
-      - services
     depends_on:
       - cert-gen
 
@@ -96,22 +99,24 @@ services:
     env_file:
       - event_store_shared.env
     environment:
-      - EVENTSTORE_GOSSIP_SEED=esdb-node-1:2113,esdb-node-3:2113
+      - EVENTSTORE_GOSSIP_SEED=172.30.240.11:2113,172.30.240.13:2113
+      - EVENTSTORE_INT_IP=172.30.240.12
       - EVENTSTORE_CERTIFICATE_FILE=/etc/eventstore/certs/node-2/node.crt
       - EVENTSTORE_CERTIFICATE_PRIVATE_KEY_FILE=/etc/eventstore/certs/node-2/node.key
-      - EVENTSTORE_ADVERTISE_HOST_TO_CLIENT_AS=esdb-node-3
+      - EVENTSTORE_ADVERTISE_HOST_TO_CLIENT_AS=127.0.0.1
       - EVENTSTORE_ADVERTISE_HTTP_PORT_TO_CLIENT_AS=2112
       - EVENTSTORE_ADVERTISE_TCP_PORT_TO_CLIENT_AS=1112
     ports:
-      - "1112:1113"
-      - "2112:2113"
+      - 1112:1113
+      - 2112:2113
+    networks:
+      services:
+        ipv4_address: 172.30.240.12
     volumes:
       - eventstore_certs:/etc/eventstore/certs
       - eventstore_data_2:/var/lib/eventstore
       - eventstore_logs_2:/var/log/eventstore
     restart: unless-stopped
-    networks:
-      - services
     depends_on:
       - cert-gen
 
@@ -120,22 +125,24 @@ services:
     env_file:
       - event_store_shared.env
     environment:
-      - EVENTSTORE_GOSSIP_SEED=esdb-node-1:2113,esdb-node-2:2113
+      - EVENTSTORE_GOSSIP_SEED=172.30.240.11:2113,172.30.240.12:2113
+      - EVENTSTORE_INT_IP=172.30.240.13
       - EVENTSTORE_CERTIFICATE_FILE=/etc/eventstore/certs/node-3/node.crt
       - EVENTSTORE_CERTIFICATE_PRIVATE_KEY_FILE=/etc/eventstore/certs/node-3/node.key
-      - EVENTSTORE_ADVERTISE_HOST_TO_CLIENT_AS=esdb-node-3
+      - EVENTSTORE_ADVERTISE_HOST_TO_CLIENT_AS=127.0.0.1
       - EVENTSTORE_ADVERTISE_HTTP_PORT_TO_CLIENT_AS=2113
       - EVENTSTORE_ADVERTISE_TCP_PORT_TO_CLIENT_AS=1113
     ports:
-      - "1113:1113"
-      - "2113:2113"
+      - 1113:1113
+      - 2113:2113
+    networks:
+      services:
+        ipv4_address: 172.30.240.13
     volumes:
       - eventstore_certs:/etc/eventstore/certs
       - eventstore_data_3:/var/lib/eventstore
       - eventstore_logs_3:/var/log/eventstore
     restart: unless-stopped
-    networks:
-      - services
     depends_on:
       - cert-gen
   #endregion
@@ -188,6 +195,11 @@ services:
 
 networks:
   services:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.30.240.0/24
 
 volumes:
   postgres_data:
