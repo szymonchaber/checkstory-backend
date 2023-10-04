@@ -70,6 +70,7 @@ jobs:
       - name: Deploy the new service
         run: |
           scp docker-compose.yml production:~/docker-compose.yml
+          scp event_store_shared.env production:~/event_store_shared.env
           scp -r nginx production:~/
           ssh production << END
             echo $GH_CONTAINER_REGISTRY_TOKEN | docker login ghcr.io -u szymonchaber --password-stdin
