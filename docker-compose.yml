@@ -191,6 +191,8 @@ networks:
 
 volumes:
   postgres_data:
+  eventstore_data:
+  eventstore_logs:
   eventstore_data_1:
   eventstore_logs_1:
   eventstore_data_2:
