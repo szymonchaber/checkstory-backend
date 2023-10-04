@@ -10,7 +10,7 @@ val h2_version: String by project
 val exposed_version: String by project
 
 plugins {
-    kotlin("jvm") version "1.8.20"
+    kotlin("jvm") version "1.9.10"
     id("io.ktor.plugin") version "2.2.4"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.8.20"
 }
@@ -24,21 +24,28 @@ application {
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+val compileKotlin: KotlinCompile by tasks
+compileKotlin.kotlinOptions {
+    languageVersion = "1.9"
+    jvmTarget = "17"
+    freeCompilerArgs += "-Xcontext-receivers"
+}
+
+tasks.named("shadowJar", ShadowJar::class.java) {
+    mergeServiceFiles()
+}
+
 repositories {
     mavenCentral()
     mavenCentral()
     maven {
         this.url = URI("https://jitpack.io")
     }
-}
-tasks.named("compileKotlin", org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask::class.java) {
-    compilerOptions {
-        freeCompilerArgs.add("-Xcontext-receivers")
-    }
-}
-
-tasks.named("shadowJar", ShadowJar::class.java) {
-    mergeServiceFiles()
 }
 
 dependencies {
@@ -84,11 +91,8 @@ dependencies {
     implementation("io.ktor:ktor-server-netty-jvm:2.3.2")
 
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     testImplementation("io.ktor:ktor-server-tests-jvm:2.3.2")
     testImplementation("io.ktor:ktor-server-test-host-jvm:2.3.2")
-}
-val compileKotlin: KotlinCompile by tasks
-compileKotlin.kotlinOptions {
-    languageVersion = "1.9"
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0")
 }
