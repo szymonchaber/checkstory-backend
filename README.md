@@ -70,13 +70,12 @@ ssh backend "rm ~/nginx/maintenance.enable"
    3. Click on any event within
    4. Add a new event to stream "checkpoint_default" using "add similar" option with position "0"
 5. Fire up the backend again - it should start rebuilding the projection automatically
+   ```shell
+      ssh backend "docker start checkstory-backend-backend-1"
+      ```
 6. Monitor the projection rebuild with this command:
    ```shell
    ssh backend "docker logs checkstory-backend-backend-1 --follow --since 10m"
    ```
 7. When it's done - no new INSERTS since 1 minute:
-   1. Restart the server
-      ```shell
-      ssh backend "docker start checkstory-backend-backend-1"
-      ```
-   2. Stop maintenance mode per instructions above
+   1. Stop maintenance mode per instructions above
