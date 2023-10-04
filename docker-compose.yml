@@ -12,7 +12,7 @@ services:
       - services
     environment:
       #      ESDB_CONNECTION_STRING: 'esdb://esdb-node-1:2113,esdb-node-2:2113,esdb-node-3:2113?keepAliveTimeout=10000&keepAliveInterval=10000'
-      ESDB_CONNECTION_STRING: 'esdb://admin:changeit@localhost:2111,localhost:2112,localhost:2113?tls=true&keepAliveTimeout=10000&keepAliveInterval=10000&tlsVerifyCert=false'
+      ESDB_CONNECTION_STRING: 'esdb://admin:changeit@esdb-node-1:2113,esdb-node-2:2113,esdb-node-3:2113?tls=true&keepAliveTimeout=10000&keepAliveInterval=10000&tlsVerifyCert=false'
       POSTGRES_URL: 'jdbc:postgresql://postgresql:5432/postgres'
       POSTGRES_USER: 'postgres'
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
