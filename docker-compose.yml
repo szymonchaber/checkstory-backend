@@ -91,6 +91,15 @@ services:
       - eventstore_data_1:/var/lib/eventstore
       - eventstore_logs_1:/var/log/eventstore
     restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl --fail --insecure https://esdb-node-1:2113/health/live || exit 1",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 24
     depends_on:
       - cert-gen
 
@@ -117,6 +126,15 @@ services:
       - eventstore_data_2:/var/lib/eventstore
       - eventstore_logs_2:/var/log/eventstore
     restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl --fail --insecure https://esdb-node-2:2113/health/live || exit 1",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 24
     depends_on:
       - cert-gen
 
@@ -143,6 +161,15 @@ services:
       - eventstore_data_3:/var/lib/eventstore
       - eventstore_logs_3:/var/log/eventstore
     restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl --fail --insecure https://esdb-node-3:2113/health/live || exit 1",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 24
     depends_on:
       - cert-gen
   #endregion
