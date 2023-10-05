@@ -73,10 +73,10 @@ jobs:
             echo $GH_CONTAINER_REGISTRY_TOKEN | docker login ghcr.io -u szymonchaber --password-stdin
             docker compose down
             docker compose pull
-            POSTGRES_PASSWORD="$POSTGRES_PASSWORD" \ 
-            EVENTSTORE_DEFAULT_ADMIN_PASSWORD="$EVENTSTORE_DEFAULT_ADMIN_PASSWORD" \
-            EVENTSTORE_DEFAULT_OPS_PASSWORD="$EVENTSTORE_DEFAULT_OPS_PASSWORD" \
-            docker compose up -d
+               POSTGRES_PASSWORD="$POSTGRES_PASSWORD" docker compose up -d
+          #            POSTGRES_PASSWORD="$POSTGRES_PASSWORD" \
+          #            EVENTSTORE_DEFAULT_ADMIN_PASSWORD="$EVENTSTORE_DEFAULT_ADMIN_PASSWORD" \
+          #            EVENTSTORE_DEFAULT_OPS_PASSWORD="$EVENTSTORE_DEFAULT_OPS_PASSWORD" \docker compose up -d
           END
         env:
           GH_CONTAINER_REGISTRY_TOKEN: ${{ secrets.GH_CONTAINER_REGISTRY_TOKEN }}
