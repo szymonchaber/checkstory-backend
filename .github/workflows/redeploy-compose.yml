@@ -43,9 +43,9 @@ jobs:
           ssh production << END
             echo "Testing variables"
             echo $POSTGRES_PASSWORD
-            export POSTGRES_PASSWORD=$POSTGRES_PASSWORD
-            export EVENTSTORE_DEFAULT_ADMIN_PASSWORD=$EVENTSTORE_DEFAULT_ADMIN_PASSWORD
-            export EVENTSTORE_DEFAULT_OPS_PASSWORD=$EVENTSTORE_DEFAULT_OPS_PASSWORD
+            POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+            EVENTSTORE_DEFAULT_ADMIN_PASSWORD=$EVENTSTORE_DEFAULT_ADMIN_PASSWORD
+            EVENTSTORE_DEFAULT_OPS_PASSWORD=$EVENTSTORE_DEFAULT_OPS_PASSWORD
             echo "\${POSTGRES_PASSWORD}"
             echo $GH_CONTAINER_REGISTRY_TOKEN | docker login ghcr.io -u szymonchaber --password-stdin
             docker compose down
