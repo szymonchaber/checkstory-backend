@@ -54,8 +54,8 @@ val Application.commonDI
             EventBus()
         }
         bindSingleton<EventStoreConnectionManager> {
-            val connectionString = instance<Config>().getString("eventStore.connectionString")!!
-            EventStoreConnectionManager(connectionString)
+            val eventStorePassword = instance<Config>().getString("eventStore.password")!!
+            EventStoreConnectionManager(eventStorePassword)
         }
         bindSingleton {
             SubscriptionCheckpointRepository(instance())
