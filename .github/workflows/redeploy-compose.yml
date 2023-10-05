@@ -41,6 +41,7 @@ jobs:
           scp event_store_shared.env production:~/event_store_shared.env
           scp -r nginx production:~/
           ssh production << END
+            echo "Testing variables"
             echo $POSTGRES_PASSWORD
             export POSTGRES_PASSWORD=$POSTGRES_PASSWORD
             export EVENTSTORE_DEFAULT_ADMIN_PASSWORD=$EVENTSTORE_DEFAULT_ADMIN_PASSWORD
