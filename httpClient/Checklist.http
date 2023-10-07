@@ -3,6 +3,11 @@ GET {{endpoint}}/checklists
 Content-Type: application/json
 Authorization: Bearer {{auth_token_1}}
 
+### Get all checklists of user 2
+GET {{endpoint}}/checklists
+Content-Type: application/json
+Authorization: Bearer {{auth_token_2}}
+
 ### Get concrete checklist
 GET {{endpoint}}/checklists/{{checklist_id}}
 Content-Type: application/json

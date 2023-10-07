@@ -70,9 +70,16 @@ Authorization: Bearer {{auth_token_1}}
   "token": "{{active_messaging_token}}"
 }
 
-### Login
+### Login user 1
 GET {{endpoint}}/auth/login
 Content-Type: application/json
 Authorization: Bearer {{auth_token_1}}
+
+{}
+
+### Login user 2
+GET {{endpoint}}/auth/login
+Content-Type: application/json
+Authorization: Bearer {{auth_token_2}}
 
 {}

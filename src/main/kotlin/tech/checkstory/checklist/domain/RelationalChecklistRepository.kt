@@ -39,7 +39,7 @@ class RelationalChecklistRepository(
     override suspend fun readAll(): List<Checklist> {
         return dbQuery {
             ChecklistEntity.find {
-                ChecklistTable.userId eq principal.userId and ChecklistTable.isDeleted eq Op.FALSE
+                ChecklistTable.userId eq principal.userId and (ChecklistTable.isDeleted eq Op.FALSE)
             }
                 .filterNot {
                     it.template.isDeleted // TODO can we filter on some kind of join above?
@@ -80,7 +80,7 @@ class RelationalChecklistRepository(
     override suspend fun read(id: UUID): Checklist? {
         return dbQuery {
             ChecklistEntity.find {
-                ChecklistTable.id eq id and (ChecklistTable.userId eq principal.userId) and ChecklistTable.isDeleted eq Op.FALSE
+                ChecklistTable.id eq id and (ChecklistTable.userId eq principal.userId) and (ChecklistTable.isDeleted eq Op.FALSE)
             }
                 .filterNot {
                     it.template.isDeleted // TODO can we filter on some kind of join above?

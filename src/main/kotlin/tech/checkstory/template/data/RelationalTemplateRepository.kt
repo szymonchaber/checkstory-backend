@@ -143,7 +143,7 @@ class RelationalTemplateRepository(private val database: Database) {
         return dbQuery {
             TemplateEntity
                 .find {
-                    TemplateTable.userId eq principal.userId and TemplateTable.isDeleted eq Op.FALSE
+                    TemplateTable.userId eq principal.userId and (TemplateTable.isDeleted eq Op.FALSE)
                 }
                 .map(TemplateEntity::toTemplate)
         }
