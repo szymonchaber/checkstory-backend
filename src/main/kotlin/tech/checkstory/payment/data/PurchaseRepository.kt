@@ -64,7 +64,9 @@ class PurchaseRepository(database: Database) {
             } else {
                 val currentTokenUser = existing[GooglePlayBillingPurchases.userId]
                 if (currentTokenUser == userId) {
-                    GooglePlayBillingPurchases.update {
+                    GooglePlayBillingPurchases.update(where = {
+                        (GooglePlayBillingPurchases.token eq purchaseToken) and (GooglePlayBillingPurchases.userId eq userId)
+                    }) {
                         it[token] = purchaseToken
                         it[expirationDate] = Instant.parse(rawValue.lineItems.first().expiryTime).epochSeconds
                     }
