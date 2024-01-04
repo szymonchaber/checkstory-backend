@@ -1,3 +1,20 @@
+### Main process
+
+- EventSourcing is main architecture
+- The mobile app provides evetns describing what actions did the user take for a given checklist or template
+- TemplateProjection & ChecklistProjection subscribe to those events & store updated data in a PostgreSQL database
+- Then, the app is notified via UserDataChangeNotifier which uses Firebase Messaging to fetch new data
+- Also, each user is known to be subscribed (or not), so the app won't ask to synchronize for non-paid users
+
+### Other notables
+
+- We use Docker Compose with automatic Github Actions deployment to the DigitalOcean server
+- Wa have some manual backup processes described below
+- We use nginx reverse proxy with certbot
+- We use EventStoreDB in a clustered setup
+- We cannot yet fake external dependencies - we have to work on that
+- We also haven't run the containers locally - we should update that situation
+
 ### Building & deploying
 
 Build Docker image for the backend service & push to the artifact store:
