@@ -1,7 +1,7 @@
 ### Get all templates of user 1
 GET {{endpoint}}/templates
 Content-Type: application/json
-Authorization: Bearer {{auth_token_2}}
+Authorization: Bearer {{auth_token_1}}
 
 ### Get concrete template
 GET {{endpoint}}/templates/9fedb356-58f8-4466-b966-6efbe3b2a16f

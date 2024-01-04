@@ -4,7 +4,8 @@ name: checkstory-backend
 
 services:
   backend:
-    image: ghcr.io/szymonchaber/checkstory-backend:master
+    #    image: ghcr.io/szymonchaber/checkstory-backend:master
+    build: .
     restart: always
     ports:
       - "8080:8080"

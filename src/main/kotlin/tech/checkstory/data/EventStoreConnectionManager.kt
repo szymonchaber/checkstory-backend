@@ -21,7 +21,7 @@ class EventStoreConnectionManager(eventStorePassword: String) {
         if (tempClient == null || tempClient.isShutdown) {
             synchronized(this) {
                 if (client == null || client?.isShutdown == true) {
-                    val settings = EventStoreDBConnectionString.parse(connectionString)
+                    val settings = EventStoreDBConnectionString.parseOrThrow(connectionString)
                     client = EventStoreDBClient.create(settings)
                 }
             }

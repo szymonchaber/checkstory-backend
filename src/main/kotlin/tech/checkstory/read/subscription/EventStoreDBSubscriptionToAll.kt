@@ -56,13 +56,9 @@ class EventStoreDBSubscriptionToAll(
                             }
                         }
 
-                        override fun onError(subscription: Subscription, throwable: Throwable) {
-                            logger.error("Subscription was dropped", throwable)
-                            close(throwable)
-                        }
-
-                        override fun onCancelled(subscription: Subscription?) {
-                            close()
+                        override fun onCancelled(subscription: Subscription?, exception: Throwable?) {
+                            logger.error("Subscription was dropped", exception)
+                            close(exception)
                         }
                     },
                     subscriptionOptions.subscribeToAllOptions
