@@ -67,7 +67,8 @@ services:
       - volumes-provisioner
 
   esdb-node-1:
-    image: eventstore/eventstore:latest
+    #    image: eventstore/eventstore:latest
+    image: eventstore/eventstore:22.10.3-alpha-arm64v8
     env_file:
       - event_store_shared.env
     environment:
@@ -86,7 +87,7 @@ services:
       - eventstore_certs:/etc/eventstore/certs
       - eventstore_data_1:/var/lib/eventstore
       - eventstore_logs_1:/var/log/eventstore
-    restart: unless-stopped
+    #    restart: unless-stopped
     healthcheck:
       test:
         [
@@ -100,7 +101,8 @@ services:
       - cert-gen
 
   esdb-node-2:
-    image: eventstore/eventstore:latest
+    #    image: eventstore/eventstore:latest
+    image: eventstore/eventstore:22.10.3-alpha-arm64v8
     env_file:
       - event_store_shared.env
     environment:
@@ -119,7 +121,7 @@ services:
       - eventstore_certs:/etc/eventstore/certs
       - eventstore_data_2:/var/lib/eventstore
       - eventstore_logs_2:/var/log/eventstore
-    restart: unless-stopped
+    #    restart: unless-stopped
     healthcheck:
       test:
         [
@@ -133,7 +135,8 @@ services:
       - cert-gen
 
   esdb-node-3:
-    image: eventstore/eventstore:latest
+    #    image: eventstore/eventstore:latest
+    image: eventstore/eventstore:22.10.3-alpha-arm64v8
     env_file:
       - event_store_shared.env
     environment:
@@ -152,7 +155,7 @@ services:
       - eventstore_certs:/etc/eventstore/certs
       - eventstore_data_3:/var/lib/eventstore
       - eventstore_logs_3:/var/log/eventstore
-    restart: unless-stopped
+    #    restart: unless-stopped
     healthcheck:
       test:
         [
