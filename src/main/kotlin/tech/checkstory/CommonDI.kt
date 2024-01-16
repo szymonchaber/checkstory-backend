@@ -14,6 +14,7 @@ import tech.checkstory.data.EventMapper
 import tech.checkstory.data.EventRepository
 import tech.checkstory.data.EventStoreConnectionManager
 import tech.checkstory.eventbus.EventBus
+import tech.checkstory.messaging.Welcomer
 import tech.checkstory.notification.data.FirebaseMessagingTokenRepository
 import tech.checkstory.notification.firebase.UserDataChangeNotifier
 import tech.checkstory.payment.data.GiftedSubscriptionRepository
@@ -23,7 +24,9 @@ import tech.checkstory.payment.domain.GetPaymentStateUseCase
 import tech.checkstory.payment.domain.StoreGooglePlayTokenUseCase
 import tech.checkstory.plugins.connectToPostgres
 import tech.checkstory.read.checklist.ChecklistProjection
+import tech.checkstory.read.subscription.EventStoreDBSubscriptionToAll
 import tech.checkstory.read.subscription.SubscriptionCheckpointRepository
+import tech.checkstory.read.subscription.SubscriptionToAll
 import tech.checkstory.read.template.TemplateProjection
 import tech.checkstory.sync.NotificationSubscription
 import tech.checkstory.template.data.EventSourcedTemplateRepository
@@ -93,6 +96,9 @@ val Application.commonDI
         }
         bindSingleton {
             ChecklistProjection(instance(), instance())
+        }
+        bind<SubscriptionToAll>() with singleton {
+            EventStoreDBSubscriptionToAll(instance(), instance(), instance(), instance())
         }
         bind<EventRepository<TemplateEvent>>() with singleton {
             TemplateEventRepositoryImpl(instance(), instance())

@@ -24,10 +24,11 @@ class EventStoreDBSubscriptionToAll(
     private val checkpointRepository: SubscriptionCheckpointRepository,
     private val eventBus: EventBus,
     private val mappers: Set<EventMapper<*>>
-) {
+) : SubscriptionToAll {
+
     private val logger = LoggerFactory.getLogger(EventStoreDBSubscriptionToAll::class.java)
 
-    suspend fun subscribeToAll() {
+    override suspend fun subscribeToAll() {
         subscribeToAll(EventStoreDBSubscriptionToAllOptions.default)
     }
 
