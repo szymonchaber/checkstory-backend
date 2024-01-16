@@ -1,12 +1,12 @@
 package tech.checkstory.checklist.data
 
-import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.checklist.domain.ChecklistRepository
 import tech.checkstory.checklist.domain.aggregate.Checklist
 import tech.checkstory.checklist.domain.aggregate.ChecklistAggregate
 import tech.checkstory.checklist.domain.event.ChecklistEvent
+import tech.checkstory.core.domain.DtoUUID
+import tech.checkstory.core.domain.auth.AuthenticatedScope
 import tech.checkstory.data.EventRepository
-import tech.checkstory.domain.command.DtoUUID
 import tech.checkstory.template.data.EventSourcedTemplateRepository
 import java.util.*
 

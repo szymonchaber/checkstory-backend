@@ -1,7 +1,7 @@
 package tech.checkstory.checklist.domain
 
-import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.checklist.domain.aggregate.Checklist
+import tech.checkstory.core.domain.auth.AuthenticatedScope
 import java.util.*
 
 interface ChecklistRepository {

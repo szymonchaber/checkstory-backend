@@ -7,7 +7,7 @@ import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
-import tech.checkstory.auth.user.AuthenticatedScope
+import tech.checkstory.core.domain.auth.AuthenticatedScope
 
 class GiftedSubscriptionRepository(database: Database) {
 

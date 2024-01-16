@@ -7,8 +7,8 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import kotlinx.serialization.json.encodeToStream
-import tech.checkstory.auth.user.User
-import tech.checkstory.domain.command.DtoUUID
+import tech.checkstory.core.domain.DtoUUID
+import tech.checkstory.core.domain.auth.User
 import tech.checkstory.domain.event.DomainEvent
 import java.io.ByteArrayOutputStream
 import java.util.*

@@ -1,6 +1,6 @@
 package tech.checkstory.template
 
-import tech.checkstory.auth.user.AuthenticatedScope
+import tech.checkstory.core.domain.auth.AuthenticatedScope
 import tech.checkstory.data.EventRepository
 import tech.checkstory.template.data.EventSourcedTemplateRepository
 import tech.checkstory.template.domain.command.TemplateCommand

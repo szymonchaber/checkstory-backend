@@ -10,7 +10,7 @@ import tech.checkstory.data.UpsertableUUIDEntityClass
 import tech.checkstory.template.data.table.ReminderTable
 import tech.checkstory.template.data.table.TemplateTable
 import tech.checkstory.template.data.table.TemplateTaskTable
-import tech.checkstory.template.domain.Template
+import tech.checkstory.template.domain.aggregate.Template
 import java.util.*
 
 class TemplateEntity(id: EntityID<UUID>) : UUIDEntity(id) {

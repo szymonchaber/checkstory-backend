@@ -2,7 +2,7 @@ package tech.checkstory.domain.event
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.Transient
-import tech.checkstory.domain.command.DtoUUID
+import tech.checkstory.core.domain.DtoUUID
 
 interface DomainEvent {
 

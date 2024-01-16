@@ -5,7 +5,7 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
-import tech.checkstory.auth.user.AuthenticatedScope
+import tech.checkstory.core.domain.auth.AuthenticatedScope
 import tech.checkstory.notification.domain.FirebaseMessagingToken
 
 class FirebaseMessagingTokenRepository(private val database: Database) {

@@ -1,10 +1,10 @@
 package tech.checkstory.template.data
 
-import tech.checkstory.auth.user.User
-import tech.checkstory.domain.command.DtoUUID
+import tech.checkstory.core.domain.DtoUUID
+import tech.checkstory.core.domain.auth.User
 import tech.checkstory.domain.event.CreationEvent
 import tech.checkstory.domain.event.MutationEvent
-import tech.checkstory.template.domain.Template
+import tech.checkstory.template.domain.aggregate.Template
 import tech.checkstory.template.domain.aggregate.TemplateTask
 import tech.checkstory.template.domain.command.TemplateCommand
 import tech.checkstory.template.domain.event.TemplateEvent

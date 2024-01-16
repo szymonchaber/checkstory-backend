@@ -1,3 +1,4 @@
 rootProject.name = "checkstory-backend-ktor"
-include("messaging")
-//include("library")
+include("core:domain")
+include("template:domain")
+include("template:module")

@@ -5,8 +5,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.future.await
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
-import tech.checkstory.auth.user.AuthenticatedScope
-import tech.checkstory.domain.command.DtoUUID
+import tech.checkstory.core.domain.DtoUUID
+import tech.checkstory.core.domain.auth.AuthenticatedScope
 import tech.checkstory.domain.event.DomainEvent
 import java.util.*
 

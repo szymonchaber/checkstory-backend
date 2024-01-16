@@ -1,7 +1,7 @@
 package tech.checkstory.data
 
-import tech.checkstory.auth.user.AuthenticatedScope
-import tech.checkstory.domain.command.DtoUUID
+import tech.checkstory.core.domain.DtoUUID
+import tech.checkstory.core.domain.auth.AuthenticatedScope
 import tech.checkstory.domain.event.DomainEvent
 import java.util.*
 

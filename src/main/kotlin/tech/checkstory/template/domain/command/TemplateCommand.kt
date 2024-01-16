@@ -5,8 +5,8 @@ import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import tech.checkstory.core.domain.DtoUUID
 import tech.checkstory.domain.command.DomainCommand
-import tech.checkstory.domain.command.DtoUUID
 import tech.checkstory.template.domain.aggregate.Interval
 import tech.checkstory.template.domain.aggregate.Reminder
 import tech.checkstory.template.domain.aggregate.TemplateTask
@@ -209,7 +209,7 @@ sealed interface IntervalDto {
 
     @Serializable
     @SerialName("daily")
-    object DailyDto : IntervalDto
+    data object DailyDto : IntervalDto
 
     @Serializable
     @SerialName("weekly")

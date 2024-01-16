@@ -5,7 +5,7 @@ import io.ktor.http.auth.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.request.*
-import tech.checkstory.auth.user.User
+import tech.checkstory.core.domain.auth.User
 
 class FirebaseConfig(name: String?) : AuthenticationProvider.Config(name) {
 

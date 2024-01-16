@@ -1,9 +1,9 @@
 package tech.checkstory.checklist.api
 
-import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.checklist.data.EventBasedChecklistRepository
 import tech.checkstory.checklist.domain.command.ChecklistCommand
 import tech.checkstory.checklist.domain.event.ChecklistEvent
+import tech.checkstory.core.domain.auth.AuthenticatedScope
 import tech.checkstory.data.EventRepository
 
 context(AuthenticatedScope)

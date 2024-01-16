@@ -5,7 +5,7 @@ import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import tech.checkstory.auth.user.User
+import tech.checkstory.core.domain.auth.User
 
 val PaymentRequiredPlugin = createRouteScopedPlugin(
     name = "PaymentRequiredPlugin"

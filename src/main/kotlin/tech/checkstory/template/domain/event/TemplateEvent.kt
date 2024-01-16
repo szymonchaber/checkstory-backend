@@ -3,7 +3,7 @@ package tech.checkstory.template.domain.event
 import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import tech.checkstory.domain.command.DtoUUID
+import tech.checkstory.core.domain.DtoUUID
 import tech.checkstory.domain.event.CreationEvent
 import tech.checkstory.domain.event.DomainEvent
 import tech.checkstory.domain.event.MutationEvent

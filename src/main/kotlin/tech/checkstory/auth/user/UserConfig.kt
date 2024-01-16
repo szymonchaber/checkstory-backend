@@ -12,6 +12,7 @@ import tech.checkstory.auth.firebase.FIREBASE_AUTH
 import tech.checkstory.auth.firebase.parseAuthorizationHeaderOrNull
 import tech.checkstory.auth.firebase.toFirebaseTokenOrNull
 import tech.checkstory.auth.withPrincipal
+import tech.checkstory.core.domain.auth.User
 
 context(DI)
 fun Application.configureUserService() {
@@ -58,7 +59,3 @@ data class UserDto(val userId: String, val isPaidUser: Boolean) {
         }
     }
 }
-
-class AuthenticatedScope(
-    val principal: User
-)

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.withContext
 import tech.checkstory.eventbus.EventBus
 import tech.checkstory.template.data.RelationalTemplateRepository
-import tech.checkstory.template.domain.Template
+import tech.checkstory.template.domain.aggregate.Template
 import tech.checkstory.template.domain.event.TemplateEvent
 
 class TemplateProjection(

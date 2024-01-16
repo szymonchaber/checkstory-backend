@@ -42,14 +42,15 @@ tasks.named("shadowJar", ShadowJar::class.java) {
 
 repositories {
     mavenCentral()
-    mavenCentral()
     maven {
         this.url = URI("https://jitpack.io")
     }
 }
 
 dependencies {
-    implementation(project(":messaging"))
+    implementation(project(":template:module"))
+    implementation(project(":template:domain")) // TODO remove this
+    implementation(project(":core:domain"))
     implementation("org.postgresql:postgresql:$postgres_version")
     implementation("com.h2database:h2:$h2_version")
     implementation("org.jetbrains.exposed:exposed-core:$exposed_version")

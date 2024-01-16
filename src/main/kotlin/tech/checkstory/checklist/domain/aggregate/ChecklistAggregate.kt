@@ -1,10 +1,10 @@
 package tech.checkstory.checklist.domain.aggregate
 
 import kotlinx.datetime.Instant
-import tech.checkstory.auth.user.User
 import tech.checkstory.checklist.domain.command.ChecklistCommand
 import tech.checkstory.checklist.domain.event.ChecklistEvent
-import tech.checkstory.domain.command.DtoUUID
+import tech.checkstory.core.domain.DtoUUID
+import tech.checkstory.core.domain.auth.User
 import java.util.*
 
 class ChecklistAggregate(val id: UUID) {

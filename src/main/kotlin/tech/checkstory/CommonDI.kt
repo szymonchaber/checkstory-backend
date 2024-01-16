@@ -14,7 +14,6 @@ import tech.checkstory.data.EventMapper
 import tech.checkstory.data.EventRepository
 import tech.checkstory.data.EventStoreConnectionManager
 import tech.checkstory.eventbus.EventBus
-import tech.checkstory.messaging.Welcomer
 import tech.checkstory.notification.data.FirebaseMessagingTokenRepository
 import tech.checkstory.notification.firebase.UserDataChangeNotifier
 import tech.checkstory.payment.data.GiftedSubscriptionRepository
@@ -130,5 +129,4 @@ val Application.commonDI
         bindSingleton {
             GetPaymentStateUseCase(instance(), instance(), instance())
         }
-        println(Welcomer.hello())
     }

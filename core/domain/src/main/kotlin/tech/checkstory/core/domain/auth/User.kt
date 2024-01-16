@@ -1,4 +1,4 @@
-package tech.checkstory.auth.user
+package tech.checkstory.core.domain.auth
 
 import io.ktor.server.auth.*
 

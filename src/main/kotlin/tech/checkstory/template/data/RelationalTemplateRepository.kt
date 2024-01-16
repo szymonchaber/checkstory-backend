@@ -11,16 +11,16 @@ import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.slf4j.LoggerFactory
-import tech.checkstory.auth.user.AuthenticatedScope
-import tech.checkstory.domain.command.DtoUUID
+import tech.checkstory.core.domain.DtoUUID
+import tech.checkstory.core.domain.auth.AuthenticatedScope
 import tech.checkstory.template.data.entity.ReminderEntity
 import tech.checkstory.template.data.entity.TemplateEntity
 import tech.checkstory.template.data.entity.TemplateTaskEntity
 import tech.checkstory.template.data.table.ReminderTable
 import tech.checkstory.template.data.table.TemplateTable
 import tech.checkstory.template.data.table.TemplateTaskTable
-import tech.checkstory.template.domain.Template
 import tech.checkstory.template.domain.aggregate.Reminder
+import tech.checkstory.template.domain.aggregate.Template
 import tech.checkstory.template.domain.aggregate.TemplateTask
 import java.util.*
 

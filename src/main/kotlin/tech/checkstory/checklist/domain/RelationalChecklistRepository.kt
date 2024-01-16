@@ -12,11 +12,11 @@ import org.jetbrains.exposed.sql.kotlin.datetime.datetime
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.slf4j.LoggerFactory
-import tech.checkstory.auth.user.AuthenticatedScope
 import tech.checkstory.checklist.domain.aggregate.Checklist
 import tech.checkstory.checklist.domain.aggregate.Task
+import tech.checkstory.core.domain.DtoUUID
+import tech.checkstory.core.domain.auth.AuthenticatedScope
 import tech.checkstory.data.UpsertableUUIDEntityClass
-import tech.checkstory.domain.command.DtoUUID
 import tech.checkstory.template.data.commonRetry
 import tech.checkstory.template.data.entity.TemplateEntity
 import tech.checkstory.template.data.table.TemplateTable
