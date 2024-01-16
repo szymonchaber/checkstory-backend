@@ -130,4 +130,5 @@ val Application.commonDI
         bindSingleton {
             GetPaymentStateUseCase(instance(), instance(), instance())
         }
+        println(Welcomer.hello())
     }
