@@ -1,8 +1,7 @@
 package tech.checkstory
 
-import com.typesafe.config.Config
-import com.typesafe.config.ConfigFactory
 import io.ktor.server.application.*
+import io.ktor.server.config.*
 import kotlinx.serialization.json.Json
 import org.jetbrains.exposed.sql.Database
 import org.kodein.di.*
@@ -35,7 +34,7 @@ import tech.checkstory.template.domain.event.TemplateEvent
 
 val Application.commonDI
     get() = DI.Module("common") {
-        bind<Config>() with singleton { ConfigFactory.load() }
+        bind<ApplicationConfig>() with singleton { environment.config }
         bindSingleton<Database> {
             Database.connect(
                 getNewConnection = {
@@ -54,7 +53,7 @@ val Application.commonDI
             EventBus()
         }
         bindSingleton<EventStoreConnectionManager> {
-            val eventStorePassword = instance<Config>().getString("eventStore.password")!!
+            val eventStorePassword = instance<ApplicationConfig>().property("eventStore.password").getString()
             EventStoreConnectionManager(eventStorePassword)
         }
         bindSingleton {
