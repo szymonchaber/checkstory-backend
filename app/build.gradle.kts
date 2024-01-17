@@ -34,4 +34,10 @@ tasks.named("shadowJar", ShadowJar::class.java) {
 
 dependencies {
     implementation(project(":core:monolith"))
+    implementation(project(":template:module"))
+    implementation(libs.ktor.server.core.jvm)
+    implementation(libs.ktor.server.netty.jvm)
+    implementation(libs.bundles.exposed)
+    implementation(libs.kodein)
+    implementation(libs.firebase.admin)
 }

@@ -73,7 +73,6 @@ ktor-config = [
     "ktor-server-metrics-jvm",
     "ktor-server-content-negotiation-jvm",
     "ktor-serialization-kotlinx-json-jvm",
-    "ktor-server-netty-jvm",
 ]
 
 google-play = [

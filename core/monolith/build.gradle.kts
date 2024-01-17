@@ -33,8 +33,6 @@ tasks.named("shadowJar", ShadowJar::class.java) {
 }
 
 dependencies {
-    implementation(project(":template:module"))
-    implementation(project(":template:domain")) // TODO remove this
     implementation(project(":core:domain"))
     implementation(libs.postgres)
     implementation(libs.h2)
@@ -51,11 +49,11 @@ dependencies {
 
     implementation(libs.bundles.google.play)
 
-    implementation(libs.kodein)
     implementation(libs.calendar.rrule)
 
     implementation(libs.retry)
     implementation(libs.ktor.server.core.jvm)
+    implementation(libs.kodein)
     implementation(libs.ktor.server.auth.jvm)
     implementation(libs.bundles.ktor.config)
 
