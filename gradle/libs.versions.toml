@@ -1,0 +1,28 @@
+[versions]
+
+ktor = "2.2.4"
+kotlin = "1.9.10"
+postgres = "42.5.1"
+h2 = "2.2.220"
+exposed = "0.43.0"
+
+[libraries]
+postgres = { module = "org.postgresql:postgresql", version.ref = "postgres" }
+h2 = { module = "com.h2database:h2", version.ref = "h2" }
+logback = "ch.qos.logback:logback-classic:1.4.12"
+exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
+exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
+exposed-kotlin-datetime = { module = "org.jetbrains.exposed:exposed-kotlin-datetime", version.ref = "exposed" }
+exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed" }
+
+
+[bundles]
+
+exposed = [
+    "exposed-core",
+    "exposed-jdbc",
+    "exposed-kotlin-datetime",
+    "exposed-dao",
+]
+
+[plugins]
