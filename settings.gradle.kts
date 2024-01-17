@@ -18,5 +18,6 @@ rootProject.name = "checkstory-backend-ktor"
 include("app")
 include("core:monolith")
 include("core:domain")
-include("template:domain")
 include("template:module")
+include("template:domain")
+include("template:data")
