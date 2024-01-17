@@ -4,10 +4,6 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization") version "1.8.20"
 }
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:2.3.2")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")

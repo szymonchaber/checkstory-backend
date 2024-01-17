@@ -1,6 +1,6 @@
 @file:Suppress("INLINE_FROM_HIGHER_PLATFORM")
 
-package tech.checkstory.payment.domain
+package domain
 
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Instant
@@ -10,6 +10,9 @@ import org.mockito.kotlin.*
 import tech.checkstory.payment.data.GiftedSubscriptionRepository
 import tech.checkstory.payment.data.Purchase
 import tech.checkstory.payment.data.PurchaseRepository
+import tech.checkstory.payment.domain.GetPaymentStateUseCase
+import tech.checkstory.payment.domain.GooglePlayPaymentToken
+import tech.checkstory.payment.domain.StoreGooglePlayTokenUseCase
 
 class GetPaymentStateUseCaseTest {
 

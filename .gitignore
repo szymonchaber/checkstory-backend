@@ -35,7 +35,7 @@ out/
 ### VS Code ###
 .vscode/
 
-/src/main/resources/firebase-service-credentials.json
-/src/main/resources/google-service-account.json
+**/src/main/resources/firebase-service-credentials.json
+**/src/main/resources/google-service-account.json
 
 /httpClient/http-client.private.env.json
