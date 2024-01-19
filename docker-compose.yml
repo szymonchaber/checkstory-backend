@@ -15,7 +15,7 @@ services:
       POSTGRES_URL: 'jdbc:postgresql://postgresql:5432/postgres'
       POSTGRES_USER: 'postgres'
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      EVENTSTORE_DEFAULT_ADMIN_PASSWORD: ${EVENTSTORE_DEFAULT_ADMIN_PASSWORD}
+      EVENTSTORE_CONNECTION_STRING: ${EVENTSTORE_CONNECTION_STRING}
     depends_on:
       postgresql:
         condition: service_healthy
