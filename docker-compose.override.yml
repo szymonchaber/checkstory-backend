@@ -1,0 +1,37 @@
+version: '3.8'
+
+name: checkstory-backend
+
+services:
+  backend:
+    build: .
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - services
+    environment:
+      JAVA_OPTS: ${JAVA_OPTS}
+      POSTGRES_URL: 'jdbc:postgresql://postgresql:5432/postgres'
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      EVENTSTORE_CONNECTION_STRING: ${EVENTSTORE_CONNECTION_STRING}
+    entrypoint: java -jar /app/checkstory-docker.jar $JAVA_OPTS
+    depends_on:
+      postgresql:
+        condition: service_healthy
+      esdb:
+        condition: service_healthy
+
+networks:
+  services:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  eventstore_data:
+  eventstore_logs:
+  nginx_conf:
+  certbot_conf:
+  certbot_www:
+
