@@ -11,7 +11,7 @@
 - We use Docker Compose with automatic Github Actions deployment to the DigitalOcean server
 - Wa have some manual backup processes described below
 - We use nginx reverse proxy with certbot
-- We use EventStoreDB in a clustered setup
+- We use EventStoreDB in a single-node setup
 - We cannot yet fake external dependencies - we have to work on that
 - We also haven't run the containers locally for some time - we should update that situation
 
@@ -20,7 +20,7 @@
 Build Docker image for the backend service & push to the artifact store:
 
 ```shell
-./gradlew buildFatJar
+./gradlew app:buildFatJar
 
 docker build --platform=linux/amd64 -t us-central1-docker.pkg.dev/checkstory-940fc/checkstory-images/checkstory-backend .
 docker push us-central1-docker.pkg.dev/checkstory-940fc/checkstory-images/checkstory-backend
@@ -43,7 +43,7 @@ this https://stackoverflow.com/questions/40619582/how-can-i-escape-a-dollar-sign
 
 ### Backing up the data
 
-We should consider buying a remote server to backup to
+We should consider buying a remote server to back up to
 
 ```shell
 ./scripts/backup.sh
