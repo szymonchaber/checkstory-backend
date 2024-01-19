@@ -15,6 +15,14 @@
 - We cannot yet fake external dependencies - we have to work on that
 - We also haven't run the containers locally for some time - we should update that situation
 
+### Environment variables
+
+- EVENT_STORE_CONNECTION_STRING:
+   - For direct java runs,
+     use `esdb://admin:password@localhost:2113?tls=false&keepAliveTimeout=10000&keepAliveInterval=10000&tlsVerifyCert=false`
+   - For docker deployments,
+     use `esdb://{user}:{password}@esdb:2113?tls=false&keepAliveTimeout=10000&keepAliveInterval=10000&tlsVerifyCert=false`
+
 ### Building & deploying
 
 Build Docker image for the backend service & push to the artifact store:

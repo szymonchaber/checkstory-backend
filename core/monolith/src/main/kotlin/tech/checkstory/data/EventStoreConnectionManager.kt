@@ -4,12 +4,9 @@ import com.eventstore.dbclient.EventStoreDBClient
 import com.eventstore.dbclient.EventStoreDBConnectionString
 import org.kodein.di.Volatile
 
-class EventStoreConnectionManager(eventStorePassword: String) {
+class EventStoreConnectionManager(eventStoreConnectionString: String) {
 
-    private val connectionString by lazy {
-        "esdb://admin:${eventStorePassword}@esdb:2113" +
-                "?tls=false&keepAliveTimeout=10000&keepAliveInterval=10000&tlsVerifyCert=false"
-    }
+    private val settings = EventStoreDBConnectionString.parseOrThrow(eventStoreConnectionString)
 
     @Volatile
     private var client: EventStoreDBClient? = null
@@ -19,7 +16,6 @@ class EventStoreConnectionManager(eventStorePassword: String) {
         if (tempClient == null || tempClient.isShutdown) {
             synchronized(this) {
                 if (client == null || client?.isShutdown == true) {
-                    val settings = EventStoreDBConnectionString.parseOrThrow(connectionString)
                     client = EventStoreDBClient.create(settings)
                 }
             }
