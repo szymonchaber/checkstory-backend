@@ -11,33 +11,17 @@ services:
     networks:
       - services
     environment:
-      POSTGRES_URL: 'jdbc:postgresql://postgresql:5432/postgres'
       POSTGRES_USER: 'postgres'
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       EVENTSTORE_CONNECTION_STRING: ${EVENTSTORE_CONNECTION_STRING}
+      POSTGRES_CONNECTION_STRING: ${POSTGRES_CONNECTION_STRING}
     depends_on:
-      postgresql:
-        condition: service_healthy
       esdb:
         condition: service_healthy
 
-  postgresql:
-    image: postgres:15.4
-    restart: always
-    networks:
-      - services
-    ports:
-      - "127.0.0.1:5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
-      interval: 1s
-
   esdb:
     image: eventstore/eventstore:latest
+    #    image: eventstore/eventstore:22.10.3-alpha-arm64v8
     environment:
       - EVENTSTORE_CLUSTER_SIZE=1
       - EVENTSTORE_RUN_PROJECTIONS=All

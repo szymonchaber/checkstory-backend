@@ -43,7 +43,7 @@ Authorization: Bearer {{auth_token_2}}
 
 {}
 
-### Post a purchase token for the user 1
+### Post a purchase token for user 1
 POST {{endpoint}}/payment/google-play-token
 Content-Type: application/json
 Authorization: Bearer {{auth_token_1}}

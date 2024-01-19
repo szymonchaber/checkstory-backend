@@ -9,13 +9,10 @@ fun connectToPostgres(embedded: Boolean, config: ApplicationConfig): Connection 
     return if (embedded) {
         DriverManager.getConnection("jdbc:h2:~/h2db;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1;MODE=MYSQL", "root", "")
     } else {
-        val url = config.property("postgres.url").getString()
-        val user = config.property("postgres.user").getString()
-        val password = config.property("postgres.password").getString()
-
-        require(password.isNotEmpty()) {
-            "Postgres password is empty, which means some configuration was incorrect"
+        val connectionString = config.property("postgres.connectionString").getString()
+        require(connectionString.isNotEmpty()) {
+            "Postgres connection string is empty, which means some configuration was incorrect"
         }
-        DriverManager.getConnection(url, user, password)
+        DriverManager.getConnection(connectionString)
     }
 }
