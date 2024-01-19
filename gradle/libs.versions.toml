@@ -45,6 +45,8 @@ ktor-server-netty-jvm = { module = "io.ktor:ktor-server-netty-jvm", version.ref 
 ktor-client-core-jvm = { module = "io.ktor:ktor-client-core-jvm", version.ref = "ktor" }
 ktor-client-apache-jvm = { module = "io.ktor:ktor-client-apache-jvm", version.ref = "ktor" }
 
+hikari = "com.zaxxer:HikariCP:5.1.0"
+
 kotlin-test = "org.jetbrains.kotlin:kotlin-test-junit:1.9.10"
 junit = "org.junit.jupiter:junit-jupiter:5.9.2"
 ktor-server-tests = { module = "io.ktor:ktor-server-tests-jvm", version.ref = "ktor" }

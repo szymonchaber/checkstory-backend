@@ -21,7 +21,7 @@ import tech.checkstory.payment.data.PurchaseRepository
 import tech.checkstory.payment.data.google_play.SubscriptionsGoogleApi
 import tech.checkstory.payment.domain.GetPaymentStateUseCase
 import tech.checkstory.payment.domain.StoreGooglePlayTokenUseCase
-import tech.checkstory.plugins.connectToPostgres
+import tech.checkstory.plugins.createHikariDataSource
 import tech.checkstory.read.checklist.ChecklistProjection
 import tech.checkstory.read.subscription.EventStoreDBSubscriptionToAll
 import tech.checkstory.read.subscription.SubscriptionCheckpointRepository
@@ -34,11 +34,13 @@ val Application.commonDI
     get() = DI.Module("common") {
         bind<ApplicationConfig>() with singleton { environment.config }
         bindSingleton<Database> {
-            Database.connect(
-                getNewConnection = {
-                    connectToPostgres(false, instance())
-                }
-            )
+            val connectionString = instance<ApplicationConfig>().property("postgres.connectionString").getString()
+            require(connectionString.isNotEmpty()) {
+                "Postgres connection string is empty, which means some configuration was incorrect"
+            }
+            val database =
+                Database.connect(datasource = createHikariDataSource(connectionString, "org.postgresql.Driver"))
+            database
         }
         bindSingleton {
             Json {

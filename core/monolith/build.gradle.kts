@@ -37,6 +37,7 @@ dependencies {
     implementation(libs.postgres)
     implementation(libs.h2)
     implementation(libs.bundles.exposed)
+    implementation(libs.hikari)
     implementation(libs.logback)
 
     implementation(libs.eventstoredb)

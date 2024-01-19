@@ -2,14 +2,17 @@ package tech.checkstory
 
 import io.ktor.server.application.*
 import org.jetbrains.exposed.sql.Database
-import org.kodein.di.*
+import org.kodein.di.DI
+import org.kodein.di.bind
+import org.kodein.di.bindSingleton
+import org.kodein.di.singleton
 import tech.checkstory.checklist.data.InMemoryChecklistEventRepository
 import tech.checkstory.checklist.domain.event.ChecklistEvent
 import tech.checkstory.data.EventRepository
-import tech.checkstory.plugins.connectToPostgres
 import tech.checkstory.read.subscription.SubscriptionToAll
 import tech.checkstory.template.data.InMemoryTemplateEventRepository
 import tech.checkstory.template.domain.event.TemplateEvent
+import java.sql.DriverManager
 import java.util.*
 
 fun Application.mockModule() {
@@ -20,7 +23,11 @@ fun Application.mockModule() {
         bindSingleton<Database>(overrides = true) {
             Database.connect(
                 getNewConnection = {
-                    connectToPostgres(true, instance())
+                    DriverManager.getConnection(
+                        "jdbc:h2:~/h2db;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1;MODE=MYSQL",
+                        "root",
+                        ""
+                    )
                 }
             )
         }
