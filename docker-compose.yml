@@ -37,8 +37,7 @@ services:
       interval: 1s
 
   esdb:
-    #    image: eventstore/eventstore:latest
-    image: eventstore/eventstore:22.10.3-alpha-arm64v8
+    image: eventstore/eventstore:latest
     environment:
       - EVENTSTORE_CLUSTER_SIZE=1
       - EVENTSTORE_RUN_PROJECTIONS=All
@@ -56,7 +55,7 @@ services:
     volumes:
       - eventstore_data:/var/lib/eventstore
       - eventstore_logs:/var/log/eventstore
-    #    restart: unless-stopped
+    restart: unless-stopped
     healthcheck:
       test:
         [
