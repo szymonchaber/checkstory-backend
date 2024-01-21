@@ -11,8 +11,6 @@ services:
     networks:
       - services
     environment:
-      POSTGRES_USER: 'postgres'
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       EVENTSTORE_CONNECTION_STRING: ${EVENTSTORE_CONNECTION_STRING}
       POSTGRES_CONNECTION_STRING: ${POSTGRES_CONNECTION_STRING}
     depends_on:
@@ -21,7 +19,7 @@ services:
 
   esdb:
     image: eventstore/eventstore:latest
-    #    image: eventstore/eventstore:22.10.3-alpha-arm64v8
+    #        image: eventstore/eventstore:22.10.3-alpha-arm64v8
     environment:
       - EVENTSTORE_CLUSTER_SIZE=1
       - EVENTSTORE_RUN_PROJECTIONS=All

@@ -25,21 +25,12 @@
 
 ### Building & deploying
 
-Build Docker image for the backend service & push to the artifact store:
-
+Local build in preparation for Dockerfile:
 ```shell
 ./gradlew app:buildFatJar
-
-docker build --platform=linux/amd64 -t us-central1-docker.pkg.dev/checkstory-940fc/checkstory-images/checkstory-backend .
-docker push us-central1-docker.pkg.dev/checkstory-940fc/checkstory-images/checkstory-backend
 ```
 
-Copy the docker-compose to the backend server
-There, run
-
-```shell
-docker compose up -d
-```
+Push to master & run relevant Github workflow
 
 ### Deploying from scratch
 

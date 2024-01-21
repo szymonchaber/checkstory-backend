@@ -70,12 +70,10 @@ jobs:
       - name: Deploy the new service
         run: |
           scp docker-compose.yml production:~/docker-compose.yml
-          scp event_store_shared.env production:~/event_store_shared.env
           scp -r nginx production:~/
           ssh production << END
-            export POSTGRES_PASSWORD="$POSTGRES_PASSWORD"
-            export EVENTSTORE_DEFAULT_ADMIN_PASSWORD="$EVENTSTORE_DEFAULT_ADMIN_PASSWORD"
-            export EVENTSTORE_DEFAULT_OPS_PASSWORD="$EVENTSTORE_DEFAULT_OPS_PASSWORD"
+            export POSTGRES_CONNECTION_STRING="$POSTGRES_CONNECTION_STRING"
+            export EVENTSTORE_CONNECTION_STRING="$EVENTSTORE_CONNECTION_STRING"
             echo $GH_CONTAINER_REGISTRY_TOKEN | docker login ghcr.io -u szymonchaber --password-stdin
             docker compose down
             docker compose pull
@@ -83,6 +81,5 @@ jobs:
           END
         env:
           GH_CONTAINER_REGISTRY_TOKEN: ${{ secrets.GH_CONTAINER_REGISTRY_TOKEN }}
-          POSTGRES_PASSWORD: ${{ secrets.PRODUCTION_POSTGRES_PASSWORD }}
-          EVENTSTORE_DEFAULT_ADMIN_PASSWORD: ${{ secrets.PRODUCTION_EVENTSTORE_ADMIN_PASSWORD }}
-          EVENTSTORE_DEFAULT_OPS_PASSWORD: ${{ secrets.PRODUCTION_EVENTSTORE_OPS_PASSWORD }}
+          POSTGRES_CONNECTION_STRING: ${{ secrets.$PRODUCTION_POSTGRES_CONNECTION_STRING }}
+          EVENTSTORE_CONNECTION_STRING: ${{ secrets.$PRODUCTION_EVENTSTORE_CONNECTION_STRING }}
