@@ -21,8 +21,8 @@ jobs:
         uses: actions/checkout@v3
       - name: Copy secret files
         run: |
-          echo "$GOOGLE_SERVICE_ACCOUNT" | base64 --decode | jq > src/main/resources/google-service-account.json
-          echo "$FIREBASE_SERVICE_CREDENTIALS" | base64 --decode | jq > src/main/resources/firebase-service-credentials.json
+          echo "$GOOGLE_SERVICE_ACCOUNT" | base64 --decode | jq > app/src/main/resources/google-service-account.json
+          echo "$FIREBASE_SERVICE_CREDENTIALS" | base64 --decode | jq > app/src/main/resources/firebase-service-credentials.json
         env:
           GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON_BASE_64 }}
           FIREBASE_SERVICE_CREDENTIALS: ${{ secrets.FIREBASE_SERVICE_CREDENTIALS_JSON_BASE_64 }}
@@ -38,7 +38,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build Backend Jar
-        run: ./gradlew buildFatJar
+        run: ./gradlew app:buildFatJar
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
