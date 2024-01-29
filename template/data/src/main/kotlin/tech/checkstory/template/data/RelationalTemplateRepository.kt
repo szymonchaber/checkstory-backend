@@ -4,10 +4,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.exposed.dao.id.EntityID
-import org.jetbrains.exposed.sql.Database
-import org.jetbrains.exposed.sql.Op
-import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.and
+import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.slf4j.LoggerFactory
@@ -152,6 +150,22 @@ class RelationalTemplateRepository(private val database: Database) {
     suspend fun markAsDeleted(id: UUID) {
         dbQuery {
             TemplateEntity.findById(id)?.isDeleted = true
+        }
+    }
+
+    context(AuthenticatedScope)
+    suspend fun deleteUserTemplates() {
+        dbQuery {
+            TemplateEntity.find { TemplateTable.userId eq principal.userId }
+                .forEach { templateEntity ->
+                    TemplateTaskTable.deleteWhere {
+                        template eq templateEntity.id
+                    }
+                    ReminderTable.deleteWhere {
+                        template eq templateEntity.id
+                    }
+                    templateEntity.delete()
+                }
         }
     }
 

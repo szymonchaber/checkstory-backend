@@ -25,6 +25,7 @@ class DeleteUserUseCaseImpl(
         firebaseMessagingTokenRepository.deleteUserFirebaseTokens()
         // remove stuff from EventStoreDb here
         checklistRepository.deleteUserChecklists()
+        templateRepository.deleteUserTemplates()
         userService.delete()
         // remove the account from Firebase here
     }
