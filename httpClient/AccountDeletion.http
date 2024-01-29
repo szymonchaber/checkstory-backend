@@ -1,0 +1,41 @@
+### Register user 1 in Firebase
+POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={{firebase_api_key}}
+Content-Type: application/json
+
+{
+  "email": "{{login_1}}",
+  "password": "{{password_1}}",
+  "returnSecureToken": true
+}
+
+> {%
+    client.global.set("auth_token_1", response.body.idToken);
+    client.global.set("user_id_1", response.body.localId);
+%}
+
+### Register user 1 in the backend
+POST {{endpoint}}/auth/register
+Content-Type: application/json
+Authorization: Bearer {{auth_token_1}}
+
+{}
+
+### Login user 1
+GET {{endpoint}}/auth/login
+Content-Type: application/json
+Authorization: Bearer {{auth_token_1}}
+
+### Delete user 1 from the backend
+POST {{endpoint}}/auth/delete
+Content-Type: application/json
+Authorization: Bearer {{auth_token_1}}
+
+### Login user 1
+GET {{endpoint}}/auth/login
+Content-Type: application/json
+Authorization: Bearer {{auth_token_1}}
+
+### Get all templates of user 1
+GET {{endpoint}}/templates
+Content-Type: application/json
+Authorization: Bearer {{auth_token_1}}

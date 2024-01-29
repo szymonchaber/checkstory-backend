@@ -77,7 +77,6 @@ networks:
     driver: bridge
 
 volumes:
-  postgres_data:
   eventstore_data:
   eventstore_logs:
   nginx_conf:
