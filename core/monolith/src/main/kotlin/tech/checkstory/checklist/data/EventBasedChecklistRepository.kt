@@ -1,43 +1,15 @@
 package tech.checkstory.checklist.data
 
-import tech.checkstory.checklist.domain.ChecklistRepository
-import tech.checkstory.checklist.domain.aggregate.Checklist
 import tech.checkstory.checklist.domain.aggregate.ChecklistAggregate
 import tech.checkstory.checklist.domain.event.ChecklistEvent
 import tech.checkstory.core.domain.DtoUUID
 import tech.checkstory.core.domain.auth.AuthenticatedScope
 import tech.checkstory.data.EventRepository
-import tech.checkstory.template.data.EventSourcedTemplateRepository
 import java.util.*
 
 class EventBasedChecklistRepository(
-    private val eventRepository: EventRepository<ChecklistEvent>,
-    private val templateRepository: EventSourcedTemplateRepository
-) : ChecklistRepository {
-
-    context(AuthenticatedScope)
-    override suspend fun readAll(): List<Checklist> {
-        return eventRepository.getAllGrouped()
-            .mapNotNull { (id, events) ->
-                ChecklistAggregate.fromHistory(id, events).toChecklistOrNull()
-            }
-            .filter {
-                it.userId == principal.userId
-            }
-            .filterNot(Checklist::isDeleted)
-            .filterNot {
-                isOrphaned(it)
-            }
-    }
-
-    private suspend fun isOrphaned(checklist: Checklist): Boolean {
-        return templateRepository.read(checklist.templateId)?.isDeleted == true
-    }
-
-    context(AuthenticatedScope)
-    override suspend fun read(id: UUID): Checklist? {
-        return getById(id).toChecklistOrNull()
-    }
+    private val eventRepository: EventRepository<ChecklistEvent>
+) {
 
     context(AuthenticatedScope)
     suspend fun getByIdOrNew(checklistId: DtoUUID): ChecklistAggregate {
@@ -45,7 +17,7 @@ class EventBasedChecklistRepository(
     }
 
     context(AuthenticatedScope)
-    suspend fun getById(id: UUID): ChecklistAggregate {
+    private suspend fun getById(id: UUID): ChecklistAggregate {
         return eventRepository.getEventsForAggregate(id)
             .fold(new(id), ChecklistAggregate::applyEvent)
             .also {

@@ -1,6 +1,6 @@
 package tech.checkstory
 
-import tech.checkstory.checklist.domain.RelationalChecklistRepository
+import tech.checkstory.checklist.domain.ChecklistRepository
 import tech.checkstory.core.domain.auth.AuthenticatedScope
 import tech.checkstory.core.domain.auth.DeleteUserUseCase
 import tech.checkstory.core.domain.auth.UserService
@@ -15,7 +15,7 @@ class DeleteUserUseCaseImpl(
     private val giftedSubscriptionRepository: GiftedSubscriptionRepository,
     private val firebaseMessagingTokenRepository: FirebaseMessagingTokenRepository,
     private val templateRepository: RelationalTemplateRepository,
-    private val checklistRepository: RelationalChecklistRepository
+    private val checklistRepository: ChecklistRepository
 ) : DeleteUserUseCase {
 
     context(AuthenticatedScope)

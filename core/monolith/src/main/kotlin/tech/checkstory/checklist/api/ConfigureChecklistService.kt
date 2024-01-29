@@ -7,11 +7,11 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import tech.checkstory.auth.firebase.FIREBASE_AUTH
 import tech.checkstory.auth.withPrincipal
-import tech.checkstory.checklist.domain.RelationalChecklistRepository
+import tech.checkstory.checklist.domain.ChecklistRepository
 import java.util.*
 
 fun Application.configureChecklistService(
-    checklistRepository: RelationalChecklistRepository
+    checklistRepository: ChecklistRepository
 ) {
     routing {
         authenticate(FIREBASE_AUTH) {

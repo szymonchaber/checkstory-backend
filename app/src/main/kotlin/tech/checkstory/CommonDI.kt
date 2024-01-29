@@ -8,7 +8,7 @@ import org.kodein.di.*
 import tech.checkstory.auth.data.UserServiceImpl
 import tech.checkstory.checklist.data.ChecklistEventMapper
 import tech.checkstory.checklist.data.ChecklistEventRepositoryImpl
-import tech.checkstory.checklist.domain.RelationalChecklistRepository
+import tech.checkstory.checklist.domain.ChecklistRepository
 import tech.checkstory.checklist.domain.event.ChecklistEvent
 import tech.checkstory.core.domain.auth.DeleteUserUseCase
 import tech.checkstory.core.domain.auth.UserService
@@ -110,7 +110,7 @@ val Application.commonDI
             ChecklistEventRepositoryImpl(instance(), instance())
         }
         bindSingleton {
-            RelationalChecklistRepository(instance())
+            ChecklistRepository(instance())
         }
         bindSingleton {
             EventSourcedTemplateRepository(instance())

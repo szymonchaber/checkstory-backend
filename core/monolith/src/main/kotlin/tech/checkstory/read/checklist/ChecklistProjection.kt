@@ -6,14 +6,14 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.withContext
-import tech.checkstory.checklist.domain.RelationalChecklistRepository
+import tech.checkstory.checklist.domain.ChecklistRepository
 import tech.checkstory.checklist.domain.aggregate.Checklist
 import tech.checkstory.checklist.domain.event.ChecklistEvent
 import tech.checkstory.eventbus.EventBus
 
 class ChecklistProjection(
     private val eventBus: EventBus,
-    private val checklistRepository: RelationalChecklistRepository
+    private val checklistRepository: ChecklistRepository
 ) {
 
     suspend fun run() {

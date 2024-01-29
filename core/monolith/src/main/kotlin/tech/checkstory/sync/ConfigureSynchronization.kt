@@ -26,7 +26,7 @@ fun Application.configureSynchronization() {
     val eventSourcedTemplateRepository by instance<EventSourcedTemplateRepository>()
     val templateRepository by instance<EventSourcedTemplateRepository>()
     val checklistEventRepository by instance<EventRepository<ChecklistEvent>>()
-    val checklistRepository = EventBasedChecklistRepository(checklistEventRepository, templateRepository)
+    val checklistRepository = EventBasedChecklistRepository(checklistEventRepository)
     routing {
         authenticate(FIREBASE_AUTH) {
             requirePayment()
