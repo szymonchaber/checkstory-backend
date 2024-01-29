@@ -5,11 +5,12 @@ import io.ktor.server.config.*
 import kotlinx.serialization.json.Json
 import org.jetbrains.exposed.sql.Database
 import org.kodein.di.*
-import tech.checkstory.auth.user.UserService
+import tech.checkstory.auth.data.UserServiceImpl
 import tech.checkstory.checklist.data.ChecklistEventMapper
 import tech.checkstory.checklist.data.ChecklistEventRepositoryImpl
 import tech.checkstory.checklist.domain.RelationalChecklistRepository
 import tech.checkstory.checklist.domain.event.ChecklistEvent
+import tech.checkstory.core.domain.auth.UserService
 import tech.checkstory.data.EventMapper
 import tech.checkstory.data.EventRepository
 import tech.checkstory.data.EventStoreConnectionManager
@@ -63,8 +64,8 @@ val Application.commonDI
         bindSingleton {
             RelationalTemplateRepository(instance())
         }
-        bindSingleton {
-            UserService(instance())
+        bindSingleton<UserService> {
+            UserServiceImpl(instance())
         }
         bindSingleton {
             SubscriptionsGoogleApi()

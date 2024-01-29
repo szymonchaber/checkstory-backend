@@ -1,15 +1,16 @@
-package tech.checkstory.auth.user
+package tech.checkstory.auth.data
 
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
-import tech.checkstory.auth.user.UserService.UserTable.firebaseId
+import tech.checkstory.auth.data.UserServiceImpl.UserTable.firebaseId
 import tech.checkstory.core.domain.auth.AuthenticatedScope
 import tech.checkstory.core.domain.auth.User
+import tech.checkstory.core.domain.auth.UserService
 
-class UserService(private val database: Database) {
+class UserServiceImpl(private val database: Database) : UserService {
 
     private object UserTable : Table("user") {
         val firebaseId = varchar("firebase_id", length = 255)
@@ -26,10 +27,10 @@ class UserService(private val database: Database) {
         return newSuspendedTransaction(Dispatchers.IO) { block() }
     }
 
-    suspend fun create(user: CreateUserPayload, userID: String): String {
+    override suspend fun create(userId: String): String {
         return dbQuery {
             UserTable.insert {
-                it[firebaseId] = userID
+                it[firebaseId] = userId
             }[firebaseId]
         }
     }
@@ -39,7 +40,7 @@ class UserService(private val database: Database) {
         return readById(principal.userId)
     }
 
-    suspend fun readById(userId: String): User? {
+    override suspend fun readById(userId: String): User? {
         return dbQuery {
             UserTable.select { firebaseId eq userId }
                 .map {
@@ -52,7 +53,7 @@ class UserService(private val database: Database) {
     }
 
     context(AuthenticatedScope)
-    suspend fun delete() {
+    override suspend fun delete() {
         dbQuery {
             UserTable.deleteWhere { firebaseId eq principal.userId }
         }

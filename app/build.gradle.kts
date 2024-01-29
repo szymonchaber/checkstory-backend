@@ -34,9 +34,14 @@ tasks.named("shadowJar", ShadowJar::class.java) {
 
 dependencies {
     implementation(project(":core:monolith"))
+    implementation(project(":core:domain"))
     implementation(project(":template:module"))
     implementation(project(":template:domain"))
     implementation(project(":template:data"))
+    implementation(project(":auth:module"))
+    implementation(project(":auth:domain"))
+    implementation(project(":auth:data"))
+
     implementation(libs.ktor.server.core.jvm)
     implementation(libs.ktor.server.netty.jvm)
     implementation(libs.bundles.exposed)

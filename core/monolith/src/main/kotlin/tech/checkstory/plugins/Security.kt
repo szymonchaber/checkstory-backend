@@ -5,7 +5,7 @@ import io.ktor.server.auth.*
 import org.kodein.di.DI
 import org.kodein.di.instance
 import tech.checkstory.auth.firebase.firebase
-import tech.checkstory.auth.user.UserService
+import tech.checkstory.core.domain.auth.UserService
 import tech.checkstory.payment.domain.GetPaymentStateUseCase
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue

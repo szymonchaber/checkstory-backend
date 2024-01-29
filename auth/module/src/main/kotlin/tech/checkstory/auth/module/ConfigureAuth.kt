@@ -1,4 +1,4 @@
-package tech.checkstory.auth.user
+package tech.checkstory.auth.module
 
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -13,15 +13,16 @@ import tech.checkstory.auth.firebase.parseAuthorizationHeaderOrNull
 import tech.checkstory.auth.firebase.toFirebaseTokenOrNull
 import tech.checkstory.auth.withPrincipal
 import tech.checkstory.core.domain.auth.User
+import tech.checkstory.core.domain.auth.UserService
 
 context(DI)
 fun Application.configureUserService() {
+    log.debug("Got started from auth module!")
     val userService by instance<UserService>()
     routing {
-
-        post<CreateUserPayload>("auth/register") {
+        post("auth/register") {
             call.request.parseAuthorizationHeaderOrNull()?.toFirebaseTokenOrNull()?.let { token ->
-                userService.create(it, token.uid!!)
+                userService.create(token.uid!!)
                 call.respond(HttpStatusCode.Created, UserDto(token.uid, false))
             }
         }
@@ -42,9 +43,6 @@ fun Application.configureUserService() {
         }
     }
 }
-
-@Serializable
-class CreateUserPayload
 
 @Serializable
 data class UserDto(val userId: String, val isPaidUser: Boolean) {
