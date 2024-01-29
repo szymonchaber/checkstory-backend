@@ -1,6 +1,7 @@
 package tech.checkstory.data
 
-import com.eventstore.dbclient.*
+import com.eventstore.dbclient.ReadStreamOptions
+import com.eventstore.dbclient.StreamNotFoundException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.future.await
 import kotlinx.coroutines.withContext
@@ -14,15 +15,6 @@ abstract class EventStoreEventRepository<T : DomainEvent>(
     private val connectionManager: EventStoreConnectionManager,
     private val eventMapper: EventMapper<T>,
 ) : EventRepository<T> {
-
-    override suspend fun getAllGrouped(): Map<DtoUUID, List<T>> {
-        val result = withContext(Dispatchers.IO) {
-            connectionManager.getClient().readAll(ReadAllOptions.get().fromStart().forwards()).await()
-        }
-        return result.events
-            .mapNotNull(eventMapper::deserializeEventWithAggregateId)
-            .groupBy(keySelector = Pair<DtoUUID, T>::first, valueTransform = Pair<DtoUUID, T>::second)
-    }
 
     override suspend fun getEventsForAggregate(id: UUID): List<T> {
         val result = withContext(Dispatchers.IO) {
@@ -40,14 +32,6 @@ abstract class EventStoreEventRepository<T : DomainEvent>(
         return ReadStreamOptions.get()
             .forwards()
             .fromStart()
-    }
-
-    context(AuthenticatedScope)
-    override suspend fun save(event: T, aggregateId: DtoUUID) {
-        val eventData = eventMapper.toEventData(event, principal)
-        connectionManager.getClient()
-            .appendToStream("${eventMapper.fullStreamNamePrefix}$aggregateId", eventData)
-            .await()
     }
 
     context(AuthenticatedScope)
