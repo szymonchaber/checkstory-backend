@@ -19,6 +19,8 @@ class DeleteUserUseCaseImpl(
         purchaseRepository.deleteUserPurchases()
         giftedSubscriptionRepository.deleteUserGifts()
         firebaseMessagingTokenRepository.deleteUserFirebaseTokens()
+        // remove stuff from EventStoreDb here
         userService.delete()
+        // remove the account from Firebase here
     }
 }
