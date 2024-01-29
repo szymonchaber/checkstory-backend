@@ -3,6 +3,7 @@ package tech.checkstory.sync
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
+import org.slf4j.LoggerFactory
 import tech.checkstory.eventbus.EventBus
 import tech.checkstory.notification.firebase.UserDataChangeNotifier
 import tech.checkstory.read.subscription.EventEnvelope
@@ -15,6 +16,7 @@ class NotificationSubscription(
 
     private val userIdToNotificationJob = ConcurrentHashMap<String, Job>()
     private val notifierScope = CoroutineScope(Dispatchers.IO)
+    private val logger = LoggerFactory.getLogger(NotificationSubscription::class.java)
 
     suspend fun run() {
         withContext(Dispatchers.Default) {
@@ -33,7 +35,7 @@ class NotificationSubscription(
             job.cancel()
         }
         userIdToNotificationJob[userId] = notifierScope.launch(Dispatchers.IO) {
-            println("Scheduling user data change notification")
+            logger.debug("Scheduling user data change notification, event content: {}", eventEnvelope.event)
             delay(1000)
             notifier.notifyUserOfDataChange(userId)
             userIdToNotificationJob.remove(userId)

@@ -137,12 +137,22 @@ class RelationalTemplateRepository(private val database: Database) {
     }
 
     context(AuthenticatedScope)
-    suspend fun readAll(): List<Template> {
+    suspend fun readAllNotDeleted(): List<Template> {
         return dbQuery {
             TemplateEntity
                 .find {
                     TemplateTable.userId eq principal.userId and (TemplateTable.isDeleted eq Op.FALSE)
                 }
+                .map(TemplateEntity::toTemplate)
+        }
+    }
+
+    context(AuthenticatedScope)
+    suspend fun readAll(): List<Template> {
+        return dbQuery {
+            TemplateEntity.find {
+                TemplateTable.userId eq principal.userId
+            }
                 .map(TemplateEntity::toTemplate)
         }
     }

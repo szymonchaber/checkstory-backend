@@ -19,4 +19,11 @@ abstract class InMemoryEventRepository<T : DomainEvent> : EventRepository<T> {
             old.plus(new)
         }
     }
+
+    context(AuthenticatedScope)
+    override suspend fun deleteStreamsForAggregates(aggregateIds: List<DtoUUID>) {
+        aggregateIds.forEach {
+            aggregateIdToEventList.remove(it)
+        }
+    }
 }

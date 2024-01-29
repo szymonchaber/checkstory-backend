@@ -11,4 +11,7 @@ interface EventRepository<T : DomainEvent> {
 
     context(AuthenticatedScope)
     suspend fun saveAll(events: List<T>, aggregateId: DtoUUID)
+
+    context(AuthenticatedScope)
+    suspend fun deleteStreamsForAggregates(aggregateIds: List<DtoUUID>)
 }

@@ -17,7 +17,7 @@ fun Application.configureChecklistService(
         authenticate(FIREBASE_AUTH) {
             get("/checklists") {
                 withPrincipal {
-                    val checklists = checklistRepository.readAll()
+                    val checklists = checklistRepository.readAllNotDeleted()
                     call.respond(HttpStatusCode.OK, checklists)
                 }
             }

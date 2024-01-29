@@ -43,6 +43,28 @@ abstract class EventStoreEventRepository<T : DomainEvent>(
             .appendToStream("${eventMapper.fullStreamNamePrefix}$aggregateId", eventDataList.listIterator())
             .await()
     }
+
+    context(AuthenticatedScope)
+    override suspend fun deleteStreamsForAggregates(aggregateIds: List<DtoUUID>) {
+        aggregateIds.map {
+            val streamName = "${eventMapper.fullStreamNamePrefix}$it"
+            println("Deleting stream: $streamName")
+            connectionManager.getClient()
+                .tombstoneStream(streamName)
+                .await()
+        }
+    }
+
+    private fun createUserIdProperties(mutableMap: MutableMap<String, Any>, userId: String): MutableMap<String, Any> {
+        return mutableMap.apply {
+            this[STREAM_PROPERTY_USER_ID] = userId
+        }
+    }
+
+    companion object {
+
+        private const val STREAM_PROPERTY_USER_ID = "userId"
+    }
 }
 
 @Serializable

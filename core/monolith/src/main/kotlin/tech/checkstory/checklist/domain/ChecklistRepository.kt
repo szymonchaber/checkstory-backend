@@ -37,7 +37,7 @@ class ChecklistRepository(
     }
 
     context(AuthenticatedScope)
-    suspend fun readAll(): List<Checklist> {
+    suspend fun readAllNotDeleted(): List<Checklist> {
         return dbQuery {
             ChecklistEntity.find {
                 ChecklistTable.userId eq principal.userId and (ChecklistTable.isDeleted eq Op.FALSE)
@@ -45,6 +45,16 @@ class ChecklistRepository(
                 .filterNot {
                     it.template.isDeleted // TODO can we filter on some kind of join above?
                 }
+                .map(ChecklistEntity::toChecklist)
+        }
+    }
+
+    context(AuthenticatedScope)
+    suspend fun readAll(): List<Checklist> {
+        return dbQuery {
+            ChecklistEntity.find {
+                ChecklistTable.userId eq principal.userId
+            }
                 .map(ChecklistEntity::toChecklist)
         }
     }

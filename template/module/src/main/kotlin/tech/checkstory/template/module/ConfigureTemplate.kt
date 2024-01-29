@@ -19,7 +19,7 @@ fun Application.configureTemplate() {
         authenticate(FIREBASE_AUTH) {
             get("/templates") {
                 withPrincipal {
-                    val templates = templateService.readAll()
+                    val templates = templateService.readAllNotDeleted()
                     call.respond<List<Template>>(HttpStatusCode.OK, templates)
                 }
             }
