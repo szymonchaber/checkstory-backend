@@ -1,5 +1,6 @@
 package tech.checkstory
 
+import com.google.firebase.auth.FirebaseAuth
 import tech.checkstory.checklist.domain.ChecklistRepository
 import tech.checkstory.checklist.domain.aggregate.Checklist
 import tech.checkstory.checklist.domain.event.ChecklistEvent
@@ -37,6 +38,6 @@ class DeleteUserUseCaseImpl(
         checklistRepository.deleteUserChecklists()
         templateRepository.deleteUserTemplates()
         userService.delete()
-        // remove the account from Firebase here
+        FirebaseAuth.getInstance().deleteUser(principal.userId)
     }
 }
