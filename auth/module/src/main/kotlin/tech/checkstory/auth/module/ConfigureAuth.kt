@@ -12,6 +12,7 @@ import tech.checkstory.auth.firebase.FIREBASE_AUTH
 import tech.checkstory.auth.firebase.parseAuthorizationHeaderOrNull
 import tech.checkstory.auth.firebase.toFirebaseTokenOrNull
 import tech.checkstory.auth.withPrincipal
+import tech.checkstory.core.domain.auth.DeleteUserUseCase
 import tech.checkstory.core.domain.auth.User
 import tech.checkstory.core.domain.auth.UserService
 
@@ -19,6 +20,7 @@ context(DI)
 fun Application.configureUserService() {
     log.debug("Got started from auth module!")
     val userService by instance<UserService>()
+    val deleteUserUseCase by instance<DeleteUserUseCase>()
     routing {
         post("auth/register") {
             call.request.parseAuthorizationHeaderOrNull()?.toFirebaseTokenOrNull()?.let { token ->
@@ -34,9 +36,9 @@ fun Application.configureUserService() {
                 }
             }
 
-            delete("/user") {
+            post("auth/delete") {
                 withPrincipal {
-                    userService.delete()
+                    deleteUserUseCase.deleteUser()
                     call.respond(HttpStatusCode.OK)
                 }
             }

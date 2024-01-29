@@ -10,6 +10,7 @@ import tech.checkstory.checklist.data.ChecklistEventMapper
 import tech.checkstory.checklist.data.ChecklistEventRepositoryImpl
 import tech.checkstory.checklist.domain.RelationalChecklistRepository
 import tech.checkstory.checklist.domain.event.ChecklistEvent
+import tech.checkstory.core.domain.auth.DeleteUserUseCase
 import tech.checkstory.core.domain.auth.UserService
 import tech.checkstory.data.EventMapper
 import tech.checkstory.data.EventRepository
@@ -66,6 +67,9 @@ val Application.commonDI
         }
         bindSingleton<UserService> {
             UserServiceImpl(instance())
+        }
+        bindSingleton<DeleteUserUseCase> {
+            DeleteUserUseCaseImpl(instance())
         }
         bindSingleton {
             SubscriptionsGoogleApi()
