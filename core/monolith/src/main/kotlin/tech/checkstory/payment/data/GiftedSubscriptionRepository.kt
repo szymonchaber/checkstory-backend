@@ -1,10 +1,8 @@
 package tech.checkstory.payment.data
 
 import kotlinx.coroutines.Dispatchers
-import org.jetbrains.exposed.sql.Database
-import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.Table
-import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 import tech.checkstory.core.domain.auth.AuthenticatedScope
@@ -37,6 +35,13 @@ class GiftedSubscriptionRepository(database: Database) {
             GiftedSubscription
                 .select { GiftedSubscription.userId eq userId }
                 .firstOrNull() != null
+        }
+    }
+
+    context(AuthenticatedScope)
+    suspend fun deleteByUserId() {
+        dbQuery {
+            GiftedSubscription.deleteWhere { userId eq principal.userId }
         }
     }
 

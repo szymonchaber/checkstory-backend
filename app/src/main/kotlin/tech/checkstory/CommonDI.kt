@@ -69,7 +69,7 @@ val Application.commonDI
             UserServiceImpl(instance())
         }
         bindSingleton<DeleteUserUseCase> {
-            DeleteUserUseCaseImpl(instance(), instance())
+            DeleteUserUseCaseImpl(instance(), instance(), instance())
         }
         bindSingleton {
             SubscriptionsGoogleApi()

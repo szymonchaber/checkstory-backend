@@ -7,7 +7,7 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
-import tech.checkstory.core.domain.auth.User
+import tech.checkstory.core.domain.auth.AuthenticatedScope
 import tech.checkstory.payment.domain.GooglePlayPaymentToken
 import tech.checkstory.payment.domain.StoreTokenResult
 
@@ -107,7 +107,8 @@ class PurchaseRepository(database: Database) {
         return newSuspendedTransaction(Dispatchers.IO) { block() }
     }
 
-    suspend fun deleteByUserId(principal: User) {
+    context(AuthenticatedScope)
+    suspend fun deleteUserPurchases() {
         dbQuery {
             GooglePlayBillingPurchases.deleteWhere { userId eq principal.userId }
         }
