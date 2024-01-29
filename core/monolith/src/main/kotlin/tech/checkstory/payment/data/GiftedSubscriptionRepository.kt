@@ -39,7 +39,7 @@ class GiftedSubscriptionRepository(database: Database) {
     }
 
     context(AuthenticatedScope)
-    suspend fun deleteByUserId() {
+    suspend fun deleteUserGifts() {
         dbQuery {
             GiftedSubscription.deleteWhere { userId eq principal.userId }
         }

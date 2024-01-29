@@ -57,6 +57,13 @@ class FirebaseMessagingTokenRepository(private val database: Database) {
         }
     }
 
+    context(AuthenticatedScope)
+    suspend fun deleteUserFirebaseTokens() {
+        dbQuery {
+            FirebaseMessagingTokenToUser.deleteWhere { userId eq principal.userId }
+        }
+    }
+
     private suspend fun <T> dbQuery(block: suspend () -> T): T {
         return newSuspendedTransaction(Dispatchers.IO) { block() }
     }

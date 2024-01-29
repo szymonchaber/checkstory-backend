@@ -29,6 +29,15 @@ Authorization: Bearer {{auth_token_1}}
   "token": "{{active_purchase_token}}"
 }
 
+### Post Firebase messaging token
+POST {{endpoint}}/notification/firebase-token
+Content-Type: application/json
+Authorization: Bearer {{auth_token_1}}
+
+{
+  "token": "{{active_messaging_token}}"
+}
+
 ### Login user 1
 GET {{endpoint}}/auth/login
 Content-Type: application/json
