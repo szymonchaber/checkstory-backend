@@ -4,8 +4,10 @@ import com.google.api.services.androidpublisher.model.SubscriptionPurchaseV2
 import kotlinx.coroutines.Dispatchers
 import kotlinx.datetime.Instant
 import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
+import tech.checkstory.core.domain.auth.User
 import tech.checkstory.payment.domain.GooglePlayPaymentToken
 import tech.checkstory.payment.domain.StoreTokenResult
 
@@ -103,6 +105,12 @@ class PurchaseRepository(database: Database) {
 
     private suspend fun <T> dbQuery(block: suspend () -> T): T {
         return newSuspendedTransaction(Dispatchers.IO) { block() }
+    }
+
+    suspend fun deleteByUserId(principal: User) {
+        dbQuery {
+            GooglePlayBillingPurchases.deleteWhere { userId eq principal.userId }
+        }
     }
 }
 
