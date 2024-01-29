@@ -57,3 +57,8 @@ Authorization: Bearer {{auth_token_1}}
 GET {{endpoint}}/templates
 Content-Type: application/json
 Authorization: Bearer {{auth_token_1}}
+
+### Get all checklists of user 1
+GET {{endpoint}}/checklists
+Content-Type: application/json
+Authorization: Bearer {{auth_token_1}}

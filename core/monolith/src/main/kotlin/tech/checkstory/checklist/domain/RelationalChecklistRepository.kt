@@ -8,6 +8,7 @@ import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.kotlin.datetime.datetime
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -109,6 +110,19 @@ class RelationalChecklistRepository(
             }
                 ?: run { logger.warn("Attempted to delete checklist id=$checklistId which didn't exist in the first place") }
 
+        }
+    }
+
+    context(AuthenticatedScope)
+    suspend fun deleteUserChecklists() {
+        dbQuery {
+            ChecklistEntity.find { ChecklistTable.userId eq principal.userId }
+                .forEach { checklistEntity ->
+                    TaskTable.deleteWhere {
+                        checklist eq checklistEntity.id
+                    }
+                    checklistEntity.delete()
+                }
         }
     }
 

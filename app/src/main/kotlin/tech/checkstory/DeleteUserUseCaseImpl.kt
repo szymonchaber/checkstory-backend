@@ -1,17 +1,21 @@
 package tech.checkstory
 
+import tech.checkstory.checklist.domain.RelationalChecklistRepository
 import tech.checkstory.core.domain.auth.AuthenticatedScope
 import tech.checkstory.core.domain.auth.DeleteUserUseCase
 import tech.checkstory.core.domain.auth.UserService
 import tech.checkstory.notification.data.FirebaseMessagingTokenRepository
 import tech.checkstory.payment.data.GiftedSubscriptionRepository
 import tech.checkstory.payment.data.PurchaseRepository
+import tech.checkstory.template.data.RelationalTemplateRepository
 
 class DeleteUserUseCaseImpl(
     private val userService: UserService,
     private val purchaseRepository: PurchaseRepository,
     private val giftedSubscriptionRepository: GiftedSubscriptionRepository,
-    private val firebaseMessagingTokenRepository: FirebaseMessagingTokenRepository
+    private val firebaseMessagingTokenRepository: FirebaseMessagingTokenRepository,
+    private val templateRepository: RelationalTemplateRepository,
+    private val checklistRepository: RelationalChecklistRepository
 ) : DeleteUserUseCase {
 
     context(AuthenticatedScope)
@@ -20,6 +24,7 @@ class DeleteUserUseCaseImpl(
         giftedSubscriptionRepository.deleteUserGifts()
         firebaseMessagingTokenRepository.deleteUserFirebaseTokens()
         // remove stuff from EventStoreDb here
+        checklistRepository.deleteUserChecklists()
         userService.delete()
         // remove the account from Firebase here
     }
