@@ -29,7 +29,10 @@ import tech.checkstory.read.subscription.EventStoreDBSubscriptionToAll
 import tech.checkstory.read.subscription.SubscriptionCheckpointRepository
 import tech.checkstory.read.subscription.SubscriptionToAll
 import tech.checkstory.sync.NotificationSubscription
-import tech.checkstory.template.data.*
+import tech.checkstory.template.data.RelationalTemplateRepository
+import tech.checkstory.template.data.TemplateEventMapper
+import tech.checkstory.template.data.TemplateEventRepositoryImpl
+import tech.checkstory.template.data.TemplateProjection
 import tech.checkstory.template.domain.event.TemplateEvent
 
 val Application.commonDI
@@ -111,9 +114,6 @@ val Application.commonDI
         }
         bindSingleton {
             ChecklistRepository(instance())
-        }
-        bindSingleton {
-            EventSourcedTemplateRepository(instance())
         }
         bindSingleton {
             FirebaseMessagingTokenRepository(instance())

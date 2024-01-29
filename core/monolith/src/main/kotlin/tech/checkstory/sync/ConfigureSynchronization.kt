@@ -16,15 +16,12 @@ import tech.checkstory.checklist.api.handleChecklistCommands
 import tech.checkstory.checklist.data.EventBasedChecklistRepository
 import tech.checkstory.checklist.domain.event.ChecklistEvent
 import tech.checkstory.data.EventRepository
-import tech.checkstory.template.data.EventSourcedTemplateRepository
 import tech.checkstory.template.domain.event.TemplateEvent
 import tech.checkstory.template.handleTemplateCommands
 
 context(DI)
 fun Application.configureSynchronization() {
     val templateEventRepository by instance<EventRepository<TemplateEvent>>()
-    val eventSourcedTemplateRepository by instance<EventSourcedTemplateRepository>()
-    val templateRepository by instance<EventSourcedTemplateRepository>()
     val checklistEventRepository by instance<EventRepository<ChecklistEvent>>()
     val checklistRepository = EventBasedChecklistRepository(checklistEventRepository)
     routing {
@@ -35,8 +32,7 @@ fun Application.configureSynchronization() {
                     withContext(Dispatchers.Default) {
                         handleTemplateCommands(
                             templateCommands,
-                            templateEventRepository,
-                            eventSourcedTemplateRepository
+                            templateEventRepository
                         )
                         handleChecklistCommands(checklistCommands, checklistRepository, checklistEventRepository)
                     }
