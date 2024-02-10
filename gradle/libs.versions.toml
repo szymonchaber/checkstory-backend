@@ -2,9 +2,9 @@
 
 ktor = "2.3.2"
 kotlin = "1.9.10"
-postgres = "42.5.1"
+postgres = "42.7.1"
 h2 = "2.2.220"
-exposed = "0.43.0"
+exposed = "0.47.0"
 
 [libraries]
 kotlinx-datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.4.0"

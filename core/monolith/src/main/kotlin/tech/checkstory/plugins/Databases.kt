@@ -18,7 +18,7 @@ fun createHikariDataSource(
         jdbcUrl = url
         maximumPoolSize = POOL_SIZE
         isAutoCommit = false
-        transactionIsolation
+        transactionIsolation = "TRANSACTION_REPEATABLE_READ"
         validate()
     })
 }
