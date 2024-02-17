@@ -1,6 +1,7 @@
 package tech.checkstory
 
 import io.ktor.server.application.*
+import io.sentry.Sentry
 import kotlinx.coroutines.*
 import org.kodein.di.DI
 import org.kodein.di.instance
@@ -26,6 +27,7 @@ import tech.checkstory.template.module.configureTemplate
 context(DI)
 fun Application.module() {
     Firebase.init()
+    openTelemetry()
     configureHeaders()
     configureSecurity()
     configurePayment()
@@ -41,6 +43,9 @@ fun Application.module() {
     configureRouting()
     configureReadSide()
     cors()
+    environment.monitor.subscribe(ApplicationStopping) {
+        Sentry.close()
+    }
 }
 
 context(DI)

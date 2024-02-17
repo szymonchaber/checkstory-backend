@@ -6,12 +6,14 @@ import com.github.michaelbull.retry.policy.binaryExponentialBackoff
 import com.github.michaelbull.retry.policy.limitAttempts
 import com.github.michaelbull.retry.policy.plus
 import com.github.michaelbull.retry.retry
+import io.sentry.Sentry
 import org.slf4j.Logger
 
 suspend fun <T> commonRetry(logger: Logger? = null, tag: Any? = null, block: suspend () -> T): T {
     val retryLog: RetryPolicy<Throwable> = {
         val tagString = tag?.let { "Tag: $it".padEnd(1) } ?: ""
         val message = "Operation failed, retrying. $tagString"
+        Sentry.captureException(reason)
         logger?.error(message, reason) ?: run {
             println("$message Reason: $reason")
         }

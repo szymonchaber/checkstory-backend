@@ -5,6 +5,7 @@ plugins {
     kotlin("jvm") version "1.9.10"
     id("io.ktor.plugin") version "2.2.4"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.8.20"
+    id("io.sentry.jvm.gradle") version "4.3.0"
 }
 
 group = "tech.checkstory"

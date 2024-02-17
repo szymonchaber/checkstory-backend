@@ -4,6 +4,7 @@ import com.eventstore.dbclient.Position
 import com.eventstore.dbclient.ResolvedEvent
 import com.eventstore.dbclient.Subscription
 import com.eventstore.dbclient.SubscriptionListener
+import io.sentry.Sentry
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.delay
@@ -117,6 +118,7 @@ fun <T> Flow<T>.retryExponential(
         val interval = (initialDelay * 2.toDouble().pow(attempt.toDouble())).toLong()
         delay(min(maxDelay, interval))
         logger.error("Flow failed", cause)
+        Sentry.captureException(cause)
         return@retryWhen true
     }
 }

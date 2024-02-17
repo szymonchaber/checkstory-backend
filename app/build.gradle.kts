@@ -5,6 +5,7 @@ plugins {
     kotlin("jvm") version "1.9.10"
     id("io.ktor.plugin") version "2.2.4"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.8.20"
+    id("io.sentry.jvm.gradle") version "4.3.0"
 }
 
 group = "tech.checkstory"
@@ -50,4 +51,15 @@ dependencies {
     implementation(libs.bundles.ktor.config)
     implementation(libs.kodein)
     implementation(libs.firebase.admin)
+
+    implementation(platform("io.opentelemetry:opentelemetry-bom:1.35.0"));
+    implementation("io.opentelemetry.instrumentation:opentelemetry-ktor-2.0:2.1.0-alpha")
+    implementation("io.opentelemetry:opentelemetry-api")
+    implementation("io.opentelemetry:opentelemetry-sdk")
+    implementation("io.opentelemetry:opentelemetry-exporter-logging")
+
+    implementation("io.sentry:sentry-opentelemetry-core:7.3.0")
+    testImplementation("io.ktor:ktor-server-test-host-jvm:2.3.2")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.9.22")
+
 }
