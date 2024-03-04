@@ -9,9 +9,7 @@ import io.ktor.server.response.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class FirebaseAuthProvider(config: FirebaseConfig) : AuthenticationProvider(config) {
-
-    private val authFunction = config.firebaseAuthenticationFunction
+class FirebaseAuthProvider(private val config: FirebaseConfig) : AuthenticationProvider(config) {
 
     override suspend fun onAuthenticate(context: AuthenticationContext) {
         val token = context.call.request.parseAuthorizationHeaderOrNull()
@@ -28,7 +26,7 @@ class FirebaseAuthProvider(config: FirebaseConfig) : AuthenticationProvider(conf
         }
 
         try {
-            val principal = verifyFirebaseIdToken(context.call, token, authFunction)
+            val principal = verifyFirebaseIdToken(context.call, token, config.firebaseAuthenticationFunction)
 
             if (principal != null) {
                 context.principal(principal)
@@ -71,10 +69,3 @@ fun HttpAuthHeader.Companion.bearerAuthChallenge(realm: String): HttpAuthHeader 
 const val FIREBASE_AUTH = "FIREBASE_AUTH"
 const val FirebaseJWTAuthKey: String = "FirebaseAuth"
 
-fun AuthenticationConfig.firebase(
-    name: String? = FIREBASE_AUTH,
-    configure: FirebaseConfig.() -> Unit
-) {
-    val provider = FirebaseAuthProvider(FirebaseConfig(name).apply(configure))
-    register(provider)
-}
