@@ -1,13 +1,12 @@
 package tech.checkstory.auth.firebase
 
-import com.google.firebase.auth.FirebaseToken
 import io.ktor.http.auth.*
 import io.ktor.server.auth.*
 import io.ktor.server.request.*
 
 class FirebaseConfig(
     name: String?,
-    val firebaseAuthenticationFunction: AuthenticationFunction<FirebaseToken>
+    val firebaseAuthenticationFunction: AuthenticationFunction<FirebaseUserId>
 ) : AuthenticationProvider.Config(name)
 
 fun ApplicationRequest.parseAuthorizationHeaderOrNull(): HttpAuthHeader? {
@@ -19,3 +18,5 @@ fun ApplicationRequest.parseAuthorizationHeaderOrNull(): HttpAuthHeader? {
     }
 }
 
+@JvmInline
+value class FirebaseUserId(val uid: String)

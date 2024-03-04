@@ -9,8 +9,8 @@ import kotlinx.serialization.Serializable
 import org.kodein.di.DI
 import org.kodein.di.instance
 import tech.checkstory.auth.firebase.FIREBASE_AUTH
+import tech.checkstory.auth.firebase.FirebaseTokenExtractor
 import tech.checkstory.auth.firebase.parseAuthorizationHeaderOrNull
-import tech.checkstory.auth.firebase.toFirebaseTokenOrNull
 import tech.checkstory.auth.withPrincipal
 import tech.checkstory.core.domain.auth.DeleteUserUseCase
 import tech.checkstory.core.domain.auth.User
@@ -21,11 +21,20 @@ fun Application.configureUserService() {
     log.debug("Got started from auth module!")
     val userService by instance<UserService>()
     val deleteUserUseCase by instance<DeleteUserUseCase>()
+    val firebaseTokenExtractor by instance<FirebaseTokenExtractor>()
     routing {
         post("auth/register") {
-            call.request.parseAuthorizationHeaderOrNull()?.toFirebaseTokenOrNull()?.let { token ->
-                userService.create(token.uid!!)
-                call.respond(HttpStatusCode.Created, UserDto(token.uid, false))
+            try {
+                val parseAuthorizationHeaderOrNull = call.request.parseAuthorizationHeaderOrNull()
+                parseAuthorizationHeaderOrNull?.let {
+                    firebaseTokenExtractor.toFirebaseTokenOrNull(it)
+                }?.let {
+                    userService.create(it.uid!!)
+                    call.respond(HttpStatusCode.Created, UserDto(it.uid, false))
+                } ?: call.respond(HttpStatusCode.Unauthorized)
+            } catch (exception: Exception) {
+                this@configureUserService.log.error("Failed to register user", exception)
+                call.respond(HttpStatusCode.InternalServerError)
             }
         }
 

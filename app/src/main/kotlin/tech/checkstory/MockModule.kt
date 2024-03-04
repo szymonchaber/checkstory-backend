@@ -1,5 +1,6 @@
 package tech.checkstory
 
+import io.ktor.http.auth.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -8,6 +9,8 @@ import org.kodein.di.DI
 import org.kodein.di.bind
 import org.kodein.di.bindSingleton
 import org.kodein.di.singleton
+import tech.checkstory.auth.firebase.FirebaseTokenExtractor
+import tech.checkstory.auth.firebase.FirebaseUserId
 import tech.checkstory.checklist.data.InMemoryChecklistEventRepository
 import tech.checkstory.checklist.domain.event.ChecklistEvent
 import tech.checkstory.data.EventRepository
@@ -44,6 +47,14 @@ fun Application.mockModule() {
 
                 override suspend fun subscribeToAll() {
                     // nop
+                }
+            }
+        }
+        bindSingleton<FirebaseTokenExtractor>(overrides = true) {
+            object : FirebaseTokenExtractor {
+
+                override suspend fun toFirebaseTokenOrNull(httpAuthHeader: HttpAuthHeader): FirebaseUserId {
+                    return FirebaseUserId("mock-user-id")
                 }
             }
         }
