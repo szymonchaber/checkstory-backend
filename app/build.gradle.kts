@@ -59,6 +59,8 @@ dependencies {
     implementation("io.opentelemetry:opentelemetry-exporter-logging")
 
     implementation("io.sentry:sentry-opentelemetry-core:7.3.0")
+
+    testImplementation("io.ktor:ktor-client-content-negotiation:2.3.8")
     testImplementation("io.ktor:ktor-server-test-host-jvm:2.3.2")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.9.22")
 
