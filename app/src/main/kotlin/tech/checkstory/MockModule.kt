@@ -29,7 +29,7 @@ fun Application.mockModule() {
             Database.connect(
                 getNewConnection = {
                     DriverManager.getConnection(
-                        "jdbc:h2:~/h2db;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1;MODE=MYSQL",
+                        "jdbc:h2:~/h2db;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1;MODE=MYSQL;DATABASE_TO_UPPER=false",
                         "root",
                         ""
                     )
