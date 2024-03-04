@@ -9,13 +9,8 @@ import tech.checkstory.core.domain.auth.User
 
 class FirebaseConfig(name: String?) : AuthenticationProvider.Config(name) {
 
-    internal var authHeader: (ApplicationCall) -> HttpAuthHeader? =
-        { call ->
-            call.request.parseAuthorizationHeaderOrNull()
-        }
-
     var firebaseAuthenticationFunction: AuthenticationFunction<FirebaseToken> = {
-        throw NotImplementedError(FirebaseImplementationError)
+        throw NotImplementedError("Firebase auth validate function is not specified, use firebase { validate { ... } } to fix this")
     }
 
     fun validate(validate: suspend ApplicationCall.(FirebaseToken) -> User?) {
@@ -23,12 +18,12 @@ class FirebaseConfig(name: String?) : AuthenticationProvider.Config(name) {
     }
 }
 
-fun ApplicationRequest.parseAuthorizationHeaderOrNull(): HttpAuthHeader? = try {
-    parseAuthorizationHeader()
-} catch (exception: IllegalArgumentException) {
-    println("failed to parse token")
-    null
+fun ApplicationRequest.parseAuthorizationHeaderOrNull(): HttpAuthHeader? {
+    return try {
+        parseAuthorizationHeader()
+    } catch (exception: IllegalArgumentException) {
+        println("failed to parse token")
+        null
+    }
 }
 
-private const val FirebaseImplementationError =
-    "Firebase auth validate function is not specified, use firebase { validate { ... } } to fix this"

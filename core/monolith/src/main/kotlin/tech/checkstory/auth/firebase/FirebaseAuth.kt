@@ -11,12 +11,10 @@ import kotlinx.coroutines.withContext
 
 class FirebaseAuthProvider(config: FirebaseConfig) : AuthenticationProvider(config) {
 
-    val authHeader: (ApplicationCall) -> HttpAuthHeader? = config.authHeader
-
     private val authFunction = config.firebaseAuthenticationFunction
 
     override suspend fun onAuthenticate(context: AuthenticationContext) {
-        val token = authHeader(context.call)
+        val token = context.call.request.parseAuthorizationHeaderOrNull()
 
         if (token == null) {
             context.challenge(
