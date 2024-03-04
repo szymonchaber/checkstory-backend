@@ -8,6 +8,7 @@ fun Application.productionModule() {
     DI {
         import(commonDI)
     }.apply {
+        openTelemetry()
         module()
     }
 }

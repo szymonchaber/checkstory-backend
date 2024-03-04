@@ -27,7 +27,6 @@ import tech.checkstory.template.module.configureTemplate
 context(DI)
 fun Application.module() {
     Firebase.init()
-    openTelemetry()
     configureHeaders()
     configureSecurity()
     configurePayment()
