@@ -7,10 +7,10 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class ApplicationTest {
+class AuthTest {
 
     @Test
-    fun testRoot() = mockApplication {
+    fun `when register called, then should register an account`() = mockApplication {
         val client = createClient {
             install(ContentNegotiation) {
                 json()
