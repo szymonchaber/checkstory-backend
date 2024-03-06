@@ -17,38 +17,39 @@ import tech.checkstory.core.domain.auth.User
 import tech.checkstory.core.domain.auth.UserService
 
 context(DI)
-fun Application.configureUserService() {
-    log.debug("Got started from auth module!")
+fun Application.configureAuth() {
     val userService by instance<UserService>()
     val deleteUserUseCase by instance<DeleteUserUseCase>()
     val firebaseTokenExtractor by instance<FirebaseTokenExtractor>()
     routing {
-        post("auth/register") {
-            try {
-                val parseAuthorizationHeaderOrNull = call.request.parseAuthorizationHeaderOrNull()
-                parseAuthorizationHeaderOrNull?.let {
-                    firebaseTokenExtractor.toFirebaseTokenOrNull(it)
-                }?.let {
-                    userService.create(it.uid!!)
-                    call.respond(HttpStatusCode.Created, UserDto(it.uid, false))
-                } ?: call.respond(HttpStatusCode.Unauthorized)
-            } catch (exception: Exception) {
-                this@configureUserService.log.error("Failed to register user", exception)
-                call.respond(HttpStatusCode.InternalServerError)
-            }
-        }
-
-        authenticate(FIREBASE_AUTH) {
-            get("auth/login") {
-                withPrincipal {
-                    call.respond(HttpStatusCode.OK, UserDto.fromUser(principal))
+        route("auth") {
+            post("register") {
+                try {
+                    val parseAuthorizationHeaderOrNull = call.request.parseAuthorizationHeaderOrNull()
+                    parseAuthorizationHeaderOrNull?.let {
+                        firebaseTokenExtractor.toFirebaseTokenOrNull(it)
+                    }?.let {
+                        userService.create(it.uid!!)
+                        call.respond(HttpStatusCode.Created, UserDto(it.uid, false))
+                    } ?: call.respond(HttpStatusCode.Unauthorized)
+                } catch (exception: Exception) {
+                    this@configureAuth.log.error("Failed to register user", exception)
+                    call.respond(HttpStatusCode.InternalServerError)
                 }
             }
 
-            post("auth/delete") {
-                withPrincipal {
-                    deleteUserUseCase.deleteUser()
-                    call.respond(HttpStatusCode.OK)
+            authenticate(FIREBASE_AUTH) {
+                get("login") {
+                    withPrincipal {
+                        call.respond(HttpStatusCode.OK, UserDto.fromUser(principal))
+                    }
+                }
+
+                post("delete") {
+                    withPrincipal {
+                        deleteUserUseCase.deleteUser()
+                        call.respond(HttpStatusCode.OK)
+                    }
                 }
             }
         }

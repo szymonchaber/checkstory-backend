@@ -6,7 +6,7 @@ import kotlinx.coroutines.*
 import org.kodein.di.DI
 import org.kodein.di.instance
 import tech.checkstory.auth.firebase.Firebase
-import tech.checkstory.auth.module.configureUserService
+import tech.checkstory.auth.module.configureAuth
 import tech.checkstory.checklist.configureChecklist
 import tech.checkstory.config.cors
 import tech.checkstory.data.EventMapper
@@ -33,7 +33,7 @@ fun Application.module() {
     configureHTTP()
     configureMonitoring()
     configureSerialization()
-    configureUserService()
+    configureAuth()
     configureNotification()
     configureTemplate()
     configureChecklist()
