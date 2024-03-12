@@ -33,7 +33,9 @@ class ChecklistProjection(
         when (event) {
             is ChecklistEvent.CreateChecklistEvent -> createChecklist(event)
             is ChecklistEvent.ChangeTaskCheckedEvent -> changeTaskChecked(event)
-            is ChecklistEvent.EditChecklistNotesEvent -> editChecklistNotes(event)
+            is ChecklistEvent.EditChecklistNotesEvent -> {
+
+            }
             is ChecklistEvent.DeleteChecklistEvent -> deleteChecklist(event)
         }
     }
@@ -59,7 +61,7 @@ class ChecklistProjection(
         checklistRepository.changeTaskChecked(event.taskId, event.isChecked)
     }
 
-    private suspend fun editChecklistNotes(event: ChecklistEvent.EditChecklistNotesEvent) {
+    suspend fun editChecklistNotes(event: ChecklistEvent.EditChecklistNotesEvent) {
         checklistRepository.editNotes(event.aggregateId, event.newNotes)
     }
 

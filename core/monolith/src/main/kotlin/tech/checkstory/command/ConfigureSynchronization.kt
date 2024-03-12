@@ -16,6 +16,7 @@ import tech.checkstory.checklist.api.handleChecklistCommands
 import tech.checkstory.checklist.data.EventBasedChecklistRepository
 import tech.checkstory.checklist.domain.event.ChecklistEvent
 import tech.checkstory.data.EventRepository
+import tech.checkstory.read.checklist.ChecklistProjection
 import tech.checkstory.template.domain.event.TemplateEvent
 import tech.checkstory.template.handleTemplateCommands
 
@@ -23,6 +24,7 @@ context(DI)
 fun Application.configureSynchronization() {
     val templateEventRepository by instance<EventRepository<TemplateEvent>>()
     val checklistEventRepository by instance<EventRepository<ChecklistEvent>>()
+    val checklistProjection by instance<ChecklistProjection>()
     val checklistRepository = EventBasedChecklistRepository(checklistEventRepository)
     routing {
         authenticate(FIREBASE_AUTH) {
@@ -34,7 +36,12 @@ fun Application.configureSynchronization() {
                             templateCommands,
                             templateEventRepository
                         )
-                        handleChecklistCommands(checklistCommands, checklistRepository, checklistEventRepository)
+                        handleChecklistCommands(
+                            checklistCommands,
+                            checklistRepository,
+                            checklistEventRepository,
+                            checklistProjection
+                        )
                     }
                     call.respond<HttpStatusCode>(HttpStatusCode.NoContent)
                 }

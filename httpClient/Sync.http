@@ -1,4 +1,4 @@
-### Send synchronization commands as user 1
+### Send synchronization commands as user 1 in preparation for tests below
 < {%
     function generateUUID() {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -145,6 +145,25 @@ Authorization: Bearer {{auth_token_1}}
     "timestamp": "{{$isoTimestamp}}"
   }
 ]
+}
+
+
+### Edit checklist notes
+POST {{endpoint}}/sync/commands
+Content-Type: application/json
+Authorization: Bearer {{auth_token_1}}
+
+{
+  "templateCommands": [],
+  "checklistCommands": [
+    {
+      "type": "editChecklistNotes",
+      "newNotes": "My notes are edited from command",
+      "checklistId": "{{checklist_id}}",
+      "commandId": "{{$uuid}}",
+      "timestamp": "{{$isoTimestamp}}"
+    }
+  ]
 }
 
 ### Send insane count of commands as user 1
