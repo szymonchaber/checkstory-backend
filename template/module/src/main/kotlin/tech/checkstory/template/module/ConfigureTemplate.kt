@@ -13,14 +13,15 @@ import tech.checkstory.auth.firebase.FIREBASE_AUTH
 import tech.checkstory.auth.payment.requirePayment
 import tech.checkstory.auth.withPrincipal
 import tech.checkstory.checklist.api.handleChecklistCommands
-import tech.checkstory.checklist.domain.ChecklistRepository
 import tech.checkstory.command.CommandsPayload
+import tech.checkstory.command.NotificationSubscription
 import tech.checkstory.core.domain.auth.AuthenticatedScope
-import tech.checkstory.data.EventRepository
+import tech.checkstory.notification.firebase.UserDataChangeNotifier
 import tech.checkstory.template.data.RelationalTemplateRepository
+import tech.checkstory.template.data.TemplateAggregate
+import tech.checkstory.template.data.TemplateProjection
 import tech.checkstory.template.domain.aggregate.Template
 import tech.checkstory.template.domain.command.TemplateCommand
-import tech.checkstory.template.domain.event.TemplateEvent
 
 context(DI)
 fun Application.configureTemplate() {
@@ -38,49 +39,47 @@ fun Application.configureTemplate() {
 }
 
 
-context(AuthenticatedScope, DI)
-suspend fun handleTemplateCommands(
-    commands: List<TemplateCommand>,
-    templateEventRepository: EventRepository<TemplateEvent>,
-) {
-    val templateRepository by instance<RelationalTemplateRepository>()
-
-    commands
-        .sortedBy { it.timestamp }
-        .groupBy(tech.checkstory.template.domain.command.TemplateCommand::templateId)
-        .forEach { (templateId, commands) ->
-            val events = tech.checkstory.template.data.TemplateAggregate.fromHistory(
-                templateId,
-                templateEventRepository.getEventsForAggregate(templateId)
-            )
-                .applyCommands(principal, commands)
-            templateEventRepository.saveAll(events, templateId)
-        }
-}
-
-
 context(DI)
 fun Application.configureSynchronization() {
-    val templateEventRepository by instance<EventRepository<TemplateEvent>>()
-    val checklistRepository by instance<ChecklistRepository>()
+    val notificationSubscription by instance<NotificationSubscription>()
+    val userDataChangeNotifier by instance<UserDataChangeNotifier>()
     routing {
         authenticate(FIREBASE_AUTH) {
             requirePayment()
             post<CommandsPayload>("/sync/commands") { (templateCommands, checklistCommands) ->
                 withPrincipal {
                     withContext(Dispatchers.Default) {
-                        handleTemplateCommands(
-                            templateCommands,
-                            templateEventRepository
-                        )
-                        handleChecklistCommands(
-                            checklistCommands,
-                            checklistRepository
-                        )
+                        handleTemplateCommands(templateCommands)
+                        handleChecklistCommands(checklistCommands)
                     }
+                    userDataChangeNotifier.notifyUserOfDataChange(principal.userId)
                     call.respond<HttpStatusCode>(HttpStatusCode.NoContent)
                 }
             }
         }
     }
+}
+
+
+context(AuthenticatedScope, DI)
+suspend fun handleTemplateCommands(
+    commands: List<TemplateCommand>,
+) {
+    val templateRepository by instance<RelationalTemplateRepository>()
+    val projection by instance<TemplateProjection>()
+
+    commands
+        .sortedBy { it.timestamp }
+        .groupBy(TemplateCommand::templateId)
+        .forEach { (templateId, commands) ->
+            val aggregate = templateRepository.read(templateId)?.let {
+                if (it.userId != principal.userId) {
+                    error("unauthorized access - 403")
+                }
+                TemplateAggregate.fromTemplate(it)
+            } ?: TemplateAggregate(templateId)
+            val events = aggregate
+                .applyCommands(principal, commands)
+            projection.handleEvents(events)
+        }
 }

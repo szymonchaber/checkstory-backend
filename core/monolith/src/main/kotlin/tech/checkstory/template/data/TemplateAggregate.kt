@@ -291,5 +291,19 @@ class TemplateAggregate(val id: UUID) {
                 aggregate.applyEvent(event)
             }
         }
+
+        fun fromTemplate(template: Template): TemplateAggregate {
+            return TemplateAggregate(template.id).apply {
+                templateState = TemplateState.Existing(
+                    userId = template.userId,
+                    id = template.id,
+                    name = template.name,
+                    description = template.description,
+                    tasks = template.tasks,
+                    reminders = template.reminders,
+                    createdAt = template.createdAt
+                )
+            }
+        }
     }
 }

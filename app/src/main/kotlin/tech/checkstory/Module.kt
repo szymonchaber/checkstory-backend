@@ -62,11 +62,6 @@ private fun Application.configureReadSide() {
     }
     CoroutineScope(Job()).launch {
         withContext(Dispatchers.Default) {
-            templateProjection.run()
-        }
-    }
-    CoroutineScope(Job()).launch {
-        withContext(Dispatchers.Default) {
             subscription.subscribeToAll()
         }
     }

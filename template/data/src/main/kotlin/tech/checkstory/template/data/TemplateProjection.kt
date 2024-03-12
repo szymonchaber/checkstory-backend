@@ -1,29 +1,14 @@
 package tech.checkstory.template.data
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.filterIsInstance
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.withContext
-import tech.checkstory.eventbus.EventBus
 import tech.checkstory.template.domain.aggregate.Template
 import tech.checkstory.template.domain.event.TemplateEvent
 
 class TemplateProjection(
-    private val eventBus: EventBus,
     private val templateRepository: RelationalTemplateRepository
 ) {
 
-    suspend fun run() {
-        withContext(Dispatchers.Default) {
-            eventBus
-                .events
-                .map { it.event }
-                .filterIsInstance<TemplateEvent>()
-                .onEach(::handleEvent)
-                .collect()
-        }
+    suspend fun handleEvents(events: List<TemplateEvent>) {
+        events.forEach { handleEvent(it) }
     }
 
     private suspend fun handleEvent(event: TemplateEvent) {

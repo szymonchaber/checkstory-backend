@@ -111,7 +111,7 @@ val Application.commonDI
             }
         }
         bindSingleton {
-            TemplateProjection(instance(), instance())
+            TemplateProjection(instance())
         }
         bind<SubscriptionToAll>() with singleton {
             EventStoreDBSubscriptionToAll(instance(), instance(), instance(), instance())

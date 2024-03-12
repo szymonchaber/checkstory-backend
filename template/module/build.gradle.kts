@@ -16,6 +16,9 @@ dependencies {
     implementation(project(":template:domain"))
     implementation(project(":template:data"))
     implementation(project(":core:monolith"))
+    implementation(project(":core:domain"))
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+
     implementation(libs.ktor.server.core.jvm)
     implementation(libs.ktor.server.auth.jvm)
     implementation(libs.kodein)
