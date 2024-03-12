@@ -18,7 +18,6 @@ import tech.checkstory.notification.configureNotification
 import tech.checkstory.payment.configurePayment
 import tech.checkstory.payment.playbilling.configurePlayBillingPubSub
 import tech.checkstory.plugins.*
-import tech.checkstory.read.checklist.ChecklistProjection
 import tech.checkstory.read.subscription.SubscriptionCheckpointRepository
 import tech.checkstory.read.subscription.SubscriptionToAll
 import tech.checkstory.template.data.TemplateProjection
@@ -55,7 +54,6 @@ private fun Application.configureReadSide() {
     val subscriptionCheckpointRepository by instance<SubscriptionCheckpointRepository>()
     val subscription by instance<SubscriptionToAll>()
     val templateProjection by instance<TemplateProjection>()
-    val checklistProjection by instance<ChecklistProjection>()
     val notificationSubscription by instance<NotificationSubscription>()
     CoroutineScope(Job()).launch {
         withContext(Dispatchers.Default) {
@@ -65,11 +63,6 @@ private fun Application.configureReadSide() {
     CoroutineScope(Job()).launch {
         withContext(Dispatchers.Default) {
             templateProjection.run()
-        }
-    }
-    CoroutineScope(Job()).launch {
-        withContext(Dispatchers.Default) {
-            checklistProjection.run()
         }
     }
     CoroutineScope(Job()).launch {

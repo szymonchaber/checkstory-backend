@@ -137,8 +137,8 @@ class ChecklistRepository(
     }
 
     private suspend fun <T> dbQuery(tag: Any? = null, block: suspend () -> T): T {
-        return newSuspendedTransaction(Dispatchers.IO) {
-            commonRetry(logger, tag) {
+        return commonRetry(logger, tag, maxRetries = 3) {
+            newSuspendedTransaction(Dispatchers.IO) {
                 block()
             }
         }

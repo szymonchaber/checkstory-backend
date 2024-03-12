@@ -180,8 +180,8 @@ class RelationalTemplateRepository(private val database: Database) {
     }
 
     private suspend fun <T> dbQuery(block: suspend () -> T): T {
-        return newSuspendedTransaction(Dispatchers.IO) {
-            commonRetry(logger) {
+        return commonRetry(logger) {
+            newSuspendedTransaction(Dispatchers.IO) {
                 block()
             }
         }

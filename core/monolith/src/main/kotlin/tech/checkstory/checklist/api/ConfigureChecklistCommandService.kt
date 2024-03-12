@@ -1,38 +1,60 @@
 package tech.checkstory.checklist.api
 
-import tech.checkstory.checklist.data.EventBasedChecklistRepository
+import tech.checkstory.checklist.domain.ChecklistRepository
+import tech.checkstory.checklist.domain.aggregate.Checklist
+import tech.checkstory.checklist.domain.aggregate.ChecklistAggregate
 import tech.checkstory.checklist.domain.command.ChecklistCommand
 import tech.checkstory.checklist.domain.event.ChecklistEvent
 import tech.checkstory.core.domain.auth.AuthenticatedScope
-import tech.checkstory.data.EventRepository
-import tech.checkstory.read.checklist.ChecklistProjection
 
 context(AuthenticatedScope)
 suspend fun handleChecklistCommands(
     commands: List<ChecklistCommand>,
-    repository: EventBasedChecklistRepository,
-    eventRepository: EventRepository<ChecklistEvent>,
-    checklistProjection: ChecklistProjection
+    checklistRepository: ChecklistRepository
 ) {
     commands.sortedBy { it.timestamp }
         .groupBy { it.checklistId }
         .forEach { (checklistId, commands) ->
-            val events = repository.getByIdOrNew(checklistId)
+            val aggregate = checklistRepository.read(checklistId)?.let {
+                if (it.userId != principal.userId) {
+                    error("unauthorized access - 403")
+                }
+                ChecklistAggregate.fromChecklist(it)
+            } ?: ChecklistAggregate(checklistId)
+            val acceptedEvents = aggregate
                 .applyCommands(commands, principal)
-            val notMigratedEvents = events.filterNot {
-                it is ChecklistEvent.EditChecklistNotesEvent ||
-                        it is ChecklistEvent.ChangeTaskCheckedEvent ||
-                        it is ChecklistEvent.DeleteChecklistEvent
-            }
-            eventRepository.saveAll(notMigratedEvents, checklistId)
-            events.filterIsInstance<ChecklistEvent.EditChecklistNotesEvent>().forEach {
-                checklistProjection.editChecklistNotes(it)
-            }
-            events.filterIsInstance<ChecklistEvent.ChangeTaskCheckedEvent>().forEach {
-                checklistProjection.changeTaskChecked(it)
-            }
-            events.filterIsInstance<ChecklistEvent.DeleteChecklistEvent>().forEach {
-                checklistProjection.deleteChecklist(it)
+            // TODO: we should persist aggregate state directly
+            acceptedEvents.forEach {
+                when (it) {
+                    is ChecklistEvent.CreateChecklistEvent -> {
+                        with(it) {
+                            checklistRepository.create(
+                                Checklist(
+                                    id = aggregateId,
+                                    userId = userId,
+                                    templateId = templateId,
+                                    title = title,
+                                    description = description,
+                                    notes = notes.orEmpty(),
+                                    tasks = tasks,
+                                    timestamp
+                                )
+                            )
+                        }
+                    }
+
+                    is ChecklistEvent.EditChecklistNotesEvent -> {
+                        checklistRepository.editNotes(it.aggregateId, it.newNotes)
+                    }
+
+                    is ChecklistEvent.ChangeTaskCheckedEvent -> {
+                        checklistRepository.changeTaskChecked(it.taskId, it.isChecked)
+                    }
+
+                    is ChecklistEvent.DeleteChecklistEvent -> {
+                        checklistRepository.delete(it.aggregateId)
+                    }
+                }
             }
         }
 }

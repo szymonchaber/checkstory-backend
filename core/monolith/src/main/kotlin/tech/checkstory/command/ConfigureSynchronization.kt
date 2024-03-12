@@ -13,19 +13,15 @@ import tech.checkstory.auth.firebase.FIREBASE_AUTH
 import tech.checkstory.auth.payment.requirePayment
 import tech.checkstory.auth.withPrincipal
 import tech.checkstory.checklist.api.handleChecklistCommands
-import tech.checkstory.checklist.data.EventBasedChecklistRepository
-import tech.checkstory.checklist.domain.event.ChecklistEvent
+import tech.checkstory.checklist.domain.ChecklistRepository
 import tech.checkstory.data.EventRepository
-import tech.checkstory.read.checklist.ChecklistProjection
 import tech.checkstory.template.domain.event.TemplateEvent
 import tech.checkstory.template.handleTemplateCommands
 
 context(DI)
 fun Application.configureSynchronization() {
     val templateEventRepository by instance<EventRepository<TemplateEvent>>()
-    val checklistEventRepository by instance<EventRepository<ChecklistEvent>>()
-    val checklistProjection by instance<ChecklistProjection>()
-    val checklistRepository = EventBasedChecklistRepository(checklistEventRepository)
+    val checklistRepository by instance<ChecklistRepository>()
     routing {
         authenticate(FIREBASE_AUTH) {
             requirePayment()
@@ -38,9 +34,7 @@ fun Application.configureSynchronization() {
                         )
                         handleChecklistCommands(
                             checklistCommands,
-                            checklistRepository,
-                            checklistEventRepository,
-                            checklistProjection
+                            checklistRepository
                         )
                     }
                     call.respond<HttpStatusCode>(HttpStatusCode.NoContent)

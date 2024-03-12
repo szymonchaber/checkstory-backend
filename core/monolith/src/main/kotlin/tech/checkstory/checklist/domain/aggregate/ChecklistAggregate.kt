@@ -85,52 +85,6 @@ class ChecklistAggregate(val id: UUID) {
         )
     }
 
-    fun applyEvent(event: ChecklistEvent): ChecklistAggregate {
-        val state = checklistState
-        when (event) {
-            is ChecklistEvent.CreateChecklistEvent -> {
-                require(checklistState is ChecklistState.NonExistent) {
-                    "Checklist should not exist when applying CreateChecklist event"
-                }
-                checklistState = ChecklistState.Existing(
-                    id = id,
-                    templateId = event.templateId,
-                    title = event.title,
-                    description = event.description,
-                    tasks = event.tasks,
-                    userId = event.userId,
-                    notes = event.notes.orEmpty(),
-                    createdAt = event.timestamp
-                )
-            }
-
-            is ChecklistEvent.ChangeTaskCheckedEvent -> {
-                require(state is ChecklistState.Existing) {
-                    "Checklist should exist when applying ChangeTaskCheckedEvent event"
-                }
-                val newTasks = state.tasks.map {
-                    it.withUpdatedIsCheckedRecursive(event.taskId, event.isChecked)
-                }
-                checklistState = state.copy(tasks = newTasks)
-            }
-
-            is ChecklistEvent.DeleteChecklistEvent -> {
-                require(state is ChecklistState.Existing) {
-                    "Checklist should exist when applying DeleteChecklistEvent event"
-                }
-                checklistState = state.copy(isDeleted = true)
-            }
-
-            is ChecklistEvent.EditChecklistNotesEvent -> {
-                require(state is ChecklistState.Existing) {
-                    "Checklist should exist when applying EditChecklistNotesEvent event"
-                }
-                checklistState = state.copy(notes = event.newNotes)
-            }
-        }
-        return this
-    }
-
     fun toChecklistOrNull(): Checklist? {
         return when (val state = checklistState) {
             is ChecklistState.Existing -> state.toChecklist()
@@ -140,9 +94,19 @@ class ChecklistAggregate(val id: UUID) {
 
     companion object {
 
-        fun fromHistory(id: DtoUUID, events: List<ChecklistEvent>): ChecklistAggregate {
-            return events.fold(ChecklistAggregate(id)) { aggregate, event ->
-                aggregate.applyEvent(event)
+        fun fromChecklist(checklist: Checklist): ChecklistAggregate {
+            return ChecklistAggregate(checklist.id).apply {
+                checklistState = ChecklistState.Existing(
+                    id = checklist.id,
+                    userId = checklist.userId,
+                    templateId = checklist.templateId,
+                    title = checklist.title,
+                    description = checklist.description,
+                    notes = checklist.notes,
+                    tasks = checklist.tasks,
+                    createdAt = checklist.createdAt,
+                    isDeleted = checklist.isDeleted
+                )
             }
         }
     }

@@ -27,7 +27,6 @@ import tech.checkstory.payment.data.google_play.SubscriptionsGoogleApi
 import tech.checkstory.payment.domain.GetPaymentStateUseCase
 import tech.checkstory.payment.domain.StoreGooglePlayTokenUseCase
 import tech.checkstory.plugins.createHikariDataSource
-import tech.checkstory.read.checklist.ChecklistProjection
 import tech.checkstory.read.subscription.EventStoreDBSubscriptionToAll
 import tech.checkstory.read.subscription.SubscriptionCheckpointRepository
 import tech.checkstory.read.subscription.SubscriptionToAll
@@ -113,9 +112,6 @@ val Application.commonDI
         }
         bindSingleton {
             TemplateProjection(instance(), instance())
-        }
-        bindSingleton {
-            ChecklistProjection(instance(), instance())
         }
         bind<SubscriptionToAll>() with singleton {
             EventStoreDBSubscriptionToAll(instance(), instance(), instance(), instance())

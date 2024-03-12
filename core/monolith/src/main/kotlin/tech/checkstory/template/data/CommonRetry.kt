@@ -9,7 +9,7 @@ import com.github.michaelbull.retry.retry
 import io.sentry.Sentry
 import org.slf4j.Logger
 
-suspend fun <T> commonRetry(logger: Logger? = null, tag: Any? = null, block: suspend () -> T): T {
+suspend fun <T> commonRetry(logger: Logger? = null, tag: Any? = null, maxRetries: Int = 50, block: suspend () -> T): T {
     val retryLog: RetryPolicy<Throwable> = {
         val tagString = tag?.let { "Tag: $it".padEnd(1) } ?: ""
         val message = "Operation failed, retrying. $tagString"
@@ -19,5 +19,5 @@ suspend fun <T> commonRetry(logger: Logger? = null, tag: Any? = null, block: sus
         }
         ContinueRetrying
     }
-    return retry(retryLog + limitAttempts(50) + binaryExponentialBackoff(200L, 10000), block)
+    return retry(retryLog + limitAttempts(maxRetries) + binaryExponentialBackoff(200L, 10000), block)
 }
