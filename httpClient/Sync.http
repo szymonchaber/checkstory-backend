@@ -13,7 +13,7 @@
     request.variables.set("template_task_2_id", generateUUID());
     request.variables.set("template_task_3_id", generateUUID());
     client.global.set("checklist_id", generateUUID());
-    request.variables.set("task_1_id", generateUUID());
+    client.global.set("task_1_id", generateUUID());
     request.variables.set("task_2_id", generateUUID());
     request.variables.set("task_3_id", generateUUID());
 %}
@@ -159,6 +159,25 @@ Authorization: Bearer {{auth_token_1}}
     {
       "type": "editChecklistNotes",
       "newNotes": "My notes are edited from command",
+      "checklistId": "{{checklist_id}}",
+      "commandId": "{{$uuid}}",
+      "timestamp": "{{$isoTimestamp}}"
+    }
+  ]
+}
+
+### Change task checked
+POST {{endpoint}}/sync/commands
+Content-Type: application/json
+Authorization: Bearer {{auth_token_1}}
+
+{
+  "templateCommands": [],
+  "checklistCommands": [
+    {
+      "type": "changeTaskChecked",
+      "taskId": "{{task_1_id}}",
+      "isChecked": true,
       "checklistId": "{{checklist_id}}",
       "commandId": "{{$uuid}}",
       "timestamp": "{{$isoTimestamp}}"
