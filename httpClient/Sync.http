@@ -185,6 +185,23 @@ Authorization: Bearer {{auth_token_1}}
   ]
 }
 
+### Delete checklist
+POST {{endpoint}}/sync/commands
+Content-Type: application/json
+Authorization: Bearer {{auth_token_1}}
+
+{
+  "templateCommands": [],
+  "checklistCommands": [
+    {
+      "type": "deleteChecklist",
+      "checklistId": "{{checklist_id}}",
+      "commandId": "{{$uuid}}",
+      "timestamp": "{{$isoTimestamp}}"
+    }
+  ]
+}
+
 ### Send insane count of commands as user 1
 < {%
     function generateUUID() {

@@ -19,16 +19,20 @@ suspend fun handleChecklistCommands(
         .forEach { (checklistId, commands) ->
             val events = repository.getByIdOrNew(checklistId)
                 .applyCommands(commands, principal)
-            val migratedEvents = events.filterNot {
+            val notMigratedEvents = events.filterNot {
                 it is ChecklistEvent.EditChecklistNotesEvent ||
-                        it is ChecklistEvent.ChangeTaskCheckedEvent
+                        it is ChecklistEvent.ChangeTaskCheckedEvent ||
+                        it is ChecklistEvent.DeleteChecklistEvent
             }
-            eventRepository.saveAll(migratedEvents, checklistId)
+            eventRepository.saveAll(notMigratedEvents, checklistId)
             events.filterIsInstance<ChecklistEvent.EditChecklistNotesEvent>().forEach {
                 checklistProjection.editChecklistNotes(it)
             }
             events.filterIsInstance<ChecklistEvent.ChangeTaskCheckedEvent>().forEach {
                 checklistProjection.changeTaskChecked(it)
+            }
+            events.filterIsInstance<ChecklistEvent.DeleteChecklistEvent>().forEach {
+                checklistProjection.deleteChecklist(it)
             }
         }
 }
