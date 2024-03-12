@@ -1,4 +1,4 @@
-package tech.checkstory.sync
+package tech.checkstory.command
 
 import io.ktor.http.*
 import io.ktor.server.application.*

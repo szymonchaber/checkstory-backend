@@ -8,6 +8,8 @@ import org.kodein.di.instance
 import tech.checkstory.auth.firebase.Firebase
 import tech.checkstory.auth.module.configureAuth
 import tech.checkstory.checklist.configureChecklist
+import tech.checkstory.command.NotificationSubscription
+import tech.checkstory.command.configureSynchronization
 import tech.checkstory.config.cors
 import tech.checkstory.data.EventMapper
 import tech.checkstory.data.EventStoreConnectionManager
@@ -19,8 +21,6 @@ import tech.checkstory.plugins.*
 import tech.checkstory.read.checklist.ChecklistProjection
 import tech.checkstory.read.subscription.SubscriptionCheckpointRepository
 import tech.checkstory.read.subscription.SubscriptionToAll
-import tech.checkstory.sync.NotificationSubscription
-import tech.checkstory.sync.configureSynchronization
 import tech.checkstory.template.data.TemplateProjection
 import tech.checkstory.template.module.configureTemplate
 

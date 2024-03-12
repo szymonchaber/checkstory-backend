@@ -1,4 +1,4 @@
-package tech.checkstory.sync
+package tech.checkstory.command
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect

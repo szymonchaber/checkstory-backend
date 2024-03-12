@@ -12,6 +12,7 @@ import tech.checkstory.checklist.data.ChecklistEventMapper
 import tech.checkstory.checklist.data.ChecklistEventRepositoryImpl
 import tech.checkstory.checklist.domain.ChecklistRepository
 import tech.checkstory.checklist.domain.event.ChecklistEvent
+import tech.checkstory.command.NotificationSubscription
 import tech.checkstory.core.domain.auth.DeleteUserUseCase
 import tech.checkstory.core.domain.auth.UserService
 import tech.checkstory.data.EventMapper
@@ -30,7 +31,6 @@ import tech.checkstory.read.checklist.ChecklistProjection
 import tech.checkstory.read.subscription.EventStoreDBSubscriptionToAll
 import tech.checkstory.read.subscription.SubscriptionCheckpointRepository
 import tech.checkstory.read.subscription.SubscriptionToAll
-import tech.checkstory.sync.NotificationSubscription
 import tech.checkstory.template.data.RelationalTemplateRepository
 import tech.checkstory.template.data.TemplateEventMapper
 import tech.checkstory.template.data.TemplateEventRepositoryImpl
