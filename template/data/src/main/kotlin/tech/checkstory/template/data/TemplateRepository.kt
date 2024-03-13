@@ -22,9 +22,9 @@ import tech.checkstory.template.domain.aggregate.Template
 import tech.checkstory.template.domain.aggregate.TemplateTask
 import java.util.*
 
-class RelationalTemplateRepository(private val database: Database) {
+class TemplateRepository(private val database: Database) {
 
-    private val logger = LoggerFactory.getLogger(RelationalTemplateRepository::class.java)
+    private val logger = LoggerFactory.getLogger(TemplateRepository::class.java)
 
     init {
         transaction(database) {

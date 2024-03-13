@@ -19,8 +19,8 @@ import tech.checkstory.payment.data.google_play.SubscriptionsGoogleApi
 import tech.checkstory.payment.domain.GetPaymentStateUseCase
 import tech.checkstory.payment.domain.StoreGooglePlayTokenUseCase
 import tech.checkstory.plugins.createHikariDataSource
-import tech.checkstory.template.data.RelationalTemplateRepository
 import tech.checkstory.template.data.TemplateProjection
+import tech.checkstory.template.data.TemplateRepository
 
 val Application.commonDI
     get() = DI.Module("common") {
@@ -42,7 +42,7 @@ val Application.commonDI
             }
         }
         bindSingleton {
-            RelationalTemplateRepository(instance())
+            TemplateRepository(instance())
         }
         bindSingleton<UserService> {
             UserServiceImpl(instance())

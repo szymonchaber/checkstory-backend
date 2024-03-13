@@ -4,7 +4,7 @@ import tech.checkstory.template.domain.aggregate.Template
 import tech.checkstory.template.domain.event.TemplateEvent
 
 class TemplateProjection(
-    private val templateRepository: RelationalTemplateRepository
+    private val templateRepository: TemplateRepository
 ) {
 
     suspend fun handleEvents(events: List<TemplateEvent>) {

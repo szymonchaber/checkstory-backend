@@ -16,15 +16,15 @@ import tech.checkstory.checklist.api.handleChecklistCommands
 import tech.checkstory.command.CommandsPayload
 import tech.checkstory.core.domain.auth.AuthenticatedScope
 import tech.checkstory.notification.firebase.UserDataChangeNotifier
-import tech.checkstory.template.data.RelationalTemplateRepository
 import tech.checkstory.template.data.TemplateAggregate
 import tech.checkstory.template.data.TemplateProjection
+import tech.checkstory.template.data.TemplateRepository
 import tech.checkstory.template.domain.aggregate.Template
 import tech.checkstory.template.domain.command.TemplateCommand
 
 context(DI)
 fun Application.configureTemplate() {
-    val templateService by instance<RelationalTemplateRepository>()
+    val templateService by instance<TemplateRepository>()
     routing {
         authenticate(FIREBASE_AUTH) {
             get("/templates") {
@@ -63,7 +63,7 @@ context(AuthenticatedScope, DI)
 suspend fun handleTemplateCommands(
     commands: List<TemplateCommand>,
 ) {
-    val templateRepository by instance<RelationalTemplateRepository>()
+    val templateRepository by instance<TemplateRepository>()
     val projection by instance<TemplateProjection>()
 
     commands

@@ -8,14 +8,14 @@ import tech.checkstory.core.domain.auth.UserService
 import tech.checkstory.notification.data.FirebaseMessagingTokenRepository
 import tech.checkstory.payment.data.GiftedSubscriptionRepository
 import tech.checkstory.payment.data.PurchaseRepository
-import tech.checkstory.template.data.RelationalTemplateRepository
+import tech.checkstory.template.data.TemplateRepository
 
 class DeleteUserUseCaseImpl(
     private val userService: UserService,
     private val purchaseRepository: PurchaseRepository,
     private val giftedSubscriptionRepository: GiftedSubscriptionRepository,
     private val firebaseMessagingTokenRepository: FirebaseMessagingTokenRepository,
-    private val templateRepository: RelationalTemplateRepository,
+    private val templateRepository: TemplateRepository,
     private val checklistRepository: ChecklistRepository,
 ) : DeleteUserUseCase {
 
