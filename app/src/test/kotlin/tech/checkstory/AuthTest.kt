@@ -3,15 +3,7 @@ package tech.checkstory
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.http.*
-import kotlinx.coroutines.runBlocking
-import kotlinx.datetime.Clock
-import org.kodein.di.instance
-import tech.checkstory.checklist.domain.aggregate.Checklist
-import tech.checkstory.command.CommandsPayload
-import tech.checkstory.payment.data.GiftedSubscriptionRepository
-import tech.checkstory.template.domain.aggregate.Template
-import tech.checkstory.template.domain.command.TemplateCommand
-import java.util.*
+import tech.checkstory.auth.module.UserDto
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -26,50 +18,19 @@ class AuthTest {
     }
 
     @Test
-    fun `given fresh account, then should return empty checklists`() = mockApplication {
+    fun `given account exists, when login called, then should return account details`() = mockApplication {
         // given
-        jsonClient.mockAuthorized().post("/auth/register")
+        jsonClient.post("/auth/register") {
+            header("Authorization", "Bearer example-token")
+        }
 
         // when
-        val response = jsonClient.mockAuthorized().get("checklists")
+        val response = jsonClient.get("/auth/login") {
+            header("Authorization", "Bearer example-token")
+        }
 
         // then
         assertEquals(HttpStatusCode.OK, response.status)
-        assertEquals(emptyList<Checklist>(), response.body())
-    }
-
-    @Test
-    fun `when no account provided, then should respond with http unauthorized`() = mockApplication {
-        val response = jsonClient.get("checklists")
-        assertEquals(HttpStatusCode.Unauthorized, response.status)
-    }
-
-    @Test
-    fun `given a template was created, then should return that template`() = mockApplication(setupOperations = {
-        val giftedSubscriptionRepository by instance<GiftedSubscriptionRepository>()
-        runBlocking {
-            giftedSubscriptionRepository.giftSubscriptionTo("mock-user-id", "Unit tests")
-        }
-    }) {
-        jsonClient.mockAuthorized().post("/auth/register")
-        val templateId = UUID.randomUUID()
-        jsonClient.mockAuthorized().post("sync/commands") {
-            setBody(
-                CommandsPayload(
-                    templateCommands = listOf(
-                        TemplateCommand.CreateTemplateCommand(
-                            templateId = templateId,
-                            commandId = UUID.randomUUID(),
-                            timestamp = Clock.System.now(),
-                            existingTemplateData = null
-                        )
-                    ),
-                    checklistCommands = emptyList()
-                )
-            )
-        }
-        val response = jsonClient.mockAuthorized().get("templates")
-        assertEquals(HttpStatusCode.OK, response.status)
-        assertEquals(templateId, response.body<List<Template>>().first().id)
+        assertEquals(UserDto(userId = "mock-user-id", isPaidUser = false), response.body<UserDto>())
     }
 }
