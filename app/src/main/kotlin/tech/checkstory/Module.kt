@@ -3,7 +3,6 @@ package tech.checkstory
 import io.ktor.server.application.*
 import io.sentry.Sentry
 import org.kodein.di.DI
-import tech.checkstory.auth.firebase.Firebase
 import tech.checkstory.auth.module.configureAuth
 import tech.checkstory.checklist.configureChecklist
 import tech.checkstory.config.cors
@@ -16,7 +15,6 @@ import tech.checkstory.template.module.configureTemplate
 
 context(DI)
 fun Application.module() {
-    Firebase.init()
     configureHeaders()
     configureSecurity()
     configurePayment()
