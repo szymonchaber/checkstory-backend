@@ -1,11 +1,12 @@
 package tech.checkstory
 
 import io.ktor.server.testing.*
+import org.kodein.di.DI
 
-internal fun mockApplication(block: suspend ApplicationTestBuilder.() -> Unit) {
+internal fun mockApplication(setupOperations: DI.() -> Unit = {}, block: suspend ApplicationTestBuilder.() -> Unit) {
     testApplication {
         application {
-            mockModule()
+            mockModule(setupOperations)
         }
         block()
     }

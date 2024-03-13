@@ -30,6 +30,15 @@ class GiftedSubscriptionRepository(database: Database) {
         return hasSubscriptionGift(principal.userId)
     }
 
+    suspend fun giftSubscriptionTo(userId: String, reason: String) {
+        dbQuery {
+            GiftedSubscription.insert {
+                it[this.userId] = userId
+                it[this.reason] = reason
+            }
+        }
+    }
+
     suspend fun hasSubscriptionGift(userId: String): Boolean {
         return dbQuery {
             GiftedSubscription

@@ -12,7 +12,7 @@ import tech.checkstory.auth.firebase.FirebaseUserId
 import java.sql.DriverManager
 import java.util.*
 
-fun Application.mockModule() {
+fun Application.mockModule(operations: (DI.() -> Unit) = {}) {
     Locale.setDefault(Locale.US)
     println("Starting mock module")
     DI {
@@ -44,5 +44,6 @@ fun Application.mockModule() {
                 call.respondText("Hello, mock!")
             }
         }
+        operations()
     }
 }
