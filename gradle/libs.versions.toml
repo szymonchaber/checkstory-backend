@@ -18,7 +18,6 @@ exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exp
 retry = "com.michael-bull.kotlin-retry:kotlin-retry:1.0.9"
 kodein = "org.kodein.di:kodein-di-jvm:7.20.1"
 calendar-rrule = "com.github.PhilJay:RRule:1.0.3"
-eventstoredb = "com.eventstore:db-client-java:5.2.0"
 firebase-admin = "com.google.firebase:firebase-admin:9.1.1"
 google-cloud-bom = "com.google.cloud:libraries-bom:26.14.0"
 google-cloud-pubsub = { module = "com.google.cloud:google-cloud-pubsub" }

@@ -14,7 +14,6 @@ import tech.checkstory.auth.payment.requirePayment
 import tech.checkstory.auth.withPrincipal
 import tech.checkstory.checklist.api.handleChecklistCommands
 import tech.checkstory.command.CommandsPayload
-import tech.checkstory.command.NotificationSubscription
 import tech.checkstory.core.domain.auth.AuthenticatedScope
 import tech.checkstory.notification.firebase.UserDataChangeNotifier
 import tech.checkstory.template.data.RelationalTemplateRepository
@@ -41,7 +40,6 @@ fun Application.configureTemplate() {
 
 context(DI)
 fun Application.configureSynchronization() {
-    val notificationSubscription by instance<NotificationSubscription>()
     val userDataChangeNotifier by instance<UserDataChangeNotifier>()
     routing {
         authenticate(FIREBASE_AUTH) {

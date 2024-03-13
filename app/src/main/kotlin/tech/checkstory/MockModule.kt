@@ -6,17 +6,9 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.jetbrains.exposed.sql.Database
 import org.kodein.di.DI
-import org.kodein.di.bind
 import org.kodein.di.bindSingleton
-import org.kodein.di.singleton
 import tech.checkstory.auth.firebase.FirebaseTokenExtractor
 import tech.checkstory.auth.firebase.FirebaseUserId
-import tech.checkstory.checklist.data.InMemoryChecklistEventRepository
-import tech.checkstory.checklist.domain.event.ChecklistEvent
-import tech.checkstory.data.EventRepository
-import tech.checkstory.read.subscription.SubscriptionToAll
-import tech.checkstory.template.data.InMemoryTemplateEventRepository
-import tech.checkstory.template.domain.event.TemplateEvent
 import java.sql.DriverManager
 import java.util.*
 
@@ -35,20 +27,6 @@ fun Application.mockModule() {
                     )
                 }
             )
-        }
-        bind<EventRepository<TemplateEvent>>(overrides = true) with singleton {
-            InMemoryTemplateEventRepository()
-        }
-        bind<EventRepository<ChecklistEvent>>(overrides = true) with singleton {
-            InMemoryChecklistEventRepository()
-        }
-        bind<SubscriptionToAll>(overrides = true) with singleton {
-            object : SubscriptionToAll {
-
-                override suspend fun subscribeToAll() {
-                    // nop
-                }
-            }
         }
         bindSingleton<FirebaseTokenExtractor>(overrides = true) {
             object : FirebaseTokenExtractor {

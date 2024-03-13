@@ -41,7 +41,6 @@ dependencies {
     implementation(libs.hikari)
     implementation(libs.logback)
 
-    implementation(libs.eventstoredb)
     implementation(libs.kotlinx.datetime)
 
     implementation(libs.firebase.admin)
