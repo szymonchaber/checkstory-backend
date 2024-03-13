@@ -11,11 +11,13 @@ import kotlinx.coroutines.runBlocking
 import org.kodein.di.DI
 import org.kodein.di.instance
 import tech.checkstory.core.domain.auth.UserService
+import java.util.*
 
 internal fun mockApplication(setupOperations: DI.() -> Unit = {}, block: suspend ApplicationTestBuilder.() -> Unit) {
+    val database = mockDatabase(UUID.randomUUID().toString())
     testApplication {
         application {
-            mockModule(setupOperations)
+            mockModule(setupOperations, database)
         }
         block()
     }
