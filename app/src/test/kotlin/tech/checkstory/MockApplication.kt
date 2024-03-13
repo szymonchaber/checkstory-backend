@@ -11,6 +11,7 @@ import kotlinx.coroutines.runBlocking
 import org.kodein.di.DI
 import org.kodein.di.instance
 import tech.checkstory.core.domain.auth.UserService
+import tech.checkstory.payment.data.GiftedSubscriptionRepository
 import java.util.*
 
 internal fun mockApplication(setupOperations: DI.() -> Unit = {}, block: suspend ApplicationTestBuilder.() -> Unit) {
@@ -24,6 +25,7 @@ internal fun mockApplication(setupOperations: DI.() -> Unit = {}, block: suspend
 }
 
 internal fun mockApplicationWithUser(
+    isUserPaid: Boolean = false,
     setupOperations: DI.() -> Unit = {},
     block: suspend ApplicationTestBuilder.(userId: String) -> Unit
 ) {
@@ -32,6 +34,12 @@ internal fun mockApplicationWithUser(
             val userService by instance<UserService>()
             runBlocking {
                 userService.create("mock-user-id")
+            }
+            if (isUserPaid) {
+                val giftedSubscriptionRepository by instance<GiftedSubscriptionRepository>()
+                runBlocking {
+                    giftedSubscriptionRepository.giftSubscriptionTo("mock-user-id", "Unit tests")
+                }
             }
             setupOperations()
         }

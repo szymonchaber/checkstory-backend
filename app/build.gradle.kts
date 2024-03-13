@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.bundles.ktor.config)
     implementation(libs.kodein)
     implementation(libs.firebase.admin)
+    implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:2.3.2")
 
     implementation(platform("io.opentelemetry:opentelemetry-bom:1.35.0"));
     implementation("io.opentelemetry.instrumentation:opentelemetry-ktor-2.0:2.1.0-alpha")

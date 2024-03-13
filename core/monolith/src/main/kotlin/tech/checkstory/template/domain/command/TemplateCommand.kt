@@ -75,7 +75,7 @@ sealed interface TemplateCommand : DomainCommand {
 
     @Serializable
     @SerialName("updateTemplateTasksPositions")
-    data class UpdateTasksPositionsCommandDto(
+    data class UpdateTasksPositionsCommand(
         override val templateId: DtoUUID,
         val taskIdToLocalPosition: Map<DtoUUID, Long>,
         override val commandId: DtoUUID,
@@ -84,7 +84,7 @@ sealed interface TemplateCommand : DomainCommand {
 
     @Serializable
     @SerialName("moveTemplateTask")
-    data class MoveTemplateTaskCommandDto(
+    data class MoveTemplateTaskCommand(
         override val templateId: DtoUUID,
         val taskId: DtoUUID,
         val newParentTaskId: DtoUUID?,
@@ -94,7 +94,7 @@ sealed interface TemplateCommand : DomainCommand {
 
     @Serializable
     @SerialName("addOrUpdateTemplateReminder")
-    data class AddOrUpdateTemplateReminderCommandDto(
+    data class AddOrUpdateTemplateReminderCommand(
         override val templateId: DtoUUID,
         val reminder: ReminderDto,
         override val commandId: DtoUUID,
@@ -103,7 +103,7 @@ sealed interface TemplateCommand : DomainCommand {
 
     @Serializable
     @SerialName("deleteTemplateReminder")
-    data class DeleteTemplateReminderCommandDto(
+    data class DeleteTemplateReminderCommand(
         override val templateId: DtoUUID,
         val reminderId: DtoUUID,
         override val commandId: DtoUUID,
@@ -112,7 +112,7 @@ sealed interface TemplateCommand : DomainCommand {
 
     @Serializable
     @SerialName("deleteTemplate")
-    data class DeleteTemplateCommandDto(
+    data class DeleteTemplateCommand(
         override val templateId: DtoUUID,
         override val commandId: DtoUUID,
         override val timestamp: Instant
