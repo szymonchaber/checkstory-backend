@@ -18,12 +18,21 @@ import kotlin.test.assertEquals
 class TemplateTest {
 
     @Test
+    fun `when no account provided, then should respond with http unauthorized`() = mockApplication {
+        // when
+        val response = jsonClient.get("templates")
+
+        // then
+        assertEquals(HttpStatusCode.Unauthorized, response.status)
+    }
+
+    @Test
     fun `given fresh account, then should return empty checklists`() = mockApplication {
         // given
         jsonClient.mockAuthorized().post("/auth/register")
 
         // when
-        val response = jsonClient.mockAuthorized().get("checklists")
+        val response = jsonClient.mockAuthorized().get("templates")
 
         // then
         assertEquals(HttpStatusCode.OK, response.status)
@@ -31,44 +40,39 @@ class TemplateTest {
     }
 
     @Test
-    fun `when no account provided, then should respond with http unauthorized`() = mockApplication {
-        val response = jsonClient.get("checklists")
-        assertEquals(HttpStatusCode.Unauthorized, response.status)
-    }
-
-    @Test
-    fun `given a template was created, when templates called, then should return created template`() = mockApplication(
-        setupOperations = {
-            val giftedSubscriptionRepository by instance<GiftedSubscriptionRepository>()
-            runBlocking {
-                giftedSubscriptionRepository.giftSubscriptionTo("mock-user-id", "Unit tests")
+    fun `given a template was created, when templates called, then should return created template`() =
+        mockApplicationWithUser(
+            setupOperations = {
+                val giftedSubscriptionRepository by instance<GiftedSubscriptionRepository>()
+                runBlocking {
+                    giftedSubscriptionRepository.giftSubscriptionTo("mock-user-id", "Unit tests")
+                }
             }
-        }
-    ) {
-        jsonClient.mockAuthorized().post("/auth/register")
-
-        // when
-        val templateId = UUID.randomUUID()
-        jsonClient.mockAuthorized().post("sync/commands") {
-            setBody(
-                CommandsPayload(
-                    templateCommands = listOf(
-                        TemplateCommand.CreateTemplateCommand(
-                            templateId = templateId,
-                            commandId = UUID.randomUUID(),
-                            timestamp = Clock.System.now(),
-                            existingTemplateData = null
-                        )
-                    ),
-                    checklistCommands = emptyList()
+        ) { userId ->
+            // when
+            val templateId = UUID.randomUUID()
+            jsonClient.mockAuthorized().post("sync/commands") {
+                setBody(
+                    CommandsPayload(
+                        templateCommands = listOf(
+                            TemplateCommand.CreateTemplateCommand(
+                                templateId = templateId,
+                                commandId = UUID.randomUUID(),
+                                timestamp = Clock.System.now(),
+                                existingTemplateData = null
+                            )
+                        ),
+                        checklistCommands = emptyList()
+                    )
                 )
-            )
-        }
+            }
 
-        // then
-        val response = jsonClient.mockAuthorized().get("templates")
-        assertEquals(HttpStatusCode.OK, response.status)
-        assertEquals(templateId, response.body<List<Template>>().first().id)
-    }
+            // then
+            val response = jsonClient.mockAuthorized().get("templates")
+            assertEquals(HttpStatusCode.OK, response.status)
+            val template = response.body<List<Template>>().first()
+            assertEquals(templateId, template.id)
+            assertEquals(userId, template.userId)
+        }
 }
 
