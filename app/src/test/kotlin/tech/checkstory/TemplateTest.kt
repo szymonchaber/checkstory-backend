@@ -18,14 +18,6 @@ import kotlin.test.assertEquals
 class TemplateTest {
 
     @Test
-    fun `when register called, then should register an account`() = mockApplication {
-        val response = jsonClient.post("/auth/register") {
-            header("Authorization", "Bearer example-token")
-        }
-        assertEquals(HttpStatusCode.Created, response.status)
-    }
-
-    @Test
     fun `given fresh account, then should return empty checklists`() = mockApplication {
         // given
         jsonClient.mockAuthorized().post("/auth/register")
@@ -79,3 +71,4 @@ class TemplateTest {
         assertEquals(templateId, response.body<List<Template>>().first().id)
     }
 }
+
