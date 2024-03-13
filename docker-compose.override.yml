@@ -9,8 +9,6 @@ services:
     environment:
       JAVA_OPTS: ${JAVA_OPTS}
     entrypoint: java -jar /app/checkstory-docker.jar $JAVA_OPTS
-  esdb:
-    image: eventstore/eventstore:22.10.3-alpha-arm64v8
   postgres:
     image: postgres:latest
     environment:
@@ -33,8 +31,6 @@ networks:
 
 volumes:
   postgres_data:
-  eventstore_data:
-  eventstore_logs:
   nginx_conf:
   certbot_conf:
   certbot_www:

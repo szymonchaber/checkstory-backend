@@ -1,8 +1,8 @@
 ### Main process
 
-- Event Sourcing is main architecture
-- The mobile app provides events describing what actions did the user take for a given checklist or template
-- TemplateProjection & ChecklistProjection subscribe to those events & store updated data in a PostgreSQL database
+- CQRS is the main architecture
+- The mobile app provides commands describing what actions did the user take for a given checklist or template
+- The commands are ingested in configureSynchronization and the result is stored in a PostgreSQL database
 - Then, the app is notified via UserDataChangeNotifier which uses Firebase Messaging to fetch new data
 - Also, each user is known to be subscribed (or not), so the app won't ask to synchronize for non-paid users
 
@@ -11,17 +11,10 @@
 - We use Docker Compose with automatic Github Actions deployment to the DigitalOcean server
 - Wa have some manual backup processes described below
 - We use nginx reverse proxy with certbot
-- We use EventStoreDB in a single-node setup
-- We cannot yet fake external dependencies - we have to work on that
-- We also haven't run the containers locally for some time - we should update that situation
 
 ### Environment variables
 
-- EVENT_STORE_CONNECTION_STRING:
-   - For direct java runs,
-     use `esdb://admin:password@localhost:2113?tls=false&keepAliveTimeout=10000&keepAliveInterval=10000&tlsVerifyCert=false`
-   - For docker deployments,
-     use `esdb://{user}:{password}@esdb:2113?tls=false&keepAliveTimeout=10000&keepAliveInterval=10000&tlsVerifyCert=false`
+TODO
 
 ### Building & deploying
 
@@ -65,38 +58,3 @@ ssh backend "touch ~/nginx/maintenance.enable"
 ```shell
 ssh backend "rm ~/nginx/maintenance.enable"
 ```
-
-### Rebuilding a projection:
-
-1. Put the server in maintenance mode per instructions above
-2. Stop the server entirely:
-   ```shell
-   ssh backend "docker stop checkstory-backend-backend-1"
-   ```
-3. Drop tables relevant to the projection on Postgres via IntelliJ or using psql.\
-   To be able to connect with the database from your computer, use:
-      ```shell
-      ssh -L 5432:localhost:5432 backend
-      ```
-4. Set the checkpoint stream to nothing in EventStore
-   1. ```shell
-      ssh -L 2113:localhost:2113 backend
-      ```
-   2. Open [localhost:2113](http://localhost:2113/web/index.html#/streams/checkpoint_default)
-   3. Click on any event within
-   4. Add a new event to stream "checkpoint_default" using "add similar" option with position "0"
-5. Run scavenging in EventStore - important for GDPR!
-   1. Open http://localhost:2113/web/index.html#/admin
-   2. Click "scavenge"
-   3. Refresh until you see a new value in "Scavenge" table
-   4. This removes all events with templates and checklists of deleted users
-6. Fire up the backend again - it should start rebuilding the projection automatically
-   ```shell
-      ssh backend "docker start checkstory-backend-backend-1"
-      ```
-7. Monitor the projection rebuild with this command:
-   ```shell
-   ssh backend "docker logs checkstory-backend-backend-1 --follow --since 10m"
-   ```
-8. When it's done - no new INSERTS since 1 minute:
-   1. Stop maintenance mode per instructions above
