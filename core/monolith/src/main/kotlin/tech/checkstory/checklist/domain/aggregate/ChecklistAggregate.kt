@@ -37,7 +37,6 @@ class ChecklistAggregate(val id: UUID) {
                 ChecklistEvent.EditChecklistNotesEvent(
                     newNotes = checklistCommand.newNotes,
                     aggregateId = checklistCommand.checklistId,
-                    eventId = checklistCommand.commandId,
                     timestamp = checklistCommand.timestamp,
                 )
             }
@@ -47,7 +46,6 @@ class ChecklistAggregate(val id: UUID) {
                     taskId = checklistCommand.taskId,
                     isChecked = checklistCommand.isChecked,
                     aggregateId = checklistCommand.checklistId,
-                    eventId = checklistCommand.commandId,
                     timestamp = checklistCommand.timestamp
                 )
             }
@@ -55,7 +53,6 @@ class ChecklistAggregate(val id: UUID) {
             is ChecklistCommand.DeleteChecklistCommand -> {
                 ChecklistEvent.DeleteChecklistEvent(
                     aggregateId = checklistCommand.checklistId,
-                    eventId = checklistCommand.commandId,
                     timestamp = checklistCommand.timestamp
                 )
             }
@@ -77,7 +74,6 @@ class ChecklistAggregate(val id: UUID) {
             title = checklistCommand.title,
             description = checklistCommand.description,
             tasks = checklistCommand.tasks,
-            eventId = checklistCommand.commandId,
             timestamp = checklistCommand.timestamp,
             notes = checklistCommand.notes,
             userId = userId,
