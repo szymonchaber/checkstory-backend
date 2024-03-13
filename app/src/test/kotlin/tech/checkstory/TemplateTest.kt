@@ -3,7 +3,6 @@ package tech.checkstory
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.http.*
-import io.ktor.server.testing.*
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -737,28 +736,4 @@ class TemplateTest {
             val template = response.body<List<Template>>().first()
             assertEquals(0, template.reminders.size)
         }
-
-    private suspend fun ApplicationTestBuilder.existingTemplate(): UUID {
-        val templateId = UUID.randomUUID()
-        jsonClient.mockAuthorized().post("sync/commands") {
-            setBody(
-                CommandsPayload(
-                    templateCommands = listOf(
-                        createTemplateCommand(templateId)
-                    ),
-                    checklistCommands = emptyList()
-                )
-            )
-        }
-        return templateId
-    }
-
-    private fun createTemplateCommand(templateId: UUID): TemplateCommand.CreateTemplateCommand {
-        return TemplateCommand.CreateTemplateCommand(
-            templateId = templateId,
-            commandId = UUID.randomUUID(),
-            timestamp = Clock.System.now(),
-            existingTemplateData = null
-        )
-    }
 }

@@ -17,8 +17,6 @@ sealed interface ChecklistCommand : DomainCommand {
     data class CreateChecklistCommand(
         override val checklistId: DtoUUID,
         val templateId: DtoUUID,
-        val title: String,
-        val description: String,
         val tasks: List<Task>,
         val notes: String?,
         override val commandId: DtoUUID,

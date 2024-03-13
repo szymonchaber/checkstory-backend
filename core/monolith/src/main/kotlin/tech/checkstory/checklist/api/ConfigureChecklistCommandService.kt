@@ -3,7 +3,6 @@ package tech.checkstory.checklist.api
 import org.kodein.di.DI
 import org.kodein.di.instance
 import tech.checkstory.checklist.domain.ChecklistRepository
-import tech.checkstory.checklist.domain.aggregate.Checklist
 import tech.checkstory.checklist.domain.aggregate.ChecklistAggregate
 import tech.checkstory.checklist.domain.command.ChecklistCommand
 import tech.checkstory.checklist.domain.event.ChecklistEvent
@@ -27,20 +26,7 @@ suspend fun handleChecklistCommands(commands: List<ChecklistCommand>) {
             acceptedEvents.forEach {
                 when (it) {
                     is ChecklistEvent.CreateChecklistEvent -> {
-                        with(it) {
-                            checklistRepository.create(
-                                Checklist(
-                                    id = aggregateId,
-                                    userId = userId,
-                                    templateId = templateId,
-                                    title = title,
-                                    description = description,
-                                    notes = notes.orEmpty(),
-                                    tasks = tasks,
-                                    timestamp
-                                )
-                            )
-                        }
+                        checklistRepository.create(it)
                     }
 
                     is ChecklistEvent.EditChecklistNotesEvent -> {

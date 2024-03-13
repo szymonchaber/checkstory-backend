@@ -9,8 +9,6 @@ sealed interface ChecklistEvent : DomainEvent {
 
     data class CreateChecklistEvent(
         val templateId: DtoUUID,
-        val title: String,
-        val description: String,
         val tasks: List<Task>,
         val userId: String,
         val notes: String?,

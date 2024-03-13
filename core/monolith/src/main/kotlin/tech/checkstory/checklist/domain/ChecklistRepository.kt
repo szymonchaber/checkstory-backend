@@ -15,6 +15,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import org.slf4j.LoggerFactory
 import tech.checkstory.checklist.domain.aggregate.Checklist
 import tech.checkstory.checklist.domain.aggregate.Task
+import tech.checkstory.checklist.domain.event.ChecklistEvent
 import tech.checkstory.core.domain.DtoUUID
 import tech.checkstory.core.domain.auth.AuthenticatedScope
 import tech.checkstory.data.UpsertableUUIDEntityClass
@@ -59,16 +60,16 @@ class ChecklistRepository(
         }
     }
 
-    suspend fun create(checklist: Checklist) {
+    suspend fun create(createChecklistEvent: ChecklistEvent.CreateChecklistEvent) {
         dbQuery {
-            ChecklistEntity.new(checklist.id) {
-                userId = checklist.userId
-                templateId = EntityID(checklist.templateId, TemplateTable)
-                notes = checklist.notes
-                createdAt = checklist.createdAt.toLocalDateTime(TimeZone.UTC)
-                isDeleted = checklist.isDeleted
+            ChecklistEntity.new(createChecklistEvent.aggregateId) {
+                userId = createChecklistEvent.userId
+                templateId = EntityID(createChecklistEvent.templateId, TemplateTable)
+                notes = createChecklistEvent.notes.orEmpty()
+                createdAt = createChecklistEvent.timestamp.toLocalDateTime(TimeZone.UTC)
+                isDeleted = false
             }
-            checklist.tasks.forEach {
+            createChecklistEvent.tasks.forEach {
                 insertTask(it, null)
             }
         }

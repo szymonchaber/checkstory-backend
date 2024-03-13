@@ -8,10 +8,13 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.testing.*
 import kotlinx.coroutines.runBlocking
+import kotlinx.datetime.Clock
 import org.kodein.di.DI
 import org.kodein.di.instance
+import tech.checkstory.command.CommandsPayload
 import tech.checkstory.core.domain.auth.UserService
 import tech.checkstory.payment.data.GiftedSubscriptionRepository
+import tech.checkstory.template.domain.command.TemplateCommand
 import java.util.*
 
 internal fun mockApplication(setupOperations: DI.() -> Unit = {}, block: suspend ApplicationTestBuilder.() -> Unit) {
@@ -63,4 +66,24 @@ fun HttpClient.mockAuthorized(): HttpClient = config {
     defaultRequest {
         header("Authorization", "Bearer example-token")
     }
+}
+
+suspend fun ApplicationTestBuilder.existingTemplate(): UUID {
+    val templateId = UUID.randomUUID()
+    jsonClient.mockAuthorized().post("sync/commands") {
+        setBody(
+            CommandsPayload(
+                templateCommands = listOf(
+                    TemplateCommand.CreateTemplateCommand(
+                        templateId = templateId,
+                        commandId = UUID.randomUUID(),
+                        timestamp = Clock.System.now(),
+                        existingTemplateData = null
+                    )
+                ),
+                checklistCommands = emptyList()
+            )
+        )
+    }
+    return templateId
 }

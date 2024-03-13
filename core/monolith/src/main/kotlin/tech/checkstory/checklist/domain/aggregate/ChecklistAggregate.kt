@@ -71,8 +71,6 @@ class ChecklistAggregate(val id: UUID) {
         require(checklistCommand.tasks.all(Task::allTasksInHierarchyHaveChecklistId))
         return ChecklistEvent.CreateChecklistEvent(
             templateId = checklistCommand.templateId,
-            title = checklistCommand.title,
-            description = checklistCommand.description,
             tasks = checklistCommand.tasks,
             timestamp = checklistCommand.timestamp,
             notes = checklistCommand.notes,
