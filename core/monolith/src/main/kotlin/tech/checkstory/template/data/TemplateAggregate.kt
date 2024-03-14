@@ -48,12 +48,8 @@ class TemplateAggregate(val id: UUID) {
             }
 
             is TemplateCommand.EditTemplateDescriptionCommand -> {
-//                templateState = (templateState as TemplateState.Existing).copy(description = newDescription)
-                TemplateEvent.EditTemplateDescriptionEvent(
-                    newDescription = newDescription,
-                    aggregateId = templateId,
-                    timestamp = timestamp,
-                )
+                templateState = (templateState as TemplateState.Existing).copy(description = newDescription)
+                null
             }
 
             is TemplateCommand.AddTemplateTaskCommand -> {
@@ -116,10 +112,8 @@ class TemplateAggregate(val id: UUID) {
             }
 
             is TemplateCommand.DeleteTemplateCommand -> {
-                TemplateEvent.DeleteTemplateEvent(
-                    aggregateId = templateId,
-                    timestamp = timestamp,
-                )
+                templateState = (templateState as TemplateState.Existing).copy(isDeleted = true)
+                null
             }
         }
     }

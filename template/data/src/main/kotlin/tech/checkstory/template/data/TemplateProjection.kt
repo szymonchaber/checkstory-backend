@@ -17,10 +17,6 @@ class TemplateProjection(
                 createTemplate(event)
             }
 
-            is TemplateEvent.EditTemplateDescriptionEvent -> {
-                editDescription(event)
-            }
-
             is TemplateEvent.AddTemplateTaskEvent -> {
                 addTemplateTask(event)
             }
@@ -48,10 +44,6 @@ class TemplateProjection(
             is TemplateEvent.DeleteReminderEvent -> {
                 deleteReminder(event)
             }
-
-            is TemplateEvent.DeleteTemplateEvent -> {
-                deleteTemplate(event)
-            }
         }
     }
 
@@ -69,10 +61,6 @@ class TemplateProjection(
                 )
             )
         }
-    }
-
-    private suspend fun editDescription(event: TemplateEvent.EditTemplateDescriptionEvent) {
-        templateRepository.updateDescription(event.aggregateId, event.newDescription)
     }
 
     private suspend fun renameTemplateTask(event: TemplateEvent.RenameTemplateTaskEvent) {
@@ -103,9 +91,5 @@ class TemplateProjection(
 
     private suspend fun deleteReminder(event: TemplateEvent.DeleteReminderEvent) {
         templateRepository.deleteReminder(event.reminderId)
-    }
-
-    private suspend fun deleteTemplate(event: TemplateEvent.DeleteTemplateEvent) {
-        templateRepository.markAsDeleted(event.aggregateId)
     }
 }

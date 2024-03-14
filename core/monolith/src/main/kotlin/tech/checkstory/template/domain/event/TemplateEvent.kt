@@ -16,12 +16,6 @@ sealed interface TemplateEvent : DomainEvent {
         val existingTemplateData: ExistingTemplateDataDto?
     ) : TemplateEvent
 
-    data class EditTemplateDescriptionEvent(
-        val newDescription: String,
-        override val aggregateId: DtoUUID,
-        override val timestamp: Instant
-    ) : TemplateEvent
-
     data class AddTemplateTaskEvent(
         val taskId: DtoUUID,
         val parentTaskId: DtoUUID?,
@@ -63,11 +57,6 @@ sealed interface TemplateEvent : DomainEvent {
 
     data class DeleteReminderEvent(
         val reminderId: DtoUUID,
-        override val aggregateId: DtoUUID,
-        override val timestamp: Instant
-    ) : TemplateEvent
-
-    data class DeleteTemplateEvent(
         override val aggregateId: DtoUUID,
         override val timestamp: Instant
     ) : TemplateEvent
