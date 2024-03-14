@@ -96,11 +96,13 @@ class TemplateAggregate(val id: UUID) {
             }
 
             is TemplateCommand.AddOrUpdateTemplateReminderCommand -> {
-                TemplateEvent.AddOrUpdateReminderEvent(
-                    reminder = reminder,
-                    aggregateId = templateId,
-                    timestamp = timestamp,
+                templateState = (templateState as TemplateState.Existing).copy(
+                    reminders = (templateState as TemplateState.Existing).reminders + AggregateReminder(
+                        reminder = reminder.toReminder(),
+                        isDeleted = false
+                    )
                 )
+                null
             }
 
             is TemplateCommand.DeleteTemplateReminderCommand -> {

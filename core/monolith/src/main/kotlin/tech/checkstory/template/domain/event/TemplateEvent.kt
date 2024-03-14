@@ -5,7 +5,6 @@ import tech.checkstory.core.domain.DtoUUID
 import tech.checkstory.domain.event.DomainEvent
 import tech.checkstory.template.domain.aggregate.TemplateTask
 import tech.checkstory.template.domain.command.ExistingTemplateDataDto
-import tech.checkstory.template.domain.command.ReminderDto
 
 sealed interface TemplateEvent : DomainEvent {
 
@@ -45,12 +44,6 @@ sealed interface TemplateEvent : DomainEvent {
     data class MoveTemplateTaskEvent(
         val taskId: DtoUUID,
         val newParentTaskId: DtoUUID?,
-        override val aggregateId: DtoUUID,
-        override val timestamp: Instant
-    ) : TemplateEvent
-
-    data class AddOrUpdateReminderEvent(
-        val reminder: ReminderDto,
         override val aggregateId: DtoUUID,
         override val timestamp: Instant
     ) : TemplateEvent
