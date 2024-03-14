@@ -17,10 +17,6 @@ class TemplateProjection(
                 createTemplate(event)
             }
 
-            is TemplateEvent.UpdateTasksPositionsEvent -> {
-                updatePositions(event)
-            }
-
             is TemplateEvent.DeleteTemplateTaskEvent -> {
                 deleteTemplateTask(event)
             }
@@ -41,10 +37,6 @@ class TemplateProjection(
                 )
             )
         }
-    }
-
-    private suspend fun updatePositions(event: TemplateEvent.UpdateTasksPositionsEvent) {
-        templateRepository.updateLocalPositions(event.taskIdToLocalPosition)
     }
 
     private suspend fun deleteTemplateTask(event: TemplateEvent.DeleteTemplateTaskEvent) {

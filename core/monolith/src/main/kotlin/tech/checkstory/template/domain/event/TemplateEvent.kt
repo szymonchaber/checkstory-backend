@@ -19,11 +19,4 @@ sealed interface TemplateEvent : DomainEvent {
         override val aggregateId: DtoUUID,
         override val timestamp: Instant
     ) : TemplateEvent
-
-    data class UpdateTasksPositionsEvent(
-        val taskIdToLocalPosition: Map<DtoUUID, Long>,
-        override val aggregateId: DtoUUID,
-        override val timestamp: Instant
-    ) : TemplateEvent
 }
-

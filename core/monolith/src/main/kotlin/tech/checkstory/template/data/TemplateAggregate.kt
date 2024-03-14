@@ -90,11 +90,12 @@ class TemplateAggregate(val id: UUID) {
             }
 
             is TemplateCommand.UpdateTasksPositionsCommand -> {
-                TemplateEvent.UpdateTasksPositionsEvent(
-                    taskIdToLocalPosition = taskIdToLocalPosition,
-                    aggregateId = templateId,
-                    timestamp = timestamp,
+                templateState = (templateState as TemplateState.Existing).copy(
+                    tasks = (templateState as TemplateState.Existing).tasks.map {
+                        it.copy(sortPosition = taskIdToLocalPosition[it.id] ?: it.sortPosition)
+                    }
                 )
+                null
             }
 
             is TemplateCommand.MoveTemplateTaskCommand -> {
