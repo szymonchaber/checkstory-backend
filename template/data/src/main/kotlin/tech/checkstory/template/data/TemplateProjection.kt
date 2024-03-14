@@ -17,10 +17,6 @@ class TemplateProjection(
                 createTemplate(event)
             }
 
-            is TemplateEvent.RenameTemplateTaskEvent -> {
-                renameTemplateTask(event)
-            }
-
             is TemplateEvent.MoveTemplateTaskEvent -> {
                 moveTemplateTask(event)
             }
@@ -49,10 +45,6 @@ class TemplateProjection(
                 )
             )
         }
-    }
-
-    private suspend fun renameTemplateTask(event: TemplateEvent.RenameTemplateTaskEvent) {
-        templateRepository.renameTask(event.taskId, event.newTitle)
     }
 
     private suspend fun moveTemplateTask(event: TemplateEvent.MoveTemplateTaskEvent) {

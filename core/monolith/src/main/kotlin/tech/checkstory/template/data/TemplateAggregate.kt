@@ -69,12 +69,16 @@ class TemplateAggregate(val id: UUID) {
             }
 
             is TemplateCommand.RenameTemplateTaskCommand -> {
-                TemplateEvent.RenameTemplateTaskEvent(
-                    taskId = taskId,
-                    newTitle = newTitle,
-                    aggregateId = templateId,
-                    timestamp = timestamp,
+                templateState = (templateState as TemplateState.Existing).copy(
+                    tasks = (templateState as TemplateState.Existing).tasks.map {
+                        if (it.id == taskId) {
+                            it.copy(title = newTitle)
+                        } else {
+                            it
+                        }
+                    }
                 )
+                null
             }
 
             is TemplateCommand.DeleteTemplateTaskCommand -> {
