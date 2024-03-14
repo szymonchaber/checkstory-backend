@@ -14,9 +14,8 @@ import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransacti
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.slf4j.LoggerFactory
 import tech.checkstory.checklist.domain.aggregate.Checklist
+import tech.checkstory.checklist.domain.aggregate.ChecklistState
 import tech.checkstory.checklist.domain.aggregate.Task
-import tech.checkstory.checklist.domain.event.ChecklistEvent
-import tech.checkstory.core.domain.DtoUUID
 import tech.checkstory.core.domain.auth.AuthenticatedScope
 import tech.checkstory.data.UpsertableUUIDEntityClass
 import tech.checkstory.template.data.commonRetry
@@ -50,26 +49,16 @@ class ChecklistRepository(
         }
     }
 
-    context(AuthenticatedScope)
-    suspend fun readAll(): List<Checklist> {
-        return dbQuery {
-            ChecklistEntity.find {
-                ChecklistTable.userId eq principal.userId
-            }
-                .map(ChecklistEntity::toChecklist)
-        }
-    }
-
-    suspend fun create(createChecklistEvent: ChecklistEvent.CreateChecklistEvent) {
+    suspend fun upsert(existingChecklist: ChecklistState.Existing) {
         dbQuery {
-            ChecklistEntity.new(createChecklistEvent.aggregateId) {
-                userId = createChecklistEvent.userId
-                templateId = EntityID(createChecklistEvent.templateId, TemplateTable)
-                notes = createChecklistEvent.notes.orEmpty()
-                createdAt = createChecklistEvent.timestamp.toLocalDateTime(TimeZone.UTC)
-                isDeleted = false
+            ChecklistEntity.new(existingChecklist.id) {
+                userId = existingChecklist.userId
+                templateId = EntityID(existingChecklist.templateId, TemplateTable)
+                notes = existingChecklist.notes
+                createdAt = existingChecklist.createdAt.toLocalDateTime(TimeZone.UTC)
+                isDeleted = existingChecklist.isDeleted
             }
-            createChecklistEvent.tasks.forEach {
+            existingChecklist.tasks.forEach {
                 insertTask(it, null)
             }
         }
@@ -99,28 +88,6 @@ class ChecklistRepository(
                 }
                 .map(ChecklistEntity::toChecklist)
                 .firstOrNull()
-        }
-    }
-
-    suspend fun changeTaskChecked(taskId: DtoUUID, isChecked: Boolean) {
-        dbQuery {
-            TaskEntity.findById(taskId)?.isChecked = isChecked
-        }
-    }
-
-    suspend fun editNotes(checklistId: DtoUUID, newNotes: String) {
-        dbQuery {
-            ChecklistEntity.findById(checklistId)?.notes = newNotes
-        }
-    }
-
-    suspend fun delete(checklistId: DtoUUID) {
-        dbQuery {
-            ChecklistEntity.findById(checklistId)?.let {
-                it.isDeleted = true
-            }
-                ?: run { logger.warn("Attempted to delete checklist id=$checklistId which didn't exist in the first place") }
-
         }
     }
 

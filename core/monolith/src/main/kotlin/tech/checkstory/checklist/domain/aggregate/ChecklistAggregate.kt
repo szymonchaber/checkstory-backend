@@ -2,14 +2,13 @@ package tech.checkstory.checklist.domain.aggregate
 
 import kotlinx.datetime.Instant
 import tech.checkstory.checklist.domain.command.ChecklistCommand
-import tech.checkstory.checklist.domain.event.ChecklistEvent
 import tech.checkstory.core.domain.DtoUUID
 import tech.checkstory.core.domain.auth.User
 import java.util.*
 
 class ChecklistAggregate(val id: UUID) {
 
-    private var checklistState: ChecklistState = ChecklistState.NonExistent
+    var checklistState: ChecklistState = ChecklistState.NonExistent
 
     fun isOwnedBy(user: User): Boolean {
         return when (val state = checklistState) {
@@ -18,43 +17,40 @@ class ChecklistAggregate(val id: UUID) {
         }
     }
 
-    fun applyCommands(commands: List<ChecklistCommand>, user: User): List<ChecklistEvent> {
+    fun applyCommands(commands: List<ChecklistCommand>, user: User) {
         require(checklistState is ChecklistState.NonExistent || user.userId == (checklistState as ChecklistState.Existing).userId) {
-            "commands' user id must equal firebase user id"
+            "commands' user id must equal authenticated user id"
         }
-        return commands.map {
-            toChecklistEvent(it, user.userId)
+        commands.forEach {
+            applyCommand(it, user.userId)
         }
     }
 
-    private fun toChecklistEvent(checklistCommand: ChecklistCommand, userId: String): ChecklistEvent {
-        return when (checklistCommand) {
+    private fun applyCommand(checklistCommand: ChecklistCommand, userId: String) {
+        when (checklistCommand) {
             is ChecklistCommand.CreateChecklistCommand -> {
                 handleCreateChecklistCommand(checklistCommand, userId)
             }
 
             is ChecklistCommand.EditChecklistNotesCommand -> {
-                ChecklistEvent.EditChecklistNotesEvent(
-                    newNotes = checklistCommand.newNotes,
-                    aggregateId = checklistCommand.checklistId,
-                    timestamp = checklistCommand.timestamp,
-                )
+                checklistState = (checklistState as ChecklistState.Existing).copy(notes = checklistCommand.newNotes)
             }
 
             is ChecklistCommand.ChangeTaskCheckedCommand -> {
-                ChecklistEvent.ChangeTaskCheckedEvent(
-                    taskId = checklistCommand.taskId,
-                    isChecked = checklistCommand.isChecked,
-                    aggregateId = checklistCommand.checklistId,
-                    timestamp = checklistCommand.timestamp
-                )
+                checklistState = (checklistState as ChecklistState.Existing)
+                    .copy(
+                        tasks = (checklistState as ChecklistState.Existing).tasks.map {
+                            if (it.id == checklistCommand.taskId) {
+                                it.copy(isChecked = checklistCommand.isChecked)
+                            } else {
+                                it
+                            }
+                        }
+                    )
             }
 
             is ChecklistCommand.DeleteChecklistCommand -> {
-                ChecklistEvent.DeleteChecklistEvent(
-                    aggregateId = checklistCommand.checklistId,
-                    timestamp = checklistCommand.timestamp
-                )
+                checklistState = (checklistState as ChecklistState.Existing).copy(isDeleted = true)
             }
         }
     }
@@ -62,28 +58,22 @@ class ChecklistAggregate(val id: UUID) {
     private fun handleCreateChecklistCommand(
         checklistCommand: ChecklistCommand.CreateChecklistCommand,
         userId: String
-    ): ChecklistEvent.CreateChecklistEvent {
+    ) {
         fun Task.allTasksInHierarchyHaveChecklistId(): Boolean {
             return checklistId == checklistCommand.checklistId && children.all {
                 it.allTasksInHierarchyHaveChecklistId()
             }
         }
         require(checklistCommand.tasks.all(Task::allTasksInHierarchyHaveChecklistId))
-        return ChecklistEvent.CreateChecklistEvent(
-            templateId = checklistCommand.templateId,
-            tasks = checklistCommand.tasks,
-            timestamp = checklistCommand.timestamp,
-            notes = checklistCommand.notes,
+        checklistState = ChecklistState.Existing(
+            id = checklistCommand.checklistId,
             userId = userId,
-            aggregateId = id
+            templateId = checklistCommand.templateId,
+            notes = checklistCommand.notes.orEmpty(),
+            tasks = checklistCommand.tasks,
+            createdAt = checklistCommand.timestamp,
+            isDeleted = false
         )
-    }
-
-    fun toChecklistOrNull(): Checklist? {
-        return when (val state = checklistState) {
-            is ChecklistState.Existing -> state.toChecklist()
-            ChecklistState.NonExistent -> null
-        }
     }
 
     companion object {
@@ -94,8 +84,6 @@ class ChecklistAggregate(val id: UUID) {
                     id = checklist.id,
                     userId = checklist.userId,
                     templateId = checklist.templateId,
-                    title = checklist.title,
-                    description = checklist.description,
                     notes = checklist.notes,
                     tasks = checklist.tasks,
                     createdAt = checklist.createdAt,
@@ -114,26 +102,9 @@ sealed interface ChecklistState {
         val id: DtoUUID,
         val userId: String,
         val templateId: DtoUUID,
-        val title: String,
-        val description: String,
         val notes: String,
         val tasks: List<Task> = listOf(),
         val createdAt: Instant,
         val isDeleted: Boolean = false
-    ) : ChecklistState {
-
-        fun toChecklist(): Checklist {
-            return Checklist(
-                id = id,
-                userId = userId,
-                templateId = templateId,
-                title = title,
-                description = description,
-                notes = notes,
-                tasks = tasks,
-                createdAt = createdAt,
-                isDeleted = isDeleted,
-            )
-        }
-    }
+    ) : ChecklistState
 }
