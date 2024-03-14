@@ -1,35 +1,39 @@
 package tech.checkstory.template.data
 
+import tech.checkstory.core.domain.DtoUUID
 import tech.checkstory.core.domain.auth.User
 import tech.checkstory.template.domain.aggregate.Template
+import tech.checkstory.template.domain.command.ExistingTemplateTaskDto
 import tech.checkstory.template.domain.command.TemplateCommand
 import tech.checkstory.template.domain.event.TemplateEvent
 import java.util.*
 
 class TemplateAggregate(val id: UUID) {
 
-    private var templateState: TemplateState = TemplateState.NonExistent
-
-    fun toTemplateOrNull(): Template? {
-        return when (val state = templateState) {
-            is TemplateState.Existing -> state.toTemplate()
-            TemplateState.NonExistent -> null
-        }
-    }
+    var templateState: TemplateState = TemplateState.NonExistent
 
     fun applyCommands(user: User, commands: List<TemplateCommand>): List<TemplateEvent> {
         val state = templateState
         require(state is TemplateState.NonExistent || user.userId == (state as TemplateState.Existing).userId) {
             "command users must equal firebase users"
         }
-        return commands.map {
+        return commands.mapNotNull {
             it.toTemplateEvent(user.userId)
         }
     }
 
-    private fun TemplateCommand.toTemplateEvent(userId: String): TemplateEvent {
+    private fun TemplateCommand.toTemplateEvent(userId: String): TemplateEvent? {
         return when (this) {
             is TemplateCommand.CreateTemplateCommand -> {
+                templateState = TemplateState.Existing(
+                    userId = userId,
+                    id = templateId,
+                    name = existingTemplateData?.title.orEmpty(),
+                    description = existingTemplateData?.title.orEmpty(),
+                    tasks = listOf(),
+                    reminders = listOf(),
+                    createdAt = timestamp
+                )
                 TemplateEvent.CreateTemplateEvent(
                     aggregateId = templateId,
                     timestamp = timestamp,
@@ -39,14 +43,12 @@ class TemplateAggregate(val id: UUID) {
             }
 
             is TemplateCommand.EditTemplateTitleCommand -> {
-                TemplateEvent.EditTemplateTitleEvent(
-                    newTitle = newTitle,
-                    aggregateId = templateId,
-                    timestamp = timestamp,
-                )
+                templateState = (templateState as TemplateState.Existing).copy(name = newTitle)
+                null
             }
 
             is TemplateCommand.EditTemplateDescriptionCommand -> {
+//                templateState = (templateState as TemplateState.Existing).copy(description = newDescription)
                 TemplateEvent.EditTemplateDescriptionEvent(
                     newDescription = newDescription,
                     aggregateId = templateId,
@@ -121,6 +123,30 @@ class TemplateAggregate(val id: UUID) {
             }
         }
     }
+
+    fun toAggregateTemplateTask(
+        existingTask: ExistingTemplateTaskDto,
+        templateId: DtoUUID
+    ): AggregateTemplateTask {
+        return AggregateTemplateTask(
+            id = existingTask.id,
+            templateId = templateId,
+            title = existingTask.title,
+            sortPosition = existingTask.sortPosition,
+            parentId = existingTask.parentId
+        )
+    }
+
+    // flatten dto tasks recursively
+    private fun flattenTasks(tasks: List<ExistingTemplateTaskDto>): List<AggregateTemplateTask> {
+        return tasks.flatMap { task ->
+            listOf(
+                toAggregateTemplateTask(task, task.id),
+                *flattenTasks(task.children).toTypedArray()
+            )
+        }
+    }
+
 
     companion object {
 

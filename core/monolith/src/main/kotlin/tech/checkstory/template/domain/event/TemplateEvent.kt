@@ -16,12 +16,6 @@ sealed interface TemplateEvent : DomainEvent {
         val existingTemplateData: ExistingTemplateDataDto?
     ) : TemplateEvent
 
-    data class EditTemplateTitleEvent(
-        val newTitle: String,
-        override val aggregateId: DtoUUID,
-        override val timestamp: Instant
-    ) : TemplateEvent
-
     data class EditTemplateDescriptionEvent(
         val newDescription: String,
         override val aggregateId: DtoUUID,

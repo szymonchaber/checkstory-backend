@@ -3,7 +3,6 @@ package tech.checkstory.template.data
 import kotlinx.datetime.Instant
 import tech.checkstory.core.domain.DtoUUID
 import tech.checkstory.template.domain.aggregate.Reminder
-import tech.checkstory.template.domain.aggregate.Template
 import tech.checkstory.template.domain.aggregate.TemplateTask
 
 sealed interface TemplateState {
@@ -16,22 +15,17 @@ sealed interface TemplateState {
         val name: String,
         val description: String,
         val tasks: List<TemplateTask> = listOf(),
+//        val flatTasks: List<AggregateTemplateTask> = listOf(),
         val reminders: List<Reminder> = listOf(),
         val createdAt: Instant,
         val isDeleted: Boolean = false
-    ) : TemplateState {
-
-        fun toTemplate(): Template {
-            return Template(
-                id = id,
-                userId = userId,
-                name = name,
-                description = description,
-                tasks = tasks,
-                reminders = reminders,
-                createdAt = createdAt,
-                isDeleted = isDeleted,
-            )
-        }
-    }
+    ) : TemplateState
 }
+
+data class AggregateTemplateTask(
+    val id: DtoUUID,
+    val templateId: DtoUUID,
+    val title: String,
+    val sortPosition: Long,
+    val parentId: DtoUUID?,
+)

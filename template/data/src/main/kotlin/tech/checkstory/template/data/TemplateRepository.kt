@@ -52,6 +52,24 @@ class TemplateRepository(private val database: Database) {
         }
     }
 
+    suspend fun upsert(existing: TemplateState.Existing) {
+        dbQuery {
+            TemplateEntity.new(existing.id) {
+                userId = existing.userId
+                title = existing.name
+                description = existing.description
+                createdAt = existing.createdAt.toLocalDateTime(TimeZone.UTC)
+                isDeleted = existing.isDeleted
+            }
+            existing.tasks.forEach {
+                insertTask(it, null)
+            }
+            existing.reminders.forEach {
+                ReminderEntity.fromDomainReminder(it)
+            }
+        }
+    }
+
     suspend fun updateTitle(templateId: DtoUUID, newTitle: String) {
         dbQuery {
             TemplateEntity.findById(templateId)?.title = newTitle

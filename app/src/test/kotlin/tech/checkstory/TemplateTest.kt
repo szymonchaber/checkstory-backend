@@ -242,7 +242,7 @@ class TemplateTest {
             }
 
             // when
-            jsonClient.mockAuthorized().post("sync/commands") {
+            val commandResponse = jsonClient.mockAuthorized().post("sync/commands") {
                 setBody(
                     CommandsPayload(
                         templateCommands = listOf(
@@ -259,6 +259,7 @@ class TemplateTest {
             }
 
             // then
+            assertEquals(HttpStatusCode.NoContent, commandResponse.status)
             val response = jsonClient.mockAuthorized().get("templates")
             assertEquals(HttpStatusCode.OK, response.status)
             val template = response.body<List<Template>>().first()
@@ -272,7 +273,7 @@ class TemplateTest {
             val templateId = existingTemplate()
 
             // when
-            jsonClient.mockAuthorized().post("sync/commands") {
+            val commandResponse = jsonClient.mockAuthorized().post("sync/commands") {
                 setBody(
                     CommandsPayload(
                         templateCommands = listOf(
@@ -288,6 +289,7 @@ class TemplateTest {
             }
 
             // then
+            assertEquals(HttpStatusCode.NoContent, commandResponse.status)
             val response = jsonClient.mockAuthorized().get("templates")
             assertEquals(HttpStatusCode.OK, response.status)
             assertEquals(emptyList<Template>(), response.body())
@@ -325,7 +327,7 @@ class TemplateTest {
             }
 
             // when
-            jsonClient.mockAuthorized().post("sync/commands") {
+            val commandResponse = jsonClient.mockAuthorized().post("sync/commands") {
                 setBody(
                     CommandsPayload(
                         templateCommands = listOf(
@@ -343,6 +345,7 @@ class TemplateTest {
             }
 
             // then
+            assertEquals(HttpStatusCode.NoContent, commandResponse.status)
             val response = jsonClient.mockAuthorized().get("templates")
             assertEquals(HttpStatusCode.OK, response.status)
             val template = response.body<List<Template>>().first()
@@ -391,7 +394,7 @@ class TemplateTest {
             }
 
             // when
-            jsonClient.mockAuthorized().post("sync/commands") {
+            val commandResponse = jsonClient.mockAuthorized().post("sync/commands") {
                 setBody(
                     CommandsPayload(
                         templateCommands = listOf(
@@ -412,6 +415,7 @@ class TemplateTest {
             }
 
             // then
+            assertEquals(HttpStatusCode.NoContent, commandResponse.status)
             val response = jsonClient.mockAuthorized().get("templates")
             assertEquals(HttpStatusCode.OK, response.status)
             val template = response.body<List<Template>>().first()
@@ -714,7 +718,7 @@ class TemplateTest {
             }
 
             // when
-            jsonClient.mockAuthorized().post("sync/commands") {
+            val commandResponse = jsonClient.mockAuthorized().post("sync/commands") {
                 setBody(
                     CommandsPayload(
                         templateCommands = listOf(
@@ -731,6 +735,7 @@ class TemplateTest {
             }
 
             // then
+            assertEquals(HttpStatusCode.NoContent, commandResponse.status)
             val response = jsonClient.mockAuthorized().get("templates")
             assertEquals(HttpStatusCode.OK, response.status)
             val template = response.body<List<Template>>().first()

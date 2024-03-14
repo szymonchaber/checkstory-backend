@@ -19,6 +19,7 @@ import tech.checkstory.notification.firebase.UserDataChangeNotifier
 import tech.checkstory.template.data.TemplateAggregate
 import tech.checkstory.template.data.TemplateProjection
 import tech.checkstory.template.data.TemplateRepository
+import tech.checkstory.template.data.TemplateState
 import tech.checkstory.template.domain.aggregate.Template
 import tech.checkstory.template.domain.command.TemplateCommand
 
@@ -78,6 +79,7 @@ suspend fun handleTemplateCommands(
             } ?: TemplateAggregate(templateId)
             val events = aggregate
                 .applyCommands(principal, commands)
+            templateRepository.upsert(aggregate.templateState as TemplateState.Existing)
             projection.handleEvents(events)
         }
 }

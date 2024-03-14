@@ -17,10 +17,6 @@ class TemplateProjection(
                 createTemplate(event)
             }
 
-            is TemplateEvent.EditTemplateTitleEvent -> {
-                editTitle(event)
-            }
-
             is TemplateEvent.EditTemplateDescriptionEvent -> {
                 editDescription(event)
             }
@@ -73,10 +69,6 @@ class TemplateProjection(
                 )
             )
         }
-    }
-
-    private suspend fun editTitle(event: TemplateEvent.EditTemplateTitleEvent) {
-        templateRepository.updateTitle(event.aggregateId, event.newTitle)
     }
 
     private suspend fun editDescription(event: TemplateEvent.EditTemplateDescriptionEvent) {
