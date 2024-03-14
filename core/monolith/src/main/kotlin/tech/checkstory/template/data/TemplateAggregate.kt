@@ -3,6 +3,7 @@ package tech.checkstory.template.data
 import tech.checkstory.core.domain.DtoUUID
 import tech.checkstory.core.domain.auth.User
 import tech.checkstory.template.domain.aggregate.Template
+import tech.checkstory.template.domain.aggregate.TemplateTask
 import tech.checkstory.template.domain.command.ExistingTemplateTaskDto
 import tech.checkstory.template.domain.command.TemplateCommand
 import tech.checkstory.template.domain.event.TemplateEvent
@@ -53,12 +54,18 @@ class TemplateAggregate(val id: UUID) {
             }
 
             is TemplateCommand.AddTemplateTaskCommand -> {
-                TemplateEvent.AddTemplateTaskEvent(
-                    taskId = taskId,
-                    parentTaskId = parentTaskId,
-                    aggregateId = templateId,
-                    timestamp = timestamp,
+                templateState = (templateState as TemplateState.Existing).copy(
+                    tasks = (templateState as TemplateState.Existing).tasks +
+                            TemplateTask(
+                                id = taskId,
+                                title = "",
+                                sortPosition = 0,
+                                parentId = parentTaskId,
+                                templateId = templateId,
+                                children = listOf()
+                            )
                 )
+                null
             }
 
             is TemplateCommand.RenameTemplateTaskCommand -> {

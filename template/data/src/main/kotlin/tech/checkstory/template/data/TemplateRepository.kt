@@ -62,7 +62,12 @@ class TemplateRepository(private val database: Database) {
                 isDeleted = existing.isDeleted
             }
             existing.tasks.forEach {
-                insertTask(it, null)
+                TemplateTaskEntity.new(it.id) {
+                    title = it.title
+                    parent = it.parentId?.let { EntityID(it, TemplateTaskTable) }
+                    template = EntityID(it.templateId, TemplateTable)
+                    sortPosition = it.sortPosition
+                }
             }
             existing.reminders.forEach {
                 if (it.isDeleted) {
