@@ -1,10 +1,8 @@
 package tech.checkstory.template.data
 
-import tech.checkstory.core.domain.DtoUUID
 import tech.checkstory.core.domain.auth.User
 import tech.checkstory.template.domain.aggregate.Template
 import tech.checkstory.template.domain.aggregate.TemplateTask
-import tech.checkstory.template.domain.command.ExistingTemplateTaskDto
 import tech.checkstory.template.domain.command.TemplateCommand
 import tech.checkstory.template.domain.event.TemplateEvent
 import java.util.*
@@ -82,11 +80,16 @@ class TemplateAggregate(val id: UUID) {
             }
 
             is TemplateCommand.DeleteTemplateTaskCommand -> {
-                TemplateEvent.DeleteTemplateTaskEvent(
-                    taskId = taskId,
-                    aggregateId = templateId,
-                    timestamp = timestamp,
+                templateState = (templateState as TemplateState.Existing).copy(
+                    tasks = (templateState as TemplateState.Existing).tasks.map {
+                        if (it.id == taskId) {
+                            it.copy(isDeleted = true)
+                        } else {
+                            it
+                        }
+                    }
                 )
+                null
             }
 
             is TemplateCommand.UpdateTasksPositionsCommand -> {
@@ -140,30 +143,6 @@ class TemplateAggregate(val id: UUID) {
             }
         }
     }
-
-    fun toAggregateTemplateTask(
-        existingTask: ExistingTemplateTaskDto,
-        templateId: DtoUUID
-    ): AggregateTemplateTask {
-        return AggregateTemplateTask(
-            id = existingTask.id,
-            templateId = templateId,
-            title = existingTask.title,
-            sortPosition = existingTask.sortPosition,
-            parentId = existingTask.parentId
-        )
-    }
-
-    // flatten dto tasks recursively
-    private fun flattenTasks(tasks: List<ExistingTemplateTaskDto>): List<AggregateTemplateTask> {
-        return tasks.flatMap { task ->
-            listOf(
-                toAggregateTemplateTask(task, task.id),
-                *flattenTasks(task.children).toTypedArray()
-            )
-        }
-    }
-
 
     companion object {
 

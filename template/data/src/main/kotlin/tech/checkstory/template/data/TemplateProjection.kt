@@ -16,10 +16,6 @@ class TemplateProjection(
             is TemplateEvent.CreateTemplateEvent -> {
                 createTemplate(event)
             }
-
-            is TemplateEvent.DeleteTemplateTaskEvent -> {
-                deleteTemplateTask(event)
-            }
         }
     }
 
@@ -38,9 +34,4 @@ class TemplateProjection(
             )
         }
     }
-
-    private suspend fun deleteTemplateTask(event: TemplateEvent.DeleteTemplateTaskEvent) {
-        templateRepository.deleteTask(event.taskId)
-    }
-
 }

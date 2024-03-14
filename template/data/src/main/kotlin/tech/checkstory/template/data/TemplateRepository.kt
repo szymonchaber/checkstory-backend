@@ -9,7 +9,6 @@ import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.slf4j.LoggerFactory
-import tech.checkstory.core.domain.DtoUUID
 import tech.checkstory.core.domain.auth.AuthenticatedScope
 import tech.checkstory.template.data.entity.ReminderEntity
 import tech.checkstory.template.data.entity.TemplateEntity
@@ -17,7 +16,6 @@ import tech.checkstory.template.data.entity.TemplateTaskEntity
 import tech.checkstory.template.data.table.ReminderTable
 import tech.checkstory.template.data.table.TemplateTable
 import tech.checkstory.template.data.table.TemplateTaskTable
-import tech.checkstory.template.domain.aggregate.Reminder
 import tech.checkstory.template.domain.aggregate.Template
 import tech.checkstory.template.domain.aggregate.TemplateTask
 import java.util.*
@@ -62,11 +60,15 @@ class TemplateRepository(private val database: Database) {
                 isDeleted = existing.isDeleted
             }
             existing.tasks.forEach {
-                TemplateTaskEntity.new(it.id) {
-                    title = it.title
-                    parent = it.parentId?.let { EntityID(it, TemplateTaskTable) }
-                    template = EntityID(it.templateId, TemplateTable)
-                    sortPosition = it.sortPosition
+                if (it.isDeleted) {
+                    TemplateTaskEntity.findById(it.id)?.delete()
+                } else {
+                    TemplateTaskEntity.new(it.id) {
+                        title = it.title
+                        parent = it.parentId?.let { EntityID(it, TemplateTaskTable) }
+                        template = EntityID(it.templateId, TemplateTable)
+                        sortPosition = it.sortPosition
+                    }
                 }
             }
             existing.reminders.forEach {
@@ -79,54 +81,6 @@ class TemplateRepository(private val database: Database) {
         }
     }
 
-    suspend fun updateTitle(templateId: DtoUUID, newTitle: String) {
-        dbQuery {
-            TemplateEntity.findById(templateId)?.title = newTitle
-        }
-    }
-
-    suspend fun updateDescription(templateId: DtoUUID, newDescription: String) {
-        dbQuery {
-            TemplateEntity.findById(templateId)?.description = newDescription
-        }
-    }
-
-    suspend fun addTask(aggregateId: DtoUUID, taskId: DtoUUID, parentTaskId: DtoUUID?) {
-        dbQuery {
-            TemplateTaskEntity.new(taskId) {
-                title = ""
-                parent = parentTaskId?.let { EntityID(it, TemplateTaskTable) }
-                template = EntityID(aggregateId, TemplateTable)
-            }
-        }
-    }
-
-    suspend fun renameTask(taskId: DtoUUID, newTitle: String) {
-        dbQuery {
-            TemplateTaskEntity.findById(taskId)?.title = newTitle
-        }
-    }
-
-    suspend fun moveTask(taskId: DtoUUID, newParentTaskId: DtoUUID?) {
-        dbQuery {
-            TemplateTaskEntity.findById(taskId)?.parent = newParentTaskId?.let { EntityID(it, TemplateTaskTable) }
-        }
-    }
-
-    suspend fun updateLocalPositions(taskIdToLocalPosition: Map<DtoUUID, Long>) {
-        dbQuery {
-            taskIdToLocalPosition.forEach { (id, position) ->
-                TemplateTaskEntity.findById(id)?.sortPosition = position
-            }
-        }
-    }
-
-    suspend fun deleteTask(taskId: DtoUUID) {
-        dbQuery {
-            TemplateTaskEntity.findById(taskId)?.delete()
-        }
-    }
-
     private suspend fun insertTask(templateTask: TemplateTask, parentId: EntityID<UUID>?) {
         val entity = TemplateTaskEntity.new(templateTask.id) {
             title = templateTask.title
@@ -136,18 +90,6 @@ class TemplateRepository(private val database: Database) {
         }
         templateTask.children.forEach {
             insertTask(it, entity.id)
-        }
-    }
-
-    suspend fun addReminder(reminder: Reminder) {
-        dbQuery {
-            ReminderEntity.fromDomainReminder(reminder)
-        }
-    }
-
-    suspend fun deleteReminder(reminderId: DtoUUID) {
-        dbQuery {
-            ReminderEntity.findById(reminderId)?.delete()
         }
     }
 
@@ -181,12 +123,6 @@ class TemplateRepository(private val database: Database) {
                 TemplateTable.userId eq principal.userId
             }
                 .map(TemplateEntity::toTemplate)
-        }
-    }
-
-    suspend fun markAsDeleted(id: UUID) {
-        dbQuery {
-            TemplateEntity.findById(id)?.isDeleted = true
         }
     }
 

@@ -13,10 +13,4 @@ sealed interface TemplateEvent : DomainEvent {
         val userId: String,
         val existingTemplateData: ExistingTemplateDataDto?
     ) : TemplateEvent
-
-    data class DeleteTemplateTaskEvent(
-        val taskId: DtoUUID,
-        override val aggregateId: DtoUUID,
-        override val timestamp: Instant
-    ) : TemplateEvent
 }
