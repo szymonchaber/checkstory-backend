@@ -54,12 +54,6 @@ sealed interface TemplateEvent : DomainEvent {
         override val aggregateId: DtoUUID,
         override val timestamp: Instant
     ) : TemplateEvent
-
-    data class DeleteReminderEvent(
-        val reminderId: DtoUUID,
-        override val aggregateId: DtoUUID,
-        override val timestamp: Instant
-    ) : TemplateEvent
 }
 
 

@@ -16,11 +16,16 @@ sealed interface TemplateState {
         val description: String,
         val tasks: List<TemplateTask> = listOf(),
 //        val flatTasks: List<AggregateTemplateTask> = listOf(),
-        val reminders: List<Reminder> = listOf(),
+        val reminders: List<AggregateReminder> = listOf(),
         val createdAt: Instant,
         val isDeleted: Boolean = false
     ) : TemplateState
 }
+
+data class AggregateReminder(
+    val reminder: Reminder,
+    val isDeleted: Boolean
+)
 
 data class AggregateTemplateTask(
     val id: DtoUUID,

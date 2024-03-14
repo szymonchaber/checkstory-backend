@@ -65,7 +65,12 @@ class TemplateRepository(private val database: Database) {
                 insertTask(it, null)
             }
             existing.reminders.forEach {
-                ReminderEntity.fromDomainReminder(it)
+                if (it.isDeleted) {
+                    ReminderEntity.findById(it.reminder.id)?.delete()
+                }
+                //                else {
+//                    ReminderEntity.fromDomainReminder(it.reminder)
+//                }
             }
         }
     }

@@ -40,10 +40,6 @@ class TemplateProjection(
             is TemplateEvent.AddOrUpdateReminderEvent -> {
                 addOrUpdateReminder(event)
             }
-
-            is TemplateEvent.DeleteReminderEvent -> {
-                deleteReminder(event)
-            }
         }
     }
 
@@ -87,9 +83,5 @@ class TemplateProjection(
 
     private suspend fun addOrUpdateReminder(event: TemplateEvent.AddOrUpdateReminderEvent) {
         templateRepository.addReminder(event.reminder.toReminder())
-    }
-
-    private suspend fun deleteReminder(event: TemplateEvent.DeleteReminderEvent) {
-        templateRepository.deleteReminder(event.reminderId)
     }
 }

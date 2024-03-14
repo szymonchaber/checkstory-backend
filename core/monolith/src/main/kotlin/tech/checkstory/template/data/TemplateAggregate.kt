@@ -104,11 +104,16 @@ class TemplateAggregate(val id: UUID) {
             }
 
             is TemplateCommand.DeleteTemplateReminderCommand -> {
-                TemplateEvent.DeleteReminderEvent(
-                    reminderId = reminderId,
-                    aggregateId = templateId,
-                    timestamp = timestamp,
+                templateState = (templateState as TemplateState.Existing).copy(
+                    reminders = (templateState as TemplateState.Existing).reminders.map {
+                        if (it.reminder.id == reminderId) {
+                            it.copy(isDeleted = true)
+                        } else {
+                            it
+                        }
+                    }
                 )
+                null
             }
 
             is TemplateCommand.DeleteTemplateCommand -> {
@@ -152,7 +157,7 @@ class TemplateAggregate(val id: UUID) {
                     name = template.name,
                     description = template.description,
                     tasks = template.tasks,
-                    reminders = template.reminders,
+                    reminders = template.reminders.map { AggregateReminder(it, false) },
                     createdAt = template.createdAt
                 )
             }
