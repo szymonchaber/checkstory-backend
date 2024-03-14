@@ -17,10 +17,6 @@ class TemplateProjection(
                 createTemplate(event)
             }
 
-            is TemplateEvent.MoveTemplateTaskEvent -> {
-                moveTemplateTask(event)
-            }
-
             is TemplateEvent.UpdateTasksPositionsEvent -> {
                 updatePositions(event)
             }
@@ -45,10 +41,6 @@ class TemplateProjection(
                 )
             )
         }
-    }
-
-    private suspend fun moveTemplateTask(event: TemplateEvent.MoveTemplateTaskEvent) {
-        templateRepository.moveTask(event.taskId, event.newParentTaskId)
     }
 
     private suspend fun updatePositions(event: TemplateEvent.UpdateTasksPositionsEvent) {

@@ -98,12 +98,16 @@ class TemplateAggregate(val id: UUID) {
             }
 
             is TemplateCommand.MoveTemplateTaskCommand -> {
-                TemplateEvent.MoveTemplateTaskEvent(
-                    taskId = taskId,
-                    newParentTaskId = newParentTaskId,
-                    aggregateId = templateId,
-                    timestamp = timestamp,
+                templateState = (templateState as TemplateState.Existing).copy(
+                    tasks = (templateState as TemplateState.Existing).tasks.map {
+                        if (it.id == taskId) {
+                            it.copy(parentId = newParentTaskId)
+                        } else {
+                            it
+                        }
+                    }
                 )
+                null
             }
 
             is TemplateCommand.AddOrUpdateTemplateReminderCommand -> {
