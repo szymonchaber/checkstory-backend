@@ -19,7 +19,6 @@ import tech.checkstory.payment.data.google_play.SubscriptionsGoogleApi
 import tech.checkstory.payment.domain.GetPaymentStateUseCase
 import tech.checkstory.payment.domain.StoreGooglePlayTokenUseCase
 import tech.checkstory.plugins.createHikariDataSource
-import tech.checkstory.template.data.TemplateProjection
 import tech.checkstory.template.data.TemplateRepository
 
 val Application.commonDI
@@ -67,9 +66,6 @@ val Application.commonDI
         }
         bindSingleton {
             GiftedSubscriptionRepository(instance())
-        }
-        bindSingleton {
-            TemplateProjection(instance())
         }
         bindSingleton {
             ChecklistRepository(instance())

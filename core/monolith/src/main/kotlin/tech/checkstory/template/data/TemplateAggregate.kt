@@ -4,51 +4,44 @@ import tech.checkstory.core.domain.auth.User
 import tech.checkstory.template.domain.aggregate.Template
 import tech.checkstory.template.domain.aggregate.TemplateTask
 import tech.checkstory.template.domain.command.TemplateCommand
-import tech.checkstory.template.domain.event.TemplateEvent
 import java.util.*
 
 class TemplateAggregate(val id: UUID) {
 
-    var templateState: TemplateState = TemplateState.NonExistent
+    private var templateState: TemplateState = TemplateState.NonExistent
 
-    fun applyCommands(user: User, commands: List<TemplateCommand>): List<TemplateEvent> {
+    fun applyCommands(user: User, commands: List<TemplateCommand>): TemplateState {
         val state = templateState
         require(state is TemplateState.NonExistent || user.userId == (state as TemplateState.Existing).userId) {
             "command users must equal firebase users"
         }
-        return commands.mapNotNull {
-            it.toTemplateEvent(user.userId)
+        commands.forEach {
+            it.apply(user.userId)
         }
+        return templateState
     }
 
-    private fun TemplateCommand.toTemplateEvent(userId: String): TemplateEvent? {
-        return when (this) {
+    private fun TemplateCommand.apply(userId: String) {
+        when (this) {
             is TemplateCommand.CreateTemplateCommand -> {
                 templateState = TemplateState.Existing(
                     userId = userId,
                     id = templateId,
                     name = existingTemplateData?.title.orEmpty(),
-                    description = existingTemplateData?.title.orEmpty(),
-                    tasks = listOf(),
-                    reminders = listOf(),
+                    description = existingTemplateData?.description.orEmpty(),
+                    tasks = existingTemplateData?.tasks?.map { it.toTemplateTask(templateId) }?.flatten().orEmpty(),
+                    reminders = existingTemplateData?.reminders?.map { AggregateReminder(it.toReminder(), false) }
+                        .orEmpty(),
                     createdAt = timestamp
-                )
-                TemplateEvent.CreateTemplateEvent(
-                    aggregateId = templateId,
-                    timestamp = timestamp,
-                    userId = userId,
-                    existingTemplateData = existingTemplateData
                 )
             }
 
             is TemplateCommand.EditTemplateTitleCommand -> {
                 templateState = (templateState as TemplateState.Existing).copy(name = newTitle)
-                null
             }
 
             is TemplateCommand.EditTemplateDescriptionCommand -> {
                 templateState = (templateState as TemplateState.Existing).copy(description = newDescription)
-                null
             }
 
             is TemplateCommand.AddTemplateTaskCommand -> {
@@ -63,7 +56,6 @@ class TemplateAggregate(val id: UUID) {
                                 children = listOf()
                             )
                 )
-                null
             }
 
             is TemplateCommand.RenameTemplateTaskCommand -> {
@@ -76,7 +68,6 @@ class TemplateAggregate(val id: UUID) {
                         }
                     }
                 )
-                null
             }
 
             is TemplateCommand.DeleteTemplateTaskCommand -> {
@@ -89,7 +80,6 @@ class TemplateAggregate(val id: UUID) {
                         }
                     }
                 )
-                null
             }
 
             is TemplateCommand.UpdateTasksPositionsCommand -> {
@@ -98,7 +88,6 @@ class TemplateAggregate(val id: UUID) {
                         it.copy(sortPosition = taskIdToLocalPosition[it.id] ?: it.sortPosition)
                     }
                 )
-                null
             }
 
             is TemplateCommand.MoveTemplateTaskCommand -> {
@@ -111,7 +100,6 @@ class TemplateAggregate(val id: UUID) {
                         }
                     }
                 )
-                null
             }
 
             is TemplateCommand.AddOrUpdateTemplateReminderCommand -> {
@@ -121,7 +109,6 @@ class TemplateAggregate(val id: UUID) {
                         isDeleted = false
                     )
                 )
-                null
             }
 
             is TemplateCommand.DeleteTemplateReminderCommand -> {
@@ -134,12 +121,10 @@ class TemplateAggregate(val id: UUID) {
                         }
                     }
                 )
-                null
             }
 
             is TemplateCommand.DeleteTemplateCommand -> {
                 templateState = (templateState as TemplateState.Existing).copy(isDeleted = true)
-                null
             }
         }
     }
@@ -159,5 +144,11 @@ class TemplateAggregate(val id: UUID) {
                 )
             }
         }
+    }
+}
+
+fun List<TemplateTask>.flatten(): List<TemplateTask> {
+    return flatMap {
+        listOf(it.copy(children = listOf())) + it.children.flatten()
     }
 }

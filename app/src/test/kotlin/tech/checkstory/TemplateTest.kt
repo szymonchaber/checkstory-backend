@@ -11,9 +11,7 @@ import tech.checkstory.command.CommandsPayload
 import tech.checkstory.template.domain.aggregate.Interval
 import tech.checkstory.template.domain.aggregate.Reminder
 import tech.checkstory.template.domain.aggregate.Template
-import tech.checkstory.template.domain.command.IntervalDto
-import tech.checkstory.template.domain.command.ReminderDto
-import tech.checkstory.template.domain.command.TemplateCommand
+import tech.checkstory.template.domain.command.*
 import java.time.DayOfWeek
 import java.util.*
 import kotlin.test.Test
@@ -42,6 +40,109 @@ class TemplateTest {
         assertEquals(HttpStatusCode.OK, response.status)
         assertEquals(emptyList<Checklist>(), response.body())
     }
+
+    @Test
+    fun `given a template with existing data created, when templates called, then should return created template`() =
+        mockApplicationWithUser(isUserPaid = true) { userId ->
+            // when
+            val templateId = UUID.randomUUID()
+            val taskId = UUID.randomUUID()
+            val postResponse = jsonClient.mockAuthorized().post("sync/commands") {
+                setBody(
+                    CommandsPayload(
+                        templateCommands = listOf(
+                            TemplateCommand.CreateTemplateCommand(
+                                templateId = templateId,
+                                commandId = UUID.randomUUID(),
+                                timestamp = Clock.System.now(),
+                                existingTemplateData = ExistingTemplateDataDto(
+                                    title = "name",
+                                    description = "description",
+                                    tasks = listOf(
+                                        ExistingTemplateTaskDto(
+                                            id = taskId,
+                                            title = "task",
+                                            parentId = null,
+                                            sortPosition = 0,
+                                            children = listOf(
+                                                ExistingTemplateTaskDto(
+                                                    id = UUID.randomUUID(),
+                                                    title = "child",
+                                                    parentId = taskId,
+                                                    sortPosition = 0,
+                                                    children = emptyList()
+                                                )
+                                            ),
+                                        )
+                                    ),
+                                    reminders = listOf(
+                                        ReminderDto.ExactDto(
+                                            id = UUID.randomUUID(),
+                                            forTemplate = templateId,
+                                            startDateTime = Clock.System.now().toLocalDateTime(TimeZone.UTC),
+                                        ),
+                                        ReminderDto.RecurringDto(
+                                            id = UUID.randomUUID(),
+                                            forTemplate = templateId,
+                                            startDateTime = Clock.System.now().toLocalDateTime(TimeZone.UTC),
+                                            interval = IntervalDto.DailyDto
+                                        ),
+                                        ReminderDto.RecurringDto(
+                                            id = UUID.randomUUID(),
+                                            forTemplate = templateId,
+                                            startDateTime = Clock.System.now().toLocalDateTime(TimeZone.UTC),
+                                            interval = IntervalDto.WeeklyDto(DayOfWeek.MONDAY)
+                                        ),
+                                        ReminderDto.RecurringDto(
+                                            id = UUID.randomUUID(),
+                                            forTemplate = templateId,
+                                            startDateTime = Clock.System.now().toLocalDateTime(TimeZone.UTC),
+                                            interval = IntervalDto.MonthlyDto(1)
+                                        ),
+                                        ReminderDto.RecurringDto(
+                                            id = UUID.randomUUID(),
+                                            forTemplate = templateId,
+                                            startDateTime = Clock.System.now().toLocalDateTime(TimeZone.UTC),
+                                            interval = IntervalDto.YearlyDto(1)
+                                        )
+                                    )
+                                )
+                            )
+                        ),
+                        checklistCommands = emptyList()
+                    )
+                )
+            }
+
+            // then
+            assertEquals(HttpStatusCode.NoContent, postResponse.status)
+            val response = jsonClient.mockAuthorized().get("templates")
+            assertEquals(HttpStatusCode.OK, response.status)
+            val template = response.body<List<Template>>().first()
+            assertEquals(templateId, template.id)
+            assertEquals(userId, template.userId)
+            assertEquals("name", template.name)
+            assertEquals("description", template.description)
+            assertEquals(1, template.tasks.size)
+            assertEquals(1, template.tasks.first().children.size)
+            assertEquals(0, template.tasks.first().children.first().children.size)
+            assertEquals("task", template.tasks.first().title)
+            assertEquals("child", template.tasks.first().children.first().title)
+            assertEquals(taskId, template.tasks.first().id)
+            assertEquals(0, template.tasks.first().sortPosition)
+            assertEquals(0, template.tasks.first().children.first().sortPosition)
+            val reminders = template.reminders
+            assertEquals(5, reminders.size)
+            assertEquals(true, reminders[0] is Reminder.Exact)
+            assertEquals(true, reminders[1] is Reminder.Recurring)
+            assertEquals(true, reminders[2] is Reminder.Recurring)
+            assertEquals(true, reminders[3] is Reminder.Recurring)
+            assertEquals(true, reminders[4] is Reminder.Recurring)
+            assertEquals(Interval.Daily, (reminders[1] as Reminder.Recurring).interval)
+            assertEquals(Interval.Weekly(DayOfWeek.MONDAY), (reminders[2] as Reminder.Recurring).interval)
+            assertEquals(Interval.Monthly(1), (reminders[3] as Reminder.Recurring).interval)
+            assertEquals(Interval.Yearly(1), (reminders[4] as Reminder.Recurring).interval)
+        }
 
     @Test
     fun `given a template was created, when templates called, then should return created template`() =

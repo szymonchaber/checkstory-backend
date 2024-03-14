@@ -17,7 +17,6 @@ import tech.checkstory.command.CommandsPayload
 import tech.checkstory.core.domain.auth.AuthenticatedScope
 import tech.checkstory.notification.firebase.UserDataChangeNotifier
 import tech.checkstory.template.data.TemplateAggregate
-import tech.checkstory.template.data.TemplateProjection
 import tech.checkstory.template.data.TemplateRepository
 import tech.checkstory.template.data.TemplateState
 import tech.checkstory.template.domain.aggregate.Template
@@ -65,7 +64,6 @@ suspend fun handleTemplateCommands(
     commands: List<TemplateCommand>,
 ) {
     val templateRepository by instance<TemplateRepository>()
-    val projection by instance<TemplateProjection>()
 
     commands
         .sortedBy { it.timestamp }
@@ -77,9 +75,7 @@ suspend fun handleTemplateCommands(
                 }
                 TemplateAggregate.fromTemplate(it)
             } ?: TemplateAggregate(templateId)
-            val events = aggregate
-                .applyCommands(principal, commands)
-            templateRepository.upsert(aggregate.templateState as TemplateState.Existing)
-            projection.handleEvents(events)
+            val updatedState = aggregate.applyCommands(principal, commands)
+            templateRepository.upsert(updatedState as TemplateState.Existing)
         }
 }
