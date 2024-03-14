@@ -239,6 +239,7 @@ data class ExistingTemplateTaskDto(
             templateId = templateId,
             title = title,
             sortPosition = sortPosition,
+            parentId = parentId,
             children = children.map { it.toTemplateTask(templateId) }
         )
     }

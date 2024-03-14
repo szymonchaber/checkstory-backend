@@ -37,7 +37,6 @@ val Application.commonDI
         bindSingleton {
             Json {
                 encodeDefaults = true
-                explicitNulls = false
                 prettyPrint = true
             }
         }

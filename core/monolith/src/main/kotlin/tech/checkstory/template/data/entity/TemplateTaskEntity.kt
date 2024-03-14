@@ -25,9 +25,10 @@ class TemplateTaskEntity(id: EntityID<UUID>) : UUIDEntity(id) {
             template.value,
             title,
             sortPosition,
+            parent?.value,
             children
                 .orderBy(TemplateTaskTable.sortPosition to SortOrder.ASC)
-                .map(TemplateTaskEntity::toTemplateTask)
+                .map(TemplateTaskEntity::toTemplateTask),
         )
     }
 }

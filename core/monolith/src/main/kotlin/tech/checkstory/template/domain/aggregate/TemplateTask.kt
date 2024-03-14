@@ -9,14 +9,6 @@ data class TemplateTask(
     val templateId: DtoUUID,
     val title: String,
     val sortPosition: Long,
+    val parentId: DtoUUID?,
     val children: List<TemplateTask> = listOf()
-) {
-
-    fun withUpdatedTitleRecursive(id: DtoUUID, newTitle: String): TemplateTask {
-        return if (this.id == id) {
-            copy(title = newTitle)
-        } else {
-            copy(children = children.map { it.withUpdatedTitleRecursive(id, newTitle) })
-        }
-    }
-}
+)
