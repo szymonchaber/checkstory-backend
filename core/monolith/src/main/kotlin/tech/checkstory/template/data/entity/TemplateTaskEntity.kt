@@ -17,18 +17,21 @@ class TemplateTaskEntity(id: EntityID<UUID>) : UUIDEntity(id) {
     var template by TemplateTaskTable.template
     var parent by TemplateTaskTable.parent
     var sortPosition by TemplateTaskTable.sortPosition
+    var isDeleted by TemplateTaskTable.isDeleted
     val children: SizedIterable<TemplateTaskEntity> by TemplateTaskEntity optionalReferrersOn TemplateTaskTable.parent
 
     fun toTemplateTask(): TemplateTask {
         return TemplateTask(
-            id.value,
-            template.value,
-            title,
-            sortPosition,
-            parent?.value,
-            children
+            id = id.value,
+            templateId = template.value,
+            title = title,
+            sortPosition = sortPosition,
+            parentId = parent?.value,
+            children = children
                 .orderBy(TemplateTaskTable.sortPosition to SortOrder.ASC)
+                .filter { !it.isDeleted }
                 .map(TemplateTaskEntity::toTemplateTask),
+            isDeleted = isDeleted
         )
     }
 }

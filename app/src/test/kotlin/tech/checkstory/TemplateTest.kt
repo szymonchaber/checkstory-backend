@@ -2,6 +2,7 @@ package tech.checkstory
 
 import io.ktor.client.call.*
 import io.ktor.client.request.*
+import io.ktor.client.statement.*
 import io.ktor.http.*
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -841,5 +842,71 @@ class TemplateTest {
             assertEquals(HttpStatusCode.OK, response.status)
             val template = response.body<List<Template>>().first()
             assertEquals(0, template.reminders.size)
+        }
+
+    @Test
+    fun `given task does not exist anymore, when subtask added, then command should pass but returning 0 tasks`() =
+        mockApplicationWithUser(isUserPaid = true) { userId ->
+            // given
+            val templateId = existingTemplate()
+            val taskId = UUID.randomUUID()
+            jsonClient.mockAuthorized().post("sync/commands") {
+                setBody(
+                    CommandsPayload(
+                        templateCommands = listOf(
+                            TemplateCommand.AddTemplateTaskCommand(
+                                templateId = templateId,
+                                taskId = taskId,
+                                parentTaskId = null,
+                                commandId = UUID.randomUUID(),
+                                timestamp = Clock.System.now()
+                            )
+                        ),
+                        checklistCommands = emptyList()
+                    )
+                )
+            }
+            jsonClient.mockAuthorized().post("sync/commands") {
+                setBody(
+                    CommandsPayload(
+                        templateCommands = listOf(
+                            TemplateCommand.DeleteTemplateTaskCommand(
+                                templateId = templateId,
+                                taskId = taskId,
+                                commandId = UUID.randomUUID(),
+                                timestamp = Clock.System.now()
+                            )
+                        ),
+                        checklistCommands = emptyList()
+                    )
+                )
+            }
+
+            // when
+            val newTaskId = UUID.randomUUID()
+            val commandResponse = jsonClient.mockAuthorized().post("sync/commands") {
+                setBody(
+                    CommandsPayload(
+                        templateCommands = listOf(
+                            TemplateCommand.AddTemplateTaskCommand(
+                                templateId = templateId,
+                                taskId = newTaskId,
+                                parentTaskId = taskId,
+                                commandId = UUID.randomUUID(),
+                                timestamp = Clock.System.now()
+                            )
+                        ),
+                        checklistCommands = emptyList()
+                    )
+                )
+            }
+
+            // then
+            assertEquals("", commandResponse.bodyAsText())
+            assertEquals(HttpStatusCode.NoContent, commandResponse.status)
+            val response = jsonClient.mockAuthorized().get("templates")
+            assertEquals(HttpStatusCode.OK, response.status)
+            val template = response.body<List<Template>>().first()
+            assertEquals(0, template.tasks.size)
         }
 }

@@ -37,6 +37,7 @@ class TemplateEntity(id: EntityID<UUID>) : UUIDEntity(id) {
                 .filter {
                     it.parent == null
                 }
+                .filter { !it.isDeleted }
                 .map(TemplateTaskEntity::toTemplateTask),
             reminders = reminders.map(ReminderEntity::toDomainReminder),
             isDeleted = isDeleted
