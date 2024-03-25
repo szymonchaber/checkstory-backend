@@ -40,11 +40,7 @@ class ChecklistAggregate(val id: UUID) {
                 checklistState = (checklistState as ChecklistState.Existing)
                     .copy(
                         tasks = (checklistState as ChecklistState.Existing).tasks.map {
-                            if (it.id == checklistCommand.taskId) {
-                                it.copy(isChecked = checklistCommand.isChecked)
-                            } else {
-                                it
-                            }
+                            it.withUpdatedIsCheckedRecursive(checklistCommand.taskId, checklistCommand.isChecked)
                         }
                     )
             }

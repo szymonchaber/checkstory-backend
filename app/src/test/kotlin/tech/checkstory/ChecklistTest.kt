@@ -205,6 +205,70 @@ class ChecklistTest {
         }
 
     @Test
+    fun `given created checklist with nested tasks, when check nested task command sent, then should update nested task`() =
+        mockApplicationWithUser(isUserPaid = true) { userId ->
+            // given
+            val templateId = existingTemplate()
+            val checklistId = UUID.randomUUID()
+            val taskId = UUID.randomUUID()
+            val subtaskId = UUID.randomUUID()
+            val initialChecked = false
+            val newChecked = true
+
+            // when
+            jsonClient.mockAuthorized().post("sync/commands") {
+                setBody(
+                    CommandsPayload(
+                        templateCommands = listOf(),
+                        checklistCommands = listOf(
+                            ChecklistCommand.CreateChecklistCommand(
+                                checklistId = checklistId,
+                                templateId = templateId,
+                                commandId = UUID.randomUUID(),
+                                notes = null,
+                                tasks = listOf(
+                                    Task(
+                                        id = taskId,
+                                        checklistId = checklistId,
+                                        title = "task title",
+                                        isChecked = initialChecked,
+                                        children = listOf(
+                                            Task(
+                                                id = subtaskId,
+                                                checklistId = checklistId,
+                                                title = "subtask title",
+                                                isChecked = initialChecked,
+                                                children = emptyList(),
+                                                sortPosition = 0,
+                                            )
+                                        ),
+                                        sortPosition = 0,
+                                    )
+                                ),
+                                timestamp = Clock.System.now()
+                            ),
+                            ChecklistCommand.ChangeTaskCheckedCommand(
+                                checklistId = checklistId,
+                                taskId = subtaskId,
+                                isChecked = newChecked,
+                                commandId = UUID.randomUUID(),
+                                timestamp = Clock.System.now()
+                            )
+                        )
+                    )
+                )
+            }
+
+            // then
+            val response = jsonClient.mockAuthorized().get("checklists")
+            assertEquals(HttpStatusCode.OK, response.status)
+            val checklist = response.body<List<Checklist>>().first()
+            val task = checklist.tasks.first()
+            val subtask = task.children.first()
+            assertEquals(newChecked, subtask.isChecked)
+        }
+
+    @Test
     fun `given created checklist, when delete checklist command sent, then should delete checklist`() =
         mockApplicationWithUser(isUserPaid = true) { userId ->
             // given
