@@ -2,14 +2,13 @@ package tech.checkstory.auth.module
 
 import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.auth.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.Serializable
 import org.kodein.di.DI
 import org.kodein.di.instance
-import tech.checkstory.auth.firebase.FIREBASE_AUTH
 import tech.checkstory.auth.firebase.FirebaseTokenExtractor
+import tech.checkstory.auth.firebase.authenticateFirebase
 import tech.checkstory.auth.firebase.parseAuthorizationHeaderOrNull
 import tech.checkstory.auth.withPrincipal
 import tech.checkstory.core.domain.auth.DeleteUserUseCase
@@ -38,7 +37,7 @@ fun Application.configureAuth() {
                 }
             }
 
-            authenticate(FIREBASE_AUTH) {
+            authenticateFirebase {
                 get("login") {
                     withPrincipal {
                         call.respond(HttpStatusCode.OK, UserDto.fromUser(principal))

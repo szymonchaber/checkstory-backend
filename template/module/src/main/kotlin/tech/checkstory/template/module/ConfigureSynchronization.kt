@@ -2,14 +2,13 @@ package tech.checkstory.template.module
 
 import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.auth.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.kodein.di.DI
 import org.kodein.di.instance
-import tech.checkstory.auth.firebase.FIREBASE_AUTH
+import tech.checkstory.auth.firebase.authenticateFirebase
 import tech.checkstory.auth.payment.requirePayment
 import tech.checkstory.auth.withPrincipal
 import tech.checkstory.checklist.api.handleChecklistCommands
@@ -25,7 +24,7 @@ context(DI)
 fun Application.configureSynchronization() {
     val userDataChangeNotifier by instance<UserDataChangeNotifier>()
     routing {
-        authenticate(FIREBASE_AUTH) {
+        authenticateFirebase {
             requirePayment()
             post<CommandsPayload>("/sync/commands") { (templateCommands, checklistCommands) ->
                 withPrincipal {

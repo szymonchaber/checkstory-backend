@@ -3,10 +3,11 @@ package tech.checkstory.auth.firebase
 import io.ktor.http.auth.*
 import io.ktor.server.auth.*
 import io.ktor.server.response.*
+import io.ktor.server.routing.*
 import tech.checkstory.core.domain.auth.UserService
 import tech.checkstory.payment.domain.GetPaymentStateUseCase
 
-const val FIREBASE_AUTH = "FIREBASE_AUTH"
+private const val FIREBASE_AUTH = "FIREBASE_AUTH"
 private const val FirebaseJWTAuthKey: String = "FirebaseAuth"
 
 class FirebaseAuthProvider(
@@ -48,3 +49,7 @@ class FirebaseAuthProvider(
 }
 
 internal class FirebaseConfig(name: String?) : AuthenticationProvider.Config(name)
+
+fun Route.authenticateFirebase(build: Route.() -> Unit): Route {
+    return authenticate(FIREBASE_AUTH, build = build)
+}
