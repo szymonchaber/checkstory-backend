@@ -4,15 +4,11 @@ import io.ktor.http.auth.*
 import io.ktor.server.auth.*
 import io.ktor.server.request.*
 
-class FirebaseConfig(
-    name: String?,
-    val firebaseAuthenticationFunction: AuthenticationFunction<FirebaseUserId>
-) : AuthenticationProvider.Config(name)
 
 fun ApplicationRequest.parseAuthorizationHeaderOrNull(): HttpAuthHeader? {
     return try {
         parseAuthorizationHeader()
-    } catch (exception: IllegalArgumentException) {
+    } catch (exception: Exception) {
         println("failed to parse token")
         null
     }

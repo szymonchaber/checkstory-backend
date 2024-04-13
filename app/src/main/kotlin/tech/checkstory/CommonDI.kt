@@ -6,6 +6,7 @@ import kotlinx.serialization.json.Json
 import org.jetbrains.exposed.sql.Database
 import org.kodein.di.*
 import tech.checkstory.auth.data.UserServiceImpl
+import tech.checkstory.auth.firebase.FirebaseAuthProvider
 import tech.checkstory.auth.firebase.FirebaseTokenExtractor
 import tech.checkstory.auth.firebase.FirebaseTokenExtractorImpl
 import tech.checkstory.checklist.domain.ChecklistRepository
@@ -47,6 +48,13 @@ val Application.commonDI
         }
         bindSingleton<FirebaseTokenExtractor> {
             FirebaseTokenExtractorImpl()
+        }
+        bindSingleton {
+            FirebaseAuthProvider(
+                instance(),
+                instance(),
+                instance(),
+            )
         }
         bindSingleton<DeleteUserUseCase> {
             DeleteUserUseCaseImpl(

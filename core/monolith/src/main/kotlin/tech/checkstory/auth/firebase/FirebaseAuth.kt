@@ -3,11 +3,17 @@ package tech.checkstory.auth.firebase
 import io.ktor.http.auth.*
 import io.ktor.server.auth.*
 import io.ktor.server.response.*
+import tech.checkstory.core.domain.auth.UserService
+import tech.checkstory.payment.domain.GetPaymentStateUseCase
+
+const val FIREBASE_AUTH = "FIREBASE_AUTH"
+private const val FirebaseJWTAuthKey: String = "FirebaseAuth"
 
 class FirebaseAuthProvider(
-    private val config: FirebaseConfig,
-    private val firebaseTokenExtractor: FirebaseTokenExtractor
-) : AuthenticationProvider(config) {
+    private val firebaseTokenExtractor: FirebaseTokenExtractor,
+    private val userService: UserService,
+    private val getPaymentStateUseCase: GetPaymentStateUseCase
+) : AuthenticationProvider(FirebaseConfig(FIREBASE_AUTH)) {
 
     override suspend fun onAuthenticate(context: AuthenticationContext) {
         val token = context.call.request.parseAuthorizationHeaderOrNull()
@@ -15,7 +21,7 @@ class FirebaseAuthProvider(
         if (token == null) {
             context.challenge(
                 FirebaseJWTAuthKey,
-                AuthenticationFailedCause.InvalidCredentials
+                AuthenticationFailedCause.NoCredentials
             ) { challengeFunc, call ->
                 challengeFunc.complete()
                 call.respond(UnauthorizedResponse(HttpAuthHeader.bearerAuthChallenge(realm = FIREBASE_AUTH)))
@@ -23,25 +29,22 @@ class FirebaseAuthProvider(
             return
         }
 
-        try {
-            val principal = firebaseTokenExtractor.toFirebaseTokenOrNull(token)?.let {
-                config.firebaseAuthenticationFunction(context.call, it)
-            }
+        val principal = firebaseTokenExtractor.toFirebaseTokenOrNull(token)?.let {
+            val isPaidUser = getPaymentStateUseCase.getPaymentStateForUser(it.uid).isSubscriptionActive
+            userService.readById(it.uid)
+                ?.copy(isPaidUser = isPaidUser)
+        }
 
-            if (principal != null) {
-                context.principal(principal)
-            }
-        } catch (cause: Throwable) {
-            val message = cause.message ?: cause.javaClass.simpleName
-            context.error(FirebaseJWTAuthKey, AuthenticationFailedCause.Error(message))
+        if (principal != null) {
+            context.principal(principal)
+        } else {
+            context.error(FirebaseJWTAuthKey, AuthenticationFailedCause.InvalidCredentials)
         }
     }
 
+    private fun HttpAuthHeader.Companion.bearerAuthChallenge(realm: String): HttpAuthHeader {
+        return HttpAuthHeader.Parameterized("Bearer", mapOf(HttpAuthHeader.Parameters.Realm to realm))
+    }
 }
 
-fun HttpAuthHeader.Companion.bearerAuthChallenge(realm: String): HttpAuthHeader =
-    HttpAuthHeader.Parameterized("Bearer", mapOf(HttpAuthHeader.Parameters.Realm to realm))
-
-const val FIREBASE_AUTH = "FIREBASE_AUTH"
-const val FirebaseJWTAuthKey: String = "FirebaseAuth"
-
+internal class FirebaseConfig(name: String?) : AuthenticationProvider.Config(name)
