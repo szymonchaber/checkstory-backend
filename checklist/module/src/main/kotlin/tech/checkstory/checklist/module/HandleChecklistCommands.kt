@@ -2,10 +2,10 @@ package tech.checkstory.checklist.module
 
 import org.kodein.di.DI
 import org.kodein.di.instance
-import tech.checkstory.checklist.domain.ChecklistRepository
+import tech.checkstory.checklist.data.ChecklistRepository
+import tech.checkstory.checklist.domain.ChecklistCommand
 import tech.checkstory.checklist.domain.aggregate.ChecklistAggregate
 import tech.checkstory.checklist.domain.aggregate.ChecklistState
-import tech.checkstory.checklist.domain.command.ChecklistCommand
 import tech.checkstory.core.domain.auth.AuthenticatedScope
 
 context(AuthenticatedScope, DI)

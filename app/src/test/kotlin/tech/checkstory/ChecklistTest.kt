@@ -4,9 +4,9 @@ import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import kotlinx.datetime.Clock
+import tech.checkstory.checklist.domain.ChecklistCommand
 import tech.checkstory.checklist.domain.aggregate.Checklist
 import tech.checkstory.checklist.domain.aggregate.Task
-import tech.checkstory.checklist.domain.command.ChecklistCommand
 import tech.checkstory.command.CommandsPayload
 import tech.checkstory.template.domain.command.TemplateCommand
 import java.util.*

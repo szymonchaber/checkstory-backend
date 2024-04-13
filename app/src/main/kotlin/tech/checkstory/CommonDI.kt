@@ -9,7 +9,7 @@ import tech.checkstory.auth.data.UserServiceImpl
 import tech.checkstory.auth.firebase.FirebaseAuthProvider
 import tech.checkstory.auth.firebase.FirebaseTokenExtractor
 import tech.checkstory.auth.firebase.FirebaseTokenExtractorImpl
-import tech.checkstory.checklist.domain.ChecklistRepository
+import tech.checkstory.checklist.data.ChecklistRepository
 import tech.checkstory.core.domain.auth.DeleteUserUseCase
 import tech.checkstory.core.domain.auth.UserService
 import tech.checkstory.notification.data.FirebaseMessagingTokenRepository

@@ -1,4 +1,4 @@
-package tech.checkstory.checklist.domain.command
+package tech.checkstory.checklist.domain
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName

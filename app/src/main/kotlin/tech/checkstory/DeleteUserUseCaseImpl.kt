@@ -1,7 +1,7 @@
 package tech.checkstory
 
 import com.google.firebase.auth.FirebaseAuth
-import tech.checkstory.checklist.domain.ChecklistRepository
+import tech.checkstory.checklist.data.ChecklistRepository
 import tech.checkstory.core.domain.auth.AuthenticatedScope
 import tech.checkstory.core.domain.auth.DeleteUserUseCase
 import tech.checkstory.core.domain.auth.UserService

@@ -8,7 +8,7 @@ import org.kodein.di.DI
 import org.kodein.di.instance
 import tech.checkstory.auth.firebase.authenticateFirebase
 import tech.checkstory.auth.withPrincipal
-import tech.checkstory.checklist.domain.ChecklistRepository
+import tech.checkstory.checklist.data.ChecklistRepository
 import java.util.*
 
 context(DI)

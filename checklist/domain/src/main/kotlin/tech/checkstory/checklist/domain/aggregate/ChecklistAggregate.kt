@@ -1,8 +1,6 @@
 package tech.checkstory.checklist.domain.aggregate
 
-import kotlinx.datetime.Instant
-import tech.checkstory.checklist.domain.command.ChecklistCommand
-import tech.checkstory.core.domain.DtoUUID
+import tech.checkstory.checklist.domain.ChecklistCommand
 import tech.checkstory.core.domain.auth.User
 import java.util.*
 
@@ -88,19 +86,4 @@ class ChecklistAggregate(val id: UUID) {
             }
         }
     }
-}
-
-sealed interface ChecklistState {
-
-    data object NonExistent : ChecklistState
-
-    data class Existing(
-        val id: DtoUUID,
-        val userId: String,
-        val templateId: DtoUUID,
-        val notes: String,
-        val tasks: List<Task> = listOf(),
-        val createdAt: Instant,
-        val isDeleted: Boolean = false
-    ) : ChecklistState
 }
