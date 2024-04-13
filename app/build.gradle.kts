@@ -42,6 +42,9 @@ dependencies {
     implementation(project(":auth:module"))
     implementation(project(":auth:domain"))
     implementation(project(":auth:data"))
+    implementation(project(":checklist:module"))
+    implementation(project(":checklist:domain"))
+    implementation(project(":checklist:data"))
 
     implementation(libs.ktor.server.core.jvm)
     implementation(libs.ktor.server.netty.jvm)

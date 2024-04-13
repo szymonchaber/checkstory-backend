@@ -1,4 +1,4 @@
-package tech.checkstory.checklist.api
+package tech.checkstory.checklist.module
 
 import org.kodein.di.DI
 import org.kodein.di.instance

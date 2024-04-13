@@ -10,7 +10,6 @@ import tech.checkstory.notification.configureNotification
 import tech.checkstory.payment.configurePayment
 import tech.checkstory.payment.playbilling.configurePlayBillingPubSub
 import tech.checkstory.plugins.*
-import tech.checkstory.template.module.configureSynchronization
 import tech.checkstory.template.module.configureTemplate
 
 context(DI)
