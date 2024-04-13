@@ -1,4 +1,4 @@
-package tech.checkstory.template.data
+package tech.checkstory.template.domain
 
 import tech.checkstory.core.domain.auth.User
 import tech.checkstory.template.domain.aggregate.Template
@@ -144,11 +144,11 @@ class TemplateAggregate(val id: UUID) {
                 )
             }
         }
-    }
-}
 
-fun List<TemplateTask>.flatten(): List<TemplateTask> {
-    return flatMap {
-        listOf(it.copy(children = listOf())) + it.children.flatten()
+        fun List<TemplateTask>.flatten(): List<TemplateTask> {
+            return flatMap {
+                listOf(it.copy(children = listOf())) + it.children.flatten()
+            }
+        }
     }
 }

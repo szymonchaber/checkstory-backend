@@ -1,4 +1,4 @@
-package tech.checkstory.template.data
+package tech.checkstory.data
 
 import com.github.michaelbull.retry.ContinueRetrying
 import com.github.michaelbull.retry.policy.RetryPolicy

@@ -18,7 +18,7 @@ import tech.checkstory.checklist.domain.aggregate.ChecklistState
 import tech.checkstory.checklist.domain.aggregate.Task
 import tech.checkstory.core.domain.auth.AuthenticatedScope
 import tech.checkstory.data.UpsertableUUIDEntityClass
-import tech.checkstory.template.data.commonRetry
+import tech.checkstory.data.commonRetry
 import tech.checkstory.template.data.entity.TemplateEntity
 import tech.checkstory.template.data.table.TemplateTable
 import java.util.*

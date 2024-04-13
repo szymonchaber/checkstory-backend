@@ -15,9 +15,9 @@ import tech.checkstory.checklist.api.handleChecklistCommands
 import tech.checkstory.command.CommandsPayload
 import tech.checkstory.core.domain.auth.AuthenticatedScope
 import tech.checkstory.notification.firebase.UserDataChangeNotifier
-import tech.checkstory.template.data.TemplateAggregate
 import tech.checkstory.template.data.TemplateRepository
-import tech.checkstory.template.data.TemplateState
+import tech.checkstory.template.domain.TemplateAggregate
+import tech.checkstory.template.domain.TemplateState
 import tech.checkstory.template.domain.command.TemplateCommand
 
 context(DI)

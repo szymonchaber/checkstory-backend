@@ -10,12 +10,14 @@ import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransacti
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.slf4j.LoggerFactory
 import tech.checkstory.core.domain.auth.AuthenticatedScope
+import tech.checkstory.data.commonRetry
 import tech.checkstory.template.data.entity.ReminderEntity
 import tech.checkstory.template.data.entity.TemplateEntity
 import tech.checkstory.template.data.entity.TemplateTaskEntity
 import tech.checkstory.template.data.table.ReminderTable
 import tech.checkstory.template.data.table.TemplateTable
 import tech.checkstory.template.data.table.TemplateTaskTable
+import tech.checkstory.template.domain.TemplateState
 import tech.checkstory.template.domain.aggregate.Template
 import tech.checkstory.template.domain.aggregate.TemplateTask
 import java.util.*

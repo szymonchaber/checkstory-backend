@@ -1,8 +1,7 @@
-package tech.checkstory.template.data
+package tech.checkstory.template.domain
 
 import kotlinx.datetime.Instant
 import tech.checkstory.core.domain.DtoUUID
-import tech.checkstory.template.domain.aggregate.Reminder
 import tech.checkstory.template.domain.aggregate.TemplateTask
 
 sealed interface TemplateState {
@@ -20,8 +19,3 @@ sealed interface TemplateState {
         val isDeleted: Boolean = false
     ) : TemplateState
 }
-
-data class AggregateReminder(
-    val reminder: Reminder,
-    val isDeleted: Boolean
-)

@@ -16,9 +16,11 @@ dependencies {
     implementation(project(":core:domain"))
     implementation(project(":template:domain"))
     implementation(project(":core:monolith"))
+
     implementation(libs.kodein)
     implementation(libs.bundles.exposed)
     implementation(libs.kotlinx.datetime)
+    implementation(libs.calendar.rrule)
     implementation(libs.ktor.server.auth.jvm)
     testImplementation(libs.bundles.test)
 }

@@ -16,6 +16,8 @@ compileKotlin.kotlinOptions {
 dependencies {
     implementation(project(":core:domain"))
     implementation(project(":core:monolith"))
+    implementation(libs.ktor.server.auth.jvm)
+
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:2.3.2")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
 
