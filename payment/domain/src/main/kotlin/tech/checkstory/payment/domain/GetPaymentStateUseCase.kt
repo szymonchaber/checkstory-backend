@@ -2,6 +2,7 @@ package tech.checkstory.payment.domain
 
 import kotlinx.datetime.Clock
 import tech.checkstory.payment.data.GiftedSubscriptionRepository
+import tech.checkstory.payment.data.Purchase
 import tech.checkstory.payment.data.PurchaseRepository
 
 class GetPaymentStateUseCase(
@@ -23,12 +24,16 @@ class GetPaymentStateUseCase(
             return false
         }
 
-        if (purchases.none { Clock.System.now() < it.expirationDate }) {
-            purchases.forEach {
-                storeGooglePlayTokenUseCase.storePaymentToken(userId, it.googlePaymentToken)
-            }
-            return purchaseRepository.getByUserId(userId).any { Clock.System.now() < it.expirationDate }
+        if (purchases.any(::isActive)) {
+            return true
         }
-        return true
+        purchases.forEach {
+            storeGooglePlayTokenUseCase.refreshSubscriptionStatus(userId, it.googlePaymentToken)
+        }
+        return purchaseRepository.getByUserId(userId).any(::isActive)
+    }
+
+    private fun isActive(purchase: Purchase): Boolean {
+        return Clock.System.now() < purchase.expirationDate
     }
 }

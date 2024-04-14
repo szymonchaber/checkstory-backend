@@ -8,6 +8,10 @@ class StoreGooglePlayTokenUseCase(
     private val subscriptionsGoogleApi: SubscriptionsGoogleApi
 ) {
 
+    suspend fun refreshSubscriptionStatus(userId: String, token: GooglePlayPaymentToken) {
+        storePaymentToken(userId, token)
+    }
+
     suspend fun storePaymentToken(userId: String, token: GooglePlayPaymentToken): StoreTokenResult {
         val subscription = subscriptionsGoogleApi.getSubscription(token.purchaseToken)
         return purchaseRepository.storePurchase(userId, token.purchaseToken, subscription.rawValue)
