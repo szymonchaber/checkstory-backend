@@ -6,8 +6,8 @@ import tech.checkstory.core.domain.auth.AuthenticatedScope
 import tech.checkstory.core.domain.auth.DeleteUserUseCase
 import tech.checkstory.core.domain.auth.UserService
 import tech.checkstory.notification.data.FirebaseMessagingTokenRepository
-import tech.checkstory.payment.data.GiftedSubscriptionRepository
-import tech.checkstory.payment.data.PurchaseRepository
+import tech.checkstory.payment.domain.GiftedSubscriptionRepository
+import tech.checkstory.payment.domain.PurchaseRepository
 import tech.checkstory.template.data.TemplateRepository
 
 class DeleteUserUseCaseImpl(

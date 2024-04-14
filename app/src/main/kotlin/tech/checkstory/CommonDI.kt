@@ -14,10 +14,10 @@ import tech.checkstory.core.domain.auth.DeleteUserUseCase
 import tech.checkstory.core.domain.auth.UserService
 import tech.checkstory.notification.data.FirebaseMessagingTokenRepository
 import tech.checkstory.notification.firebase.UserDataChangeNotifier
-import tech.checkstory.payment.data.GiftedSubscriptionRepository
-import tech.checkstory.payment.data.PurchaseRepository
 import tech.checkstory.payment.data.google_play.SubscriptionsGoogleApi
 import tech.checkstory.payment.domain.GetPaymentStateUseCase
+import tech.checkstory.payment.domain.GiftedSubscriptionRepository
+import tech.checkstory.payment.domain.PurchaseRepository
 import tech.checkstory.payment.domain.StoreGooglePlayTokenUseCase
 import tech.checkstory.payment.playbilling.PlayBillingPubSubHandler
 import tech.checkstory.plugins.createHikariDataSource

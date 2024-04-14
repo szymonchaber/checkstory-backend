@@ -1,4 +1,4 @@
-package tech.checkstory.payment.data
+package tech.checkstory.payment.domain
 
 import com.google.api.services.androidpublisher.model.SubscriptionPurchaseV2
 import kotlinx.coroutines.Dispatchers
@@ -8,8 +8,6 @@ import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 import tech.checkstory.core.domain.auth.AuthenticatedScope
-import tech.checkstory.payment.domain.GooglePlayPaymentToken
-import tech.checkstory.payment.domain.StoreTokenResult
 
 class PurchaseRepository(database: Database) {
 
@@ -33,7 +31,8 @@ class PurchaseRepository(database: Database) {
             GooglePlayBillingPurchases.update(where = {
                 GooglePlayBillingPurchases.token eq purchaseToken
             }) {
-                it[expirationDate] = Instant.parse(rawValue.lineItems.first().expiryTime).epochSeconds
+                it[GooglePlayBillingPurchases.expirationDate] =
+                    Instant.parse(rawValue.lineItems.first().expiryTime).epochSeconds
             }
         }
     }
@@ -58,8 +57,9 @@ class PurchaseRepository(database: Database) {
                     .firstOrNull()
             if (existing == null) {
                 GooglePlayBillingPurchases.insert {
-                    it[token] = purchaseToken
-                    it[expirationDate] = Instant.parse(rawValue.lineItems.first().expiryTime).epochSeconds
+                    it[GooglePlayBillingPurchases.token] = purchaseToken
+                    it[GooglePlayBillingPurchases.expirationDate] =
+                        Instant.parse(rawValue.lineItems.first().expiryTime).epochSeconds
                     it[GooglePlayBillingPurchases.userId] = userId
                 }
                 StoreTokenResult.Success
@@ -69,8 +69,9 @@ class PurchaseRepository(database: Database) {
                     GooglePlayBillingPurchases.update(where = {
                         (GooglePlayBillingPurchases.token eq purchaseToken) and (GooglePlayBillingPurchases.userId eq userId)
                     }) {
-                        it[token] = purchaseToken
-                        it[expirationDate] = Instant.parse(rawValue.lineItems.first().expiryTime).epochSeconds
+                        it[GooglePlayBillingPurchases.token] = purchaseToken
+                        it[GooglePlayBillingPurchases.expirationDate] =
+                            Instant.parse(rawValue.lineItems.first().expiryTime).epochSeconds
                     }
                     StoreTokenResult.Success
                 } else {
@@ -110,9 +111,7 @@ class PurchaseRepository(database: Database) {
     context(AuthenticatedScope)
     suspend fun deleteUserPurchases() {
         dbQuery {
-            GooglePlayBillingPurchases.deleteWhere { userId eq principal.userId }
+            GooglePlayBillingPurchases.deleteWhere { GooglePlayBillingPurchases.userId eq principal.userId }
         }
     }
 }
-
-data class Purchase(val expirationDate: Instant, val googlePaymentToken: GooglePlayPaymentToken)

@@ -20,6 +20,8 @@ dependencies {
     implementation(project(":core:domain"))
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
 
+    implementation(libs.bundles.exposed)
+
     implementation(platform(libs.google.cloud.bom))
     implementation(libs.google.cloud.pubsub)
     implementation(libs.bundles.google.play)

@@ -1,4 +1,4 @@
-package tech.checkstory.payment.playbilling
+package tech.checkstory.payment.domain.playbilling
 
 enum class NotificationType(val intValue: Int) {
     SUBSCRIPTION_RECOVERED(1),

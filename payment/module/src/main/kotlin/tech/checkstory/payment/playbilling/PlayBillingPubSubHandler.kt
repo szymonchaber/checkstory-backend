@@ -13,8 +13,9 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import tech.checkstory.notification.firebase.UserDataChangeNotifier
-import tech.checkstory.payment.data.PurchaseRepository
 import tech.checkstory.payment.data.google_play.SubscriptionsGoogleApi
+import tech.checkstory.payment.domain.PurchaseRepository
+import tech.checkstory.payment.domain.playbilling.NotificationType
 import java.io.ByteArrayInputStream
 
 @OptIn(ExperimentalSerializationApi::class)

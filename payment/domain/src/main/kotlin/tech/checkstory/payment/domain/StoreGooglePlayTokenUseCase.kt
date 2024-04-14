@@ -1,6 +1,5 @@
 package tech.checkstory.payment.domain
 
-import tech.checkstory.payment.data.PurchaseRepository
 import tech.checkstory.payment.data.google_play.SubscriptionsGoogleApi
 
 class StoreGooglePlayTokenUseCase(

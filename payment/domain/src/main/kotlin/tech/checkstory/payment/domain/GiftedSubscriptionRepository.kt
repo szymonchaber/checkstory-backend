@@ -1,4 +1,4 @@
-package tech.checkstory.payment.data
+package tech.checkstory.payment.domain
 
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.*
@@ -33,8 +33,8 @@ class GiftedSubscriptionRepository(database: Database) {
     suspend fun giftSubscriptionTo(userId: String, reason: String) {
         dbQuery {
             GiftedSubscription.insert {
-                it[this.userId] = userId
-                it[this.reason] = reason
+                it[GiftedSubscription.userId] = userId
+                it[GiftedSubscription.reason] = reason
             }
         }
     }

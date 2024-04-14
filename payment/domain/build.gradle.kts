@@ -19,6 +19,9 @@ dependencies {
     implementation(libs.ktor.server.auth.jvm)
     implementation(libs.bundles.google.play)
 
+    // TODO remove from this module
+    implementation(libs.bundles.exposed)
+
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:2.3.2")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
 

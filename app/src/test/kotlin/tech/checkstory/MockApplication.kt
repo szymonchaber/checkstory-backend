@@ -14,7 +14,7 @@ import org.kodein.di.DI
 import org.kodein.di.instance
 import tech.checkstory.command.CommandsPayload
 import tech.checkstory.core.domain.auth.UserService
-import tech.checkstory.payment.data.GiftedSubscriptionRepository
+import tech.checkstory.payment.domain.GiftedSubscriptionRepository
 import tech.checkstory.template.domain.command.TemplateCommand
 import java.util.*
 

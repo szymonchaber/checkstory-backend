@@ -5,11 +5,7 @@ import kotlinx.datetime.Instant
 import org.junit.Assert
 import org.junit.Test
 import org.mockito.kotlin.*
-import tech.checkstory.payment.data.GiftedSubscriptionRepository
-import tech.checkstory.payment.data.Purchase
-import tech.checkstory.payment.data.PurchaseRepository
-import tech.checkstory.payment.domain.GooglePlayPaymentToken
-import tech.checkstory.payment.domain.StoreGooglePlayTokenUseCase
+import tech.checkstory.payment.domain.*
 
 class GetPaymentStateUseCaseTest {
 
@@ -96,7 +92,7 @@ class GetPaymentStateUseCaseTest {
             val paymentState = useCaseTest.getPaymentStateForUser(USER_ID)
 
             // then
-            verify(storeGooglePlayTokenUseCase).storePaymentToken(USER_ID, googlePlayPaymentToken)
+            verify(storeGooglePlayTokenUseCase).refreshSubscriptionStatus(USER_ID, googlePlayPaymentToken)
             verify(purchaseRepository, times(2)).getByUserId(USER_ID)
             Assert.assertTrue(paymentState.isSubscriptionActive)
         }

@@ -1,9 +1,6 @@
 package tech.checkstory.payment.domain
 
 import kotlinx.datetime.Clock
-import tech.checkstory.payment.data.GiftedSubscriptionRepository
-import tech.checkstory.payment.data.Purchase
-import tech.checkstory.payment.data.PurchaseRepository
 
 class GetPaymentStateUseCase(
     private val purchaseRepository: PurchaseRepository,
