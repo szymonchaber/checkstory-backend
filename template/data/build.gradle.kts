@@ -14,8 +14,9 @@ compileKotlin.kotlinOptions {
 
 dependencies {
     implementation(project(":core:domain"))
-    implementation(project(":template:domain"))
+    implementation(project(":core:data"))
     implementation(project(":core:monolith"))
+    implementation(project(":template:domain"))
 
     implementation(libs.kodein)
     implementation(libs.bundles.exposed)

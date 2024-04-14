@@ -14,8 +14,9 @@ compileKotlin.kotlinOptions {
 
 dependencies {
     implementation(project(":core:domain"))
-    implementation(project(":template:data"))
+    implementation(project(":core:data"))
     implementation(project(":core:monolith"))
+    implementation(project(":template:data"))
     implementation(project(":checklist:domain"))
 
     implementation(libs.kodein)

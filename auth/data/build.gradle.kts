@@ -14,8 +14,9 @@ compileKotlin.kotlinOptions {
 
 dependencies {
     implementation(project(":core:domain"))
-    implementation(project(":auth:domain"))
     implementation(project(":core:monolith"))
+    implementation(project(":core:data"))
+    implementation(project(":auth:domain"))
     implementation(libs.kodein)
     implementation(libs.bundles.exposed)
     implementation(libs.kotlinx.datetime)

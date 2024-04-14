@@ -15,6 +15,7 @@ compileKotlin.kotlinOptions {
 dependencies {
     implementation(project(":core:domain"))
     implementation(project(":core:monolith"))
+    implementation(project(":core:data"))
     implementation(project(":notification:domain"))
 
     implementation(libs.kodein)

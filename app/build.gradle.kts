@@ -36,6 +36,7 @@ tasks.named("shadowJar", ShadowJar::class.java) {
 dependencies {
     implementation(project(":core:monolith"))
     implementation(project(":core:domain"))
+    implementation(project(":core:data"))
     implementation(project(":template:module"))
     implementation(project(":template:domain"))
     implementation(project(":template:data"))
