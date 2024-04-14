@@ -46,6 +46,12 @@ dependencies {
     implementation(project(":checklist:module"))
     implementation(project(":checklist:domain"))
     implementation(project(":checklist:data"))
+    implementation(project(":payment:module"))
+    implementation(project(":payment:domain"))
+    implementation(project(":payment:data"))
+    implementation(project(":notification:module"))
+    implementation(project(":notification:domain"))
+    implementation(project(":notification:data"))
 
     implementation(libs.ktor.server.core.jvm)
     implementation(libs.ktor.server.netty.jvm)
