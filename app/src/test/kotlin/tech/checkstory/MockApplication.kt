@@ -9,6 +9,7 @@ import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.testing.*
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Clock
+import kotlinx.serialization.json.Json
 import org.kodein.di.DI
 import org.kodein.di.instance
 import tech.checkstory.command.CommandsPayload
@@ -54,7 +55,11 @@ internal fun mockApplicationWithUser(
 val ApplicationTestBuilder.jsonClient: HttpClient
     get() = createClient {
         install(ContentNegotiation) {
-            json()
+            json(Json {
+                encodeDefaults = true
+                prettyPrint = true
+                explicitNulls = false
+            })
         }
         defaultRequest {
             contentType(ContentType.Application.Json)
