@@ -5,8 +5,8 @@ import io.ktor.server.config.*
 import kotlinx.serialization.json.Json
 import org.jetbrains.exposed.sql.Database
 import org.kodein.di.*
+import tech.checkstory.app.auth.firebase.FirebaseAuthProvider
 import tech.checkstory.auth.data.UserServiceImpl
-import tech.checkstory.auth.firebase.FirebaseAuthProvider
 import tech.checkstory.auth.firebase.FirebaseTokenExtractor
 import tech.checkstory.auth.firebase.FirebaseTokenExtractorImpl
 import tech.checkstory.checklist.data.ChecklistRepository
