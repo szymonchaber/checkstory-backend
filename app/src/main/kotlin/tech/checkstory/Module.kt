@@ -8,7 +8,7 @@ import tech.checkstory.auth.module.configureAuth
 import tech.checkstory.checklist.configureChecklist
 import tech.checkstory.notification.configureNotification
 import tech.checkstory.payment.configurePayment
-import tech.checkstory.payment.playbilling.configurePlayBillingPubSub
+import tech.checkstory.payment.configurePlayBillingPubSub
 import tech.checkstory.plugins.*
 import tech.checkstory.template.module.configureTemplate
 
