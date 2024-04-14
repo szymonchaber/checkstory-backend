@@ -1,7 +1,6 @@
-package tech.checkstory.domain.command
+package tech.checkstory.core.domain
 
 import kotlinx.datetime.Instant
-import tech.checkstory.core.domain.DtoUUID
 
 interface DomainCommand {
 

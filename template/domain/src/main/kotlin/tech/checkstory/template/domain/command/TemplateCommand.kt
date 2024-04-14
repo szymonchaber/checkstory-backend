@@ -3,8 +3,8 @@ package tech.checkstory.template.domain.command
 import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import tech.checkstory.core.domain.DomainCommand
 import tech.checkstory.core.domain.DtoUUID
-import tech.checkstory.domain.command.DomainCommand
 
 @Serializable
 sealed interface TemplateCommand : DomainCommand {
