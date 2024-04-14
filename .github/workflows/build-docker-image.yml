@@ -74,6 +74,7 @@ jobs:
           ssh production << END
             export POSTGRES_CONNECTION_STRING="$POSTGRES_CONNECTION_STRING"
             export SENTRY_AUTH_TOKEN="$SENTRY_AUTH_TOKEN"
+            export PLAY_BILLING_PUBSUB_SUBSCRIPTION_NAME="$PLAY_BILLING_PUBSUB_SUBSCRIPTION_NAME"
             echo $GH_CONTAINER_REGISTRY_TOKEN | docker login ghcr.io -u szymonchaber --password-stdin
             docker compose down
             docker compose pull
@@ -83,3 +84,4 @@ jobs:
           GH_CONTAINER_REGISTRY_TOKEN: ${{ secrets.GH_CONTAINER_REGISTRY_TOKEN }}
           POSTGRES_CONNECTION_STRING: ${{ secrets.PRODUCTION_POSTGRES_CONNECTION_STRING }}
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          PLAY_BILLING_PUBSUB_SUBSCRIPTION_NAME: ${{ secrets.PLAY_BILLING_PUBSUB_SUBSCRIPTION_NAME }}
