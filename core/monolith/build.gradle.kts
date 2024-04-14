@@ -47,7 +47,6 @@ dependencies {
 
     implementation(platform(libs.google.cloud.bom))
     implementation(libs.google.cloud.pubsub)
-
     implementation(libs.bundles.google.play)
 
     implementation(libs.calendar.rrule)
