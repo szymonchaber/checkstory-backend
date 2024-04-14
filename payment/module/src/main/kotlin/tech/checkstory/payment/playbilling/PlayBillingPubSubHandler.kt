@@ -22,21 +22,23 @@ class PlayBillingPubSubHandler(
     private val subscriptionsGoogleApi: SubscriptionsGoogleApi,
     private val purchaseRepository: PurchaseRepository,
     private val notifier: UserDataChangeNotifier,
+    private val subscriptionName: String,
+) {
+
     private val json: Json = Json {
         this.explicitNulls = false
     }
-) {
 
-    init {
+    fun subscribeToBillingMessages() {
         GlobalScope.launch {
             withContext(Dispatchers.Default) {
-//                subscribeAsyncExample(projectId, subscriptionId)
+                subscribeToBillingMessagesActual(subscriptionName)
             }
         }
     }
 
-    private fun subscribeAsyncExample(projectId: String, subscriptionId: String) {
-        val subscriptionName = ProjectSubscriptionName.of(projectId, subscriptionId)
+    private fun subscribeToBillingMessagesActual(subscriptionNameString: String) {
+        val subscriptionName = ProjectSubscriptionName.parse(subscriptionNameString)
 
         val receiver = MessageReceiver { message: PubsubMessage, consumer: AckReplyConsumer ->
             GlobalScope.launch {
@@ -50,13 +52,18 @@ class PlayBillingPubSubHandler(
                 }
             }
         }
-        val subscriber = Subscriber.newBuilder(subscriptionName, receiver).build()
+        val subscriber = Subscriber.newBuilder(subscriptionName, receiver)
+            .setCredentialsProvider {
+                subscriptionsGoogleApi.credentials
+            }
+            .build()
         try {
             subscriber.startAsync().awaitTerminated()
         } catch (exception: Exception) {
             println(exception)
             subscriber.stopAsync()
         }
+        println("PubSub stopped")
     }
 
     private suspend fun handle(

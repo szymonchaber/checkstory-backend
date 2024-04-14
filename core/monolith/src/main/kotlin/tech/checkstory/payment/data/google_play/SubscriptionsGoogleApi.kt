@@ -15,7 +15,7 @@ class SubscriptionsGoogleApi {
 
     private val serviceAccount: InputStream =
         this::class.java.classLoader.getResourceAsStream("google-service-account.json")!!
-    private val credentials = ServiceAccountCredentials.fromStream(serviceAccount)
+    val credentials = ServiceAccountCredentials.fromStream(serviceAccount)
     private val credentialAdapter = HttpCredentialsAdapter(credentials)
 
     private val publisher = AndroidPublisher.Builder(httpTransport, jsonFactory, credentialAdapter)

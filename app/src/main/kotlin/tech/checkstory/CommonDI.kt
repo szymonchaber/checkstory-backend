@@ -19,6 +19,7 @@ import tech.checkstory.payment.data.PurchaseRepository
 import tech.checkstory.payment.data.google_play.SubscriptionsGoogleApi
 import tech.checkstory.payment.domain.GetPaymentStateUseCase
 import tech.checkstory.payment.domain.StoreGooglePlayTokenUseCase
+import tech.checkstory.payment.playbilling.PlayBillingPubSubHandler
 import tech.checkstory.plugins.createHikariDataSource
 import tech.checkstory.template.data.TemplateRepository
 
@@ -93,5 +94,17 @@ val Application.commonDI
         }
         bindSingleton {
             GetPaymentStateUseCase(instance(), instance(), instance())
+        }
+        bindSingleton {
+            val subscriptionName = instance<ApplicationConfig>().property("playBilling.subscriptionName").getString()
+            require(subscriptionName.isNotEmpty()) {
+                "Play Billing Pub/Sub subscription name is empty, which means some configuration is incorrect"
+            }
+            PlayBillingPubSubHandler(
+                subscriptionsGoogleApi = instance(),
+                purchaseRepository = instance(),
+                notifier = instance(),
+                subscriptionName = subscriptionName
+            )
         }
     }
