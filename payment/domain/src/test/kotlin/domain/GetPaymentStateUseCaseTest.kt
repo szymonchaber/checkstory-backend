@@ -1,16 +1,13 @@
-@file:Suppress("INLINE_FROM_HIGHER_PLATFORM")
-
 package domain
 
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Instant
-import org.junit.Assert.assertTrue
+import org.junit.Assert
 import org.junit.Test
 import org.mockito.kotlin.*
 import tech.checkstory.payment.data.GiftedSubscriptionRepository
 import tech.checkstory.payment.data.Purchase
 import tech.checkstory.payment.data.PurchaseRepository
-import tech.checkstory.payment.domain.GetPaymentStateUseCase
 import tech.checkstory.payment.domain.GooglePlayPaymentToken
 import tech.checkstory.payment.domain.StoreGooglePlayTokenUseCase
 
@@ -23,7 +20,11 @@ class GetPaymentStateUseCaseTest {
     private val storeGooglePlayTokenUseCase = mock<StoreGooglePlayTokenUseCase>()
 
     private val useCaseTest =
-        GetPaymentStateUseCase(purchaseRepository, giftedSubscriptionRepository, storeGooglePlayTokenUseCase)
+        tech.checkstory.payment.domain.GetPaymentStateUseCase(
+            purchaseRepository,
+            giftedSubscriptionRepository,
+            storeGooglePlayTokenUseCase
+        )
 
     @Test
     fun `given gift subscription, when getPaymentStateForUser called, then should return true`() =
@@ -35,7 +36,7 @@ class GetPaymentStateUseCaseTest {
             val paymentStateForUser = useCaseTest.getPaymentStateForUser(USER_ID)
 
             // then
-            assertTrue(paymentStateForUser.isSubscriptionActive)
+            Assert.assertTrue(paymentStateForUser.isSubscriptionActive)
         }
 
     @Test
@@ -78,7 +79,7 @@ class GetPaymentStateUseCaseTest {
             val paymentStateForUser = useCaseTest.getPaymentStateForUser(USER_ID)
 
             // then
-            assertTrue(paymentStateForUser.isSubscriptionActive)
+            Assert.assertTrue(paymentStateForUser.isSubscriptionActive)
         }
 
     @Test
@@ -97,7 +98,7 @@ class GetPaymentStateUseCaseTest {
             // then
             verify(storeGooglePlayTokenUseCase).storePaymentToken(USER_ID, googlePlayPaymentToken)
             verify(purchaseRepository, times(2)).getByUserId(USER_ID)
-            assertTrue(paymentState.isSubscriptionActive)
+            Assert.assertTrue(paymentState.isSubscriptionActive)
         }
 
     companion object {

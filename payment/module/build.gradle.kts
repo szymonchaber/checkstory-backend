@@ -13,8 +13,8 @@ compileKotlin.kotlinOptions {
 }
 
 dependencies {
-    implementation(project(":notification:domain"))
-    implementation(project(":notification:data"))
+    implementation(project(":payment:domain"))
+    implementation(project(":payment:data"))
     implementation(project(":core:monolith"))
     implementation(project(":core:domain"))
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
