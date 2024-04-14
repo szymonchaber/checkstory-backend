@@ -1,4 +1,4 @@
-package tech.checkstory.payment.api
+package tech.checkstory.payment
 
 import kotlinx.serialization.Serializable
 

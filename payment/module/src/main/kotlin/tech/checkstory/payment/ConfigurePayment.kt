@@ -8,7 +8,6 @@ import org.kodein.di.DI
 import org.kodein.di.instance
 import tech.checkstory.auth.firebase.authenticateFirebase
 import tech.checkstory.auth.withPrincipal
-import tech.checkstory.payment.api.StoreGooglePlayTokenPayload
 import tech.checkstory.payment.domain.GooglePlayPaymentToken
 import tech.checkstory.payment.domain.StoreGooglePlayTokenUseCase
 import tech.checkstory.payment.domain.StoreTokenResult
