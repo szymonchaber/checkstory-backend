@@ -4,10 +4,12 @@ name: checkstory-backend
 
 services:
   backend:
-    image: !reset null
     build: .
     environment:
       JAVA_OPTS: ${JAVA_OPTS}
+      POSTGRES_CONNECTION_STRING: ${POSTGRES_CONNECTION_STRING}
+      SENTRY_AUTH_TOKEN: ${SENTRY_AUTH_TOKEN}
+      PLAY_BILLING_PUBSUB_SUBSCRIPTION_NAME: ${PLAY_BILLING_PUBSUB_SUBSCRIPTION_NAME}
     entrypoint: java -jar /app/checkstory-docker.jar $JAVA_OPTS
   postgres:
     image: postgres:latest
@@ -21,9 +23,6 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - services
-  nginx:
-    image: nginx
-    restart: no
 
 networks:
   services:
@@ -31,7 +30,4 @@ networks:
 
 volumes:
   postgres_data:
-  nginx_conf:
-  certbot_conf:
-  certbot_www:
 
