@@ -3,9 +3,11 @@ package tech.checkstory.app.auth.firebase
 import io.ktor.http.auth.*
 import io.ktor.server.auth.*
 import io.ktor.server.response.*
+import org.slf4j.LoggerFactory
 import tech.checkstory.auth.firebase.FIREBASE_AUTH
 import tech.checkstory.auth.firebase.FirebaseTokenExtractor
 import tech.checkstory.auth.firebase.parseAuthorizationHeaderOrNull
+import tech.checkstory.checklist.data.ChecklistRepository
 import tech.checkstory.core.domain.auth.UserService
 import tech.checkstory.payment.domain.GetPaymentStateUseCase
 
@@ -19,6 +21,7 @@ class FirebaseAuthProvider(
         val token = context.call.request.parseAuthorizationHeaderOrNull()
 
         if (token == null) {
+            LOGGER.warn("No token found in request")
             context.challenge(
                 FIREBASE_JWT_AUTH_KEY,
                 AuthenticationFailedCause.NoCredentials
@@ -31,8 +34,12 @@ class FirebaseAuthProvider(
 
         val principal = firebaseTokenExtractor.toFirebaseTokenOrNull(token)?.let {
             val isPaidUser = getPaymentStateUseCase.getPaymentStateForUser(it.uid).isSubscriptionActive
-            userService.readById(it.uid)
+            val user = userService.readById(it.uid)
                 ?.copy(isPaidUser = isPaidUser)
+            if (user == null) {
+                LOGGER.warn("No user found for token")
+            }
+            user
         }
 
         if (principal != null) {
@@ -49,6 +56,8 @@ class FirebaseAuthProvider(
     companion object {
 
         private const val FIREBASE_JWT_AUTH_KEY: String = "FirebaseAuth"
+
+        private val LOGGER = LoggerFactory.getLogger(ChecklistRepository::class.java)
     }
 }
 
