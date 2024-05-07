@@ -29,7 +29,7 @@ class TemplateAggregate(val id: UUID) {
                     id = templateId,
                     name = existingTemplateData?.title.orEmpty(),
                     description = existingTemplateData?.description.orEmpty(),
-                    tasks = existingTemplateData?.tasks?.map { it.toTemplateTask(templateId) }?.flatten().orEmpty(),
+                    flatTasks = existingTemplateData?.tasks?.map { it.toTemplateTask(templateId) }?.flatten().orEmpty(),
                     reminders = existingTemplateData?.reminders?.map { AggregateReminder(it.toReminder(), false) }
                         .orEmpty(),
                     createdAt = timestamp
@@ -46,7 +46,7 @@ class TemplateAggregate(val id: UUID) {
 
             is TemplateCommand.AddTemplateTaskCommand -> {
                 templateState = (templateState as TemplateState.Existing).copy(
-                    tasks = (templateState as TemplateState.Existing).tasks +
+                    flatTasks = (templateState as TemplateState.Existing).flatTasks +
                             TemplateTask(
                                 id = taskId,
                                 title = "",
@@ -60,7 +60,7 @@ class TemplateAggregate(val id: UUID) {
 
             is TemplateCommand.RenameTemplateTaskCommand -> {
                 templateState = (templateState as TemplateState.Existing).copy(
-                    tasks = (templateState as TemplateState.Existing).tasks.map {
+                    flatTasks = (templateState as TemplateState.Existing).flatTasks.map {
                         if (it.id == taskId) {
                             it.copy(title = newTitle)
                         } else {
@@ -72,7 +72,7 @@ class TemplateAggregate(val id: UUID) {
 
             is TemplateCommand.DeleteTemplateTaskCommand -> {
                 templateState = (templateState as TemplateState.Existing).copy(
-                    tasks = (templateState as TemplateState.Existing).tasks.map {
+                    flatTasks = (templateState as TemplateState.Existing).flatTasks.map {
                         if (it.id == taskId) {
                             it.copy(isDeleted = true)
                         } else {
@@ -84,7 +84,7 @@ class TemplateAggregate(val id: UUID) {
 
             is TemplateCommand.UpdateTasksPositionsCommand -> {
                 templateState = (templateState as TemplateState.Existing).copy(
-                    tasks = (templateState as TemplateState.Existing).tasks.map {
+                    flatTasks = (templateState as TemplateState.Existing).flatTasks.map {
                         it.copy(sortPosition = taskIdToLocalPosition[it.id] ?: it.sortPosition)
                     }
                 )
@@ -92,7 +92,7 @@ class TemplateAggregate(val id: UUID) {
 
             is TemplateCommand.MoveTemplateTaskCommand -> {
                 templateState = (templateState as TemplateState.Existing).copy(
-                    tasks = (templateState as TemplateState.Existing).tasks.map {
+                    flatTasks = (templateState as TemplateState.Existing).flatTasks.map {
                         if (it.id == taskId) {
                             it.copy(parentId = newParentTaskId)
                         } else {
@@ -138,7 +138,7 @@ class TemplateAggregate(val id: UUID) {
                     id = template.id,
                     name = template.name,
                     description = template.description,
-                    tasks = template.tasks,
+                    flatTasks = template.tasks.flatten(),
                     reminders = template.reminders.map { AggregateReminder(it, false) },
                     createdAt = template.createdAt
                 )

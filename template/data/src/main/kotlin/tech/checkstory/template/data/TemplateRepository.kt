@@ -61,7 +61,7 @@ class TemplateRepository(private val database: Database) {
                 createdAt = existing.createdAt.toLocalDateTime(TimeZone.UTC)
                 isDeleted = existing.isDeleted
             }
-            existing.tasks.forEach {
+            existing.flatTasks.forEach {
                 TemplateTaskEntity.new(it.id) {
                     title = it.title
                     parent = it.parentId?.let { EntityID(it, TemplateTaskTable) }

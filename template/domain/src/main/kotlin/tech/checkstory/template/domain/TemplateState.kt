@@ -13,7 +13,7 @@ sealed interface TemplateState {
         val userId: String,
         val name: String,
         val description: String,
-        val tasks: List<TemplateTask> = listOf(),
+        val flatTasks: List<TemplateTask> = listOf(),
         val reminders: List<AggregateReminder> = listOf(),
         val createdAt: Instant,
         val isDeleted: Boolean = false
