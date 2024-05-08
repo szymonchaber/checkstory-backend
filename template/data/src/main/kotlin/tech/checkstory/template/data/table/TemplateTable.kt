@@ -9,5 +9,6 @@ object TemplateTable : UUIDTable("template") {
     val title = varchar("title", length = 255)
     val description = varchar("description", length = 255)
     val createdAt = datetime("created_at")
+    val updatedAt = datetime("updated_at")
     val isDeleted = bool("is_deleted")
 }

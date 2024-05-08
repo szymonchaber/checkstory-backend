@@ -34,24 +34,6 @@ class TemplateRepository(private val database: Database) {
         }
     }
 
-    suspend fun create(template: Template) {
-        dbQuery {
-            TemplateEntity.new(template.id) {
-                userId = template.userId
-                title = template.name
-                description = template.description
-                createdAt = template.createdAt.toLocalDateTime(TimeZone.UTC)
-                isDeleted = template.isDeleted
-            }
-            template.tasks.forEach {
-                insertTask(it, null)
-            }
-            template.reminders.forEach {
-                ReminderEntity.fromDomainReminder(it)
-            }
-        }
-    }
-
     suspend fun upsert(existing: TemplateState.Existing) {
         dbQuery {
             TemplateEntity.new(existing.id) {
@@ -59,6 +41,7 @@ class TemplateRepository(private val database: Database) {
                 title = existing.name
                 description = existing.description
                 createdAt = existing.createdAt.toLocalDateTime(TimeZone.UTC)
+                updatedAt = existing.updatedAt.toLocalDateTime(TimeZone.UTC)
                 isDeleted = existing.isDeleted
             }
             existing.flatTasks.forEach {

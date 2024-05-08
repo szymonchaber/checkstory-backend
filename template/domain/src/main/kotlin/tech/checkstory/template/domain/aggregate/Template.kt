@@ -13,5 +13,6 @@ data class Template(
     val tasks: List<TemplateTask> = listOf(),
     val reminders: List<Reminder> = listOf(),
     val createdAt: Instant,
+    val updatedAt: Instant,
     val isDeleted: Boolean = false
 )

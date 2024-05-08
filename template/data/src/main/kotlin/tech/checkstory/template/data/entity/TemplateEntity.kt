@@ -21,6 +21,7 @@ class TemplateEntity(id: EntityID<UUID>) : UUIDEntity(id) {
     var description by TemplateTable.description
     var userId by TemplateTable.userId
     var createdAt by TemplateTable.createdAt
+    var updatedAt by TemplateTable.updatedAt
     var isDeleted by TemplateTable.isDeleted
     val tasks: SizedIterable<TemplateTaskEntity> by TemplateTaskEntity referrersOn TemplateTaskTable.template
     val reminders: SizedIterable<ReminderEntity> by ReminderEntity referrersOn ReminderTable.template
@@ -31,7 +32,6 @@ class TemplateEntity(id: EntityID<UUID>) : UUIDEntity(id) {
             userId = userId,
             name = title,
             description = description,
-            createdAt = createdAt.toInstant(TimeZone.UTC),
             tasks = tasks
                 .orderBy(TemplateTaskTable.sortPosition to SortOrder.ASC)
                 .filter {
@@ -40,6 +40,8 @@ class TemplateEntity(id: EntityID<UUID>) : UUIDEntity(id) {
                 .filter { !it.isDeleted }
                 .map(TemplateTaskEntity::toTemplateTask),
             reminders = reminders.map(ReminderEntity::toDomainReminder),
+            createdAt = createdAt.toInstant(TimeZone.UTC),
+            updatedAt = updatedAt.toInstant(TimeZone.UTC),
             isDeleted = isDeleted
         )
     }

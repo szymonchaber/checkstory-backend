@@ -32,7 +32,8 @@ class TemplateAggregate(val id: UUID) {
                     flatTasks = existingTemplateData?.tasks?.map { it.toTemplateTask(templateId) }?.flatten().orEmpty(),
                     reminders = existingTemplateData?.reminders?.map { AggregateReminder(it.toReminder(), false) }
                         .orEmpty(),
-                    createdAt = timestamp
+                    createdAt = timestamp,
+                    updatedAt = timestamp,
                 )
             }
 
@@ -127,6 +128,7 @@ class TemplateAggregate(val id: UUID) {
                 templateState = (templateState as TemplateState.Existing).copy(isDeleted = true)
             }
         }
+        templateState = (templateState as TemplateState.Existing).copy(updatedAt = timestamp)
     }
 
     companion object {
@@ -140,7 +142,8 @@ class TemplateAggregate(val id: UUID) {
                     description = template.description,
                     flatTasks = template.tasks.flatten(),
                     reminders = template.reminders.map { AggregateReminder(it, false) },
-                    createdAt = template.createdAt
+                    createdAt = template.createdAt,
+                    updatedAt = template.updatedAt,
                 )
             }
         }

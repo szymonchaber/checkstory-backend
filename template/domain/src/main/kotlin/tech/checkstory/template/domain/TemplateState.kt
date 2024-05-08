@@ -16,6 +16,7 @@ sealed interface TemplateState {
         val flatTasks: List<TemplateTask> = listOf(),
         val reminders: List<AggregateReminder> = listOf(),
         val createdAt: Instant,
+        val updatedAt: Instant,
         val isDeleted: Boolean = false
     ) : TemplateState
 }
