@@ -18,6 +18,7 @@ class ChecklistEntity(id: EntityID<UUID>) : UUIDEntity(id) {
     var notes by ChecklistTable.notes
     var userId by ChecklistTable.userId
     var createdAt by ChecklistTable.createdAt
+    var updatedAt by ChecklistTable.updatedAt
     var templateId by ChecklistTable.template
     var isDeleted by ChecklistTable.isDeleted
     val tasks: SizedIterable<TaskEntity> by TaskEntity referrersOn TaskTable.checklist
@@ -30,6 +31,7 @@ class ChecklistEntity(id: EntityID<UUID>) : UUIDEntity(id) {
             title = template.title,
             description = template.description,
             createdAt = createdAt.toInstant(TimeZone.UTC),
+            updatedAt = updatedAt.toInstant(TimeZone.UTC),
             notes = notes,
             templateId = templateId.value,
             tasks = tasks

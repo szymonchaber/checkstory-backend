@@ -11,6 +11,7 @@ object ChecklistTable : UUIDTable() {
     val userId = varchar("user_id", length = 255)
     val notes = varchar("notes", length = 255)
     val createdAt = datetime("created_at")
+    val updatedAt = datetime("updated_at")
     val isDeleted = bool("is_deleted")
 }
 

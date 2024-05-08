@@ -47,6 +47,7 @@ class ChecklistAggregate(val id: UUID) {
                 checklistState = (checklistState as ChecklistState.Existing).copy(isDeleted = true)
             }
         }
+        checklistState = (checklistState as ChecklistState.Existing).copy(updatedAt = checklistCommand.timestamp)
     }
 
     private fun handleCreateChecklistCommand(
@@ -66,6 +67,7 @@ class ChecklistAggregate(val id: UUID) {
             notes = checklistCommand.notes.orEmpty(),
             tasks = checklistCommand.tasks,
             createdAt = checklistCommand.timestamp,
+            updatedAt = checklistCommand.timestamp,
             isDeleted = false
         )
     }
@@ -81,6 +83,7 @@ class ChecklistAggregate(val id: UUID) {
                     notes = checklist.notes,
                     tasks = checklist.tasks,
                     createdAt = checklist.createdAt,
+                    updatedAt = checklist.updatedAt,
                     isDeleted = checklist.isDeleted
                 )
             }

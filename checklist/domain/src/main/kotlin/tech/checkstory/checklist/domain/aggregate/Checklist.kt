@@ -14,5 +14,6 @@ data class Checklist(
     val notes: String,
     val tasks: List<Task> = listOf(),
     val createdAt: Instant,
+    val updatedAt: Instant,
     val isDeleted: Boolean = false
 )

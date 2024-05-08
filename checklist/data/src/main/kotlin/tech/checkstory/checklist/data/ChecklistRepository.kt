@@ -50,6 +50,7 @@ class ChecklistRepository(
                 templateId = EntityID(existingChecklist.templateId, TemplateTable)
                 notes = existingChecklist.notes
                 createdAt = existingChecklist.createdAt.toLocalDateTime(TimeZone.UTC)
+                updatedAt = existingChecklist.updatedAt.toLocalDateTime(TimeZone.UTC)
                 isDeleted = existingChecklist.isDeleted
             }
             existingChecklist.tasks.forEach {
