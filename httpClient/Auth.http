@@ -34,7 +34,9 @@ POST {{endpoint}}/auth/register
 Content-Type: application/json
 Authorization: Bearer {{auth_token_1}}
 
-{}
+{
+  "email": "szymonkchaber@gmail.com"
+}
 
 ### Register user 2 in the backend
 POST {{endpoint}}/auth/register

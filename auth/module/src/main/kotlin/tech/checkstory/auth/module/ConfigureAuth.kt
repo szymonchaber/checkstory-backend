@@ -22,14 +22,14 @@ fun Application.configureAuth() {
     val firebaseTokenExtractor by instance<FirebaseTokenExtractor>()
     routing {
         route("auth") {
-            post("register") {
+            post<UserCreationPayloadDto>("register") { payload ->
                 try {
                     val parseAuthorizationHeaderOrNull = call.request.parseAuthorizationHeaderOrNull()
                     parseAuthorizationHeaderOrNull?.let {
                         firebaseTokenExtractor.toFirebaseTokenOrNull(it)
                     }?.let {
-                        userService.create(it.uid!!)
-                        call.respond(HttpStatusCode.Created, UserDto(it.uid, false))
+                        userService.create(it.uid, payload.email?.ifEmpty { null })
+                        call.respond(HttpStatusCode.Created, UserDto(it.uid, payload.email, false))
                     } ?: call.respond(HttpStatusCode.Unauthorized)
                 } catch (exception: Exception) {
                     this@configureAuth.log.error("Failed to register user", exception)
@@ -56,15 +56,25 @@ fun Application.configureAuth() {
 }
 
 @Serializable
-data class UserDto(val userId: String, val isPaidUser: Boolean) {
+data class UserDto(
+    val userId: String,
+    val email: String?,
+    val isPaidUser: Boolean
+) {
 
     companion object {
 
         fun fromUser(user: User): UserDto {
             return UserDto(
                 user.userId,
-                user.isPaidUser
+                user.email,
+                user.isPaidUser,
             )
         }
     }
 }
+
+@Serializable
+data class UserCreationPayloadDto(
+    val email: String?
+)

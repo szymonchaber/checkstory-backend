@@ -5,6 +5,7 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
+import tech.checkstory.auth.data.UserServiceImpl.UserTable.email
 import tech.checkstory.auth.data.UserServiceImpl.UserTable.firebaseId
 import tech.checkstory.core.domain.auth.AuthenticatedScope
 import tech.checkstory.core.domain.auth.User
@@ -14,6 +15,7 @@ class UserServiceImpl(private val database: Database) : UserService {
 
     private object UserTable : Table("user") {
         val firebaseId = varchar("firebase_id", length = 255)
+        val email = varchar("email", length = 254).nullable().uniqueIndex()
         override val primaryKey = PrimaryKey(firebaseId)
     }
 
@@ -27,10 +29,11 @@ class UserServiceImpl(private val database: Database) : UserService {
         return newSuspendedTransaction(Dispatchers.IO) { block() }
     }
 
-    override suspend fun create(userId: String): String {
+    override suspend fun create(userId: String, email: String?): String {
         return dbQuery {
             UserTable.insert {
                 it[firebaseId] = userId
+                it[UserTable.email] = email
             }[firebaseId]
         }
     }
@@ -46,6 +49,7 @@ class UserServiceImpl(private val database: Database) : UserService {
                 .map {
                     User(
                         userId = it[firebaseId],
+                        email = it[email]
                     )
                 }
                 .singleOrNull()

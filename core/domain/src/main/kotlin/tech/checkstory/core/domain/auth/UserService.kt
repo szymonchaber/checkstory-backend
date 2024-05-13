@@ -4,7 +4,7 @@ interface UserService {
 
     suspend fun readById(userId: String): User?
 
-    suspend fun create(userId: String): String
+    suspend fun create(userId: String, email: String?): String
 
     context(AuthenticatedScope)
     suspend fun delete()
