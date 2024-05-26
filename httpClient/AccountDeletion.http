@@ -62,3 +62,27 @@ Authorization: Bearer {{auth_token_1}}
 GET {{endpoint}}/checklists
 Content-Type: application/json
 Authorization: Bearer {{auth_token_1}}
+
+### Request manual account deletion from form
+POST {{endpoint}}/delete-account-form
+Content-Type: application/json
+
+{
+  "email": "{{login_2}}"
+}
+
+### Request manual account deletion from form with empty email
+POST {{endpoint}}/delete-account-form
+Content-Type: application/json
+
+{
+  "email": ""
+}
+
+### Request manual account deletion from form with too long email
+POST {{endpoint}}/delete-account-form
+Content-Type: application/json
+
+{
+  "email": "12345123451234512345123451234512345123451234512345123451234512345123451234512345123451234512345123451234512345123451234512345123451234512345123451234512345123451234512345123451234512345123451234512345123451234512345123451234512345123451234512345123451234512345123451234512345123451234512345123451234512345123451234512345@gmail.com"
+}

@@ -12,6 +12,7 @@ import tech.checkstory.auth.firebase.authenticateFirebase
 import tech.checkstory.auth.firebase.parseAuthorizationHeaderOrNull
 import tech.checkstory.auth.withPrincipal
 import tech.checkstory.core.domain.auth.DeleteUserUseCase
+import tech.checkstory.core.domain.auth.SaveAccountDeleteRequestUseCase
 import tech.checkstory.core.domain.auth.User
 import tech.checkstory.core.domain.auth.UserService
 
@@ -20,6 +21,7 @@ fun Application.configureAuth() {
     val userService by instance<UserService>()
     val deleteUserUseCase by instance<DeleteUserUseCase>()
     val firebaseTokenExtractor by instance<FirebaseTokenExtractor>()
+    val saveAccountDeleteRequestUseCase by instance<SaveAccountDeleteRequestUseCase>()
     routing {
         route("auth") {
             post<UserCreationPayloadDto>("register") { payload ->
@@ -52,6 +54,14 @@ fun Application.configureAuth() {
                 }
             }
         }
+        post<DeleteAccountFormRequestPayloadDto>("delete-account-form") {
+            if (it.email.isEmpty() || it.email.length > 254) {
+                call.respond(HttpStatusCode.BadRequest)
+                return@post
+            }
+            saveAccountDeleteRequestUseCase.saveAccountDeleteRequest(it.email)
+            call.respond(HttpStatusCode.OK)
+        }
     }
 }
 
@@ -77,4 +87,9 @@ data class UserDto(
 @Serializable
 data class UserCreationPayloadDto(
     val email: String?
+)
+
+@Serializable
+data class DeleteAccountFormRequestPayloadDto(
+    val email: String
 )

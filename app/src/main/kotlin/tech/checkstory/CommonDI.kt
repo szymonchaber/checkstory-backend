@@ -6,11 +6,13 @@ import kotlinx.serialization.json.Json
 import org.jetbrains.exposed.sql.Database
 import org.kodein.di.*
 import tech.checkstory.app.auth.firebase.FirebaseAuthProvider
+import tech.checkstory.auth.data.AccountDeletionRequestRepository
 import tech.checkstory.auth.data.UserServiceImpl
 import tech.checkstory.auth.firebase.FirebaseTokenExtractor
 import tech.checkstory.auth.firebase.FirebaseTokenExtractorImpl
 import tech.checkstory.checklist.data.ChecklistRepository
 import tech.checkstory.core.domain.auth.DeleteUserUseCase
+import tech.checkstory.core.domain.auth.SaveAccountDeleteRequestUseCase
 import tech.checkstory.core.domain.auth.UserService
 import tech.checkstory.notification.data.FirebaseMessagingTokenRepository
 import tech.checkstory.notification.firebase.UserDataChangeNotifier
@@ -66,6 +68,14 @@ val Application.commonDI
                 instance(),
                 instance(),
             )
+        }
+        bindSingleton<SaveAccountDeleteRequestUseCase> {
+            SaveAccountDeleteRequestUseCaseImpl(
+                instance(),
+            )
+        }
+        bindSingleton {
+            AccountDeletionRequestRepository(instance())
         }
         bindSingleton {
             SubscriptionsGoogleApi()
