@@ -3,7 +3,7 @@ POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={
 Content-Type: application/json
 
 {
-  "email": "{{login_10}}",
+  "email": "{{login_1}}",
   "password": "{{password_1}}",
   "returnSecureToken": true
 }

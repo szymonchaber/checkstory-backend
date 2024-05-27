@@ -11,11 +11,12 @@ import tech.checkstory.auth.withPrincipal
 import tech.checkstory.payment.domain.GooglePlayPaymentToken
 import tech.checkstory.payment.domain.StoreGooglePlayTokenUseCase
 import tech.checkstory.payment.domain.StoreTokenResult
+import tech.checkstory.routingV1
 
 context(DI)
 fun Application.configurePayment() {
     val storeGooglePlayTokenUseCase by instance<StoreGooglePlayTokenUseCase>()
-    routing {
+    routingV1 {
         authenticateFirebase {
             post<StoreGooglePlayTokenPayload>("/payment/google-play-token") {
                 withPrincipal {

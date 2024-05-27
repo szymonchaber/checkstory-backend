@@ -11,7 +11,7 @@ class AuthTest {
 
     @Test
     fun `when register called, then should register an account`() = mockApplication {
-        val response = jsonClient.post("/auth/register") {
+        val response = jsonClient.post("v1/auth/register") {
             header("Authorization", "Bearer example-token")
         }
         assertEquals(HttpStatusCode.Created, response.status)
@@ -20,17 +20,17 @@ class AuthTest {
     @Test
     fun `given account exists, when login called, then should return account details`() = mockApplication {
         // given
-        jsonClient.post("/auth/register") {
+        jsonClient.post("v1/auth/register") {
             header("Authorization", "Bearer example-token")
         }
 
         // when
-        val response = jsonClient.get("/auth/login") {
+        val response = jsonClient.get("v1/auth/login") {
             header("Authorization", "Bearer example-token")
         }
 
         // then
         assertEquals(HttpStatusCode.OK, response.status)
-        assertEquals(UserDto(userId = "mock-user-id", isPaidUser = false), response.body<UserDto>())
+        assertEquals(UserDto(userId = "mock-user-id", isPaidUser = false, email = "email"), response.body<UserDto>())
     }
 }

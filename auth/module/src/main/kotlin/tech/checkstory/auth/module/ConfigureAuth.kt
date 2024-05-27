@@ -15,6 +15,7 @@ import tech.checkstory.core.domain.auth.DeleteUserUseCase
 import tech.checkstory.core.domain.auth.SaveAccountDeleteRequestUseCase
 import tech.checkstory.core.domain.auth.User
 import tech.checkstory.core.domain.auth.UserService
+import tech.checkstory.routingV1
 
 context(DI)
 fun Application.configureAuth() {
@@ -22,7 +23,7 @@ fun Application.configureAuth() {
     val deleteUserUseCase by instance<DeleteUserUseCase>()
     val firebaseTokenExtractor by instance<FirebaseTokenExtractor>()
     val saveAccountDeleteRequestUseCase by instance<SaveAccountDeleteRequestUseCase>()
-    routing {
+    routingV1 {
         route("auth") {
             post<UserCreationPayloadDto>("register") { payload ->
                 try {

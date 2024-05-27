@@ -8,13 +8,14 @@ import org.kodein.di.DI
 import org.kodein.di.instance
 import tech.checkstory.auth.firebase.authenticateFirebase
 import tech.checkstory.auth.withPrincipal
+import tech.checkstory.routingV1
 import tech.checkstory.template.data.TemplateRepository
 import tech.checkstory.template.domain.aggregate.Template
 
 context(DI)
 fun Application.configureTemplate() {
     val templateService by instance<TemplateRepository>()
-    routing {
+    routingV1 {
         authenticateFirebase {
             get("/templates") {
                 withPrincipal {

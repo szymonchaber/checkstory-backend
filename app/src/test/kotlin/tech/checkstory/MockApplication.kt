@@ -37,7 +37,7 @@ internal fun mockApplicationWithUser(
         setupOperations = {
             val userService by instance<UserService>()
             runBlocking {
-                userService.create("mock-user-id")
+                userService.create("mock-user-id", "email")
             }
             if (isUserPaid) {
                 val giftedSubscriptionRepository by instance<GiftedSubscriptionRepository>()

@@ -12,12 +12,13 @@ import tech.checkstory.notification.api.FirebaseMessagingTokenPayload
 import tech.checkstory.notification.data.FirebaseMessagingTokenRepository
 import tech.checkstory.notification.domain.FirebaseMessagingToken
 import tech.checkstory.notification.domain.StoreFirebaseMessagingTokenUseCase
+import tech.checkstory.routingV1
 
 context(DI)
 fun Application.configureNotification() {
     val firebaseMessagingTokenRepository by instance<FirebaseMessagingTokenRepository>()
     val storeFirebaseTokenUseCase = StoreFirebaseMessagingTokenUseCase(firebaseMessagingTokenRepository)
-    routing {
+    routingV1 {
         authenticateFirebase {
             post<FirebaseMessagingTokenPayload>("/notification/firebase-token") {
                 withPrincipal {

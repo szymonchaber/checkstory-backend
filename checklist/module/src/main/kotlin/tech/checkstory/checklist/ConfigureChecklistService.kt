@@ -9,12 +9,13 @@ import org.kodein.di.instance
 import tech.checkstory.auth.firebase.authenticateFirebase
 import tech.checkstory.auth.withPrincipal
 import tech.checkstory.checklist.data.ChecklistRepository
+import tech.checkstory.routingV1
 import java.util.*
 
 context(DI)
 fun Application.configureChecklistService() {
     val checklistRepository by instance<ChecklistRepository>()
-    routing {
+    routingV1 {
         authenticateFirebase {
             get("/checklists") {
                 withPrincipal {

@@ -27,7 +27,8 @@ Authorization: Bearer {{auth_token_1}}
     "type": "createTemplate",
     "templateId": "{{template_id}}",
     "commandId": "{{$uuid}}",
-    "timestamp": "{{$isoTimestamp}}"
+    "timestamp": "{{$isoTimestamp}}",
+    "existingTemplateData": null
   },
   {
     "type": "addTemplateTask",
@@ -99,6 +100,7 @@ Authorization: Bearer {{auth_token_1}}
     "checklistId": "{{checklist_id}}",
     "commandId": "{{$uuid}}",
     "timestamp": "{{$isoTimestamp}}",
+    "notes": null,
     "tasks": [
      {
         "id": "{{task_1_id}}",

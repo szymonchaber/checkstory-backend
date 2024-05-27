@@ -29,7 +29,7 @@ fun Application.mockModule(operations: DI.() -> Unit = {}, database: Database = 
         }
     }.apply {
         module()
-        routing {
+        routingV1 {
             get("/") {
                 call.respondText("Hello, mock!")
             }

@@ -19,7 +19,7 @@ import tech.checkstory.template.module.handleTemplateCommands
 context(DI)
 fun Application.configureSynchronization() {
     val userDataChangeNotifier by instance<UserDataChangeNotifier>()
-    routing {
+    routingV1 {
         authenticateFirebase {
             requirePayment()
             post<CommandsPayload>("/sync/commands") { (templateCommands, checklistCommands) ->
